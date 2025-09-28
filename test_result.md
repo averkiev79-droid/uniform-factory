@@ -101,3 +101,134 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Протестировать все API endpoints для сайта фабрики корпоративной одежды AVIK Uniform Factory"
+
+backend:
+  - task: "Health Check API"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ GET /api/health - Health check passed successfully. Returns correct status and service name."
+
+  - task: "Categories API"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ GET /api/categories - Retrieved 6 categories successfully. All required fields present (id, title, description, image, products_count, slug)."
+
+  - task: "Portfolio API"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ GET /api/portfolio - Retrieved 6 portfolio items successfully. All required fields present (id, company, description, image, category, items_count, year)."
+
+  - task: "Calculator Options API"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ GET /api/calculator/options - Calculator options retrieved successfully. Contains all required sections: categories (6), quantities (5), fabrics (4), branding (4)."
+
+  - task: "Calculator Estimate API"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ POST /api/calculator/estimate - Price calculation working correctly. Test data returned 1470 руб. Error handling also works (returns 400 for invalid parameters)."
+
+  - task: "Quote Request API"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ POST /api/calculator/quote-request - Quote request creation working. Generated request ID: REQ-2025-18CE2B. Data saved to MongoDB. Validation working (returns 422 for missing fields)."
+
+  - task: "Callback Request API"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ POST /api/contact/callback-request - Callback request creation working successfully. Data saved to MongoDB with correct response message."
+
+  - task: "Testimonials API"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ GET /api/testimonials - Retrieved 3 testimonials successfully. All required fields present (id, company, text, author, position, rating)."
+
+  - task: "Statistics API"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ GET /api/statistics - Statistics retrieved successfully. All required fields present with valid positive integer values (years_in_business, completed_orders, happy_clients, cities)."
+
+frontend:
+  # No frontend testing performed as per instructions
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "All backend API endpoints tested successfully"
+  stuck_tasks: []
+  test_all: true
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "testing"
+    message: "Comprehensive API testing completed for AVIK Uniform Factory. All 9 core API endpoints tested successfully with 100% pass rate. Database integration working correctly with MongoDB. Error handling and validation working as expected. Backend is fully functional and ready for production use."
