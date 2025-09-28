@@ -4,6 +4,7 @@ import { CallbackModal } from './CallbackModal';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
 
   const footerLinks = {
     company: [
