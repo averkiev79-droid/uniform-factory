@@ -249,9 +249,9 @@ class PortfolioService:
         """Get portfolio items with optional category filter"""
         db = SessionLocal()
         try:
-            query = db.query(SQLPortfolioItem)
+            query = db.query(DBPortfolioItem)
             if category and category != "all":
-                query = query.filter(SQLPortfolioItem.category == category)
+                query = query.filter(DBPortfolioItem.category == category)
             
             items = query.all()
             return [
