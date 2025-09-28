@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Linkedin } from 'lucide-react';
 import { CallbackModal } from './CallbackModal';
+import { ConsultationModal } from './ConsultationModal';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
