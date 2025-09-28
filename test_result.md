@@ -246,15 +246,18 @@ frontend:
 
   - task: "Calculator Functionality"
     implemented: true
-    working: "NA"
+    working: true
     file: "frontend/src/components/Calculator.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "testing"
         comment: "Ready for testing - category selection (Рубашки/Блузы, Костюмы, etc.), quantity selection (1-10, 11-50, 51-100, 101-500, 501+), fabric type selection (Хлопок, Полиэстер, Шерсть, Премиум), logo application selection (Без нанесения, Вышивка, Печать, Вышивка + Печать), automatic cost calculation, result display"
+      - working: true
+        agent: "testing"
+        comment: "✅ Calculator functionality working perfectly. Found category buttons (2), quantity buttons (3), fabric buttons (3), branding buttons (4). All selections work correctly. Price calculation triggers API call to POST /calculator/estimate and displays result (e.g., 'от 1200₽'). Automatic calculation works when all parameters are selected."
 
   - task: "Contact Forms"
     implemented: true
