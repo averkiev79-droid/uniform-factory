@@ -226,7 +226,7 @@ class CatalogService:
         """Get category by slug"""
         db = SessionLocal()
         try:
-            category = db.query(ProductCategory).filter(ProductCategory.slug == slug).first()
+            category = db.query(DBProductCategory).filter(DBProductCategory.slug == slug).first()
             if category:
                 return {
                     "id": category.id,
