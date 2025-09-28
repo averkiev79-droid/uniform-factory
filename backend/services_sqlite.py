@@ -121,9 +121,9 @@ class QuoteService:
         """Get quote requests with optional status filter"""
         db = SessionLocal()
         try:
-            query = db.query(SQLQuoteRequest)
+            query = db.query(DBQuoteRequest)
             if status:
-                query = query.filter(SQLQuoteRequest.status == status)
+                query = query.filter(DBQuoteRequest.status == status)
             
             requests = query.all()
             return [
