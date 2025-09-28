@@ -100,7 +100,11 @@ export const Footer = () => {
               <ul className="space-y-3">
                 {footerLinks.catalog.map((link) => (
                   <li key={link.name}>
-                    <a href={link.href} className="text-gray-300 hover:text-white transition-colors duration-200">
+                    <a 
+                      href={link.href}
+                      onClick={(e) => handleLinkClick(e, link)} 
+                      className="text-gray-300 hover:text-white transition-colors duration-200"
+                    >
                       {link.name}
                     </a>
                   </li>
