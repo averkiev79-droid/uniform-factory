@@ -1,0 +1,251 @@
+[
+  {
+    "endpoint": "/health",
+    "method": "GET",
+    "success": true,
+    "details": "Health check passed - Status: healthy, Service: avik-uniform-api",
+    "response_data": {
+      "status": "healthy",
+      "service": "avik-uniform-api"
+    },
+    "timestamp": "2025-09-28 08:51:57"
+  },
+  {
+    "endpoint": "/categories",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 6 categories successfully",
+    "response_data": {
+      "count": 6,
+      "sample": {
+        "id": "1",
+        "title": "Униформа для ресторанов и отелей",
+        "description": "Профессиональная одежда для сферы HoReCa",
+        "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
+        "products_count": 120,
+        "slug": "restaurants-hotels",
+        "created_at": "2025-09-28T08:51:57.550872",
+        "updated_at": "2025-09-28T08:51:57.550875"
+      }
+    },
+    "timestamp": "2025-09-28 08:51:57"
+  },
+  {
+    "endpoint": "/portfolio",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 6 portfolio items successfully",
+    "response_data": {
+      "count": 6,
+      "sample": {
+        "id": "1",
+        "company": "Сбербанк",
+        "description": "Деловые костюмы для сотрудников банка",
+        "image": "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500&h=400&fit=crop",
+        "category": "Банки",
+        "items_count": 2500,
+        "year": 2023,
+        "created_at": "2025-09-28T08:51:57.563272",
+        "updated_at": "2025-09-28T08:51:57.563273"
+      }
+    },
+    "timestamp": "2025-09-28 08:51:57"
+  },
+  {
+    "endpoint": "/calculator/options",
+    "method": "GET",
+    "success": true,
+    "details": "Calculator options retrieved: {'categories': 6, 'quantities': 5, 'fabrics': 4, 'branding': 4}",
+    "response_data": {
+      "categories": [
+        {
+          "id": "shirts",
+          "name": "Рубашки/Блузы",
+          "base_price": 1200
+        },
+        {
+          "id": "suits",
+          "name": "Костюмы",
+          "base_price": 3500
+        },
+        {
+          "id": "dresses",
+          "name": "Платья",
+          "base_price": 2100
+        },
+        {
+          "id": "aprons",
+          "name": "Фартуки",
+          "base_price": 800
+        },
+        {
+          "id": "jackets",
+          "name": "Жакеты/Пиджаки",
+          "base_price": 2800
+        },
+        {
+          "id": "workwear",
+          "name": "Спецодежда",
+          "base_price": 1800
+        }
+      ],
+      "quantities": [
+        {
+          "range": "1-10",
+          "multiplier": 1.5
+        },
+        {
+          "range": "11-50",
+          "multiplier": 1.2
+        },
+        {
+          "range": "51-100",
+          "multiplier": 1.1
+        },
+        {
+          "range": "101-500",
+          "multiplier": 1.0
+        },
+        {
+          "range": "501+",
+          "multiplier": 0.9
+        }
+      ],
+      "fabrics": [
+        {
+          "id": "cotton",
+          "name": "Хлопок",
+          "multiplier": 1.0
+        },
+        {
+          "id": "polyester",
+          "name": "Полиэстер",
+          "multiplier": 0.8
+        },
+        {
+          "id": "wool",
+          "name": "Шерсть",
+          "multiplier": 1.4
+        },
+        {
+          "id": "premium",
+          "name": "Премиум ткани",
+          "multiplier": 1.8
+        }
+      ],
+      "branding": [
+        {
+          "id": "none",
+          "name": "Без нанесения",
+          "price": 0
+        },
+        {
+          "id": "embroidery",
+          "name": "Вышивка",
+          "price": 150
+        },
+        {
+          "id": "print",
+          "name": "Печать",
+          "price": 80
+        },
+        {
+          "id": "both",
+          "name": "Вышивка + Печать",
+          "price": 200
+        }
+      ]
+    },
+    "timestamp": "2025-09-28 08:51:57"
+  },
+  {
+    "endpoint": "/calculator/estimate",
+    "method": "POST",
+    "success": true,
+    "details": "Estimate calculated: 1470 руб.",
+    "response_data": {
+      "estimated_price": 1470,
+      "breakdown": {
+        "basePrice": 1200,
+        "quantityMultiplier": 1.1,
+        "fabricMultiplier": 1.0,
+        "brandingPrice": 150
+      }
+    },
+    "timestamp": "2025-09-28 08:51:57"
+  },
+  {
+    "endpoint": "/calculator/quote-request",
+    "method": "POST",
+    "success": true,
+    "details": "Quote request created: REQ-2025-18CE2B",
+    "response_data": {
+      "success": true,
+      "request_id": "REQ-2025-18CE2B",
+      "message": "Заявка принята. Мы свяжемся с вами в течение 2 часов."
+    },
+    "timestamp": "2025-09-28 08:51:57"
+  },
+  {
+    "endpoint": "/contact/callback-request",
+    "method": "POST",
+    "success": true,
+    "details": "Callback request created successfully",
+    "response_data": {
+      "success": true,
+      "message": "Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут."
+    },
+    "timestamp": "2025-09-28 08:51:57"
+  },
+  {
+    "endpoint": "/testimonials",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 3 testimonials successfully",
+    "response_data": {
+      "count": 3,
+      "sample": {
+        "id": "1",
+        "company": "ООО 'Премиум Отели'",
+        "text": "Сотрудничаем с AVIK уже 3 года. Качество униформы превосходное, сотрудники довольны комфортом и внешним видом.",
+        "author": "Анна Петрова",
+        "position": "Директор по закупкам",
+        "rating": 5,
+        "created_at": "2025-09-28T08:51:57.703359",
+        "updated_at": "2025-09-28T08:51:57.703360"
+      }
+    },
+    "timestamp": "2025-09-28 08:51:57"
+  },
+  {
+    "endpoint": "/statistics",
+    "method": "GET",
+    "success": true,
+    "details": "Statistics retrieved successfully",
+    "response_data": {
+      "id": "1",
+      "years_in_business": 15,
+      "completed_orders": 5000,
+      "happy_clients": 1200,
+      "cities": 150,
+      "updated_at": "2025-09-28T08:51:57.711086"
+    },
+    "timestamp": "2025-09-28 08:51:57"
+  },
+  {
+    "endpoint": "/calculator/estimate (invalid)",
+    "method": "POST",
+    "success": true,
+    "details": "Correctly rejected invalid data: {\"detail\":\"Invalid calculator parameters\"}",
+    "response_data": null,
+    "timestamp": "2025-09-28 08:51:57"
+  },
+  {
+    "endpoint": "/calculator/quote-request (incomplete)",
+    "method": "POST",
+    "success": true,
+    "details": "Correctly rejected incomplete data: validation error",
+    "response_data": null,
+    "timestamp": "2025-09-28 08:51:57"
+  }
+]
