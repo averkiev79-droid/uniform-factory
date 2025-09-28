@@ -324,7 +324,7 @@ class StatisticsService:
         """Get company statistics"""
         db = SessionLocal()
         try:
-            stats = db.query(SQLStatistics).first()
+            stats = db.query(DBStatistics).first()
             if stats:
                 return {
                     "id": stats.id,
