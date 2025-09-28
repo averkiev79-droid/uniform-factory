@@ -204,7 +204,7 @@ class CatalogService:
         """Get all product categories"""
         db = SessionLocal()
         try:
-            categories = db.query(SQLProductCategory).all()
+            categories = db.query(ProductCategory).all()
             return [
                 {
                     "id": cat.id,
