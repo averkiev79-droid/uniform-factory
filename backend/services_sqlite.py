@@ -1,8 +1,13 @@
 from typing import List, Optional
 from sqlalchemy.orm import Session
 from database_sqlite import (
-    SessionLocal, ProductCategory, PortfolioItem, Testimonial, 
-    Statistics, QuoteRequest, ContactRequest
+    SessionLocal, 
+    ProductCategory as SQLProductCategory, 
+    PortfolioItem as SQLPortfolioItem, 
+    Testimonial as SQLTestimonial, 
+    Statistics as SQLStatistics, 
+    QuoteRequest as SQLQuoteRequest, 
+    ContactRequest as SQLContactRequest
 )
 from models import *
 import uuid
