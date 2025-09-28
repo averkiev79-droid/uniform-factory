@@ -4,13 +4,12 @@ from dotenv import load_dotenv
 from pathlib import Path
 import os
 import logging
-import asyncio
 from contextlib import asynccontextmanager
 
-# Import our modules
+# Import SQLite modules
 from models import *
-from services import *
-from database import init_database, close_database
+from services_sqlite import *
+from database_sqlite import init_sqlite_database
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -19,10 +18,9 @@ load_dotenv(ROOT_DIR / '.env')
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    await init_database()
+    init_sqlite_database()
     yield
-    # Shutdown
-    await close_database()
+    # Shutdown - SQLite doesn't need explicit closing
 
 # Create FastAPI app
 app = FastAPI(lifespan=lifespan)
@@ -49,28 +47,28 @@ logger = logging.getLogger(__name__)
 # Basic health check
 @api_router.get("/")
 async def root():
-    return {"message": "AVIK Uniform Factory API"}
+    return {"message": "AVIK Uniform Factory API with SQLite"}
 
 @api_router.get("/health")
 async def health_check():
-    return {"status": "healthy", "service": "avik-uniform-api"}
+    return {"status": "healthy", "service": "avik-uniform-api", "database": "sqlite"}
 
 # Categories endpoints
-@api_router.get("/categories", response_model=List[ProductCategory])
+@api_router.get("/categories")
 async def get_categories():
     """Get all product categories"""
     try:
-        categories = await CatalogService.get_categories()
+        categories = CatalogService.get_categories()
         return categories
     except Exception as e:
         logger.error(f"Error getting categories: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
-@api_router.get("/categories/{slug}", response_model=ProductCategory)
+@api_router.get("/categories/{slug}")
 async def get_category_by_slug(slug: str):
     """Get category by slug"""
     try:
-        category = await CatalogService.get_category_by_slug(slug)
+        category = CatalogService.get_category_by_slug(slug)
         if not category:
             raise HTTPException(status_code=404, detail="Category not found")
         return category
@@ -81,21 +79,21 @@ async def get_category_by_slug(slug: str):
         raise HTTPException(status_code=500, detail="Internal server error")
 
 # Portfolio endpoints
-@api_router.get("/portfolio", response_model=List[PortfolioItem])
+@api_router.get("/portfolio")
 async def get_portfolio(category: Optional[str] = None):
     """Get portfolio items with optional category filter"""
     try:
-        items = await PortfolioService.get_portfolio_items(category)
+        items = PortfolioService.get_portfolio_items(category)
         return items
     except Exception as e:
         logger.error(f"Error getting portfolio: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
-@api_router.get("/portfolio/{item_id}", response_model=PortfolioItem)
+@api_router.get("/portfolio/{item_id}")
 async def get_portfolio_item(item_id: str):
     """Get portfolio item by ID"""
     try:
-        item = await PortfolioService.get_portfolio_item_by_id(item_id)
+        item = PortfolioService.get_portfolio_item_by_id(item_id)
         if not item:
             raise HTTPException(status_code=404, detail="Portfolio item not found")
         return item
@@ -106,7 +104,7 @@ async def get_portfolio_item(item_id: str):
         raise HTTPException(status_code=500, detail="Internal server error")
 
 # Calculator endpoints
-@api_router.get("/calculator/options", response_model=CalculatorOptions)
+@api_router.get("/calculator/options")
 async def get_calculator_options():
     """Get calculator configuration options"""
     try:
@@ -115,7 +113,7 @@ async def get_calculator_options():
         logger.error(f"Error getting calculator options: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
-@api_router.post("/calculator/estimate", response_model=CalculatorEstimateResponse)
+@api_router.post("/calculator/estimate")
 async def calculate_estimate(request: CalculatorEstimateRequest):
     """Calculate price estimate"""
     try:
@@ -127,54 +125,54 @@ async def calculate_estimate(request: CalculatorEstimateRequest):
         logger.error(f"Error calculating estimate: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
-@api_router.post("/calculator/quote-request", response_model=QuoteRequestResponse)
+@api_router.post("/calculator/quote-request")
 async def create_quote_request(request: QuoteRequestCreate):
     """Create a new quote request"""
     try:
-        response = await QuoteService.create_quote_request(request)
+        response = QuoteService.create_quote_request(request)
         return response
     except Exception as e:
         logger.error(f"Error creating quote request: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
 # Contact endpoints
-@api_router.post("/contact/callback-request", response_model=ContactRequestResponse)
+@api_router.post("/contact/callback-request")
 async def create_callback_request(request: CallbackRequestCreate):
     """Create callback request"""
     try:
-        response = await ContactService.create_callback_request(request)
+        response = ContactService.create_callback_request(request)
         return response
     except Exception as e:
         logger.error(f"Error creating callback request: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
-@api_router.post("/contact/consultation", response_model=ContactRequestResponse)
+@api_router.post("/contact/consultation")
 async def create_consultation_request(request: ConsultationRequestCreate):
     """Create consultation request"""
     try:
-        response = await ContactService.create_consultation_request(request)
+        response = ContactService.create_consultation_request(request)
         return response
     except Exception as e:
         logger.error(f"Error creating consultation request: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
 # Testimonials endpoint
-@api_router.get("/testimonials", response_model=List[Testimonial])
+@api_router.get("/testimonials")
 async def get_testimonials():
     """Get all testimonials"""
     try:
-        testimonials = await TestimonialService.get_testimonials()
+        testimonials = TestimonialService.get_testimonials()
         return testimonials
     except Exception as e:
         logger.error(f"Error getting testimonials: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
 # Statistics endpoint
-@api_router.get("/statistics", response_model=Statistics)
+@api_router.get("/statistics")
 async def get_statistics():
     """Get company statistics"""
     try:
-        stats = await StatisticsService.get_statistics()
+        stats = StatisticsService.get_statistics()
         if not stats:
             raise HTTPException(status_code=404, detail="Statistics not found")
         return stats
@@ -185,11 +183,11 @@ async def get_statistics():
         raise HTTPException(status_code=500, detail="Internal server error")
 
 # Admin endpoints (for future use)
-@api_router.get("/admin/quote-requests", response_model=List[QuoteRequest])
+@api_router.get("/admin/quote-requests")
 async def get_quote_requests(status: Optional[str] = None):
     """Get quote requests (admin only)"""
     try:
-        requests = await QuoteService.get_quote_requests(status)
+        requests = QuoteService.get_quote_requests(status)
         return requests
     except Exception as e:
         logger.error(f"Error getting quote requests: {e}")
