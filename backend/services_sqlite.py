@@ -249,9 +249,9 @@ class PortfolioService:
         """Get portfolio items with optional category filter"""
         db = SessionLocal()
         try:
-            query = db.query(PortfolioItem)
+            query = db.query(SQLPortfolioItem)
             if category and category != "all":
-                query = query.filter(PortfolioItem.category == category)
+                query = query.filter(SQLPortfolioItem.category == category)
             
             items = query.all()
             return [
@@ -276,7 +276,7 @@ class PortfolioService:
         """Get portfolio item by ID"""
         db = SessionLocal()
         try:
-            item = db.query(PortfolioItem).filter(PortfolioItem.id == item_id).first()
+            item = db.query(SQLPortfolioItem).filter(SQLPortfolioItem.id == item_id).first()
             if item:
                 return {
                     "id": item.id,
