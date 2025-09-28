@@ -1,10 +1,90 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
-import { productCategories } from '../mock';
+import { apiService } from '../services/api';
+import { productCategories } from '../mock'; // Fallback data
 
 export const ProductCategories = () => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        const data = await apiService.getCategories();
+        // Transform API data to match frontend format
+        const transformedData = data.map(item => ({
+          id: item.id,
+          title: item.title,
+          description: item.description,
+          image: item.image,
+          products: item.products_count,
+          slug: item.slug
+        }));
+        setCategories(transformedData);
+        setError(null);
+      } catch (err) {
+        console.error('Failed to fetch categories:', err);
+        setError('Failed to load categories');
+        // Use fallback data
+        setCategories(productCategories);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="catalog" className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="animate-pulse">
+              <div className="h-12 bg-gray-200 rounded-md w-96 mx-auto mb-4"></div>
+              <div className="h-6 bg-gray-200 rounded-md w-64 mx-auto mb-16"></div>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, index) => (
+                <Card key={index} className="animate-pulse">
+                  <div className="h-64 bg-gray-200"></div>
+                  <CardContent className="p-6">
+                    <div className="h-6 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-4"></div>
+                    <div className="h-4 bg-gray-200 rounded w-32"></div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error && categories.length === 0) {
+    return (
+      <section id="catalog" className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            Каталог продукции
+          </h2>
+          <p className="text-red-600 mb-8">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg"
+          >
+            Попробовать снова
+          </button>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="catalog" className="py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4">
@@ -17,11 +97,16 @@ export const ProductCategories = () => {
             Широкий ассортимент корпоративной одежды для различных сфер деятельности. 
             Подберем идеальное решение для вашего бизнеса.
           </p>
+          {error && (
+            <p className="text-amber-600 text-sm">
+              Показаны демо-данные. {error}
+            </p>
+          )}
         </div>
 
         {/* Categories Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {productCategories.map((category) => (
+          {categories.map((category) => (
             <Card 
               key={category.id} 
               className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-md overflow-hidden"
@@ -31,6 +116,7 @@ export const ProductCategories = () => {
                   src={category.image} 
                   alt={category.title}
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-300" />
                 <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-gray-800">

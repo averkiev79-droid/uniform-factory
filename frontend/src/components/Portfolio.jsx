@@ -1,17 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ExternalLink, Building, Users } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
-import { portfolioItems } from '../mock';
+import { apiService } from '../services/api';
+import { portfolioItems } from '../mock'; // Fallback data
 
 export const Portfolio = () => {
+  const [portfolioData, setPortfolioData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState('all');
   
-  const categories = ['all', ...new Set(portfolioItems.map(item => item.category))];
+  useEffect(() => {
+    const fetchPortfolio = async () => {
+      try {
+        setLoading(true);
+        const data = await apiService.getPortfolio();
+        // Transform API data to match frontend format
+        const transformedData = data.map(item => ({
+          id: item.id,
+          company: item.company,
+          description: item.description,
+          image: item.image,
+          category: item.category,
+          items: item.items_count,
+          year: item.year
+        }));
+        setPortfolioData(transformedData);
+        setError(null);
+      } catch (err) {
+        console.error('Failed to fetch portfolio:', err);
+        setError('Failed to load portfolio');
+        // Use fallback data
+        setPortfolioData(portfolioItems);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolio();
+  }, []);
+  
+  const categories = ['all', ...new Set(portfolioData.map(item => item.category))];
   
   const filteredItems = selectedFilter === 'all' 
-    ? portfolioItems 
-    : portfolioItems.filter(item => item.category === selectedFilter);
+    ? portfolioData 
+    : portfolioData.filter(item => item.category === selectedFilter);
+
+  if (loading) {
+    return (
+      <section id="portfolio" className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="animate-pulse">
+              <div className="h-12 bg-gray-200 rounded-md w-80 mx-auto mb-4"></div>
+              <div className="h-6 bg-gray-200 rounded-md w-96 mx-auto"></div>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[...Array(6)].map((_, index) => (
+              <Card key={index} className="animate-pulse">
+                <div className="h-64 bg-gray-200"></div>
+                <CardContent className="p-6">
+                  <div className="h-6 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded mb-4"></div>
+                  <div className="h-4 bg-gray-200 rounded w-32"></div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="portfolio" className="py-16 lg:py-24 bg-white">
@@ -25,6 +86,11 @@ export const Portfolio = () => {
             Более 5000 успешно реализованных проектов для компаний различных отраслей. 
             Посмотрите примеры нашей работы.
           </p>
+          {error && (
+            <p className="text-amber-600 text-sm">
+              Показаны демо-данные. {error}
+            </p>
+          )}
         </div>
 
         {/* Filter Buttons */}
@@ -56,6 +122,7 @@ export const Portfolio = () => {
                   src={item.image} 
                   alt={item.company}
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
                 <div className="absolute top-4 left-4">

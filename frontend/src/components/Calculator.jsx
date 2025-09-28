@@ -3,7 +3,8 @@ import { Calculator as CalculatorIcon, ArrowRight, Check } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
-import { calculatorOptions } from '../mock';
+import { apiService } from '../services/api';
+import { calculatorOptions } from '../mock'; // Fallback data
 
 export const Calculator = () => {
   const [formData, setFormData] = useState({
@@ -17,48 +18,135 @@ export const Calculator = () => {
     company: ''
   });
   
+  const [options, setOptions] = useState(calculatorOptions);
   const [estimatedPrice, setEstimatedPrice] = useState(0);
   const [showResults, setShowResults] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
-  const calculatePrice = () => {
-    const category = calculatorOptions.categories.find(c => c.id === formData.category);
-    const quantity = calculatorOptions.quantities.find(q => q.range === formData.quantity);
-    const fabric = calculatorOptions.fabrics.find(f => f.id === formData.fabric);
-    const branding = calculatorOptions.branding.find(b => b.id === formData.branding);
+  // Fetch calculator options on component mount
+  useEffect(() => {
+    const fetchOptions = async () => {
+      try {
+        const data = await apiService.getCalculatorOptions();
+        setOptions(data);
+      } catch (err) {
+        console.error('Failed to fetch calculator options:', err);
+        // Keep fallback options
+      }
+    };
 
-    if (!category || !quantity || !fabric || !branding) return 0;
+    fetchOptions();
+  }, []);
 
-    const basePrice = category.basePrice;
-    const quantityMultiplier = quantity.multiplier;
-    const fabricMultiplier = fabric.multiplier;
-    const brandingPrice = branding.price;
-
-    const totalPrice = (basePrice * quantityMultiplier * fabricMultiplier) + brandingPrice;
-    return Math.round(totalPrice);
-  };
-
+  // Calculate estimate when parameters change
   useEffect(() => {
     if (formData.category && formData.quantity && formData.fabric && formData.branding) {
-      const price = calculatePrice();
-      setEstimatedPrice(price);
-      setShowResults(true);
+      calculateEstimate();
     } else {
       setShowResults(false);
+      setEstimatedPrice(0);
     }
-  }, [formData]);
+  }, [formData.category, formData.quantity, formData.fabric, formData.branding]);
+
+  const calculateEstimate = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const estimateRequest = {
+        category: formData.category,
+        quantity: formData.quantity,
+        fabric: formData.fabric,
+        branding: formData.branding
+      };
+      
+      const result = await apiService.calculateEstimate(estimateRequest);
+      setEstimatedPrice(result.estimated_price);
+      setShowResults(true);
+    } catch (err) {
+      console.error('Failed to calculate estimate:', err);
+      setError('Не удалось рассчитать стоимость');
+      
+      // Fallback calculation
+      const category = options.categories.find(c => c.id === formData.category);
+      const quantity = options.quantities.find(q => q.range === formData.quantity);
+      const fabric = options.fabrics.find(f => f.id === formData.fabric);
+      const branding = options.branding.find(b => b.id === formData.branding);
+
+      if (category && quantity && fabric && branding) {
+        const basePrice = category.basePrice || category.base_price;
+        const quantityMultiplier = quantity.multiplier;
+        const fabricMultiplier = fabric.multiplier;
+        const brandingPrice = branding.price;
+
+        const totalPrice = Math.round((basePrice * quantityMultiplier * fabricMultiplier) + brandingPrice);
+        setEstimatedPrice(totalPrice);
+        setShowResults(true);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    setError(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Mock form submission
-    alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в течение 2 часов.');
+    
+    if (!formData.name || !formData.email || !formData.phone) {
+      setError('Заполните все обязательные поля');
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      setError(null);
+
+      const quoteRequest = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company,
+        category: formData.category,
+        quantity: formData.quantity,
+        fabric: formData.fabric,
+        branding: formData.branding,
+        estimated_price: estimatedPrice
+      };
+
+      const result = await apiService.submitQuoteRequest(quoteRequest);
+      
+      // Show success message
+      alert(`Спасибо! ${result.message}\nНомер заявки: ${result.request_id}`);
+      
+      // Reset form
+      setFormData({
+        category: '',
+        quantity: '',
+        fabric: '',
+        branding: '',
+        name: '',
+        email: '',
+        phone: '',
+        company: ''
+      });
+      setShowResults(false);
+      setEstimatedPrice(0);
+    } catch (err) {
+      console.error('Failed to submit quote request:', err);
+      setError('Не удалось отправить заявку. Попробуйте еще раз.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <section className="py-16 lg:py-24 bg-gray-50">
+    <section id="calculator" className="py-16 lg:py-24 bg-gray-50">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center space-y-4 mb-16">
@@ -75,6 +163,12 @@ export const Calculator = () => {
           </p>
         </div>
 
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-8 text-center">
+            {error}
+          </div>
+        )}
+
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Calculator Form */}
           <Card className="shadow-lg border-0">
@@ -86,7 +180,7 @@ export const Calculator = () => {
               <div className="space-y-3">
                 <Label className="text-base font-medium">Тип изделия</Label>
                 <div className="grid grid-cols-1 gap-2">
-                  {calculatorOptions.categories.map((category) => (
+                  {options.categories.map((category) => (
                     <button
                       key={category.id}
                       onClick={() => handleInputChange('category', category.id)}
@@ -98,7 +192,9 @@ export const Calculator = () => {
                     >
                       <div className="flex justify-between items-center">
                         <span className="font-medium">{category.name}</span>
-                        <span className="text-sm text-gray-500">от {category.basePrice}₽</span>
+                        <span className="text-sm text-gray-500">
+                          от {category.basePrice || category.base_price}₽
+                        </span>
                       </div>
                     </button>
                   ))}
@@ -109,7 +205,7 @@ export const Calculator = () => {
               <div className="space-y-3">
                 <Label className="text-base font-medium">Количество изделий</Label>
                 <div className="grid grid-cols-2 gap-2">
-                  {calculatorOptions.quantities.map((quantity) => (
+                  {options.quantities.map((quantity) => (
                     <button
                       key={quantity.range}
                       onClick={() => handleInputChange('quantity', quantity.range)}
@@ -129,7 +225,7 @@ export const Calculator = () => {
               <div className="space-y-3">
                 <Label className="text-base font-medium">Тип ткани</Label>
                 <div className="grid grid-cols-1 gap-2">
-                  {calculatorOptions.fabrics.map((fabric) => (
+                  {options.fabrics.map((fabric) => (
                     <button
                       key={fabric.id}
                       onClick={() => handleInputChange('fabric', fabric.id)}
@@ -149,7 +245,7 @@ export const Calculator = () => {
               <div className="space-y-3">
                 <Label className="text-base font-medium">Нанесение логотипа</Label>
                 <div className="grid grid-cols-1 gap-2">
-                  {calculatorOptions.branding.map((branding) => (
+                  {options.branding.map((branding) => (
                     <button
                       key={branding.id}
                       onClick={() => handleInputChange('branding', branding.id)}
@@ -179,8 +275,17 @@ export const Calculator = () => {
               <Card className="shadow-lg border-0 bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
                 <CardContent className="p-8 text-center space-y-4">
                   <h3 className="text-2xl font-bold">Предварительная стоимость</h3>
-                  <div className="text-5xl font-bold">{estimatedPrice.toLocaleString()}₽</div>
-                  <p className="text-purple-100">за единицу изделия</p>
+                  {loading ? (
+                    <div className="animate-pulse">
+                      <div className="h-16 bg-white/20 rounded-md mb-2"></div>
+                      <div className="h-4 bg-white/20 rounded-md w-32 mx-auto"></div>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="text-5xl font-bold">{estimatedPrice.toLocaleString()}₽</div>
+                      <p className="text-purple-100">за единицу изделия</p>
+                    </>
+                  )}
                   <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 text-sm">
                     <div className="flex items-center justify-center space-x-2 text-white/90">
                       <Check className="w-4 h-4" />
@@ -253,10 +358,11 @@ export const Calculator = () => {
                   <Button 
                     type="submit" 
                     size="lg" 
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 group"
+                    disabled={submitting || !showResults}
+                    className="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 group disabled:opacity-50"
                   >
-                    Получить точный расчет
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    {submitting ? 'Отправка...' : 'Получить точный расчет'}
+                    {!submitting && <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />}
                   </Button>
                 </form>
                 

@@ -1,0 +1,168 @@
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
+
+const api = axios.create({
+  baseURL: API,
+  timeout: 10000,
+});
+
+// Request interceptor for logging
+api.interceptors.request.use(
+  (config) => {
+    console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`);
+    return config;
+  },
+  (error) => {
+    console.error('API Request Error:', error);
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor for error handling
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    console.error('API Response Error:', error);
+    
+    // Handle specific error cases
+    if (error.response) {
+      // Server responded with error status
+      const { status, data } = error.response;
+      console.error(`API Error ${status}:`, data);
+    } else if (error.request) {
+      // Request was made but no response received
+      console.error('API Network Error: No response received');
+    } else {
+      // Something else happened
+      console.error('API Error:', error.message);
+    }
+    
+    return Promise.reject(error);
+  }
+);
+
+// API service methods
+export const apiService = {
+  // Categories
+  async getCategories() {
+    try {
+      const response = await api.get('/categories');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch categories:', error);
+      throw error;
+    }
+  },
+
+  async getCategoryBySlug(slug) {
+    try {
+      const response = await api.get(`/categories/${slug}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Failed to fetch category ${slug}:`, error);
+      throw error;
+    }
+  },
+
+  // Portfolio
+  async getPortfolio(category = null) {
+    try {
+      const params = category && category !== 'all' ? { category } : {};
+      const response = await api.get('/portfolio', { params });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch portfolio:', error);
+      throw error;
+    }
+  },
+
+  async getPortfolioItem(itemId) {
+    try {
+      const response = await api.get(`/portfolio/${itemId}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Failed to fetch portfolio item ${itemId}:`, error);
+      throw error;
+    }
+  },
+
+  // Calculator
+  async getCalculatorOptions() {
+    try {
+      const response = await api.get('/calculator/options');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch calculator options:', error);
+      throw error;
+    }
+  },
+
+  async calculateEstimate(estimateData) {
+    try {
+      const response = await api.post('/calculator/estimate', estimateData);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to calculate estimate:', error);
+      throw error;
+    }
+  },
+
+  async submitQuoteRequest(quoteData) {
+    try {
+      const response = await api.post('/calculator/quote-request', quoteData);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to submit quote request:', error);
+      throw error;
+    }
+  },
+
+  // Contact
+  async submitCallbackRequest(callbackData) {
+    try {
+      const response = await api.post('/contact/callback-request', callbackData);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to submit callback request:', error);
+      throw error;
+    }
+  },
+
+  async submitConsultationRequest(consultationData) {
+    try {
+      const response = await api.post('/contact/consultation', consultationData);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to submit consultation request:', error);
+      throw error;
+    }
+  },
+
+  // Testimonials
+  async getTestimonials() {
+    try {
+      const response = await api.get('/testimonials');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch testimonials:', error);
+      throw error;
+    }
+  },
+
+  // Statistics
+  async getStatistics() {
+    try {
+      const response = await api.get('/statistics');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch statistics:', error);
+      throw error;
+    }
+  }
+};
+
+export default api;

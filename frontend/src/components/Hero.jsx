@@ -1,9 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, Star, Award } from 'lucide-react';
 import { Button } from './ui/button';
-import { stats } from '../mock';
+import { apiService } from '../services/api';
+import { stats } from '../mock'; // Fallback data
 
 export const Hero = () => {
+  const [statistics, setStatistics] = useState(stats);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStatistics = async () => {
+      try {
+        setLoading(true);
+        const data = await apiService.getStatistics();
+        // Transform API data to match frontend format
+        const transformedData = [
+          { label: "Лет на рынке", value: `${data.years_in_business}+`, icon: "Calendar" },
+          { label: "Выполненных заказов", value: `${data.completed_orders}+`, icon: "CheckCircle" },
+          { label: "Довольных клиентов", value: `${data.happy_clients}+`, icon: "Users" },
+          { label: "Городов России", value: `${data.cities}+`, icon: "MapPin" }
+        ];
+        setStatistics(transformedData);
+      } catch (err) {
+        console.error('Failed to fetch statistics:', err);
+        // Keep fallback data
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStatistics();
+  }, []);
+
+  const scrollToCalculator = () => {
+    const calculatorElement = document.querySelector('#calculator');
+    if (calculatorElement) {
+      calculatorElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToCatalog = () => {
+    const catalogElement = document.querySelector('#catalog');
+    if (catalogElement) {
+      catalogElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className="bg-gradient-to-br from-gray-50 to-gray-100 py-16 lg:py-24">
       <div className="container mx-auto px-4">
@@ -30,6 +72,7 @@ export const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 size="lg" 
+                onClick={scrollToCalculator}
                 className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 text-lg group"
               >
                 Получить расчет стоимости
@@ -38,6 +81,7 @@ export const Hero = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
+                onClick={scrollToCatalog}
                 className="border-2 border-gray-300 hover:border-purple-600 hover:text-purple-600 px-8 py-4 text-lg"
               >
                 Посмотреть каталог
@@ -46,14 +90,25 @@ export const Hero = () => {
 
             {/* Trust indicators */}
             <div className="pt-8 border-t border-gray-200">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center lg:text-left">
-                    <div className="text-2xl lg:text-3xl font-bold text-purple-600">{stat.value}</div>
-                    <div className="text-sm text-gray-600">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
+              {loading ? (
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                  {[...Array(4)].map((_, index) => (
+                    <div key={index} className="text-center lg:text-left animate-pulse">
+                      <div className="h-8 bg-gray-200 rounded mb-2"></div>
+                      <div className="h-4 bg-gray-200 rounded w-24"></div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                  {statistics.map((stat, index) => (
+                    <div key={index} className="text-center lg:text-left">
+                      <div className="text-2xl lg:text-3xl font-bold text-purple-600">{stat.value}</div>
+                      <div className="text-sm text-gray-600">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -64,6 +119,7 @@ export const Hero = () => {
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop&crop=faces" 
                 alt="Профессиональная корпоративная одежда"
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
             </div>
             
