@@ -214,7 +214,77 @@ backend:
         comment: "✅ GET /api/statistics - Statistics retrieved successfully. All required fields present with valid positive integer values (years_in_business, completed_orders, happy_clients, cities)."
 
 frontend:
-  # No frontend testing performed as per instructions
+  - task: "Page Loading and Navigation"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/components/Header.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Ready for testing - main page loading, mobile navigation (hamburger menu), anchor links (Главная, Каталог, О компании, Портфолио, Контакты), CTA buttons"
+
+  - task: "API Integration and Data Loading"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/services/api.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Ready for testing - catalog loading from API (6 categories), portfolio projects from backend, portfolio filtering by categories, statistics loading in hero section"
+
+  - task: "Calculator Functionality"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/components/Calculator.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Ready for testing - category selection (Рубашки/Блузы, Костюмы, etc.), quantity selection (1-10, 11-50, 51-100, 101-500, 501+), fabric type selection (Хлопок, Полиэстер, Шерсть, Премиум), logo application selection (Без нанесения, Вышивка, Печать, Вышивка + Печать), automatic cost calculation, result display"
+
+  - task: "Contact Forms"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/components/Calculator.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Ready for testing - contact form in calculator, validation of required fields (name, email, phone), quote request submission"
+
+  - task: "Responsive Design"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/components"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Ready for testing - mobile devices (375x667), tablets (768x1024), desktop (1920x1080)"
+
+  - task: "UI/UX Components"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/components"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Ready for testing - hover effects animations, scrolling between sections, loading states, image display"
 
 metadata:
   created_by: "testing_agent"
