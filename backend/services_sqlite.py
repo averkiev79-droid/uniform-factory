@@ -300,7 +300,7 @@ class TestimonialService:
         """Get all testimonials"""
         db = SessionLocal()
         try:
-            testimonials = db.query(SQLTestimonial).all()
+            testimonials = db.query(DBTestimonial).all()
             return [
                 {
                     "id": test.id,
