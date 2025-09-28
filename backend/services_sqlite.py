@@ -155,7 +155,7 @@ class ContactService:
         """Create callback request"""
         db = SessionLocal()
         try:
-            contact_request = ContactRequest(
+            contact_request = SQLContactRequest(
                 type="callback",
                 name=request.name,
                 phone=request.phone,
@@ -177,7 +177,7 @@ class ContactService:
         """Create consultation request"""
         db = SessionLocal()
         try:
-            contact_request = ContactRequest(
+            contact_request = SQLContactRequest(
                 type="consultation",
                 name=request.name,
                 email=request.email,
