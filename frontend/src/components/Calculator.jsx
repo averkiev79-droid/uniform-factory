@@ -351,7 +351,7 @@ export const Calculator = () => {
                       value={formData.phone}
                       onChange={(e) => handleInputChange('phone', e.target.value)}
                       className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      placeholder="+7 (___) ___-__-__"
+                      placeholder="+7 (812) 648-17-54"
                     />
                   </div>
                   
