@@ -91,7 +91,7 @@ class QuoteService:
         try:
             request_id = f"REQ-{datetime.now().strftime('%Y')}-{str(uuid.uuid4())[:6].upper()}"
             
-            quote_request = QuoteRequest(
+            quote_request = SQLQuoteRequest(
                 request_id=request_id,
                 name=request.name,
                 email=request.email,
@@ -121,9 +121,9 @@ class QuoteService:
         """Get quote requests with optional status filter"""
         db = SessionLocal()
         try:
-            query = db.query(QuoteRequest)
+            query = db.query(SQLQuoteRequest)
             if status:
-                query = query.filter(QuoteRequest.status == status)
+                query = query.filter(SQLQuoteRequest.status == status)
             
             requests = query.all()
             return [
