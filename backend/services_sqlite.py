@@ -91,7 +91,7 @@ class QuoteService:
         try:
             request_id = f"REQ-{datetime.now().strftime('%Y')}-{str(uuid.uuid4())[:6].upper()}"
             
-            quote_request = SQLQuoteRequest(
+            quote_request = DBQuoteRequest(
                 request_id=request_id,
                 name=request.name,
                 email=request.email,
