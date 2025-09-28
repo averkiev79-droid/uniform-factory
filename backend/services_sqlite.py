@@ -276,7 +276,7 @@ class PortfolioService:
         """Get portfolio item by ID"""
         db = SessionLocal()
         try:
-            item = db.query(SQLPortfolioItem).filter(SQLPortfolioItem.id == item_id).first()
+            item = db.query(DBPortfolioItem).filter(DBPortfolioItem.id == item_id).first()
             if item:
                 return {
                     "id": item.id,
