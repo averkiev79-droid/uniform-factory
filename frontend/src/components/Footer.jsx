@@ -121,7 +121,7 @@ export const Footer = () => {
               <div className="flex items-start space-x-3">
                 <Mail className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" />
                 <div>
-                  <div className="font-medium">info@avik-uniform.ru</div>
+                  <div className="font-medium">mail@aviktime.ru</div>
                   <div className="text-sm text-gray-400">Общие вопросы</div>
                 </div>
               </div>
