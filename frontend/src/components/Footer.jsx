@@ -4,6 +4,9 @@ import { CallbackModal } from './CallbackModal';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
+  const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
+
   const handleLinkClick = (e, link) => {
     if (link.action === 'callback') {
       e.preventDefault();
@@ -13,8 +16,6 @@ export const Footer = () => {
       setIsConsultationModalOpen(true);
     }
   };
-
-  const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
 
   const footerLinks = {
     company: [
