@@ -151,7 +151,10 @@ export const Footer = () => {
               <p className="text-sm text-gray-400 mb-3">
                 Оставьте номер телефона, и мы перезвоним в течение 15 минут
               </p>
-              <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors duration-200 w-full">
+              <button 
+                onClick={() => setIsCallbackModalOpen(true)}
+                className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors duration-200 w-full"
+              >
                 Заказать звонок
               </button>
             </div>
