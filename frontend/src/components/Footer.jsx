@@ -213,6 +213,12 @@ export const Footer = () => {
         isOpen={isCallbackModalOpen} 
         onClose={() => setIsCallbackModalOpen(false)} 
       />
+
+      {/* Consultation Modal */}
+      <ConsultationModal 
+        isOpen={isConsultationModalOpen} 
+        onClose={() => setIsConsultationModalOpen(false)} 
+      />
     </footer>
   );
 };
