@@ -10,20 +10,20 @@ export const Footer = () => {
     company: [
       { name: 'О компании', href: '#about' },
       { name: 'Портфолио', href: '#portfolio' },
-      { name: 'Производство', href: '#production' },
-      { name: 'Вакансии', href: '#careers' }
+      { name: 'Преимущества', href: '#advantages' },
+      { name: 'Калькулятор', href: '#calculator' }
     ],
     catalog: [
-      { name: 'Офисная одежда', href: '#office' },
-      { name: 'HoReCa униформа', href: '#horeca' },
-      { name: 'Медицинская одежда', href: '#medical' },
-      { name: 'Спецодежда', href: '#workwear' }
+      { name: 'Офисная одежда', href: '#catalog' },
+      { name: 'HoReCa униформа', href: '#catalog' },
+      { name: 'Медицинская одежда', href: '#catalog' },
+      { name: 'Спецодежда', href: '#catalog' }
     ],
     services: [
-      { name: 'Индивидуальный пошив', href: '#custom' },
-      { name: 'Дизайн разработка', href: '#design' },
-      { name: 'Нанесение логотипов', href: '#branding' },
-      { name: 'Доставка', href: '#delivery' }
+      { name: 'Расчет стоимости', href: '#calculator' },
+      { name: 'Заказать звонок', href: '#callback', action: 'callback' },
+      { name: 'Консультация', href: '#consultation', action: 'consultation' },
+      { name: 'Контакты', href: '#contacts' }
     ]
   };
 
