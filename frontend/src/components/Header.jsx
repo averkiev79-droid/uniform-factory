@@ -77,7 +77,10 @@ export const Header = () => {
 
           {/* CTA Button & Mobile Menu */}
           <div className="flex items-center space-x-4">
-            <Button className="hidden md:inline-flex bg-purple-600 hover:bg-purple-700 text-white px-6 py-2">
+            <Button 
+              onClick={scrollToCalculator}
+              className="hidden md:inline-flex bg-purple-600 hover:bg-purple-700 text-white px-6 py-2"
+            >
               Заказать расчет
             </Button>
             
