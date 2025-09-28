@@ -204,7 +204,7 @@ class CatalogService:
         """Get all product categories"""
         db = SessionLocal()
         try:
-            categories = db.query(ProductCategory).all()
+            categories = db.query(SQLProductCategory).all()
             return [
                 {
                     "id": cat.id,
@@ -226,7 +226,7 @@ class CatalogService:
         """Get category by slug"""
         db = SessionLocal()
         try:
-            category = db.query(ProductCategory).filter(ProductCategory.slug == slug).first()
+            category = db.query(SQLProductCategory).filter(SQLProductCategory.slug == slug).first()
             if category:
                 return {
                     "id": category.id,
