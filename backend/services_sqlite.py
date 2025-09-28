@@ -177,7 +177,7 @@ class ContactService:
         """Create consultation request"""
         db = SessionLocal()
         try:
-            contact_request = SQLContactRequest(
+            contact_request = DBContactRequest(
                 type="consultation",
                 name=request.name,
                 email=request.email,
