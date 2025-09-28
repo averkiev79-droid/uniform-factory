@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Протестировать все API endpoints для сайта фабрики корпоративной одежды AVIK Uniform Factory"
+user_problem_statement: "Провести комплексное автоматизированное тестирование frontend функциональности сайта AVIK Uniform Factory"
 
 backend:
   - task: "Health Check API"
