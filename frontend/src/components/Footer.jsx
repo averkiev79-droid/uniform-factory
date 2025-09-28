@@ -183,6 +183,12 @@ export const Footer = () => {
           </div>
         </div>
       </div>
+
+      {/* Callback Modal */}
+      <CallbackModal 
+        isOpen={isCallbackModalOpen} 
+        onClose={() => setIsCallbackModalOpen(false)} 
+      />
     </footer>
   );
 };
