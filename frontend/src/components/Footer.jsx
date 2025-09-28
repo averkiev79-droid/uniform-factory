@@ -26,7 +26,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer id="contacts" className="bg-gray-900 text-white">
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid lg:grid-cols-4 gap-8">
