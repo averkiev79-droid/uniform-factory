@@ -307,3 +307,5 @@ test_plan:
 agent_communication:
   - agent: "testing"
     message: "Comprehensive API testing completed for AVIK Uniform Factory. All 9 core API endpoints tested successfully with 100% pass rate. Database integration working correctly with MongoDB. Error handling and validation working as expected. Backend is fully functional and ready for production use."
+  - agent: "testing"
+    message: "Starting comprehensive frontend testing for AVIK Uniform Factory website. Will test: page loading/navigation, API integration, calculator functionality (key feature), contact forms, responsive design, and UI/UX components. Testing URL: https://business-wear.preview.emergentagent.com (from .env REACT_APP_BACKEND_URL)"
