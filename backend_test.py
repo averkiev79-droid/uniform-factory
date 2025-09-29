@@ -616,32 +616,21 @@ class APITester:
     
     def test_admin_quote_status_update(self):
         """Test PUT /api/admin/quote-requests/{id}/status"""
-        # First, create a quote request to test status update
-        quote_data = {
-            "name": "Тест Статус",
-            "email": "test.status@example.com",
-            "phone": "+7 999 111 22 33",
-            "company": "Тестовая Компания",
-            "category": "shirts",
-            "quantity": "51-100",
-            "fabric": "cotton",
-            "branding": "embroidery",
-            "estimated_price": 1500
-        }
-        
         try:
-            # Create quote request first
-            create_response = self.session.post(f"{self.base_url}/calculator/quote-request", json=quote_data)
+            # Get existing quote requests to find a valid ID
+            get_response = self.session.get(f"{self.base_url}/admin/quote-requests")
             
-            if create_response.status_code == 200:
-                create_data = create_response.json()
-                request_id = create_data.get('request_id')
+            if get_response.status_code == 200:
+                quotes = get_response.json()
                 
-                if request_id:
-                    # Now test status update - Set correct Content-Type for form data
+                if quotes and len(quotes) > 0:
+                    # Use the first quote request's database ID
+                    quote_id = quotes[0]['id']
+                    
+                    # Test status update - Set correct Content-Type for form data
                     status_data = {"status": "processed"}
                     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-                    response = self.session.put(f"{self.base_url}/admin/quote-requests/{request_id}/status", 
+                    response = self.session.put(f"{self.base_url}/admin/quote-requests/{quote_id}/status", 
                                               data=status_data, headers=headers)
                     
                     if response.status_code == 200:
@@ -657,10 +646,10 @@ class APITester:
                                       f"HTTP {response.status_code}: {response.text}")
                 else:
                     self.log_result('/admin/quote-requests/{id}/status', 'PUT', False, 
-                                  f"No request_id in create response: {create_data}")
+                                  f"No quote requests available to test status update")
             else:
                 self.log_result('/admin/quote-requests/{id}/status', 'PUT', False, 
-                              f"Failed to create test quote request: {create_response.status_code}")
+                              f"Failed to get quote requests: {get_response.status_code}")
                 
         except Exception as e:
             self.log_result('/admin/quote-requests/{id}/status', 'PUT', False, f"Exception: {str(e)}")
