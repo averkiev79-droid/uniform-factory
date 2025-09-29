@@ -141,11 +141,14 @@ backend:
     file: "backend/admin_routes.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "✅ Full CRUD operations for portfolio items implemented. Routes: GET/POST/PUT/DELETE /api/admin/portfolio"
+      - working: true
+        agent: "testing"
+        comment: "✅ Admin portfolio CRUD operations tested successfully. GET retrieves portfolio items, POST creates new portfolio items with form data, PUT updates existing items, DELETE removes items. All operations work correctly with SQLite database."
 
   - task: "Admin Quote Requests Management API"
     implemented: true
