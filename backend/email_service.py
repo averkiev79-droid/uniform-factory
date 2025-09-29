@@ -1,6 +1,7 @@
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+import smtplib
 import os
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from typing import Optional
 
 class EmailDeliveryError(Exception):
@@ -8,7 +9,7 @@ class EmailDeliveryError(Exception):
 
 def send_email(to: str, subject: str, html_content: str, plain_text_content: Optional[str] = None):
     """
-    Send email via SendGrid
+    Send email via Yandex SMTP
 
     Args:
         to: Recipient email address
@@ -16,18 +17,40 @@ def send_email(to: str, subject: str, html_content: str, plain_text_content: Opt
         html_content: HTML email content
         plain_text_content: Plain text email content (optional)
     """
-    message = Mail(
-        from_email=os.getenv('SENDER_EMAIL', 'no-reply@avik-uniforms.com'),
-        to_emails=to,
-        subject=subject,
-        html_content=html_content,
-        plain_text_content=plain_text_content
-    )
+    smtp_server = "smtp.yandex.ru"
+    smtp_port = 587
+    sender_email = os.getenv('SENDER_EMAIL')
+    sender_password = os.getenv('EMAIL_PASSWORD')
+    
+    if not sender_email or not sender_password:
+        print("Warning: Email credentials not configured. Skipping email sending.")
+        return False
 
     try:
-        sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
-        response = sg.send(message)
-        return response.status_code == 202
+        # Create message
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = subject
+        msg["From"] = sender_email
+        msg["To"] = to
+
+        # Add HTML content
+        html_part = MIMEText(html_content, "html")
+        msg.attach(html_part)
+        
+        # Add plain text content if provided
+        if plain_text_content:
+            text_part = MIMEText(plain_text_content, "plain")
+            msg.attach(text_part)
+
+        # Send email
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.send_message(msg)
+        
+        print(f"Email sent successfully to {to}")
+        return True
+        
     except Exception as e:
         print(f"Error sending email: {str(e)}")
         raise EmailDeliveryError(f"Failed to send email: {str(e)}")
@@ -36,7 +59,7 @@ def send_quote_notification_email(request_data: dict):
     """
     Send quote request notification email to admin
     """
-    admin_email = os.getenv('ADMIN_EMAIL', 'admin@avik-uniforms.com')
+    admin_email = os.getenv('ADMIN_EMAIL', 'admin@example.com')
     
     subject = f"Новая заявка на расчет - {request_data.get('request_id', 'N/A')}"
     
@@ -110,7 +133,7 @@ def send_callback_notification_email(request_data: dict):
     """
     Send callback request notification email to admin
     """
-    admin_email = os.getenv('ADMIN_EMAIL', 'admin@avik-uniforms.com')
+    admin_email = os.getenv('ADMIN_EMAIL', 'admin@example.com')
     
     subject = f"Новая заявка на звонок от {request_data.get('name', 'Неизвестно')}"
     
