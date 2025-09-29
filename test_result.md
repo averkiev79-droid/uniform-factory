@@ -171,11 +171,14 @@ backend:
     file: "backend/admin_routes.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "✅ Statistics management implemented. Routes: GET/PUT /api/admin/statistics"
+      - working: true
+        agent: "testing"
+        comment: "✅ Admin statistics management tested successfully. GET /api/admin/statistics retrieves current statistics. PUT /api/admin/statistics updates statistics with form data (years_in_business, completed_orders, happy_clients, cities). Both operations work correctly with SQLite database."
 
   - task: "Image Upload API"
     implemented: true
