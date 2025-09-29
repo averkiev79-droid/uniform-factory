@@ -638,10 +638,11 @@ class APITester:
                 request_id = create_data.get('request_id')
                 
                 if request_id:
-                    # Now test status update
+                    # Now test status update - Remove Content-Type header for form data
                     status_data = {"status": "processed"}
+                    headers = {k: v for k, v in self.session.headers.items() if k.lower() != 'content-type'}
                     response = self.session.put(f"{self.base_url}/admin/quote-requests/{request_id}/status", 
-                                              data=status_data)
+                                              data=status_data, headers=headers)
                     
                     if response.status_code == 200:
                         data = response.json()
