@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 from fastapi.responses import FileResponse
+from pydantic import BaseModel
 from typing import Optional
 import os
 import uuid
@@ -25,10 +26,13 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 # Admin Authentication (простая реализация)
 ADMIN_PASSWORD = "avik2024admin"  # В продакшене использовать хеширование
 
+class LoginRequest(BaseModel):
+    password: str
+
 @admin_router.post("/login")
-async def admin_login(password: str):
+async def admin_login(request: LoginRequest):
     """Admin login"""
-    if password == ADMIN_PASSWORD:
+    if request.password == ADMIN_PASSWORD:
         return {"success": True, "token": "admin-authenticated"}
     raise HTTPException(status_code=401, detail="Invalid password")
 
