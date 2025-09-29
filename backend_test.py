@@ -561,7 +561,7 @@ class APITester:
             update_data["company"] = "Обновленная Тестовая Компания"
             update_data["items_count"] = 200
             
-            response = self.session.put(f"{self.base_url}/admin/portfolio/{created_id}", data=update_data)
+            response = self.session.put(f"{self.base_url}/admin/portfolio/{created_id}", data=update_data, headers=headers)
             
             if response.status_code == 200:
                 data = response.json()
