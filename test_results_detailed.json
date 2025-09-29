@@ -9,7 +9,7 @@
       "service": "avik-uniform-api",
       "database": "sqlite"
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:19:57"
   },
   {
     "endpoint": "/categories",
@@ -29,7 +29,7 @@
         "updated_at": "2025-09-28T15:08:31.856969"
       }
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:19:57"
   },
   {
     "endpoint": "/portfolio",
@@ -50,7 +50,7 @@
         "updated_at": "2025-09-28T15:08:31.856285"
       }
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:19:57"
   },
   {
     "endpoint": "/calculator/options",
@@ -157,7 +157,7 @@
         }
       ]
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:00"
   },
   {
     "endpoint": "/calculator/estimate",
@@ -173,19 +173,19 @@
         "brandingPrice": 150
       }
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:00"
   },
   {
     "endpoint": "/calculator/quote-request",
     "method": "POST",
     "success": true,
-    "details": "Quote request created: REQ-2025-C38538",
+    "details": "Quote request created: REQ-2025-96EAFA",
     "response_data": {
       "success": true,
-      "request_id": "REQ-2025-C38538",
+      "request_id": "REQ-2025-96EAFA",
       "message": "Заявка принята. Мы свяжемся с вами в течение 2 часов."
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:00"
   },
   {
     "endpoint": "/contact/callback-request",
@@ -196,7 +196,7 @@
       "success": true,
       "message": "Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут."
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:00"
   },
   {
     "endpoint": "/testimonials",
@@ -216,7 +216,7 @@
         "updated_at": "2025-09-28T15:08:31.857932"
       }
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:04"
   },
   {
     "endpoint": "/statistics",
@@ -226,12 +226,12 @@
     "response_data": {
       "id": "1",
       "years_in_business": 15,
-      "completed_orders": 5000,
-      "happy_clients": 1200,
-      "cities": 150,
-      "updated_at": "2025-09-28T15:08:31.857471"
+      "completed_orders": 2500,
+      "happy_clients": 850,
+      "cities": 45,
+      "updated_at": "2025-09-29T11:18:59.819963"
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:04"
   },
   {
     "endpoint": "/calculator/estimate (invalid)",
@@ -239,7 +239,7 @@
     "success": true,
     "details": "Correctly rejected invalid data: {\"detail\":\"Invalid calculator parameters\"}",
     "response_data": null,
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:04"
   },
   {
     "endpoint": "/calculator/quote-request (incomplete)",
@@ -247,7 +247,7 @@
     "success": true,
     "details": "Correctly rejected incomplete data: validation error",
     "response_data": null,
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:04"
   },
   {
     "endpoint": "/admin/login",
@@ -258,7 +258,7 @@
       "success": true,
       "token": "admin-authenticated"
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:04"
   },
   {
     "endpoint": "/admin/login (invalid)",
@@ -266,7 +266,7 @@
     "success": true,
     "details": "Correctly rejected invalid password: {\"detail\":\"Invalid password\"}",
     "response_data": null,
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:07"
   },
   {
     "endpoint": "/admin/categories",
@@ -276,18 +276,18 @@
     "response_data": {
       "count": 7
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:11"
   },
   {
     "endpoint": "/admin/categories",
     "method": "POST",
     "success": true,
-    "details": "Category created successfully with ID: b2f116ed-e129-4c15-8919-1af9ea6d4983",
+    "details": "Category created successfully with ID: fbf36d1b-d42e-4257-b49e-da37dc40afdc",
     "response_data": {
       "success": true,
-      "id": "b2f116ed-e129-4c15-8919-1af9ea6d4983"
+      "id": "fbf36d1b-d42e-4257-b49e-da37dc40afdc"
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:12"
   },
   {
     "endpoint": "/admin/categories/{id}",
@@ -297,7 +297,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:12"
   },
   {
     "endpoint": "/admin/categories/{id}",
@@ -307,7 +307,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:12"
   },
   {
     "endpoint": "/admin/portfolio",
@@ -317,18 +317,18 @@
     "response_data": {
       "count": 6
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:12"
   },
   {
     "endpoint": "/admin/portfolio",
     "method": "POST",
     "success": true,
-    "details": "Portfolio item created successfully with ID: e731c79f-100e-42df-82e5-961185f3b4f7",
+    "details": "Portfolio item created successfully with ID: 46baa0f8-705c-4395-a849-4cc9498fc4fd",
     "response_data": {
       "success": true,
-      "id": "e731c79f-100e-42df-82e5-961185f3b4f7"
+      "id": "46baa0f8-705c-4395-a849-4cc9498fc4fd"
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:12"
   },
   {
     "endpoint": "/admin/portfolio/{id}",
@@ -338,7 +338,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:12"
   },
   {
     "endpoint": "/admin/portfolio/{id}",
@@ -348,25 +348,27 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:12"
   },
   {
     "endpoint": "/admin/quote-requests",
     "method": "GET",
     "success": true,
-    "details": "Retrieved 11 quote requests successfully",
+    "details": "Retrieved 13 quote requests successfully",
     "response_data": {
-      "count": 11
+      "count": 13
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:12"
   },
   {
     "endpoint": "/admin/quote-requests/{id}/status",
     "method": "PUT",
-    "success": false,
-    "details": "HTTP 404: {\"detail\":\"Request not found\"}",
-    "response_data": null,
-    "timestamp": "2025-09-29 11:18:59"
+    "success": true,
+    "details": "Quote status updated successfully",
+    "response_data": {
+      "success": true
+    },
+    "timestamp": "2025-09-29 11:20:12"
   },
   {
     "endpoint": "/admin/statistics",
@@ -376,12 +378,12 @@
     "response_data": {
       "id": "1",
       "years_in_business": 15,
-      "completed_orders": 5000,
-      "happy_clients": 1200,
-      "cities": 150,
-      "updated_at": "2025-09-28T15:08:31.857471"
+      "completed_orders": 2500,
+      "happy_clients": 850,
+      "cities": 45,
+      "updated_at": "2025-09-29T11:18:59.819963"
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:12"
   },
   {
     "endpoint": "/admin/statistics",
@@ -391,7 +393,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:12"
   },
   {
     "endpoint": "/admin/upload-image",
@@ -399,6 +401,6 @@
     "success": false,
     "details": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"file\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"}]}",
     "response_data": null,
-    "timestamp": "2025-09-29 11:18:59"
+    "timestamp": "2025-09-29 11:20:14"
   }
 ]
