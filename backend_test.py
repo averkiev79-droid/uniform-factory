@@ -469,7 +469,7 @@ class APITester:
             update_data["title"] = "Обновленная Тестовая Категория"
             update_data["products_count"] = 30
             
-            response = self.session.put(f"{self.base_url}/admin/categories/{created_id}", data=update_data)
+            response = self.session.put(f"{self.base_url}/admin/categories/{created_id}", data=update_data, headers=headers)
             
             if response.status_code == 200:
                 data = response.json()
