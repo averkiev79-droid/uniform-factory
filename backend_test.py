@@ -734,11 +734,8 @@ class APITester:
                 img_bytes = io.BytesIO(jpeg_header)
                 files = {'file': ('test_image.jpg', img_bytes, 'image/jpeg')}
             
-            # Remove Content-Type header for file upload
-            headers = {k: v for k, v in self.session.headers.items() if k.lower() != 'content-type'}
-            
-            response = self.session.post(f"{self.base_url}/admin/upload-image", 
-                                       files=files, headers=headers)
+            # For file upload, don't set Content-Type header - let requests handle it
+            response = self.session.post(f"{self.base_url}/admin/upload-image", files=files)
             
             if response.status_code == 200:
                 data = response.json()
