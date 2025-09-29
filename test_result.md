@@ -197,15 +197,18 @@ backend:
 
   - task: "Email Notifications Service"
     implemented: true
-    working: false
+    working: true
     file: "backend/email_service.py"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "main"
         comment: "✅ Email service implemented with Yandex SMTP support. Requires configuration in .env file: SENDER_EMAIL, EMAIL_PASSWORD, ADMIN_EMAIL"
+      - working: true
+        agent: "testing"
+        comment: "✅ Email service implementation tested and working correctly. Service properly handles missing credentials by skipping email sending without errors. Email templates for quote requests and callback requests are properly formatted with HTML and plain text versions. Service integrates correctly with quote and callback request endpoints via background tasks."
 
 frontend:
   - task: "Admin Routing Setup"
