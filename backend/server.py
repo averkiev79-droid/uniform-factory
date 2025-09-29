@@ -138,7 +138,7 @@ async def create_quote_request(request: QuoteRequestCreate, background_tasks: Ba
         response = QuoteService.create_quote_request(request)
         
         # Send email notification in background
-        if os.getenv('SENDGRID_API_KEY'):
+        if os.getenv('SENDER_EMAIL') and os.getenv('EMAIL_PASSWORD'):
             request_data = {
                 'request_id': response.get('request_id'),
                 'name': request.name,
