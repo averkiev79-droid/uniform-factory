@@ -161,10 +161,23 @@ async def create_quote_request(request: QuoteRequestCreate, background_tasks: Ba
 
 # Contact endpoints
 @api_router.post("/contact/callback-request")
-async def create_callback_request(request: CallbackRequestCreate):
+async def create_callback_request(request: CallbackRequestCreate, background_tasks: BackgroundTasks):
     """Create callback request"""
     try:
         response = ContactService.create_callback_request(request)
+        
+        # Send email notification in background
+        if os.getenv('SENDGRID_API_KEY'):
+            request_data = {
+                'name': request.name,
+                'phone': request.phone,
+                'email': request.email,
+                'company': request.company,
+                'message': getattr(request, 'message', None),
+                'created_at': response.get('created_at')
+            }
+            background_tasks.add_task(send_callback_notification_email, request_data)
+        
         return response
     except Exception as e:
         logger.error(f"Error creating callback request: {e}")
