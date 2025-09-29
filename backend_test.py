@@ -801,6 +801,9 @@ class APITester:
         self.test_invalid_calculator_estimate()
         self.test_missing_fields_quote_request()
         
+        # Admin panel tests
+        self.run_admin_tests()
+        
         print("=" * 80)
         self.print_summary()
     
