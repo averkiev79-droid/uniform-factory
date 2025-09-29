@@ -701,7 +701,9 @@ class APITester:
         }
         
         try:
-            response = self.session.put(f"{self.base_url}/admin/statistics", data=stats_data)
+            # Remove Content-Type header for form data
+            headers = {k: v for k, v in self.session.headers.items() if k.lower() != 'content-type'}
+            response = self.session.put(f"{self.base_url}/admin/statistics", data=stats_data, headers=headers)
             
             if response.status_code == 200:
                 data = response.json()
