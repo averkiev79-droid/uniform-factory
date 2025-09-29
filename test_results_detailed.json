@@ -6,9 +6,10 @@
     "details": "Health check passed - Status: healthy, Service: avik-uniform-api",
     "response_data": {
       "status": "healthy",
-      "service": "avik-uniform-api"
+      "service": "avik-uniform-api",
+      "database": "sqlite"
     },
-    "timestamp": "2025-09-28 08:51:57"
+    "timestamp": "2025-09-29 11:16:50"
   },
   {
     "endpoint": "/categories",
@@ -24,11 +25,11 @@
         "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
         "products_count": 120,
         "slug": "restaurants-hotels",
-        "created_at": "2025-09-28T08:51:57.550872",
-        "updated_at": "2025-09-28T08:51:57.550875"
+        "created_at": "2025-09-28T15:08:31.856968",
+        "updated_at": "2025-09-28T15:08:31.856969"
       }
     },
-    "timestamp": "2025-09-28 08:51:57"
+    "timestamp": "2025-09-29 11:16:50"
   },
   {
     "endpoint": "/portfolio",
@@ -45,11 +46,11 @@
         "category": "Банки",
         "items_count": 2500,
         "year": 2023,
-        "created_at": "2025-09-28T08:51:57.563272",
-        "updated_at": "2025-09-28T08:51:57.563273"
+        "created_at": "2025-09-28T15:08:31.856283",
+        "updated_at": "2025-09-28T15:08:31.856285"
       }
     },
-    "timestamp": "2025-09-28 08:51:57"
+    "timestamp": "2025-09-29 11:16:50"
   },
   {
     "endpoint": "/calculator/options",
@@ -156,7 +157,7 @@
         }
       ]
     },
-    "timestamp": "2025-09-28 08:51:57"
+    "timestamp": "2025-09-29 11:16:50"
   },
   {
     "endpoint": "/calculator/estimate",
@@ -172,19 +173,19 @@
         "brandingPrice": 150
       }
     },
-    "timestamp": "2025-09-28 08:51:57"
+    "timestamp": "2025-09-29 11:16:50"
   },
   {
     "endpoint": "/calculator/quote-request",
     "method": "POST",
     "success": true,
-    "details": "Quote request created: REQ-2025-18CE2B",
+    "details": "Quote request created: REQ-2025-3314CC",
     "response_data": {
       "success": true,
-      "request_id": "REQ-2025-18CE2B",
+      "request_id": "REQ-2025-3314CC",
       "message": "Заявка принята. Мы свяжемся с вами в течение 2 часов."
     },
-    "timestamp": "2025-09-28 08:51:57"
+    "timestamp": "2025-09-29 11:16:50"
   },
   {
     "endpoint": "/contact/callback-request",
@@ -195,7 +196,7 @@
       "success": true,
       "message": "Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут."
     },
-    "timestamp": "2025-09-28 08:51:57"
+    "timestamp": "2025-09-29 11:16:50"
   },
   {
     "endpoint": "/testimonials",
@@ -211,11 +212,11 @@
         "author": "Анна Петрова",
         "position": "Директор по закупкам",
         "rating": 5,
-        "created_at": "2025-09-28T08:51:57.703359",
-        "updated_at": "2025-09-28T08:51:57.703360"
+        "created_at": "2025-09-28T15:08:31.857931",
+        "updated_at": "2025-09-28T15:08:31.857932"
       }
     },
-    "timestamp": "2025-09-28 08:51:57"
+    "timestamp": "2025-09-29 11:16:50"
   },
   {
     "endpoint": "/statistics",
@@ -228,9 +229,9 @@
       "completed_orders": 5000,
       "happy_clients": 1200,
       "cities": 150,
-      "updated_at": "2025-09-28T08:51:57.711086"
+      "updated_at": "2025-09-28T15:08:31.857471"
     },
-    "timestamp": "2025-09-28 08:51:57"
+    "timestamp": "2025-09-29 11:16:50"
   },
   {
     "endpoint": "/calculator/estimate (invalid)",
@@ -238,7 +239,7 @@
     "success": true,
     "details": "Correctly rejected invalid data: {\"detail\":\"Invalid calculator parameters\"}",
     "response_data": null,
-    "timestamp": "2025-09-28 08:51:57"
+    "timestamp": "2025-09-29 11:16:50"
   },
   {
     "endpoint": "/calculator/quote-request (incomplete)",
@@ -246,6 +247,110 @@
     "success": true,
     "details": "Correctly rejected incomplete data: validation error",
     "response_data": null,
-    "timestamp": "2025-09-28 08:51:57"
+    "timestamp": "2025-09-29 11:16:50"
+  },
+  {
+    "endpoint": "/admin/login",
+    "method": "POST",
+    "success": true,
+    "details": "Admin login successful with token: admin-authenticated",
+    "response_data": {
+      "success": true,
+      "token": "admin-authenticated"
+    },
+    "timestamp": "2025-09-29 11:16:50"
+  },
+  {
+    "endpoint": "/admin/login (invalid)",
+    "method": "POST",
+    "success": true,
+    "details": "Correctly rejected invalid password: {\"detail\":\"Invalid password\"}",
+    "response_data": null,
+    "timestamp": "2025-09-29 11:16:50"
+  },
+  {
+    "endpoint": "/admin/categories",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 6 admin categories successfully",
+    "response_data": {
+      "count": 6
+    },
+    "timestamp": "2025-09-29 11:16:50"
+  },
+  {
+    "endpoint": "/admin/categories",
+    "method": "POST",
+    "success": false,
+    "details": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"title\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"description\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"products_count\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"slug\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"image\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"}]}",
+    "response_data": null,
+    "timestamp": "2025-09-29 11:16:50"
+  },
+  {
+    "endpoint": "/admin/portfolio",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 6 admin portfolio items successfully",
+    "response_data": {
+      "count": 6
+    },
+    "timestamp": "2025-09-29 11:16:50"
+  },
+  {
+    "endpoint": "/admin/portfolio",
+    "method": "POST",
+    "success": false,
+    "details": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"company\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"description\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"category\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"items_count\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"year\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"image\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"}]}",
+    "response_data": null,
+    "timestamp": "2025-09-29 11:16:50"
+  },
+  {
+    "endpoint": "/admin/quote-requests",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 7 quote requests successfully",
+    "response_data": {
+      "count": 7
+    },
+    "timestamp": "2025-09-29 11:16:50"
+  },
+  {
+    "endpoint": "/admin/quote-requests/{id}/status",
+    "method": "PUT",
+    "success": false,
+    "details": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"status\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"}]}",
+    "response_data": null,
+    "timestamp": "2025-09-29 11:16:50"
+  },
+  {
+    "endpoint": "/admin/statistics",
+    "method": "GET",
+    "success": true,
+    "details": "Admin statistics retrieved successfully",
+    "response_data": {
+      "id": "1",
+      "years_in_business": 15,
+      "completed_orders": 5000,
+      "happy_clients": 1200,
+      "cities": 150,
+      "updated_at": "2025-09-28T15:08:31.857471"
+    },
+    "timestamp": "2025-09-29 11:16:50"
+  },
+  {
+    "endpoint": "/admin/statistics",
+    "method": "PUT",
+    "success": false,
+    "details": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"years_in_business\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"completed_orders\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"happy_clients\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"cities\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"}]}",
+    "response_data": null,
+    "timestamp": "2025-09-29 11:16:50"
+  },
+  {
+    "endpoint": "/admin/upload-image",
+    "method": "POST",
+    "success": false,
+    "details": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"file\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"}]}",
+    "response_data": null,
+    "timestamp": "2025-09-29 11:16:50"
   }
 ]
