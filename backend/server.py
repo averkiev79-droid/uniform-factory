@@ -198,7 +198,8 @@ async def get_quote_requests(status: Optional[str] = None):
 
 # Include router in app
 app.include_router(api_router)
-app.include_router(admin_router)
+# Include admin routes under /api prefix  
+app.include_router(admin_router, prefix="/api")
 
 if __name__ == "__main__":
     import uvicorn
