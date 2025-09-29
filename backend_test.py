@@ -712,42 +712,37 @@ class APITester:
     def test_admin_image_upload(self):
         """Test POST /api/admin/upload-image"""
         try:
-            # Try to import PIL, if not available, create a simple text file as image
+            # Create a simple test file
+            import tempfile
+            import os
+            
+            # Create a temporary file with some content
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.jpg', delete=False) as tmp_file:
+                tmp_file.write("test image content for upload testing")
+                tmp_file_path = tmp_file.name
+            
             try:
-                import io
-                from PIL import Image
+                # Open the file and upload it
+                with open(tmp_file_path, 'rb') as f:
+                    files = {'file': ('test_image.jpg', f, 'image/jpeg')}
+                    
+                    # For file upload, don't set Content-Type header - let requests handle it
+                    response = self.session.post(f"{self.base_url}/admin/upload-image", files=files)
                 
-                # Create a simple test image
-                img = Image.new('RGB', (100, 100), color='red')
-                img_bytes = io.BytesIO()
-                img.save(img_bytes, format='JPEG')
-                img_bytes.seek(0)
-                
-                files = {'file': ('test_image.jpg', img_bytes, 'image/jpeg')}
-                
-            except ImportError:
-                # Create a minimal JPEG-like file for testing
-                import io
-                # Minimal JPEG header for testing
-                jpeg_header = b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x01\x00H\x00H\x00\x00\xff\xdb\x00C\x00\x08\x06\x06\x07\x06\x05\x08\x07\x07\x07\t\t\x08\n\x0c\x14\r\x0c\x0b\x0b\x0c\x19\x12\x13\x0f\x14\x1d\x1a\x1f\x1e\x1d\x1a\x1c\x1c $.\' ",#\x1c\x1c(7),01444\x1f\'9=82<.342\xff\xc0\x00\x11\x08\x00d\x00d\x01\x01\x11\x00\x02\x11\x01\x03\x11\x01\xff\xc4\x00\x14\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x08\xff\xc4\x00\x14\x10\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xda\x00\x0c\x03\x01\x00\x02\x11\x03\x11\x00\x3f\x00\xaa\xff\xd9'
-                
-                img_bytes = io.BytesIO(jpeg_header)
-                files = {'file': ('test_image.jpg', img_bytes, 'image/jpeg')}
-            
-            # For file upload, don't set Content-Type header - let requests handle it
-            response = self.session.post(f"{self.base_url}/admin/upload-image", files=files)
-            
-            if response.status_code == 200:
-                data = response.json()
-                if data.get('success') and data.get('url'):
-                    self.log_result('/admin/upload-image', 'POST', True, 
-                                  f"Image uploaded successfully: {data['url']}", data)
+                if response.status_code == 200:
+                    data = response.json()
+                    if data.get('success') and data.get('url'):
+                        self.log_result('/admin/upload-image', 'POST', True, 
+                                      f"Image uploaded successfully: {data['url']}", data)
+                    else:
+                        self.log_result('/admin/upload-image', 'POST', False, 
+                                      f"Invalid upload response: {data}", data)
                 else:
                     self.log_result('/admin/upload-image', 'POST', False, 
-                                  f"Invalid upload response: {data}", data)
-            else:
-                self.log_result('/admin/upload-image', 'POST', False, 
-                              f"HTTP {response.status_code}: {response.text}")
+                                  f"HTTP {response.status_code}: {response.text}")
+            finally:
+                # Clean up temporary file
+                os.unlink(tmp_file_path)
                 
         except Exception as e:
             self.log_result('/admin/upload-image', 'POST', False, f"Exception: {str(e)}")
