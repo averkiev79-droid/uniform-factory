@@ -368,6 +368,417 @@ class APITester:
                 
         except Exception as e:
             self.log_result('/calculator/quote-request (incomplete)', 'POST', False, f"Exception: {str(e)}")
+
+    # ===== ADMIN PANEL TESTS =====
+    
+    def test_admin_login_success(self):
+        """Test POST /api/admin/login with correct password"""
+        login_data = {"password": "avik2024admin"}
+        
+        try:
+            response = self.session.post(f"{self.base_url}/admin/login", json=login_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success') and data.get('token'):
+                    self.log_result('/admin/login', 'POST', True, 
+                                  f"Admin login successful with token: {data['token']}", data)
+                else:
+                    self.log_result('/admin/login', 'POST', False, 
+                                  f"Invalid response structure: {data}", data)
+            else:
+                self.log_result('/admin/login', 'POST', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/login', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_admin_login_failure(self):
+        """Test POST /api/admin/login with incorrect password"""
+        login_data = {"password": "wrongpassword"}
+        
+        try:
+            response = self.session.post(f"{self.base_url}/admin/login", json=login_data)
+            
+            if response.status_code == 401:
+                self.log_result('/admin/login (invalid)', 'POST', True, 
+                              f"Correctly rejected invalid password: {response.text}")
+            else:
+                self.log_result('/admin/login (invalid)', 'POST', False, 
+                              f"Should have returned 401, got {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/login (invalid)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_admin_categories_get(self):
+        """Test GET /api/admin/categories"""
+        try:
+            response = self.session.get(f"{self.base_url}/admin/categories")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    self.log_result('/admin/categories', 'GET', True, 
+                                  f"Retrieved {len(data)} admin categories successfully", 
+                                  {'count': len(data)})
+                else:
+                    self.log_result('/admin/categories', 'GET', False, 
+                                  f"Expected list, got: {type(data)}", data)
+            else:
+                self.log_result('/admin/categories', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/categories', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_admin_categories_crud(self):
+        """Test POST/PUT/DELETE /api/admin/categories"""
+        # Test data for creating category
+        category_data = {
+            "title": "Тестовая Категория",
+            "description": "Описание тестовой категории для проверки CRUD операций",
+            "products_count": 25,
+            "slug": "test-category-crud",
+            "image": "/images/test-category.jpg"
+        }
+        
+        created_id = None
+        
+        try:
+            # Test CREATE
+            response = self.session.post(f"{self.base_url}/admin/categories", data=category_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success') and data.get('id'):
+                    created_id = data['id']
+                    self.log_result('/admin/categories', 'POST', True, 
+                                  f"Category created successfully with ID: {created_id}", data)
+                else:
+                    self.log_result('/admin/categories', 'POST', False, 
+                                  f"Invalid create response: {data}", data)
+                    return
+            else:
+                self.log_result('/admin/categories', 'POST', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                return
+            
+            # Test UPDATE
+            update_data = category_data.copy()
+            update_data["title"] = "Обновленная Тестовая Категория"
+            update_data["products_count"] = 30
+            
+            response = self.session.put(f"{self.base_url}/admin/categories/{created_id}", data=update_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success'):
+                    self.log_result('/admin/categories/{id}', 'PUT', True, 
+                                  f"Category updated successfully", data)
+                else:
+                    self.log_result('/admin/categories/{id}', 'PUT', False, 
+                                  f"Invalid update response: {data}", data)
+            else:
+                self.log_result('/admin/categories/{id}', 'PUT', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+            
+            # Test DELETE
+            response = self.session.delete(f"{self.base_url}/admin/categories/{created_id}")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success'):
+                    self.log_result('/admin/categories/{id}', 'DELETE', True, 
+                                  f"Category deleted successfully", data)
+                else:
+                    self.log_result('/admin/categories/{id}', 'DELETE', False, 
+                                  f"Invalid delete response: {data}", data)
+            else:
+                self.log_result('/admin/categories/{id}', 'DELETE', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/categories (CRUD)', 'POST/PUT/DELETE', False, f"Exception: {str(e)}")
+    
+    def test_admin_portfolio_get(self):
+        """Test GET /api/admin/portfolio"""
+        try:
+            response = self.session.get(f"{self.base_url}/admin/portfolio")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    self.log_result('/admin/portfolio', 'GET', True, 
+                                  f"Retrieved {len(data)} admin portfolio items successfully", 
+                                  {'count': len(data)})
+                else:
+                    self.log_result('/admin/portfolio', 'GET', False, 
+                                  f"Expected list, got: {type(data)}", data)
+            else:
+                self.log_result('/admin/portfolio', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/portfolio', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_admin_portfolio_crud(self):
+        """Test POST/PUT/DELETE /api/admin/portfolio"""
+        # Test data for creating portfolio item
+        portfolio_data = {
+            "company": "Тестовая Компания ООО",
+            "description": "Тестовый проект для проверки CRUD операций портфолио",
+            "category": "shirts",
+            "items_count": 150,
+            "year": 2024,
+            "image": "/images/test-portfolio.jpg"
+        }
+        
+        created_id = None
+        
+        try:
+            # Test CREATE
+            response = self.session.post(f"{self.base_url}/admin/portfolio", data=portfolio_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success') and data.get('id'):
+                    created_id = data['id']
+                    self.log_result('/admin/portfolio', 'POST', True, 
+                                  f"Portfolio item created successfully with ID: {created_id}", data)
+                else:
+                    self.log_result('/admin/portfolio', 'POST', False, 
+                                  f"Invalid create response: {data}", data)
+                    return
+            else:
+                self.log_result('/admin/portfolio', 'POST', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                return
+            
+            # Test UPDATE
+            update_data = portfolio_data.copy()
+            update_data["company"] = "Обновленная Тестовая Компания"
+            update_data["items_count"] = 200
+            
+            response = self.session.put(f"{self.base_url}/admin/portfolio/{created_id}", data=update_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success'):
+                    self.log_result('/admin/portfolio/{id}', 'PUT', True, 
+                                  f"Portfolio item updated successfully", data)
+                else:
+                    self.log_result('/admin/portfolio/{id}', 'PUT', False, 
+                                  f"Invalid update response: {data}", data)
+            else:
+                self.log_result('/admin/portfolio/{id}', 'PUT', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+            
+            # Test DELETE
+            response = self.session.delete(f"{self.base_url}/admin/portfolio/{created_id}")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success'):
+                    self.log_result('/admin/portfolio/{id}', 'DELETE', True, 
+                                  f"Portfolio item deleted successfully", data)
+                else:
+                    self.log_result('/admin/portfolio/{id}', 'DELETE', False, 
+                                  f"Invalid delete response: {data}", data)
+            else:
+                self.log_result('/admin/portfolio/{id}', 'DELETE', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/portfolio (CRUD)', 'POST/PUT/DELETE', False, f"Exception: {str(e)}")
+    
+    def test_admin_quote_requests(self):
+        """Test GET /api/admin/quote-requests"""
+        try:
+            response = self.session.get(f"{self.base_url}/admin/quote-requests")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    self.log_result('/admin/quote-requests', 'GET', True, 
+                                  f"Retrieved {len(data)} quote requests successfully", 
+                                  {'count': len(data)})
+                else:
+                    self.log_result('/admin/quote-requests', 'GET', False, 
+                                  f"Expected list, got: {type(data)}", data)
+            else:
+                self.log_result('/admin/quote-requests', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/quote-requests', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_admin_quote_status_update(self):
+        """Test PUT /api/admin/quote-requests/{id}/status"""
+        # First, create a quote request to test status update
+        quote_data = {
+            "name": "Тест Статус",
+            "email": "test.status@example.com",
+            "phone": "+7 999 111 22 33",
+            "company": "Тестовая Компания",
+            "category": "shirts",
+            "quantity": "51-100",
+            "fabric": "cotton",
+            "branding": "embroidery",
+            "estimated_price": 1500
+        }
+        
+        try:
+            # Create quote request first
+            create_response = self.session.post(f"{self.base_url}/calculator/quote-request", json=quote_data)
+            
+            if create_response.status_code == 200:
+                create_data = create_response.json()
+                request_id = create_data.get('request_id')
+                
+                if request_id:
+                    # Now test status update
+                    status_data = {"status": "processed"}
+                    response = self.session.put(f"{self.base_url}/admin/quote-requests/{request_id}/status", 
+                                              data=status_data)
+                    
+                    if response.status_code == 200:
+                        data = response.json()
+                        if data.get('success'):
+                            self.log_result('/admin/quote-requests/{id}/status', 'PUT', True, 
+                                          f"Quote status updated successfully", data)
+                        else:
+                            self.log_result('/admin/quote-requests/{id}/status', 'PUT', False, 
+                                          f"Invalid status update response: {data}", data)
+                    else:
+                        self.log_result('/admin/quote-requests/{id}/status', 'PUT', False, 
+                                      f"HTTP {response.status_code}: {response.text}")
+                else:
+                    self.log_result('/admin/quote-requests/{id}/status', 'PUT', False, 
+                                  f"No request_id in create response: {create_data}")
+            else:
+                self.log_result('/admin/quote-requests/{id}/status', 'PUT', False, 
+                              f"Failed to create test quote request: {create_response.status_code}")
+                
+        except Exception as e:
+            self.log_result('/admin/quote-requests/{id}/status', 'PUT', False, f"Exception: {str(e)}")
+    
+    def test_admin_statistics_get(self):
+        """Test GET /api/admin/statistics"""
+        try:
+            response = self.session.get(f"{self.base_url}/admin/statistics")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data and isinstance(data, dict):
+                    required_fields = ['years_in_business', 'completed_orders', 'happy_clients', 'cities']
+                    if all(field in data for field in required_fields):
+                        self.log_result('/admin/statistics', 'GET', True, 
+                                      f"Admin statistics retrieved successfully", data)
+                    else:
+                        missing = [f for f in required_fields if f not in data]
+                        self.log_result('/admin/statistics', 'GET', False, 
+                                      f"Missing required fields: {missing}", data)
+                else:
+                    self.log_result('/admin/statistics', 'GET', True, 
+                                  f"No statistics found (empty response)", data)
+            else:
+                self.log_result('/admin/statistics', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/statistics', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_admin_statistics_update(self):
+        """Test PUT /api/admin/statistics"""
+        stats_data = {
+            "years_in_business": 15,
+            "completed_orders": 2500,
+            "happy_clients": 850,
+            "cities": 45
+        }
+        
+        try:
+            response = self.session.put(f"{self.base_url}/admin/statistics", data=stats_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success'):
+                    self.log_result('/admin/statistics', 'PUT', True, 
+                                  f"Statistics updated successfully", data)
+                else:
+                    self.log_result('/admin/statistics', 'PUT', False, 
+                                  f"Invalid update response: {data}", data)
+            else:
+                self.log_result('/admin/statistics', 'PUT', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/statistics', 'PUT', False, f"Exception: {str(e)}")
+    
+    def test_admin_image_upload(self):
+        """Test POST /api/admin/upload-image"""
+        # Create a simple test image file in memory
+        import io
+        from PIL import Image
+        
+        try:
+            # Create a simple test image
+            img = Image.new('RGB', (100, 100), color='red')
+            img_bytes = io.BytesIO()
+            img.save(img_bytes, format='JPEG')
+            img_bytes.seek(0)
+            
+            files = {'file': ('test_image.jpg', img_bytes, 'image/jpeg')}
+            
+            # Remove Content-Type header for file upload
+            headers = {k: v for k, v in self.session.headers.items() if k.lower() != 'content-type'}
+            
+            response = self.session.post(f"{self.base_url}/admin/upload-image", 
+                                       files=files, headers=headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success') and data.get('url'):
+                    self.log_result('/admin/upload-image', 'POST', True, 
+                                  f"Image uploaded successfully: {data['url']}", data)
+                else:
+                    self.log_result('/admin/upload-image', 'POST', False, 
+                                  f"Invalid upload response: {data}", data)
+            else:
+                self.log_result('/admin/upload-image', 'POST', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except ImportError:
+            self.log_result('/admin/upload-image', 'POST', False, 
+                          f"PIL library not available for image testing")
+        except Exception as e:
+            self.log_result('/admin/upload-image', 'POST', False, f"Exception: {str(e)}")
+    
+    def run_admin_tests(self):
+        """Run all admin panel tests"""
+        print(f"\n🔐 Starting Admin Panel API tests")
+        print("=" * 50)
+        
+        # Admin authentication tests
+        self.test_admin_login_success()
+        self.test_admin_login_failure()
+        
+        # Admin CRUD tests
+        self.test_admin_categories_get()
+        self.test_admin_categories_crud()
+        self.test_admin_portfolio_get()
+        self.test_admin_portfolio_crud()
+        
+        # Admin management tests
+        self.test_admin_quote_requests()
+        self.test_admin_quote_status_update()
+        self.test_admin_statistics_get()
+        self.test_admin_statistics_update()
+        
+        # File upload test
+        self.test_admin_image_upload()
+        
+        print("=" * 50)
     
     def run_all_tests(self):
         """Run all API tests"""
