@@ -167,7 +167,7 @@ async def create_callback_request(request: CallbackRequestCreate, background_tas
         response = ContactService.create_callback_request(request)
         
         # Send email notification in background
-        if os.getenv('SENDGRID_API_KEY'):
+        if os.getenv('SENDER_EMAIL') and os.getenv('EMAIL_PASSWORD'):
             request_data = {
                 'name': request.name,
                 'phone': request.phone,
