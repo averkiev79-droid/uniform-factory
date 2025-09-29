@@ -132,10 +132,28 @@ async def calculate_estimate(request: CalculatorEstimateRequest):
         raise HTTPException(status_code=500, detail="Internal server error")
 
 @api_router.post("/calculator/quote-request")
-async def create_quote_request(request: QuoteRequestCreate):
+async def create_quote_request(request: QuoteRequestCreate, background_tasks: BackgroundTasks):
     """Create a new quote request"""
     try:
         response = QuoteService.create_quote_request(request)
+        
+        # Send email notification in background
+        if os.getenv('SENDGRID_API_KEY'):
+            request_data = {
+                'request_id': response.get('request_id'),
+                'name': request.name,
+                'email': request.email,
+                'phone': request.phone,
+                'company': request.company,
+                'category': request.category,
+                'quantity': request.quantity,
+                'fabric': request.fabric,
+                'branding': request.branding,
+                'estimated_price': request.estimated_price,
+                'created_at': response.get('created_at')
+            }
+            background_tasks.add_task(send_quote_notification_email, request_data)
+        
         return response
     except Exception as e:
         logger.error(f"Error creating quote request: {e}")
