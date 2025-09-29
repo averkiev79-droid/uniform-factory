@@ -726,8 +726,9 @@ class APITester:
                 with open(tmp_file_path, 'rb') as f:
                     files = {'file': ('test_image.jpg', f, 'image/jpeg')}
                     
-                    # For file upload, don't set Content-Type header - let requests handle it
-                    response = self.session.post(f"{self.base_url}/admin/upload-image", files=files)
+                    # Create a new session without JSON headers for file upload
+                    upload_session = requests.Session()
+                    response = upload_session.post(f"{self.base_url}/admin/upload-image", files=files)
                 
                 if response.status_code == 200:
                     data = response.json()
