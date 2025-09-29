@@ -701,8 +701,8 @@ class APITester:
         }
         
         try:
-            # Remove Content-Type header for form data
-            headers = {k: v for k, v in self.session.headers.items() if k.lower() != 'content-type'}
+            # Set correct Content-Type for form data
+            headers = {'Content-Type': 'application/x-www-form-urlencoded'}
             response = self.session.put(f"{self.base_url}/admin/statistics", data=stats_data, headers=headers)
             
             if response.status_code == 200:
