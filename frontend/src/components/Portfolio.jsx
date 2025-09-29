@@ -181,12 +181,21 @@ export const Portfolio = () => {
               В нашем архиве более 5000 успешно реализованных проектов. 
               Запросите полное портфолио для вашей отрасли.
             </p>
-            <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200">
+            <button 
+              onClick={() => setIsPortfolioModalOpen(true)}
+              className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200"
+            >
               Запросить полное портфолио
             </button>
           </div>
         </div>
       </div>
+
+      {/* Portfolio Modal */}
+      <PortfolioModal 
+        isOpen={isPortfolioModalOpen} 
+        onClose={() => setIsPortfolioModalOpen(false)} 
+      />
     </section>
   );
 };
