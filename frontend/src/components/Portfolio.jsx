@@ -4,12 +4,14 @@ import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { apiService } from '../services/api';
 import { portfolioItems } from '../mock'; // Fallback data
+import { PortfolioModal } from './PortfolioModal';
 
 export const Portfolio = () => {
   const [portfolioData, setPortfolioData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [isPortfolioModalOpen, setIsPortfolioModalOpen] = useState(false);
   
   useEffect(() => {
     const fetchPortfolio = async () => {
