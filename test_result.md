@@ -306,6 +306,18 @@ frontend:
       - working: true
         agent: "main"
         comment: "✅ Image upload interface implemented"
+
+  - task: "Portfolio Request Button and Modal"
+    implemented: true
+    working: true
+    file: "frontend/src/components/Portfolio.jsx, frontend/src/components/PortfolioModal.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ COMPREHENSIVE PORTFOLIO REQUEST TESTING COMPLETED - All functionality working correctly: 1) 'Запросить полное портфолио' button found and clickable in Portfolio section 2) PortfolioModal opens successfully on button click 3) Form fields work correctly (name, email, phone required; company, industry optional) 4) Form validation working - shows error for missing required fields 5) Form submission successful - API call to /api/contact/consultation returns 200 OK 6) Success message 'Заявка отправлена!' displays correctly with proper text 'Мы вышлем вам подборку проектов на указанную почту в течение 24 часов' 7) Modal close functionality working 8) Mobile responsiveness tested and working 9) Backend integration confirmed via logs. Portfolio request feature is fully functional and ready for production use."
   - task: "Health Check API"
     implemented: true
     working: true
