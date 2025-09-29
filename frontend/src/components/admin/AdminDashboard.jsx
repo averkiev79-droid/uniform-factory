@@ -129,12 +129,12 @@ export const AdminDashboard = ({ onLogout }) => {
       {/* Sidebar */}
       <div className={`bg-white shadow-lg transition-all duration-300 ${
         isSidebarOpen ? 'w-64' : 'w-0 md:w-64'
-      } overflow-hidden`}>
+      } overflow-hidden relative flex flex-col`}>
         <div className="p-6 border-b">
           <h2 className="text-xl font-bold text-gray-900">AVIK Admin</h2>
         </div>
         
-        <nav className="mt-6">
+        <nav className="mt-6 flex-1">
           {menuItems.map((item) => (
             <button
               key={item.id}
@@ -154,7 +154,7 @@ export const AdminDashboard = ({ onLogout }) => {
           ))}
         </nav>
         
-        <div className="absolute bottom-0 left-0 right-0 p-6 border-t">
+        <div className="p-6 border-t">
           <Button
             onClick={onLogout}
             variant="outline"
