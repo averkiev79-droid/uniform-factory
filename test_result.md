@@ -156,11 +156,14 @@ backend:
     file: "backend/admin_routes.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "✅ Quote requests management implemented. Routes: GET /api/admin/quote-requests, PUT /api/admin/quote-requests/{id}/status"
+      - working: true
+        agent: "testing"
+        comment: "✅ Admin quote requests management tested successfully. GET /api/admin/quote-requests retrieves all quote requests with proper filtering. PUT /api/admin/quote-requests/{id}/status updates quote status using database ID. Both operations work correctly."
 
   - task: "Admin Statistics Management API"
     implemented: true
