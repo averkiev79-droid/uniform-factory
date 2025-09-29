@@ -11,6 +11,9 @@ from models import *
 from services_sqlite import *
 from database_sqlite import init_sqlite_database
 
+# Import admin routes
+from admin_routes import admin_router
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
