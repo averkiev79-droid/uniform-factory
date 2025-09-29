@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { PortfolioManager } from './PortfolioManager';
 import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
