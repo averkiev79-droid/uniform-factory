@@ -9,15 +9,15 @@
       "service": "avik-uniform-api",
       "database": "sqlite"
     },
-    "timestamp": "2025-09-29 11:18:04"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/categories",
     "method": "GET",
     "success": true,
-    "details": "Retrieved 6 categories successfully",
+    "details": "Retrieved 7 categories successfully",
     "response_data": {
-      "count": 6,
+      "count": 7,
       "sample": {
         "id": "1",
         "title": "Униформа для ресторанов и отелей",
@@ -29,7 +29,7 @@
         "updated_at": "2025-09-28T15:08:31.856969"
       }
     },
-    "timestamp": "2025-09-29 11:18:04"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/portfolio",
@@ -50,7 +50,7 @@
         "updated_at": "2025-09-28T15:08:31.856285"
       }
     },
-    "timestamp": "2025-09-29 11:18:04"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/calculator/options",
@@ -157,7 +157,7 @@
         }
       ]
     },
-    "timestamp": "2025-09-29 11:18:04"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/calculator/estimate",
@@ -173,19 +173,19 @@
         "brandingPrice": 150
       }
     },
-    "timestamp": "2025-09-29 11:18:04"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/calculator/quote-request",
     "method": "POST",
     "success": true,
-    "details": "Quote request created: REQ-2025-E7BCD7",
+    "details": "Quote request created: REQ-2025-C38538",
     "response_data": {
       "success": true,
-      "request_id": "REQ-2025-E7BCD7",
+      "request_id": "REQ-2025-C38538",
       "message": "Заявка принята. Мы свяжемся с вами в течение 2 часов."
     },
-    "timestamp": "2025-09-29 11:18:04"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/contact/callback-request",
@@ -196,7 +196,7 @@
       "success": true,
       "message": "Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут."
     },
-    "timestamp": "2025-09-29 11:18:04"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/testimonials",
@@ -216,7 +216,7 @@
         "updated_at": "2025-09-28T15:08:31.857932"
       }
     },
-    "timestamp": "2025-09-29 11:18:04"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/statistics",
@@ -231,7 +231,7 @@
       "cities": 150,
       "updated_at": "2025-09-28T15:08:31.857471"
     },
-    "timestamp": "2025-09-29 11:18:04"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/calculator/estimate (invalid)",
@@ -239,7 +239,7 @@
     "success": true,
     "details": "Correctly rejected invalid data: {\"detail\":\"Invalid calculator parameters\"}",
     "response_data": null,
-    "timestamp": "2025-09-29 11:18:04"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/calculator/quote-request (incomplete)",
@@ -247,7 +247,7 @@
     "success": true,
     "details": "Correctly rejected incomplete data: validation error",
     "response_data": null,
-    "timestamp": "2025-09-29 11:18:04"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/admin/login",
@@ -258,7 +258,7 @@
       "success": true,
       "token": "admin-authenticated"
     },
-    "timestamp": "2025-09-29 11:18:04"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/admin/login (invalid)",
@@ -266,25 +266,48 @@
     "success": true,
     "details": "Correctly rejected invalid password: {\"detail\":\"Invalid password\"}",
     "response_data": null,
-    "timestamp": "2025-09-29 11:18:05"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/admin/categories",
     "method": "GET",
     "success": true,
-    "details": "Retrieved 6 admin categories successfully",
+    "details": "Retrieved 7 admin categories successfully",
     "response_data": {
-      "count": 6
+      "count": 7
     },
-    "timestamp": "2025-09-29 11:18:05"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/admin/categories",
     "method": "POST",
-    "success": false,
-    "details": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"title\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"description\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"products_count\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"slug\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"image\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"}]}",
-    "response_data": null,
-    "timestamp": "2025-09-29 11:18:05"
+    "success": true,
+    "details": "Category created successfully with ID: b2f116ed-e129-4c15-8919-1af9ea6d4983",
+    "response_data": {
+      "success": true,
+      "id": "b2f116ed-e129-4c15-8919-1af9ea6d4983"
+    },
+    "timestamp": "2025-09-29 11:18:59"
+  },
+  {
+    "endpoint": "/admin/categories/{id}",
+    "method": "PUT",
+    "success": true,
+    "details": "Category updated successfully",
+    "response_data": {
+      "success": true
+    },
+    "timestamp": "2025-09-29 11:18:59"
+  },
+  {
+    "endpoint": "/admin/categories/{id}",
+    "method": "DELETE",
+    "success": true,
+    "details": "Category deleted successfully",
+    "response_data": {
+      "success": true
+    },
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/admin/portfolio",
@@ -294,33 +317,56 @@
     "response_data": {
       "count": 6
     },
-    "timestamp": "2025-09-29 11:18:05"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/admin/portfolio",
     "method": "POST",
-    "success": false,
-    "details": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"company\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"description\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"category\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"items_count\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"year\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"image\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"}]}",
-    "response_data": null,
-    "timestamp": "2025-09-29 11:18:05"
+    "success": true,
+    "details": "Portfolio item created successfully with ID: e731c79f-100e-42df-82e5-961185f3b4f7",
+    "response_data": {
+      "success": true,
+      "id": "e731c79f-100e-42df-82e5-961185f3b4f7"
+    },
+    "timestamp": "2025-09-29 11:18:59"
+  },
+  {
+    "endpoint": "/admin/portfolio/{id}",
+    "method": "PUT",
+    "success": true,
+    "details": "Portfolio item updated successfully",
+    "response_data": {
+      "success": true
+    },
+    "timestamp": "2025-09-29 11:18:59"
+  },
+  {
+    "endpoint": "/admin/portfolio/{id}",
+    "method": "DELETE",
+    "success": true,
+    "details": "Portfolio item deleted successfully",
+    "response_data": {
+      "success": true
+    },
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/admin/quote-requests",
     "method": "GET",
     "success": true,
-    "details": "Retrieved 9 quote requests successfully",
+    "details": "Retrieved 11 quote requests successfully",
     "response_data": {
-      "count": 9
+      "count": 11
     },
-    "timestamp": "2025-09-29 11:18:05"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/admin/quote-requests/{id}/status",
     "method": "PUT",
     "success": false,
-    "details": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"status\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"}]}",
+    "details": "HTTP 404: {\"detail\":\"Request not found\"}",
     "response_data": null,
-    "timestamp": "2025-09-29 11:18:05"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/admin/statistics",
@@ -335,15 +381,17 @@
       "cities": 150,
       "updated_at": "2025-09-28T15:08:31.857471"
     },
-    "timestamp": "2025-09-29 11:18:05"
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/admin/statistics",
     "method": "PUT",
-    "success": false,
-    "details": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"years_in_business\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"completed_orders\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"happy_clients\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"},{\"type\":\"missing\",\"loc\":[\"body\",\"cities\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"}]}",
-    "response_data": null,
-    "timestamp": "2025-09-29 11:18:05"
+    "success": true,
+    "details": "Statistics updated successfully",
+    "response_data": {
+      "success": true
+    },
+    "timestamp": "2025-09-29 11:18:59"
   },
   {
     "endpoint": "/admin/upload-image",
@@ -351,6 +399,6 @@
     "success": false,
     "details": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"file\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"}]}",
     "response_data": null,
-    "timestamp": "2025-09-29 11:18:05"
+    "timestamp": "2025-09-29 11:18:59"
   }
 ]
