@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from pathlib import Path
@@ -13,6 +13,9 @@ from database_sqlite import init_sqlite_database
 
 # Import admin routes
 from admin_routes import admin_router
+
+# Import email service
+from email_service import send_quote_notification_email, send_callback_notification_email, EmailDeliveryError
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
