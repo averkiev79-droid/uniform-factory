@@ -445,8 +445,8 @@ class APITester:
         created_id = None
         
         try:
-            # Test CREATE - Remove Content-Type header for form data
-            headers = {k: v for k, v in self.session.headers.items() if k.lower() != 'content-type'}
+            # Test CREATE - Set correct Content-Type for form data
+            headers = {'Content-Type': 'application/x-www-form-urlencoded'}
             response = self.session.post(f"{self.base_url}/admin/categories", data=category_data, headers=headers)
             
             if response.status_code == 200:
