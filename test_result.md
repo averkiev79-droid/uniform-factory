@@ -111,11 +111,14 @@ backend:
     file: "backend/admin_routes.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "✅ Admin login endpoint implemented with password authentication. Route: POST /api/admin/login"
+      - working: true
+        agent: "testing"
+        comment: "✅ Admin authentication tested successfully. POST /api/admin/login works with correct password 'avik2024admin' and properly rejects invalid passwords with 401 status."
 
   - task: "Admin Categories Management API"
     implemented: true
