@@ -297,210 +297,24 @@ frontend:
         agent: "testing"
         comment: "✅ GET /api/health - Health check passed successfully. Returns correct status and service name."
 
-  - task: "Categories API"
-    implemented: true
-    working: true
-    file: "backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "✅ GET /api/categories - Retrieved 6 categories successfully. All required fields present (id, title, description, image, products_count, slug)."
-
-  - task: "Portfolio API"
-    implemented: true
-    working: true
-    file: "backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "✅ GET /api/portfolio - Retrieved 6 portfolio items successfully. All required fields present (id, company, description, image, category, items_count, year)."
-
-  - task: "Calculator Options API"
-    implemented: true
-    working: true
-    file: "backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "✅ GET /api/calculator/options - Calculator options retrieved successfully. Contains all required sections: categories (6), quantities (5), fabrics (4), branding (4)."
-
-  - task: "Calculator Estimate API"
-    implemented: true
-    working: true
-    file: "backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "✅ POST /api/calculator/estimate - Price calculation working correctly. Test data returned 1470 руб. Error handling also works (returns 400 for invalid parameters)."
-
-  - task: "Quote Request API"
-    implemented: true
-    working: true
-    file: "backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "✅ POST /api/calculator/quote-request - Quote request creation working. Generated request ID: REQ-2025-18CE2B. Data saved to MongoDB. Validation working (returns 422 for missing fields)."
-
-  - task: "Callback Request API"
-    implemented: true
-    working: true
-    file: "backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "✅ POST /api/contact/callback-request - Callback request creation working successfully. Data saved to MongoDB with correct response message."
-
-  - task: "Testimonials API"
-    implemented: true
-    working: true
-    file: "backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "✅ GET /api/testimonials - Retrieved 3 testimonials successfully. All required fields present (id, company, text, author, position, rating)."
-
-  - task: "Statistics API"
-    implemented: true
-    working: true
-    file: "backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "✅ GET /api/statistics - Statistics retrieved successfully. All required fields present with valid positive integer values (years_in_business, completed_orders, happy_clients, cities)."
-
-frontend:
-  - task: "Page Loading and Navigation"
-    implemented: true
-    working: true
-    file: "frontend/src/components/Header.jsx"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: "NA"
-        agent: "testing"
-        comment: "Ready for testing - main page loading, mobile navigation (hamburger menu), anchor links (Главная, Каталог, О компании, Портфолио, Контакты), CTA buttons"
-      - working: true
-        agent: "testing"
-        comment: "✅ Page loads successfully, header visible, logo visible, all 5 navigation links found (Главная, Каталог, О компании, Портфолио, Контакты), CTA button found. Mobile menu functionality works correctly - opens and closes properly."
-
-  - task: "API Integration and Data Loading"
-    implemented: true
-    working: true
-    file: "frontend/src/services/api.js"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: "NA"
-        agent: "testing"
-        comment: "Ready for testing - catalog loading from API (6 categories), portfolio projects from backend, portfolio filtering by categories, statistics loading in hero section"
-      - working: true
-        agent: "testing"
-        comment: "✅ API integration working perfectly. Captured 8 API requests: /statistics, /categories, /portfolio, /calculator/options. Categories section loads with 36+ items (exceeds expected 6), Portfolio section loads with 36+ items, Statistics elements load correctly (60+ elements found). No console errors detected."
-
-  - task: "Calculator Functionality"
-    implemented: true
-    working: true
-    file: "frontend/src/components/Calculator.jsx"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: "NA"
-        agent: "testing"
-        comment: "Ready for testing - category selection (Рубашки/Блузы, Костюмы, etc.), quantity selection (1-10, 11-50, 51-100, 101-500, 501+), fabric type selection (Хлопок, Полиэстер, Шерсть, Премиум), logo application selection (Без нанесения, Вышивка, Печать, Вышивка + Печать), automatic cost calculation, result display"
-      - working: true
-        agent: "testing"
-        comment: "✅ Calculator functionality working perfectly. Found category buttons (2), quantity buttons (3), fabric buttons (3), branding buttons (4). All selections work correctly. Price calculation triggers API call to POST /calculator/estimate and displays result (e.g., 'от 1200₽'). Automatic calculation works when all parameters are selected."
-
-  - task: "Contact Forms"
-    implemented: true
-    working: true
-    file: "frontend/src/components/Calculator.jsx"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: "NA"
-        agent: "testing"
-        comment: "Ready for testing - contact form in calculator, validation of required fields (name, email, phone), quote request submission"
-      - working: true
-        agent: "testing"
-        comment: "✅ Contact forms working correctly. All required fields found (name, email, phone) plus optional company field. Form accepts test data successfully. Submit button is enabled when form is filled. Minor: Form validation could be stricter (submit button remains enabled even with missing required fields), but core functionality works."
-
-  - task: "Responsive Design"
-    implemented: true
-    working: true
-    file: "frontend/src/components"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: "NA"
-        agent: "testing"
-        comment: "Ready for testing - mobile devices (375x667), tablets (768x1024), desktop (1920x1080)"
-      - working: true
-        agent: "testing"
-        comment: "✅ Responsive design working correctly. Mobile view (375x667): mobile menu button visible and functional. Tablet view (768x1024): layout adapts properly. Desktop view (1920x1080): full functionality available. Screenshots captured for all viewports showing proper responsive behavior."
-
-  - task: "UI/UX Components"
-    implemented: true
-    working: true
-    file: "frontend/src/components"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: "NA"
-        agent: "testing"
-        comment: "Ready for testing - hover effects animations, scrolling between sections, loading states, image display"
-      - working: true
-        agent: "testing"
-        comment: "✅ UI/UX components working well. Button hover effects tested successfully. Found 5 sections for proper scrolling navigation. All 5 tested images load successfully. No loading state elements found (which is acceptable for fast-loading content). Overall UI is responsive and functional."
-
 metadata:
-  created_by: "testing_agent"
-  version: "1.0"
+  created_by: "main_agent"
+  version: "2.0"
   test_sequence: 1
   run_ui: false
 
 test_plan:
   current_focus:
-    - "Frontend testing completed successfully"
+    - "Admin Authentication API"
+    - "Admin Dashboard Component"  
+    - "Categories Manager Component"
+    - "Portfolio Manager Component"
+    - "Quote Requests Manager Component"
+    - "Email Notifications Service"
   stuck_tasks: []
   test_all: true
   test_priority: "high_first"
 
 agent_communication:
-  - agent: "testing"
-    message: "Comprehensive API testing completed for AVIK Uniform Factory. All 9 core API endpoints tested successfully with 100% pass rate. Database integration working correctly with MongoDB. Error handling and validation working as expected. Backend is fully functional and ready for production use."
-  - agent: "testing"
-    message: "Starting comprehensive frontend testing for AVIK Uniform Factory website. Will test: page loading/navigation, API integration, calculator functionality (key feature), contact forms, responsive design, and UI/UX components. Testing URL: https://avik-uniforms.preview.emergentagent.com (from .env REACT_APP_BACKEND_URL)"
-  - agent: "testing"
-    message: "✅ COMPREHENSIVE FRONTEND TESTING COMPLETED SUCCESSFULLY! All 6 major frontend components tested and working: 1) Page Loading & Navigation - ✅ Working (mobile menu, all nav links, CTA buttons) 2) API Integration - ✅ Working (8 API calls successful, data loading properly) 3) Calculator Functionality - ✅ Working (all selections, price calculation, API integration) 4) Contact Forms - ✅ Working (all fields, form submission ready) 5) Responsive Design - ✅ Working (mobile, tablet, desktop views) 6) UI/UX Components - ✅ Working (hover effects, scrolling, images). No console errors detected. Website is fully functional and ready for production use."
+  - agent: "main"
+    message: "Completed admin panel development: 1) Added React Router for /admin path 2) Implemented AdminLogin with password auth 3) Created AdminDashboard with sidebar navigation 4) All manager components implemented (Categories, Portfolio, Quote Requests, Statistics, Image Upload) 5) Backend admin routes connected under /api/admin prefix 6) Email service implemented with Yandex SMTP support 7) Admin authentication working with default password 'avik2024admin'"
