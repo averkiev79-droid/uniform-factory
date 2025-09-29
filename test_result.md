@@ -186,11 +186,14 @@ backend:
     file: "backend/admin_routes.py"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "✅ Image upload functionality implemented. Route: POST /api/admin/upload-image"
+      - working: true
+        agent: "testing"
+        comment: "✅ Image upload API tested successfully. POST /api/admin/upload-image accepts file uploads via multipart/form-data, validates image content type, generates unique filenames, and returns upload URL. File storage works correctly in uploads directory."
 
   - task: "Email Notifications Service"
     implemented: true
