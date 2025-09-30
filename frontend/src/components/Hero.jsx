@@ -70,22 +70,19 @@ export const Hero = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                size="lg" 
-                onClick={scrollToCalculator}
-                className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 text-lg group"
+              <a 
+                href="/calculator"
+                className="inline-flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 text-lg rounded-lg font-medium transition-colors duration-200 group"
               >
                 Получить расчет стоимости
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                onClick={scrollToCatalog}
-                className="border-2 border-gray-300 hover:border-purple-600 hover:text-purple-600 px-8 py-4 text-lg"
+              </a>
+              <a 
+                href="/catalog"
+                className="inline-flex items-center justify-center border-2 border-gray-300 hover:border-purple-600 hover:text-purple-600 px-8 py-4 text-lg rounded-lg font-medium transition-colors duration-200"
               >
                 Посмотреть каталог
-              </Button>
+              </a>
             </div>
 
             {/* Trust indicators */}
