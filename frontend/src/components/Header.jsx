@@ -102,12 +102,12 @@ export const Header = () => {
                 </a>
               ))}
               <div className="pt-4 border-t border-gray-100">
-                <Button 
-                  onClick={scrollToCalculator}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                <a 
+                  href="/calculator"
+                  className="block w-full bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 text-center"
                 >
                   Заказать расчет
-                </Button>
+                </a>
               </div>
             </nav>
           </div>
