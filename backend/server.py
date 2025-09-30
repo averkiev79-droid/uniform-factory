@@ -184,10 +184,23 @@ async def create_callback_request(request: CallbackRequestCreate, background_tas
         raise HTTPException(status_code=500, detail="Internal server error")
 
 @api_router.post("/contact/consultation")
-async def create_consultation_request(request: ConsultationRequestCreate):
+async def create_consultation_request(request: ConsultationRequestCreate, background_tasks: BackgroundTasks):
     """Create consultation request"""
     try:
         response = ContactService.create_consultation_request(request)
+        
+        # Send email notification in background
+        if os.getenv('SENDER_EMAIL') and os.getenv('EMAIL_PASSWORD'):
+            request_data = {
+                'name': request.name,
+                'phone': request.phone,
+                'email': request.email,
+                'company': request.company,
+                'message': getattr(request, 'message', None),
+                'created_at': response.get('created_at')
+            }
+            background_tasks.add_task(send_callback_notification_email, request_data)
+        
         return response
     except Exception as e:
         logger.error(f"Error creating consultation request: {e}")
