@@ -5,13 +5,6 @@ import { Button } from './ui/button';
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const scrollToCalculator = () => {
-    const calculatorElement = document.querySelector('#calculator');
-    if (calculatorElement) {
-      calculatorElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const navigation = [
     { name: 'Главная', href: '/' },
     { name: 'Каталог', href: '/catalog' },
