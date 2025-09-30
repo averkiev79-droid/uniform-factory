@@ -206,6 +206,29 @@ async def create_consultation_request(request: ConsultationRequestCreate, backgr
         logger.error(f"Error creating consultation request: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
+@api_router.post("/contact/message")
+async def create_contact_message(request: ContactMessageCreate, background_tasks: BackgroundTasks):
+    """Create general contact message"""
+    try:
+        response = ContactService.create_contact_message(request)
+        
+        # Send email notification in background
+        if os.getenv('SENDER_EMAIL') and os.getenv('EMAIL_PASSWORD'):
+            request_data = {
+                'name': request.name,
+                'email': request.email,
+                'phone': request.phone,
+                'company': request.company,
+                'message': request.message,
+                'created_at': response.get('created_at')
+            }
+            background_tasks.add_task(send_contact_message_email, request_data)
+        
+        return response
+    except Exception as e:
+        logger.error(f"Error creating contact message: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
 # Testimonials endpoint
 @api_router.get("/testimonials")
 async def get_testimonials():
