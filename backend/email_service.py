@@ -182,3 +182,60 @@ def send_callback_notification_email(request_data: dict):
     """
     
     return send_email(admin_email, subject, html_content, plain_text)
+def send_contact_message_email(request_data: dict):
+    """
+    Send general contact message notification email to admin
+    """
+    admin_email = os.getenv('ADMIN_EMAIL', 'admin@example.com')
+    
+    subject = f"Новое сообщение от {request_data.get('name', 'Неизвестно')}"
+    
+    html_content = f"""
+    <html>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+                <h2 style="color: #7C3AED; border-bottom: 2px solid #7C3AED; padding-bottom: 10px;">
+                    Новое сообщение с сайта
+                </h2>
+                
+                <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                    <h3 style="margin-top: 0; color: #495057;">Контактная информация:</h3>
+                    <p><strong>Имя:</strong> {request_data.get('name', 'Не указано')}</p>
+                    <p><strong>Email:</strong> <span style="color: #007bff; font-weight: bold;">{request_data.get('email', 'Не указан')}</span></p>
+                    <p><strong>Телефон:</strong> {request_data.get('phone', 'Не указан')}</p>
+                    <p><strong>Компания:</strong> {request_data.get('company', 'Не указана')}</p>
+                    <p><strong>Дата сообщения:</strong> {request_data.get('created_at', 'N/A')}</p>
+                </div>
+                
+                <div style="background-color: #fff; padding: 15px; border: 1px solid #dee2e6; border-radius: 5px; margin: 20px 0;">
+                    <h3 style="margin-top: 0; color: #495057;">Сообщение:</h3>
+                    <p style="white-space: pre-wrap;">{request_data.get('message', 'Сообщение не указано')}</p>
+                </div>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                    <p style="color: #6c757d; font-style: italic;">
+                        Это автоматическое уведомление от сайта AVIK Uniform Factory
+                    </p>
+                </div>
+            </div>
+        </body>
+    </html>
+    """
+    
+    plain_text = f"""
+    Новое сообщение с сайта от {request_data.get('name', 'Неизвестно')}
+    
+    Контактная информация:
+    Имя: {request_data.get('name', 'Не указано')}
+    Email: {request_data.get('email', 'Не указан')}
+    Телефон: {request_data.get('phone', 'Не указан')}
+    Компания: {request_data.get('company', 'Не указана')}
+    Дата сообщения: {request_data.get('created_at', 'N/A')}
+    
+    Сообщение:
+    {request_data.get('message', 'Сообщение не указано')}
+    
+    Это автоматическое уведомление от сайта AVIK Uniform Factory
+    """
+    
+    return send_email(admin_email, subject, html_content, plain_text)
