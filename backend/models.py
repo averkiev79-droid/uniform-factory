@@ -125,6 +125,14 @@ class ContactRequestResponse(BaseModel):
     success: bool
     message: str
 
+# General Contact Message
+class ContactMessageCreate(BaseModel):
+    name: str
+    email: str
+    phone: str
+    company: Optional[str] = None
+    message: str
+
 # Calculator Options
 class CalculatorCategory(BaseModel):
     id: str
