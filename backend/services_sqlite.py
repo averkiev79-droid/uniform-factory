@@ -196,6 +196,31 @@ class ContactService:
             )
         finally:
             db.close()
+    
+    @staticmethod
+    def create_contact_message(request: ContactMessageCreate) -> ContactRequestResponse:
+        """Create general contact message"""
+        db = SessionLocal()
+        try:
+            contact_request = DBContactRequest(
+                type="message",
+                name=request.name,
+                email=request.email,
+                phone=request.phone,
+                company=request.company,
+                message=request.message,
+                status="new"
+            )
+            
+            db.add(contact_request)
+            db.commit()
+            
+            return ContactRequestResponse(
+                success=True,
+                message="Ваше сообщение отправлено. Мы ответим в ближайшее время."
+            )
+        finally:
+            db.close()
 
 class CatalogService:
     
