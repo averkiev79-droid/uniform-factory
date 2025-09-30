@@ -4,10 +4,67 @@ import { Button } from '../components/ui/button';
 import { Label } from '../components/ui/label';
 import { CallbackModal } from '../components/CallbackModal';
 import { ConsultationModal } from '../components/ConsultationModal';
+import { apiService } from '../services/api';
 
 export const ContactsPage = () => {
   const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ type: null, message: '' });
+
+  const handleInputChange = (field, value) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    setSubmitStatus({ type: null, message: '' }); // Clear status on input
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
+      setSubmitStatus({ 
+        type: 'error', 
+        message: 'Заполните обязательные поля: имя, email, телефон и сообщение' 
+      });
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      setSubmitStatus({ type: null, message: '' });
+
+      await apiService.submitContactMessage(formData);
+      
+      setSubmitStatus({ 
+        type: 'success', 
+        message: 'Ваше сообщение отправлено! Мы ответим в ближайшее время.' 
+      });
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        message: ''
+      });
+
+    } catch (error) {
+      console.error('Error submitting contact message:', error);
+      setSubmitStatus({ 
+        type: 'error', 
+        message: 'Ошибка при отправке сообщения. Попробуйте еще раз.' 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div>
