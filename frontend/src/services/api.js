@@ -142,6 +142,16 @@ export const apiService = {
     }
   },
 
+  async submitContactMessage(messageData) {
+    try {
+      const response = await api.post('/contact/message', messageData);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to submit contact message:', error);
+      throw error;
+    }
+  },
+
   // Testimonials
   async getTestimonials() {
     try {
