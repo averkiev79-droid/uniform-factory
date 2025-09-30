@@ -1,31 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "./App.css";
-import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { ProductCategories } from './components/ProductCategories';
-import { Advantages } from './components/Advantages';
-import { About } from './components/About';
-import { Portfolio } from './components/Portfolio';
-import { Calculator } from './components/Calculator';
-import { Footer } from './components/Footer';
+import { Layout } from './components/Layout';
+import { HomePage } from './pages/HomePage';
+import { CatalogPage } from './pages/CatalogPage';
+import { AboutPage } from './pages/AboutPage';
+import { PortfolioPage } from './pages/PortfolioPage';
+import { ContactsPage } from './pages/ContactsPage';
+import { CalculatorPage } from './pages/CalculatorPage';
 import { AdminApp } from './components/AdminApp';
-
-// Main website component
-function MainWebsite() {
-  return (
-    <div>
-      <Header />
-      <Hero />
-      <ProductCategories />
-      <Advantages />
-      <About />
-      <Portfolio />
-      <Calculator />
-      <Footer />
-    </div>
-  );
-}
 
 function App() {
   return (
@@ -33,7 +16,36 @@ function App() {
       <Router>
         <Routes>
           <Route path="/admin" element={<AdminApp />} />
-          <Route path="/" element={<MainWebsite />} />
+          <Route path="/" element={
+            <Layout>
+              <HomePage />
+            </Layout>
+          } />
+          <Route path="/catalog" element={
+            <Layout>
+              <CatalogPage />
+            </Layout>
+          } />
+          <Route path="/about" element={
+            <Layout>
+              <AboutPage />
+            </Layout>
+          } />
+          <Route path="/portfolio" element={
+            <Layout>
+              <PortfolioPage />
+            </Layout>
+          } />
+          <Route path="/contacts" element={
+            <Layout>
+              <ContactsPage />
+            </Layout>
+          } />
+          <Route path="/calculator" element={
+            <Layout>
+              <CalculatorPage />
+            </Layout>
+          } />
         </Routes>
       </Router>
     </div>
