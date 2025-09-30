@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Star, Award } from 'lucide-react';
-import { Button } from './ui/button';
 import { apiService } from '../services/api';
 import { stats } from '../mock'; // Fallback data
 
