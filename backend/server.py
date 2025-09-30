@@ -15,7 +15,7 @@ from database_sqlite import init_sqlite_database
 from admin_routes import admin_router
 
 # Import email service
-from email_service import send_quote_notification_email, send_callback_notification_email, EmailDeliveryError
+from email_service import send_quote_notification_email, send_callback_notification_email, send_contact_message_email, EmailDeliveryError
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
