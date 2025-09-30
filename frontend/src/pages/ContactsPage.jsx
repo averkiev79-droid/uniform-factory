@@ -171,13 +171,15 @@ export const ContactsPage = () => {
                 Напишите нам
               </h2>
               
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="name">Имя *</Label>
                     <input
                       id="name"
                       type="text"
+                      value={formData.name}
+                      onChange={(e) => handleInputChange('name', e.target.value)}
                       className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                       placeholder="Ваше имя"
                       required
@@ -188,6 +190,8 @@ export const ContactsPage = () => {
                     <input
                       id="phone"
                       type="tel"
+                      value={formData.phone}
+                      onChange={(e) => handleInputChange('phone', e.target.value)}
                       className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                       placeholder="+7 (999) 123-45-67"
                       required
@@ -200,6 +204,8 @@ export const ContactsPage = () => {
                   <input
                     id="email"
                     type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="your@email.com"
                     required
@@ -211,6 +217,8 @@ export const ContactsPage = () => {
                   <input
                     id="company"
                     type="text"
+                    value={formData.company}
+                    onChange={(e) => handleInputChange('company', e.target.value)}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="Название компании"
                   />
@@ -221,17 +229,30 @@ export const ContactsPage = () => {
                   <textarea
                     id="message"
                     rows={4}
+                    value={formData.message}
+                    onChange={(e) => handleInputChange('message', e.target.value)}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="Расскажите о ваших потребностях..."
                     required
                   />
                 </div>
 
+                {submitStatus.type && (
+                  <div className={`p-4 rounded-lg ${
+                    submitStatus.type === 'success' 
+                      ? 'bg-green-50 border border-green-200 text-green-700'
+                      : 'bg-red-50 border border-red-200 text-red-700'
+                  }`}>
+                    {submitStatus.message}
+                  </div>
+                )}
+
                 <Button 
                   type="submit"
-                  className="w-full bg-purple-600 hover:bg-purple-700"
+                  disabled={isSubmitting}
+                  className="w-full bg-purple-600 hover:bg-purple-700 disabled:opacity-50"
                 >
-                  Отправить сообщение
+                  {isSubmitting ? 'Отправка...' : 'Отправить сообщение'}
                 </Button>
               </form>
             </div>
