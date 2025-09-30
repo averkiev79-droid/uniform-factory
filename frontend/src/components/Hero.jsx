@@ -31,20 +31,6 @@ export const Hero = () => {
     fetchStatistics();
   }, []);
 
-  const scrollToCalculator = () => {
-    const calculatorElement = document.querySelector('#calculator');
-    if (calculatorElement) {
-      calculatorElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const scrollToCatalog = () => {
-    const catalogElement = document.querySelector('#catalog');
-    if (catalogElement) {
-      catalogElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <section id="home" className="bg-gradient-to-br from-gray-50 to-gray-100 py-16 lg:py-24">
       <div className="container mx-auto px-4">
