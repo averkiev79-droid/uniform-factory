@@ -13,11 +13,11 @@ export const Header = () => {
   };
 
   const navigation = [
-    { name: 'Главная', href: '#home' },
-    { name: 'Каталог', href: '#catalog' },
-    { name: 'О компании', href: '#about' },
-    { name: 'Портфолио', href: '#portfolio' },
-    { name: 'Контакты', href: '#contacts' }
+    { name: 'Главная', href: '/' },
+    { name: 'Каталог', href: '/catalog' },
+    { name: 'О компании', href: '/about' },
+    { name: 'Портфолио', href: '/portfolio' },
+    { name: 'Контакты', href: '/contacts' }
   ];
 
   return (
