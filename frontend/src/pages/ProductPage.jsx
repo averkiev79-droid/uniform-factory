@@ -40,6 +40,9 @@ export const ProductPage = () => {
     }
     
     localStorage.setItem('favorites', JSON.stringify(newFavorites));
+    
+    // Dispatch event to update header counter
+    window.dispatchEvent(new Event('favoriteUpdated'));
   };
 
   // Share product
