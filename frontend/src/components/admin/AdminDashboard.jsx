@@ -131,7 +131,7 @@ export const AdminDashboard = ({ onLogout }) => {
         isSidebarOpen ? 'w-64' : 'w-0 md:w-64'
       } overflow-hidden relative flex flex-col`}>
         <div className="p-6 border-b">
-          <h2 className="text-xl font-bold text-gray-900">AVIK Admin</h2>
+          <h2 className="text-xl font-bold text-gray-900">Admin Panel</h2>
         </div>
         
         <nav className="mt-6 flex-1">
