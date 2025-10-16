@@ -94,6 +94,10 @@
     border-color: #05296E !important;
 }
 
+.border-navy-700 {
+    border-color: #05296E !important;
+}
+
 .focus\:ring-navy:focus {
     --tw-ring-color: #05296E !important;
 }
