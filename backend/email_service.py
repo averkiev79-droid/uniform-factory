@@ -96,7 +96,7 @@ def send_quote_notification_email(request_data: dict):
                 
                 <div style="text-align: center; margin: 30px 0;">
                     <p style="color: #6c757d; font-style: italic;">
-                        Это автоматическое уведомление от сайта AVIK Uniform Factory
+                        Это автоматическое уведомление от сайта Uniform Factory
                     </p>
                 </div>
             </div>
@@ -158,7 +158,7 @@ def send_callback_notification_email(request_data: dict):
                 
                 <div style="text-align: center; margin: 30px 0;">
                     <p style="color: #6c757d; font-style: italic;">
-                        Это автоматическое уведомление от сайта AVIK Uniform Factory
+                        Это автоматическое уведомление от сайта Uniform Factory
                     </p>
                 </div>
             </div>
@@ -214,7 +214,7 @@ def send_contact_message_email(request_data: dict):
                 
                 <div style="text-align: center; margin: 30px 0;">
                     <p style="color: #6c757d; font-style: italic;">
-                        Это автоматическое уведомление от сайта AVIK Uniform Factory
+                        Это автоматическое уведомление от сайта Uniform Factory
                     </p>
                 </div>
             </div>
