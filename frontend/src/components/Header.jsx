@@ -72,7 +72,7 @@ export const Header = () => {
           <div className="flex items-center space-x-4">
             <a 
               href="/calculator"
-              className="hidden md:inline-flex bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
+              className="hidden md:inline-flex bg-navy hover:bg-navy-hover text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
             >
               Заказать расчет
             </a>
