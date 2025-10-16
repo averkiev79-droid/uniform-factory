@@ -372,3 +372,40 @@ async def update_statistics(
         return {"success": True}
     finally:
         db.close()
+# Product Management Routes
+@admin_router.get("/products")
+async def admin_get_products():
+    """Get all products for admin"""
+    from services_sqlite import ProductService
+    return ProductService.get_all_products()
+
+@admin_router.post("/products")
+async def admin_create_product(product: ProductCreate):
+    """Create new product"""
+    from services_sqlite import ProductService
+    return ProductService.create_product(product)
+
+@admin_router.get("/products/{product_id}")
+async def admin_get_product(product_id: str):
+    """Get product by ID"""
+    from services_sqlite import ProductService
+    product = ProductService.get_product_by_id(product_id)
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return product
+
+@admin_router.delete("/products/{product_id}")
+async def admin_delete_product(product_id: str):
+    """Delete product"""
+    db = SessionLocal()
+    try:
+        from database_sqlite import SQLProduct
+        product = db.query(SQLProduct).filter(SQLProduct.id == product_id).first()
+        if not product:
+            raise HTTPException(status_code=404, detail="Product not found")
+        
+        db.delete(product)
+        db.commit()
+        return {"success": True, "message": "Товар удален"}
+    finally:
+        db.close()
