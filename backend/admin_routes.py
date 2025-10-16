@@ -372,6 +372,7 @@ async def update_statistics(
         return {"success": True}
     finally:
         db.close()
+
 # Product Management Routes
 @admin_router.get("/products")
 async def admin_get_products():
