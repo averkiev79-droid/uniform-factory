@@ -260,7 +260,7 @@ export const ContactsPage = () => {
         </div>
       </section>
 
-      {/* Map Section (placeholder) */}
+      {/* Map Section */}
       <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
@@ -268,16 +268,46 @@ export const ContactsPage = () => {
               Наше расположение
             </h2>
             <p className="text-gray-600">
-              Основное производство расположено по адресу пр. Ветеранов, 140, Санкт-Петербург
+              198334, Санкт-Петербург, пр. Ветеранов, 140
             </p>
           </div>
           
-          <div className="bg-gray-200 h-64 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600">
-                Интерактивная карта будет здесь
-              </p>
+          {/* Interactive Yandex Map */}
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A78bb7b8b94d8e7a2c2d4c6e8a6c4b2d3c4f5e6a7b8c9d0e1f2g3h4i5j6k7l8m9n0&amp;source=constructor"
+              width="100%"
+              height="400"
+              frameBorder="0"
+              title="Карта расположения Uniform Factory"
+              className="w-full h-96"
+            />
+          </div>
+          
+          {/* Address and directions */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Как добраться
+              </h3>
+              <ul className="space-y-2 text-gray-600">
+                <li>🚇 <strong>Метро:</strong> станция "Ленинский проспект"</li>
+                <li>🚌 <strong>Автобус:</strong> остановка "пр. Ветеранов, 140"</li>
+                <li>🚗 <strong>На автомобиле:</strong> бесплатная парковка</li>
+                <li>🚶 <strong>Пешком:</strong> от метро 15 минут</li>
+              </ul>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Информация для посещения
+              </h3>
+              <ul className="space-y-2 text-gray-600">
+                <li>📞 <strong>Звонок перед приездом:</strong> обязательно</li>
+                <li>🕘 <strong>Режим работы:</strong> Пн-Пт 9:00-18:00</li>
+                <li>🅿️ <strong>Парковка:</strong> бесплатная на территории</li>
+                <li>🏢 <strong>Офис и производство:</strong> в одном здании</li>
+              </ul>
             </div>
           </div>
         </div>
