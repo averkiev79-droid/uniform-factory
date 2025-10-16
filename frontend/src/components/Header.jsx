@@ -95,7 +95,7 @@ export const Header = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="block text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200"
+                  className="block text-gray-700 hover:text-navy font-medium transition-colors duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
