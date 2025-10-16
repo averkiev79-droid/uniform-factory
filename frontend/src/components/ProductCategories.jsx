@@ -8,6 +8,7 @@ import { productCategories } from '../mock'; // Fallback data
 import { ConsultationModal } from './ConsultationModal';
 
 export const ProductCategories = () => {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
