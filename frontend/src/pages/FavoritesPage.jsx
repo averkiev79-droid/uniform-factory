@@ -151,13 +151,13 @@ export const FavoritesPage = () => {
                   {/* Main Image */}
                   <div className="aspect-square overflow-hidden bg-gray-100 flex items-center justify-center">
                     <img
-                      src={product.images?.[0]?.image_url || 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=400&fit=crop'}
+                      src={product.images?.[0]?.image_url || '/images/about-factory.jpg'}
                       alt={product.name}
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       onError={(e) => {
                         e.target.onerror = null;
-                        e.target.src = 'https://via.placeholder.com/400x400/e5e7eb/9ca3af?text=' + encodeURIComponent(product.name.substring(0, 20));
+                        e.target.src = '/images/about-factory.jpg';
                       }}
                     />
                   </div>
