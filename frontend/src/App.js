@@ -48,6 +48,16 @@ function App() {
               <CalculatorPage />
             </Layout>
           } />
+          <Route path="/category/:categoryId" element={
+            <Layout>
+              <CategoryProductsPage />
+            </Layout>
+          } />
+          <Route path="/product/:productId" element={
+            <Layout>
+              <ProductPage />
+            </Layout>
+          } />
         </Routes>
       </Router>
     </div>
