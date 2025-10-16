@@ -41,14 +41,14 @@ export const Header = () => {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <img 
-              src="https://customer-assets.emergentagent.com/job_business-wear/artifacts/iol8x16n_Logo_new_short.jpg" 
-              alt="AVIK Uniform Factory" 
-              className="h-10 w-auto"
+            <img
+              src="https://customer-assets.emergentagent.com/job_avik-uniforms/artifacts/2bk35fi8_%D0%9B%D0%BE%D0%B3%D0%BE.png"
+              alt="Uniform Factory" 
+              className="w-10 h-10"
             />
-            <div className="hidden sm:block">
-              <div className="text-lg font-bold text-gray-900">AVIK</div>
-              <div className="text-sm text-gray-600">Uniform Factory</div>
+            <div>
+              <div className="text-lg font-bold text-gray-900">Uniform Factory</div>
+              <div className="text-sm text-gray-600">Корпоративная одежда</div>
             </div>
           </div>
 
