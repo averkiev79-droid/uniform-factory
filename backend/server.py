@@ -53,7 +53,7 @@ logger = logging.getLogger(__name__)
 # Basic health check
 @api_router.get("/")
 async def root():
-    return {"message": "AVIK Uniform Factory API with SQLite"}
+    return {"message": "Uniform Factory API with SQLite"}
 
 @api_router.get("/health")
 async def health_check():
