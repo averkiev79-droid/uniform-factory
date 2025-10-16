@@ -59,6 +59,11 @@ function App() {
               <ProductPage />
             </Layout>
           } />
+          <Route path="/favorites" element={
+            <Layout>
+              <FavoritesPage />
+            </Layout>
+          } />
         </Routes>
       </Router>
     </div>
