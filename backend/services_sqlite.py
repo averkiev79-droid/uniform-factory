@@ -362,3 +362,256 @@ class StatisticsService:
             return None
         finally:
             db.close()
+class ProductService:
+    @staticmethod
+    def get_all_products():
+        """Get all products with images and characteristics"""
+        db = SessionLocal()
+        try:
+            from database_sqlite import SQLProduct, SQLProductImage, SQLProductCharacteristic, ProductCategory
+            import json
+            
+            products = db.query(SQLProduct).all()
+            result = []
+            
+            for product in products:
+                # Get category name
+                category = db.query(ProductCategory).filter(ProductCategory.id == product.category_id).first()
+                category_name = category.title if category else "Unknown"
+                
+                # Parse JSON fields
+                sizes = json.loads(product.sizes) if product.sizes else []
+                colors = json.loads(product.colors) if product.colors else []
+                
+                # Get images
+                images = []
+                for img in product.images:
+                    images.append({
+                        "id": img.id,
+                        "image_url": img.image_url,
+                        "alt_text": img.alt_text,
+                        "order": img.order
+                    })
+                
+                # Get characteristics
+                characteristics = []
+                for char in product.characteristics:
+                    characteristics.append({
+                        "id": char.id,
+                        "name": char.name,
+                        "value": char.value,
+                        "order": char.order
+                    })
+                
+                result.append({
+                    "id": product.id,
+                    "category_id": product.category_id,
+                    "category_name": category_name,
+                    "name": product.name,
+                    "description": product.description,
+                    "short_description": product.short_description,
+                    "price_from": product.price_from,
+                    "price_to": product.price_to,
+                    "material": product.material,
+                    "sizes": sizes,
+                    "colors": colors,
+                    "is_available": product.is_available,
+                    "featured": product.featured,
+                    "images": images,
+                    "characteristics": characteristics,
+                    "created_at": product.created_at,
+                    "updated_at": product.updated_at
+                })
+            
+            return result
+        finally:
+            db.close()
+    
+    @staticmethod
+    def get_products_by_category(category_id: str):
+        """Get products by category ID"""
+        db = SessionLocal()
+        try:
+            from database_sqlite import SQLProduct, SQLProductImage, SQLProductCharacteristic, ProductCategory
+            import json
+            
+            products = db.query(SQLProduct).filter(SQLProduct.category_id == category_id).all()
+            result = []
+            
+            for product in products:
+                # Get category name
+                category = db.query(ProductCategory).filter(ProductCategory.id == product.category_id).first()
+                category_name = category.title if category else "Unknown"
+                
+                # Parse JSON fields
+                sizes = json.loads(product.sizes) if product.sizes else []
+                colors = json.loads(product.colors) if product.colors else []
+                
+                # Get images
+                images = []
+                for img in product.images:
+                    images.append({
+                        "id": img.id,
+                        "image_url": img.image_url,
+                        "alt_text": img.alt_text,
+                        "order": img.order
+                    })
+                
+                # Get characteristics
+                characteristics = []
+                for char in product.characteristics:
+                    characteristics.append({
+                        "id": char.id,
+                        "name": char.name,
+                        "value": char.value,
+                        "order": char.order
+                    })
+                
+                result.append({
+                    "id": product.id,
+                    "category_id": product.category_id,
+                    "category_name": category_name,
+                    "name": product.name,
+                    "description": product.description,
+                    "short_description": product.short_description,
+                    "price_from": product.price_from,
+                    "price_to": product.price_to,
+                    "material": product.material,
+                    "sizes": sizes,
+                    "colors": colors,
+                    "is_available": product.is_available,
+                    "featured": product.featured,
+                    "images": images,
+                    "characteristics": characteristics,
+                    "created_at": product.created_at,
+                    "updated_at": product.updated_at
+                })
+            
+            return result
+        finally:
+            db.close()
+    
+    @staticmethod
+    def create_product(product_data):
+        """Create new product with images and characteristics"""
+        db = SessionLocal()
+        try:
+            from database_sqlite import SQLProduct, SQLProductImage, SQLProductCharacteristic
+            import json
+            from datetime import datetime, timezone
+            
+            # Create product
+            new_product = SQLProduct(
+                category_id=product_data.category_id,
+                name=product_data.name,
+                description=product_data.description,
+                short_description=product_data.short_description,
+                price_from=product_data.price_from,
+                price_to=product_data.price_to,
+                material=product_data.material,
+                sizes=json.dumps(product_data.sizes) if product_data.sizes else None,
+                colors=json.dumps(product_data.colors) if product_data.colors else None,
+                is_available=product_data.is_available,
+                featured=product_data.featured,
+                created_at=datetime.now(timezone.utc)
+            )
+            
+            db.add(new_product)
+            db.flush()  # Get the ID
+            
+            # Add images
+            if product_data.images:
+                for i, image_url in enumerate(product_data.images):
+                    image = SQLProductImage(
+                        product_id=new_product.id,
+                        image_url=image_url,
+                        alt_text=f"{product_data.name} - изображение {i+1}",
+                        order=i+1
+                    )
+                    db.add(image)
+            
+            # Add characteristics
+            if product_data.characteristics:
+                for i, char in enumerate(product_data.characteristics):
+                    characteristic = SQLProductCharacteristic(
+                        product_id=new_product.id,
+                        name=char["name"],
+                        value=char["value"],
+                        order=i+1
+                    )
+                    db.add(characteristic)
+            
+            db.commit()
+            
+            return {
+                "success": True,
+                "product_id": new_product.id,
+                "message": "Товар успешно создан"
+            }
+        except Exception as e:
+            db.rollback()
+            raise e
+        finally:
+            db.close()
+    
+    @staticmethod
+    def get_product_by_id(product_id: str):
+        """Get product by ID with all details"""
+        db = SessionLocal()
+        try:
+            from database_sqlite import SQLProduct, SQLProductImage, SQLProductCharacteristic, ProductCategory
+            import json
+            
+            product = db.query(SQLProduct).filter(SQLProduct.id == product_id).first()
+            if not product:
+                return None
+            
+            # Get category name
+            category = db.query(ProductCategory).filter(ProductCategory.id == product.category_id).first()
+            category_name = category.title if category else "Unknown"
+            
+            # Parse JSON fields
+            sizes = json.loads(product.sizes) if product.sizes else []
+            colors = json.loads(product.colors) if product.colors else []
+            
+            # Get images
+            images = []
+            for img in product.images:
+                images.append({
+                    "id": img.id,
+                    "image_url": img.image_url,
+                    "alt_text": img.alt_text,
+                    "order": img.order
+                })
+            
+            # Get characteristics
+            characteristics = []
+            for char in product.characteristics:
+                characteristics.append({
+                    "id": char.id,
+                    "name": char.name,
+                    "value": char.value,
+                    "order": char.order
+                })
+            
+            return {
+                "id": product.id,
+                "category_id": product.category_id,
+                "category_name": category_name,
+                "name": product.name,
+                "description": product.description,
+                "short_description": product.short_description,
+                "price_from": product.price_from,
+                "price_to": product.price_to,
+                "material": product.material,
+                "sizes": sizes,
+                "colors": colors,
+                "is_available": product.is_available,
+                "featured": product.featured,
+                "images": images,
+                "characteristics": characteristics,
+                "created_at": product.created_at,
+                "updated_at": product.updated_at
+            }
+        finally:
+            db.close()
