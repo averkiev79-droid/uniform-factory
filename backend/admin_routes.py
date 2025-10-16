@@ -395,6 +395,70 @@ async def admin_get_product(product_id: str):
         raise HTTPException(status_code=404, detail="Product not found")
     return product
 
+@admin_router.put("/products/{product_id}")
+async def admin_update_product(product_id: str, product: ProductCreate):
+    """Update product"""
+    db = SessionLocal()
+    try:
+        from database_sqlite import SQLProduct, SQLProductImage, SQLProductCharacteristic
+        import json
+        from datetime import datetime, timezone
+        
+        # Get existing product
+        existing_product = db.query(SQLProduct).filter(SQLProduct.id == product_id).first()
+        if not existing_product:
+            raise HTTPException(status_code=404, detail="Product not found")
+        
+        # Update product fields
+        existing_product.category_id = product.category_id
+        existing_product.name = product.name
+        existing_product.description = product.description
+        existing_product.short_description = product.short_description
+        existing_product.price_from = product.price_from
+        existing_product.price_to = product.price_to
+        existing_product.material = product.material
+        existing_product.sizes = json.dumps(product.sizes) if product.sizes else None
+        existing_product.colors = json.dumps(product.colors) if product.colors else None
+        existing_product.is_available = product.is_available
+        existing_product.featured = product.featured
+        existing_product.updated_at = datetime.now(timezone.utc)
+        
+        # Delete existing images and characteristics
+        db.query(SQLProductImage).filter(SQLProductImage.product_id == product_id).delete()
+        db.query(SQLProductCharacteristic).filter(SQLProductCharacteristic.product_id == product_id).delete()
+        
+        # Add new images
+        if product.images:
+            for i, image_url in enumerate(product.images):
+                image = SQLProductImage(
+                    product_id=product_id,
+                    image_url=image_url,
+                    alt_text=f"{product.name} - изображение {i+1}",
+                    order=i+1
+                )
+                db.add(image)
+        
+        # Add new characteristics
+        if product.characteristics:
+            for i, char in enumerate(product.characteristics):
+                characteristic = SQLProductCharacteristic(
+                    product_id=product_id,
+                    name=char["name"],
+                    value=char["value"],
+                    order=i+1
+                )
+                db.add(characteristic)
+        
+        db.commit()
+        return {"success": True, "message": "Товар обновлен", "product_id": product_id}
+    except HTTPException:
+        raise
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        db.close()
+
 @admin_router.delete("/products/{product_id}")
 async def admin_delete_product(product_id: str):
     """Delete product"""
