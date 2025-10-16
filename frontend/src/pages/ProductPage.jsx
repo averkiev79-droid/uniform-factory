@@ -360,11 +360,19 @@ export const ProductPage = () => {
               </Button>
               
               <div className="grid grid-cols-2 gap-3">
-                <Button variant="outline" className="py-3">
+                <Button 
+                  variant="outline" 
+                  className="py-3"
+                  onClick={() => window.location.href = 'tel:+78123177319'}
+                >
                   <Phone className="w-4 h-4 mr-2" />
                   Позвонить
                 </Button>
-                <Button variant="outline" className="py-3">
+                <Button 
+                  variant="outline" 
+                  className="py-3"
+                  onClick={() => window.location.href = 'mailto:info@uniformfactory.ru'}
+                >
                   <Mail className="w-4 h-4 mr-2" />
                   Написать
                 </Button>
