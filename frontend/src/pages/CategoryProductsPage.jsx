@@ -26,8 +26,7 @@ export const CategoryProductsPage = () => {
         setCategory(categoryData);
         
         // Get products for this category
-        const productsData = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/products/category/${categoryId}`)
-          .then(res => res.json());
+        const productsData = await apiService.getProductsByCategory(categoryId);
         setProducts(productsData);
       } catch (err) {
         console.error('Error fetching data:', err);
