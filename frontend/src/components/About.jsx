@@ -42,7 +42,7 @@ export const About = () => {
         {/* Header */}
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900">
-            О компании AVIK
+            О нашей компании
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Мы — ведущий производитель корпоративной одежды в России. Наша миссия — создавать стильную 
