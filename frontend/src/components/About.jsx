@@ -77,7 +77,7 @@ export const About = () => {
           
           <div className="relative">
             <img 
-              src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop" 
+              src="/images/about-factory.jpg" 
               alt="Фабрика Uniform Factory"
               className="w-full h-80 object-cover rounded-2xl shadow-lg"
             />
