@@ -5,38 +5,41 @@ import { CallbackModal } from './CallbackModal';
 import { ConsultationModal } from './ConsultationModal';
 
 export const Footer = () => {
+  const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
   const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
 
   const handleLinkClick = (e, link) => {
+    e.preventDefault();
+    
     if (link.action === 'callback') {
-      e.preventDefault();
       setIsCallbackModalOpen(true);
     } else if (link.action === 'consultation') {
-      e.preventDefault();
       setIsConsultationModalOpen(true);
+    } else if (link.href) {
+      navigate(link.href);
     }
   };
 
   const footerLinks = {
     company: [
-      { name: 'О компании', href: '#about' },
-      { name: 'Портфолио', href: '#portfolio' },
-      { name: 'Преимущества', href: '#advantages' },
-      { name: 'Калькулятор', href: '#calculator' }
+      { name: 'О компании', href: '/about' },
+      { name: 'Портфолио', href: '/portfolio' },
+      { name: 'Наши преимущества', href: '/' },
+      { name: 'Калькулятор', href: '/calculator' }
     ],
     catalog: [
-      { name: 'Офисная одежда', href: '#catalog' },
-      { name: 'HoReCa униформа', href: '#catalog' },
-      { name: 'Медицинская одежда', href: '#catalog' },
-      { name: 'Спецодежда', href: '#catalog' }
+      { name: 'Весь каталог', href: '/catalog' },
+      { name: 'Офисная одежда', href: '/category/2' },
+      { name: 'HoReCa униформа', href: '/category/1' },
+      { name: 'Медицинская одежда', href: '/category/5' }
     ],
     services: [
-      { name: 'Расчет стоимости', href: '#calculator' },
-      { name: 'Заказать звонок', href: '#callback', action: 'callback' },
-      { name: 'Консультация', href: '#consultation', action: 'consultation' },
-      { name: 'Контакты', href: '#contacts' }
+      { name: 'Расчет стоимости', href: '/calculator' },
+      { name: 'Заказать звонок', action: 'callback' },
+      { name: 'Консультация', action: 'consultation' },
+      { name: 'Контакты', href: '/contacts' }
     ]
   };
 
