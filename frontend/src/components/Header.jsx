@@ -59,7 +59,7 @@ export const Header = () => {
                 <li key={item.name}>
                   <a 
                     href={item.href} 
-                    className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200"
+                    className="text-gray-700 hover:text-navy font-medium transition-colors duration-200"
                   >
                     {item.name}
                   </a>
