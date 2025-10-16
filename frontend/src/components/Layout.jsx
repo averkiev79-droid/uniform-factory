@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
+import { CookieBanner } from '../components/CookieBanner';
 
 export const Layout = ({ children }) => {
   return (
@@ -10,6 +11,7 @@ export const Layout = ({ children }) => {
         {children}
       </main>
       <Footer />
+      <CookieBanner />
     </div>
   );
 };
