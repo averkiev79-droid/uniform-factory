@@ -266,6 +266,55 @@ async def get_quote_requests(status: Optional[str] = None):
         logger.error(f"Error getting quote requests: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
+# Product endpoints
+@api_router.get("/products")
+async def get_all_products():
+    """Get all products"""
+    try:
+        from services_sqlite import ProductService
+        products = ProductService.get_all_products()
+        return products
+    except Exception as e:
+        logger.error(f"Error getting products: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
+@api_router.get("/products/category/{category_id}")
+async def get_products_by_category(category_id: str):
+    """Get products by category"""
+    try:
+        from services_sqlite import ProductService
+        products = ProductService.get_products_by_category(category_id)
+        return products
+    except Exception as e:
+        logger.error(f"Error getting products by category: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
+@api_router.get("/products/{product_id}")
+async def get_product_by_id(product_id: str):
+    """Get product by ID"""
+    try:
+        from services_sqlite import ProductService
+        product = ProductService.get_product_by_id(product_id)
+        if not product:
+            raise HTTPException(status_code=404, detail="Product not found")
+        return product
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting product by id: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
+@api_router.post("/products")
+async def create_product(product: ProductCreate):
+    """Create new product"""
+    try:
+        from services_sqlite import ProductService
+        result = ProductService.create_product(product)
+        return result
+    except Exception as e:
+        logger.error(f"Error creating product: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
 # Include router in app
 app.include_router(api_router)
 # Include admin routes under /api prefix  
