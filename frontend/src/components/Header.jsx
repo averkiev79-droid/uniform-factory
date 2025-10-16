@@ -40,7 +40,7 @@ export const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
+          <a href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
             <img
               src="https://customer-assets.emergentagent.com/job_avik-uniforms/artifacts/nwyx8wja_%D0%9B%D0%BE%D0%B3%D0%BE.png"
               alt="Uniform Factory" 
@@ -50,7 +50,7 @@ export const Header = () => {
               <div className="text-lg font-bold text-gray-900">Uniform Factory</div>
               <div className="text-sm text-gray-600">Корпоративная одежда</div>
             </div>
-          </div>
+          </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:block">
