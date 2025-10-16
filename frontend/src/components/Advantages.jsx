@@ -92,13 +92,21 @@ export const Advantages = () => {
                 <div className="text-3xl font-bold text-navy">2 часа</div>
                 <div className="text-gray-600">среднее время ответа</div>
               </div>
-              <button className="bg-navy hover:bg-navy-hover text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200 w-full lg:w-auto">
+              <button 
+                className="bg-navy hover:bg-navy-hover text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200 w-full lg:w-auto"
+                onClick={() => setIsConsultationModalOpen(true)}
+              >
                 Получить предложение
               </button>
             </div>
           </div>
         </div>
       </div>
+      
+      <ConsultationModal 
+        isOpen={isConsultationModalOpen} 
+        onClose={() => setIsConsultationModalOpen(false)} 
+      />
     </section>
   );
 };
