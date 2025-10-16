@@ -142,7 +142,12 @@ export const ProductPage = () => {
                     <img
                       src={image.image_url}
                       alt={image.alt_text || `${product.name} ${index + 1}`}
+                      loading="lazy"
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = 'https://via.placeholder.com/150x150/e5e7eb/9ca3af?text=No+Image';
+                      }}
                     />
                   </button>
                 ))}
