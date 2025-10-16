@@ -1,4 +1,4 @@
-// Mock data for AVIK Uniform Factory
+// Mock data for Uniform Factory
 
 export const productCategories = [
   {
