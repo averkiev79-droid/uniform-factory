@@ -72,12 +72,9 @@ export const ProductPage = () => {
         const productData = await apiService.getProductById(productId);
         setProduct(productData);
         
-        // Set default selections
+        // Set default color selection
         if (productData.colors && productData.colors.length > 0) {
           setSelectedColor(productData.colors[0]);
-        }
-        if (productData.sizes && productData.sizes.length > 0) {
-          setSelectedSize(productData.sizes[0]);
         }
       } catch (err) {
         console.error('Error fetching product:', err);
