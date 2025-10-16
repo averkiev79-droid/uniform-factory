@@ -64,7 +64,7 @@ export const Hero = () => {
               </a>
               <a 
                 href="/catalog"
-                className="inline-flex items-center justify-center border-2 border-gray-300 hover:border-purple-600 hover:text-purple-600 px-8 py-4 text-lg rounded-lg font-medium transition-colors duration-200"
+                className="inline-flex items-center justify-center border-2 border-gray-300 hover:border-navy hover:text-navy px-8 py-4 text-lg rounded-lg font-medium transition-colors duration-200"
               >
                 Посмотреть каталог
               </a>
