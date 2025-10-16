@@ -13,7 +13,18 @@ const iconComponents = {
   Shirt
 };
 
+const advantageSlugs = {
+  1: 'sobstvennoe-proizvodstvo',
+  2: 'individualnyy-dizayn',
+  3: 'premium-kachestvo',
+  4: 'bystrye-sroki',
+  5: 'lyubye-tirazhi',
+  6: 'nanesenie-logotipa'
+};
+
 export const Advantages = () => {
+  const navigate = useNavigate();
+  
   return (
     <section id="advantages" className="py-16 lg:py-24 bg-gray-50">
       <div className="container mx-auto px-4">
