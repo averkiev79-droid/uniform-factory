@@ -92,6 +92,56 @@ class ContactRequest(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+# Product Tables
+class SQLProduct(Base):
+    __tablename__ = "products"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    category_id = Column(String, ForeignKey("product_categories.id"), nullable=False)
+    name = Column(String, nullable=False)
+    description = Column(Text, nullable=False)
+    short_description = Column(String)
+    price_from = Column(Integer, nullable=False)
+    price_to = Column(Integer)
+    material = Column(String)
+    sizes = Column(String)  # JSON string
+    colors = Column(String)  # JSON string
+    is_available = Column(Boolean, default=True)
+    featured = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    images = relationship("SQLProductImage", back_populates="product", cascade="all, delete-orphan")
+    characteristics = relationship("SQLProductCharacteristic", back_populates="product", cascade="all, delete-orphan")
+    category = relationship("ProductCategory", foreign_keys=[category_id])
+
+class SQLProductImage(Base):
+    __tablename__ = "product_images"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    product_id = Column(String, ForeignKey("products.id"), nullable=False)
+    image_url = Column(String, nullable=False)
+    alt_text = Column(String)
+    order = Column(Integer, default=1)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    # Relationships
+    product = relationship("SQLProduct", back_populates="images")
+
+class SQLProductCharacteristic(Base):
+    __tablename__ = "product_characteristics"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    product_id = Column(String, ForeignKey("products.id"), nullable=False)
+    name = Column(String, nullable=False)
+    value = Column(String, nullable=False)
+    order = Column(Integer, default=1)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    # Relationships
+    product = relationship("SQLProduct", back_populates="characteristics")
+
 # Database session dependency
 def get_db():
     db = SessionLocal()
