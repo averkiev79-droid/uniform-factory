@@ -113,11 +113,16 @@ export const ProductPage = () => {
           {/* Images Section */}
           <div className="space-y-4">
             {/* Main Image */}
-            <div className="aspect-square bg-white rounded-lg overflow-hidden shadow-sm">
+            <div className="aspect-square bg-white rounded-lg overflow-hidden shadow-sm flex items-center justify-center">
               <img
                 src={images[selectedImageIndex]?.image_url}
                 alt={images[selectedImageIndex]?.alt_text || product.name}
+                loading="eager"
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'https://via.placeholder.com/600x600/e5e7eb/9ca3af?text=' + encodeURIComponent(product.name.substring(0, 20));
+                }}
               />
             </div>
             
