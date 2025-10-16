@@ -172,6 +172,37 @@ export const apiService = {
       console.error('Failed to fetch statistics:', error);
       throw error;
     }
+  },
+
+  // Products
+  async getAllProducts() {
+    try {
+      const response = await api.get('/products');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch products:', error);
+      throw error;
+    }
+  },
+
+  async getProductsByCategory(categoryId) {
+    try {
+      const response = await api.get(`/products/category/${categoryId}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Failed to fetch products for category ${categoryId}:`, error);
+      throw error;
+    }
+  },
+
+  async getProductById(productId) {
+    try {
+      const response = await api.get(`/products/${productId}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Failed to fetch product ${productId}:`, error);
+      throw error;
+    }
   }
 };
 
