@@ -114,6 +114,7 @@ export const ProductCategories = () => {
             <Card 
               key={category.id} 
               className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-md overflow-hidden"
+              onClick={() => navigate(`/category/${category.id}`)}
             >
               <div className="relative overflow-hidden">
                 <img 
@@ -141,6 +142,10 @@ export const ProductCategories = () => {
                 <Button 
                   variant="ghost" 
                   className="p-0 h-auto text-navy hover:text-navy-700 font-medium group/btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/category/${category.id}`);
+                  }}
                 >
                   Посмотреть каталог
                   <ArrowRight className="ml-1 w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-200" />
