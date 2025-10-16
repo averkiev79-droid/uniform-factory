@@ -97,7 +97,7 @@ class SQLProduct(Base):
     __tablename__ = "products"
     
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    category_id = Column(String, ForeignKey("product_categories.id"), nullable=False)
+    category_id = Column(String, ForeignKey("categories.id"), nullable=False)
     name = Column(String, nullable=False)
     description = Column(Text, nullable=False)
     short_description = Column(String)
