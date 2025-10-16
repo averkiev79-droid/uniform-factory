@@ -45,7 +45,7 @@ export const AdminLogin = ({ onLogin }) => {
           </div>
           <div>
             <CardTitle className="text-2xl font-bold text-gray-900">
-              Админ-панель AVIK
+              Админ-панель
             </CardTitle>
             <p className="text-gray-600 mt-2">
               Введите пароль для доступа к управлению сайтом
