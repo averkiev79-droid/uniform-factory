@@ -57,7 +57,7 @@ async def root():
 
 @api_router.get("/health")
 async def health_check():
-    return {"status": "healthy", "service": "avik-uniform-api", "database": "sqlite"}
+    return {"status": "healthy", "service": "uniform-factory-api", "database": "sqlite"}
 
 # Categories endpoints
 @api_router.get("/categories")
