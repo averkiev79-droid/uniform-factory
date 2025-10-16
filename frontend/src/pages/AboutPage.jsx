@@ -1,5 +1,5 @@
 import React from 'react';
-import { About } from '../components/About';
+import { AboutContent } from '../components/AboutContent';
 
 export const AboutPage = () => {
   return (
@@ -21,7 +21,7 @@ export const AboutPage = () => {
 
       {/* About Content */}
       <div className="py-8">
-        <About />
+        <AboutContent />
       </div>
 
       {/* Our Mission */}
