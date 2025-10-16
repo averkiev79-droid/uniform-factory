@@ -158,12 +158,22 @@ export const ProductCategories = () => {
               Мы изготовим корпоративную одежду по вашему индивидуальному дизайну. 
               Любая сложность, любые объемы.
             </p>
-            <Button size="lg" className="bg-navy hover:bg-navy-hover text-white px-8">
+            <Button 
+              size="lg" 
+              onClick={() => setIsConsultationModalOpen(true)}
+              className="bg-navy hover:bg-navy-hover text-white px-8"
+            >
               Заказать индивидуальный дизайн
             </Button>
           </div>
         </div>
       </div>
+
+      {/* Consultation Modal */}
+      <ConsultationModal 
+        isOpen={isConsultationModalOpen} 
+        onClose={() => setIsConsultationModalOpen(false)} 
+      />
     </section>
   );
 };
