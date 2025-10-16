@@ -80,11 +80,11 @@ export const ProductCategoriesContent = () => {
             <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer">
               <div className="overflow-hidden">
                 <img
-                  src={category.image || `https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=250&fit=crop&q=80`}
+                  src={category.image || `/images/about-factory.jpg`}
                   alt={category.title}
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                   onError={(e) => {
-                    e.target.src = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=250&fit=crop&q=80";
+                    e.target.src = "/images/about-factory.jpg";
                   }}
                 />
               </div>
