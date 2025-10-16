@@ -65,6 +65,11 @@ function App() {
               <FavoritesPage />
             </Layout>
           } />
+          <Route path="/advantage/:slug" element={
+            <Layout>
+              <AdvantagePage />
+            </Layout>
+          } />
         </Routes>
       </Router>
     </div>
