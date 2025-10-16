@@ -29,6 +29,10 @@ export const CategoryProductsPage = () => {
         // Get products for this category
         const productsData = await apiService.getProductsByCategory(categoryId);
         setProducts(productsData);
+        
+        // Load favorites
+        const storedFavorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        setFavorites(storedFavorites);
       } catch (err) {
         console.error('Error fetching data:', err);
         setError('Ошибка загрузки товаров');
@@ -41,6 +45,48 @@ export const CategoryProductsPage = () => {
       fetchData();
     }
   }, [categoryId]);
+
+  // Toggle favorite
+  const toggleFavorite = (productId, e) => {
+    e.stopPropagation();
+    
+    const storedFavorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    let newFavorites;
+    
+    if (storedFavorites.includes(productId)) {
+      newFavorites = storedFavorites.filter(id => id !== productId);
+    } else {
+      newFavorites = [...storedFavorites, productId];
+    }
+    
+    localStorage.setItem('favorites', JSON.stringify(newFavorites));
+    setFavorites(newFavorites);
+    
+    // Dispatch event to update header counter
+    window.dispatchEvent(new Event('favoriteUpdated'));
+  };
+
+  // Share product
+  const handleShare = async (product, e) => {
+    e.stopPropagation();
+    
+    const shareData = {
+      title: product.name,
+      text: product.short_description || product.description,
+      url: `${window.location.origin}/product/${product.id}`
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(shareData.url);
+        alert('Ссылка скопирована в буфер обмена!');
+      }
+    } catch (err) {
+      console.error('Error sharing:', err);
+    }
+  };
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
