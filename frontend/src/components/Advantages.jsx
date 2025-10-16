@@ -25,6 +25,7 @@ const advantageSlugs = {
 
 export const Advantages = () => {
   const navigate = useNavigate();
+  const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
   
   return (
     <section id="advantages" className="py-16 lg:py-24 bg-gray-50">
