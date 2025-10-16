@@ -5,6 +5,7 @@ import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Card, CardContent } from '../components/ui/card';
 import { ConsultationModal } from '../components/ConsultationModal';
+import { apiService } from '../services/api';
 
 export const ProductPage = () => {
   const { productId } = useParams();
