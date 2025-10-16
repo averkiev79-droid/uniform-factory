@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Factory, Palette, Award, Clock, Package, Shirt, ArrowRight } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
+import { ConsultationModal } from './ConsultationModal';
 import { advantages } from '../mock';
 
 const iconComponents = {
