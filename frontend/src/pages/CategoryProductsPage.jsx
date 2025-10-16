@@ -1,0 +1,258 @@
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ArrowLeft, ShoppingCart, Heart, Share2 } from 'lucide-react';
+import { Card, CardContent } from '../components/ui/card';
+import { Button } from '../components/ui/button';
+import { Badge } from '../components/ui/badge';
+import { apiService } from '../services/api';
+
+export const CategoryProductsPage = () => {
+  const { categoryId } = useParams();
+  const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [category, setCategory] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Get category info
+        const categoriesData = await apiService.getCategories();
+        const categoryData = categoriesData.find(cat => cat.id === categoryId);
+        setCategory(categoryData);
+        
+        // Get products for this category
+        const productsData = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/products/category/${categoryId}`)
+          .then(res => res.json());
+        setProducts(productsData);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError('Ошибка загрузки товаров');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (categoryId) {
+      fetchData();
+    }
+  }, [categoryId]);
+
+  const handleProductClick = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-navy mx-auto"></div>
+          <p className="mt-4 text-gray-600">Загрузка товаров...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">{error}</p>
+          <Button onClick={() => navigate(-1)}>
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Назад
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Button
+                onClick={() => navigate(-1)}
+                variant="outline"
+                size="sm"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Назад
+              </Button>
+              <div>
+                <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
+                  {category?.title || 'Товары категории'}
+                </h1>
+                <p className="text-gray-600 mt-1">
+                  {category?.description}
+                </p>
+              </div>
+            </div>
+            <div className="text-sm text-gray-500">
+              Найдено товаров: {products.length}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Products Grid */}
+      <div className="container mx-auto px-4 py-8">
+        {products.length === 0 ? (
+          <div className="text-center py-16">
+            <div className="text-6xl mb-4">📦</div>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+              Товары скоро появятся
+            </h2>
+            <p className="text-gray-600">
+              В этой категории пока нет товаров. Мы работаем над наполнением каталога.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {products.map((product) => (
+              <Card 
+                key={product.id}
+                className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
+                onClick={() => handleProductClick(product.id)}
+              >
+                <div className="relative">
+                  {/* Main Image */}
+                  <div className="aspect-square overflow-hidden bg-gray-100">
+                    <img
+                      src={product.images?.[0]?.image_url || 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=400&fit=crop'}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  
+                  {/* Badges */}
+                  <div className="absolute top-3 left-3 flex flex-col gap-2">
+                    {product.featured && (
+                      <Badge className="bg-navy text-white">
+                        Популярное
+                      </Badge>
+                    )}
+                    {!product.is_available && (
+                      <Badge variant="secondary" className="bg-red-100 text-red-700">
+                        Нет в наличии
+                      </Badge>
+                    )}
+                  </div>
+
+                  {/* Quick Actions */}
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex flex-col gap-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="w-10 h-10 p-0 bg-white/90 hover:bg-white"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // Add to favorites logic
+                        }}
+                      >
+                        <Heart className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="w-10 h-10 p-0 bg-white/90 hover:bg-white"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // Share logic
+                        }}
+                      >
+                        <Share2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                <CardContent className="p-4">
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-gray-900 line-clamp-2 group-hover:text-navy transition-colors">
+                      {product.name}
+                    </h3>
+                    
+                    <p className="text-sm text-gray-600 line-clamp-2">
+                      {product.short_description || product.description}
+                    </p>
+
+                    {/* Characteristics */}
+                    {product.material && (
+                      <div className="flex items-center text-xs text-gray-500">
+                        <span className="font-medium">Материал:</span>
+                        <span className="ml-1">{product.material}</span>
+                      </div>
+                    )}
+
+                    {/* Price */}
+                    <div className="flex items-center justify-between pt-2">
+                      <div>
+                        <span className="text-lg font-bold text-navy">
+                          от {product.price_from.toLocaleString()} ₽
+                        </span>
+                        {product.price_to && product.price_to !== product.price_from && (
+                          <span className="text-sm text-gray-500 ml-1">
+                            до {product.price_to.toLocaleString()} ₽
+                          </span>
+                        )}
+                      </div>
+                      
+                      <Button
+                        size="sm"
+                        className="bg-navy hover:bg-navy-hover"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // Add to cart or request quote
+                        }}
+                      >
+                        <ShoppingCart className="w-4 h-4" />
+                      </Button>
+                    </div>
+
+                    {/* Colors */}
+                    {product.colors && product.colors.length > 0 && (
+                      <div className="flex items-center gap-1 pt-1">
+                        <span className="text-xs text-gray-500">Цвета:</span>
+                        <div className="flex gap-1">
+                          {product.colors.slice(0, 4).map((color, index) => (
+                            <div
+                              key={index}
+                              className="w-3 h-3 rounded-full border border-gray-300"
+                              style={{
+                                backgroundColor: color === 'белый' ? '#ffffff' :
+                                  color === 'черный' ? '#000000' :
+                                  color === 'серый' ? '#808080' :
+                                  color === 'темно-синий' ? '#1e3a8a' :
+                                  color === 'голубой' ? '#60a5fa' :
+                                  color === 'мятный' ? '#34d399' :
+                                  color === 'розовый' ? '#f472b6' :
+                                  color === 'бордовый' ? '#7f1d1d' : '#e5e7eb'
+                              }}
+                              title={color}
+                            />
+                          ))}
+                          {product.colors.length > 4 && (
+                            <span className="text-xs text-gray-400">+{product.colors.length - 4}</span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
