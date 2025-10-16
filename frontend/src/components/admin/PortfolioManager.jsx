@@ -267,7 +267,7 @@ export const PortfolioManager = () => {
               </div>
               
               <div className="mb-3">
-                <span className="inline-block bg-navy-100 text-purple-800 text-xs px-2 py-1 rounded-full">
+                <span className="inline-block bg-navy-100 text-navy-700 text-xs px-2 py-1 rounded-full">
                   {item.category}
                 </span>
               </div>
