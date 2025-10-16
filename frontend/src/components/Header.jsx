@@ -91,7 +91,21 @@ export const Header = () => {
           </nav>
 
           {/* CTA Button & Mobile Menu */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
+            {/* Favorites Button */}
+            <button
+              onClick={() => navigate('/favorites')}
+              className="relative p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+              title="Избранное"
+            >
+              <Heart className="w-5 h-5" />
+              {favoritesCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
+                  {favoritesCount}
+                </span>
+              )}
+            </button>
+
             <a 
               href="/calculator"
               className="hidden md:inline-flex bg-navy hover:bg-navy-hover text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
