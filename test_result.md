@@ -425,6 +425,9 @@ test_plan:
       - working: true
         agent: "testing"
         comment: "✅ CONTACTS PAGE ADDRESS UPDATE TESTING COMPLETED - All requirements verified successfully: 1) Address updated to '198334, Санкт-Петербург, пр. Ветеранов, 140' in contact info section 2) Interactive Yandex map iframe loading correctly with coordinates (30.211773,59.847542) and dimensions 1504x384 3) 'Как добраться' section present with metro (Ленинский проспект), bus (пр. Ветеранов, 140), car (бесплатная парковка), and walking (15 минут от метро) directions 4) All contact information consistent - Phone: +7 (812) 317-73-19, Email: info@uniformfactory.ru 5) Contact form functional with successful submission and success message 6) Callback modal opens and closes correctly 7) Consultation modal functional (minor overlay issue resolved with force click) 8) Mobile responsive - address and map visible on mobile (390x844) 9) Map interactive and properly embedded. Address update implementation complete and fully functional."
+      - working: true
+        agent: "testing"
+        comment: "✅ CONTACTS PAGE CORRECTIONS VERIFICATION COMPLETED - All requested corrections successfully implemented and verified: 1) Metro station correctly updated to 'Проспект Ветеранов' (was previously 'Ленинский проспект') 2) Walking time correctly updated to '5-7 минут (400 метров)' (was previously '15 минут') 3) Map coordinates correctly updated to 30.16947, 59.832462 and displaying proper location 4) Bus routes correctly updated to '№68, №130, №37' 5) Address consistency maintained: '198334, Санкт-Петербург, пр. Ветеранов, 140' 6) All elements in 'Как добраться' section properly updated with correct information 7) Contact form functional, modals working, mobile responsive 8) Map interactive and showing correct location. All corrections from review request have been successfully implemented and verified."
 
 agent_communication:
   - agent: "main"
