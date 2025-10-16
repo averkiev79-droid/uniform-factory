@@ -4,7 +4,9 @@ import { Button } from './ui/button';
 import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [favoritesCount, setFavoritesCount] = useState(0);
 
   const navigation = [
     { name: 'Главная', href: '/' },
@@ -13,6 +15,25 @@ export const Header = () => {
     { name: 'Портфолио', href: '/portfolio' },
     { name: 'Контакты', href: '/contacts' }
   ];
+
+  // Update favorites count
+  useEffect(() => {
+    const updateFavoritesCount = () => {
+      const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+      setFavoritesCount(favorites.length);
+    };
+
+    updateFavoritesCount();
+
+    // Listen for favorite updates
+    window.addEventListener('favoriteUpdated', updateFavoritesCount);
+    window.addEventListener('storage', updateFavoritesCount);
+
+    return () => {
+      window.removeEventListener('favoriteUpdated', updateFavoritesCount);
+      window.removeEventListener('storage', updateFavoritesCount);
+    };
+  }, []);
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
