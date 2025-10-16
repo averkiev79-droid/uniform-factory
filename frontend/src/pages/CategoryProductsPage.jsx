@@ -75,8 +75,9 @@ export const CategoryProductsPage = () => {
       {/* Header */}
       <div className="bg-white border-b">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+          <div className="space-y-4">
+            {/* Back button and count */}
+            <div className="flex items-center justify-between">
               <Button
                 onClick={() => navigate(-1)}
                 variant="outline"
@@ -85,17 +86,19 @@ export const CategoryProductsPage = () => {
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Назад
               </Button>
-              <div>
-                <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
-                  {category?.title || 'Товары категории'}
-                </h1>
-                <p className="text-gray-600 mt-1">
-                  {category?.description}
-                </p>
+              <div className="text-sm text-gray-500">
+                Найдено: {products.length}
               </div>
             </div>
-            <div className="text-sm text-gray-500">
-              Найдено товаров: {products.length}
+            
+            {/* Title and description */}
+            <div>
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900">
+                {category?.title || 'Товары категории'}
+              </h1>
+              <p className="text-sm md:text-base text-gray-600 mt-1">
+                {category?.description}
+              </p>
             </div>
           </div>
         </div>
