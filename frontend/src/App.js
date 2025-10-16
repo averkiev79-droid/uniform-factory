@@ -11,6 +11,7 @@ import { CalculatorPage } from './pages/CalculatorPage';
 import { CategoryProductsPage } from './pages/CategoryProductsPage';
 import { ProductPage } from './pages/ProductPage';
 import { FavoritesPage } from './pages/FavoritesPage';
+import { AdvantagePage } from './pages/AdvantagePage';
 import { AdminApp } from './components/AdminApp';
 
 function App() {
