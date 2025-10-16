@@ -155,7 +155,7 @@ export const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-navy-400 mt-1 flex-shrink-0" />
                 <div>
-                  <div className="font-medium">Санкт-Петербург</div>
+                  <div className="font-medium">198334, Санкт-Петербург, пр. Ветеранов, 140</div>
                   <div className="text-sm text-gray-400">пр. Ветеранов 140 лит Г</div>
                 </div>
               </div>
