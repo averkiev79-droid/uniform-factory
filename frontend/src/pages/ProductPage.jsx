@@ -119,7 +119,7 @@ export const ProductPage = () => {
 
   const images = product.images && product.images.length > 0 
     ? product.images 
-    : [{ image_url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=600&fit=crop', alt_text: product.name }];
+    : [{ image_url: '/images/about-factory.jpg', alt_text: product.name }];
 
   return (
     <div className="min-h-screen bg-gray-50">
