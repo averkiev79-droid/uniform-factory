@@ -170,9 +170,9 @@ export const Footer = () => {
             </div>
             
             {/* CTA */}
-            <div className="bg-gray-800 rounded-lg p-4">
-              <h4 className="font-medium mb-2">Нужна консультация?</h4>
-              <p className="text-sm text-gray-400 mb-3">
+            <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+              <h4 className="font-semibold mb-2 text-white">Нужна консультация?</h4>
+              <p className="text-sm text-gray-300 mb-3">
                 Оставьте номер телефона, и мы перезвоним в течение 15 минут
               </p>
               <button 
