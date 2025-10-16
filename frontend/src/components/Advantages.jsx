@@ -1,5 +1,6 @@
 import React from 'react';
-import { Factory, Palette, Award, Clock, Package, Shirt } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Factory, Palette, Award, Clock, Package, Shirt, ArrowRight } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
 import { advantages } from '../mock';
 
