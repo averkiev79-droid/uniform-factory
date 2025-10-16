@@ -124,7 +124,7 @@ def send_quote_notification_email(request_data: dict):
     Нанесение логотипа: {request_data.get('branding', 'Не указано')}
     Предварительная стоимость: {request_data.get('estimated_price', 'Не рассчитана')}
     
-    Это автоматическое уведомление от сайта AVIK Uniform Factory
+    Это автоматическое уведомление от сайта Uniform Factory
     """
     
     return send_email(admin_email, subject, html_content, plain_text)
@@ -178,7 +178,7 @@ def send_callback_notification_email(request_data: dict):
     
     {f'Сообщение: {request_data.get("message", "")}' if request_data.get('message') else ''}
     
-    Это автоматическое уведомление от сайта AVIK Uniform Factory
+    Это автоматическое уведомление от сайта Uniform Factory
     """
     
     return send_email(admin_email, subject, html_content, plain_text)
@@ -235,7 +235,7 @@ def send_contact_message_email(request_data: dict):
     Сообщение:
     {request_data.get('message', 'Сообщение не указано')}
     
-    Это автоматическое уведомление от сайта AVIK Uniform Factory
+    Это автоматическое уведомление от сайта Uniform Factory
     """
     
     return send_email(admin_email, subject, html_content, plain_text)
