@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import Optional
+from models import ProductCreate
 import os
 import uuid
 from pathlib import Path
