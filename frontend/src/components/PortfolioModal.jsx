@@ -145,7 +145,7 @@ export const PortfolioModal = ({ isOpen, onClose }) => {
                   value={formData.phone}
                   onChange={(e) => handleInputChange('phone', e.target.value)}
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  placeholder="+7 (999) 123-45-67"
+                  placeholder="+7 (812) 317-73-19"
                   required
                 />
               </div>
