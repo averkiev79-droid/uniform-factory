@@ -144,7 +144,7 @@ export const AdminDashboard = ({ onLogout }) => {
               }}
               className={`w-full flex items-center px-6 py-3 text-left transition-colors ${
                 activeTab === item.id
-                  ? 'bg-navy-50 text-navy-700 border-r-2 border-purple-700'
+                  ? 'bg-navy-50 text-navy-700 border-r-2 border-navy-700'
                   : 'text-gray-600 hover:bg-gray-50'
               }`}
             >
