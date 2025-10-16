@@ -272,7 +272,7 @@ export const Calculator = () => {
           <div className="space-y-8">
             {/* Price Estimate */}
             {showResults && (
-              <Card className="shadow-lg border-0 bg-gradient-to-r from-[#05296E] to-indigo-600 text-white">
+              <Card className="shadow-lg border-0 bg-gradient-to-r from-[#05296E] to-[#041f52] text-white">
                 <CardContent className="p-8 text-center space-y-4">
                   <h3 className="text-2xl font-bold">Предварительная стоимость</h3>
                   {loading ? (
