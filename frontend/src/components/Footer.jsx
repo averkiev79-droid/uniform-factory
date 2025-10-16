@@ -50,7 +50,7 @@ export const Footer = () => {
               <img 
                 src="https://customer-assets.emergentagent.com/job_avik-uniforms/artifacts/99qofzb8_%D0%9F%D0%BE%D0%B4%D0%B2%D0%B0%D0%BB.png" 
                 alt="Uniform Factory" 
-                className="h-12 w-auto"
+                className="h-12 w-auto filter brightness-0 invert"
               />
               <div>
                 <div className="text-xl font-bold">Uniform Factory</div>
