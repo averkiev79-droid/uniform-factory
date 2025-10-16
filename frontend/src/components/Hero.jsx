@@ -98,10 +98,10 @@ export const Hero = () => {
           <div className="relative">
             <div className="aspect-square lg:aspect-auto lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop&crop=faces" 
+                src="/images/hero-main.jpg" 
                 alt="Профессиональная корпоративная одежда"
                 className="w-full h-full object-cover"
-                loading="lazy"
+                loading="eager"
               />
             </div>
             
