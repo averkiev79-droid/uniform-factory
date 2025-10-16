@@ -45,7 +45,7 @@ export const Hero = () => {
               
               <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight">
                 Корпоративная одежда
-                <span className="block text-purple-600">любой сложности</span>
+                <span className="block text-navy">любой сложности</span>
               </h1>
               
               <p className="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl">
