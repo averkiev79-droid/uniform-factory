@@ -26,6 +26,7 @@ export const AdminDashboard = ({ onLogout }) => {
   const menuItems = [
     { id: 'dashboard', name: 'Обзор', icon: LayoutGrid },
     { id: 'categories', name: 'Категории', icon: Package },
+    { id: 'products', name: 'Товары', icon: ShoppingBag },
     { id: 'portfolio', name: 'Портфолио', icon: Briefcase },
     { id: 'quotes', name: 'Заявки', icon: Mail },
     { id: 'statistics', name: 'Статистика', icon: BarChart3 },
