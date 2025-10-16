@@ -318,6 +318,55 @@ frontend:
       - working: true
         agent: "testing"
         comment: "✅ COMPREHENSIVE PORTFOLIO REQUEST TESTING COMPLETED - All functionality working correctly: 1) 'Запросить полное портфолио' button found and clickable in Portfolio section 2) PortfolioModal opens successfully on button click 3) Form fields work correctly (name, email, phone required; company, industry optional) 4) Form validation working - shows error for missing required fields 5) Form submission successful - API call to /api/contact/consultation returns 200 OK 6) Success message 'Заявка отправлена!' displays correctly with proper text 'Мы вышлем вам подборку проектов на указанную почту в течение 24 часов' 7) Modal close functionality working 8) Mobile responsiveness tested and working 9) Backend integration confirmed via logs. Portfolio request feature is fully functional and ready for production use."
+
+  - task: "Transport Time Wording Update Verification"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/ContactsPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ TRANSPORT TIME WORDING UPDATE VERIFICATION COMPLETED - Successfully verified the specific transport time wording change on contacts page: 1) Confirmed 'Время на транспорте: 5-7 минут от метро (400 метров)' is correctly displayed in 'Как добраться' section 2) Verified old wording 'Пешком от метро: 5-7 минут' is no longer present 3) All other elements in directions section remain correct: Metro station 'Проспект Ветеранов', Bus routes '№68, №130, №37', Free parking information 4) Desktop and mobile responsiveness confirmed - wording displays correctly on both viewports 5) Interactive Yandex map functioning properly 6) Screenshots captured showing the updated wording. The requested transport time wording change has been successfully implemented and verified."
+  
+  - task: "Product Catalog Backend Implementation"
+    implemented: true
+    working: true
+    file: "backend/database_sqlite.py, backend/services_sqlite.py, backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ Backend product catalog fully implemented: 1) Created SQLProduct, SQLProductImage, SQLProductCharacteristic models 2) ProductService with CRUD operations 3) API endpoints GET/POST /api/products, GET /api/products/category/{id}, GET /api/products/{id} 4) Initialized 8 sample products across all categories 5) All backend endpoints tested and working"
+  
+  - task: "Product Catalog Frontend Integration"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/CategoryProductsPage.jsx, frontend/src/pages/ProductPage.jsx, frontend/src/App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ Frontend product catalog integrated: 1) Added routes /category/:categoryId and /product/:productId to App.js 2) Updated ProductCategories to link cards to category pages 3) CategoryProductsPage displays product cards with images, prices, colors, materials 4) ProductPage shows detailed view with image gallery, characteristics, size/color selectors 5) Modern responsive design with hover effects 6) Integration tested via screenshot tool - all pages loading correctly"
+  
+  - task: "Admin Product Management"
+    implemented: true
+    working: true
+    file: "frontend/src/components/admin/ProductsManager.jsx, backend/admin_routes.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ Admin product management implemented: 1) Created ProductsManager component with full CRUD interface 2) Form for creating/editing products with all fields (name, description, prices, sizes, colors, images, characteristics) 3) Product list with thumbnails and quick actions 4) Added PUT /api/admin/products/{id} endpoint for updates 5) DELETE /api/admin/products/{id} working 6) Integrated into AdminDashboard with 'Товары' menu item 7) Added purple card on dashboard overview"
+
   - task: "Health Check API"
     implemented: true
     working: true
