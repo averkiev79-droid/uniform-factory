@@ -4,11 +4,13 @@ import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { apiService } from '../services/api';
 import { productCategories } from '../mock'; // Fallback data
+import { ConsultationModal } from './ConsultationModal';
 
 export const ProductCategories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
