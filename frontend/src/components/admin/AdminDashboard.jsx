@@ -65,6 +65,18 @@ export const AdminDashboard = ({ onLogout }) => {
                 </Button>
               </div>
               
+              <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+                <h3 className="text-lg font-semibold text-gray-900">Товары</h3>
+                <p className="text-gray-600 mt-2">Управление товарами и ценами</p>
+                <Button 
+                  onClick={() => setActiveTab('products')}
+                  className="mt-4 bg-purple-600 hover:bg-purple-700"
+                  size="sm"
+                >
+                  Управлять
+                </Button>
+              </div>
+              
               <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
                 <h3 className="text-lg font-semibold text-gray-900">Портфолио</h3>
                 <p className="text-gray-600 mt-2">Проекты и работы компании</p>
