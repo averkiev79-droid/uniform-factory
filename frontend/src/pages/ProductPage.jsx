@@ -198,7 +198,7 @@ export const ProductPage = () => {
           {/* Images Section */}
           <div className="space-y-4">
             {/* Main Image */}
-            <div className="aspect-square bg-white rounded-lg overflow-hidden shadow-sm flex items-center justify-center">
+            <div className="relative aspect-square bg-white rounded-lg overflow-hidden shadow-sm flex items-center justify-center group">
               <img
                 src={images[selectedImageIndex]?.image_url}
                 alt={images[selectedImageIndex]?.alt_text || product.name}
@@ -209,6 +209,34 @@ export const ProductPage = () => {
                   e.target.src = '/images/about-factory.jpg';
                 }}
               />
+              
+              {/* Navigation Arrows */}
+              {images.length > 1 && (
+                <>
+                  {/* Previous Button */}
+                  <button
+                    onClick={handlePreviousImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                    aria-label="Предыдущее фото"
+                  >
+                    <ChevronLeft className="w-6 h-6 text-gray-800" />
+                  </button>
+                  
+                  {/* Next Button */}
+                  <button
+                    onClick={handleNextImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                    aria-label="Следующее фото"
+                  >
+                    <ChevronRight className="w-6 h-6 text-gray-800" />
+                  </button>
+                  
+                  {/* Image Counter */}
+                  <div className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm">
+                    {selectedImageIndex + 1} / {images.length}
+                  </div>
+                </>
+              )}
             </div>
             
             {/* Image Thumbnails */}
