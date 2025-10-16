@@ -169,9 +169,11 @@ export const CategoryProductsPage = () => {
               <Card 
                 key={product.id}
                 className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
-                onClick={() => handleProductClick(product.id)}
               >
-                <div className="relative">
+                <div 
+                  className="relative"
+                  onClick={() => handleProductClick(product.id)}
+                >
                   {/* Main Image */}
                   <div className="aspect-square overflow-hidden bg-gray-100 flex items-center justify-center">
                     <img
