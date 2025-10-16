@@ -24,12 +24,7 @@ export const ProductPage = () => {
         setLoading(true);
         setError(null);
         
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/products/${productId}`);
-        if (!response.ok) {
-          throw new Error('Товар не найден');
-        }
-        
-        const productData = await response.json();
+        const productData = await apiService.getProductById(productId);
         setProduct(productData);
         
         // Set default selections
