@@ -62,7 +62,7 @@ export const AboutContent = () => {
         <div className="relative">
           <img 
             src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop" 
-            alt="Фабрика AVIK Uniform Factory"
+            alt="Фабрика Uniform Factory"
             className="w-full h-80 object-cover rounded-2xl shadow-lg"
           />
           <div className="absolute -bottom-6 -left-6 bg-purple-600 text-white p-6 rounded-xl shadow-lg">
