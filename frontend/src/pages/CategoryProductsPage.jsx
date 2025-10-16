@@ -227,7 +227,10 @@ export const CategoryProductsPage = () => {
                   </div>
                 </div>
 
-                <CardContent className="p-4">
+                <CardContent 
+                  className="p-4 cursor-pointer"
+                  onClick={() => handleProductClick(product.id)}
+                >
                   <div className="space-y-2">
                     <h3 className="font-semibold text-gray-900 line-clamp-2 group-hover:text-navy transition-colors">
                       {product.name}
