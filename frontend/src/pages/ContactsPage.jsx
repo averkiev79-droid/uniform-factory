@@ -122,8 +122,8 @@ export const ContactsPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Адрес</h3>
-                    <p className="text-gray-600">Санкт-Петербург, производственный цех</p>
-                    <p className="text-sm text-gray-500">Точный адрес сообщим при записи на встречу</p>
+                    <p className="text-gray-600">198334, Санкт-Петербург, пр. Ветеранов, 140</p>
+                    <p className="text-sm text-gray-500">Режим работы: Пн-Пт 9:00-18:00</p>
                   </div>
                 </div>
                 
