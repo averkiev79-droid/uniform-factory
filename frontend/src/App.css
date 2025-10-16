@@ -32,3 +32,72 @@
         transform: rotate(360deg);
     }
 }
+
+/* Custom Navy Blue Theme Colors - replacing Purple */
+.bg-navy {
+    background-color: #05296E !important;
+}
+
+.bg-navy-50 {
+    background-color: #e6ebf5 !important;
+}
+
+.bg-navy-100 {
+    background-color: #ccd6ea !important;
+}
+
+.bg-navy-hover {
+    background-color: #041f52 !important;
+}
+
+.text-navy {
+    color: #05296E !important;
+}
+
+.text-navy-100 {
+    color: #ccd6ea !important;
+}
+
+.text-navy-400 {
+    color: #6b84c7 !important;
+}
+
+.text-navy-700 {
+    color: #05296E !important;
+}
+
+.border-navy {
+    border-color: #05296E !important;
+}
+
+.border-navy-200 {
+    border-color: #99aad6 !important;
+}
+
+.border-navy-500 {
+    border-color: #05296E !important;
+}
+
+.hover\:bg-navy:hover {
+    background-color: #05296E !important;
+}
+
+.hover\:bg-navy-hover:hover {
+    background-color: #041f52 !important;
+}
+
+.hover\:text-navy:hover {
+    color: #05296E !important;
+}
+
+.hover\:border-navy:hover {
+    border-color: #05296E !important;
+}
+
+.focus\:ring-navy:focus {
+    --tw-ring-color: #05296E !important;
+}
+
+.focus\:border-navy:focus {
+    border-color: #05296E !important;
+}
