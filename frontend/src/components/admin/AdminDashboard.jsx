@@ -37,6 +37,8 @@ export const AdminDashboard = ({ onLogout }) => {
     switch (activeTab) {
       case 'categories':
         return <CategoriesManager />;
+      case 'products':
+        return <ProductsManager />;
       case 'portfolio':
         return <PortfolioManager />;
       case 'quotes':
