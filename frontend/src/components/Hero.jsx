@@ -57,7 +57,7 @@ export const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <a 
                 href="/calculator"
-                className="inline-flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 text-lg rounded-lg font-medium transition-colors duration-200 group"
+                className="inline-flex items-center justify-center bg-navy hover:bg-navy-hover text-white px-8 py-4 text-lg rounded-lg font-medium transition-colors duration-200 group"
               >
                 Получить расчет стоимости
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
