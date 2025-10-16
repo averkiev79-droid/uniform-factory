@@ -94,7 +94,7 @@ export const AboutContent = () => {
       {/* Call to Action */}
       <div className="text-center bg-gray-50 rounded-2xl p-12">
         <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6">
-          Начните работу с AVIK уже сегодня
+          Начните работу с нами уже сегодня
         </h3>
         <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
           Получите персональную консультацию и коммерческое предложение для вашего бизнеса. 
