@@ -48,13 +48,13 @@ export const Footer = () => {
           <div className="lg:col-span-1 space-y-6">
             <div className="flex items-center space-x-3">
               <img 
-                src="https://customer-assets.emergentagent.com/job_business-wear/artifacts/iol8x16n_Logo_new_short.jpg" 
-                alt="AVIK Uniform Factory" 
-                className="h-10 w-auto filter brightness-200"
+                src="https://customer-assets.emergentagent.com/job_avik-uniforms/artifacts/99qofzb8_%D0%9F%D0%BE%D0%B4%D0%B2%D0%B0%D0%BB.png" 
+                alt="Uniform Factory" 
+                className="h-12 w-auto"
               />
               <div>
-                <div className="text-xl font-bold">AVIK</div>
-                <div className="text-sm text-gray-400">Uniform Factory</div>
+                <div className="text-xl font-bold">Uniform Factory</div>
+                <div className="text-sm text-gray-400">Корпоративная одежда</div>
               </div>
             </div>
             
