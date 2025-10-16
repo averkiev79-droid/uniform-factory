@@ -139,7 +139,7 @@ export const Footer = () => {
               <div className="flex items-start space-x-3">
                 <Phone className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" />
                 <div>
-                  <div className="font-medium">+7 (812) 648-17-54</div>
+                  <div className="font-medium">+7 (812) 317-73-19</div>
                   <div className="text-sm text-gray-400">Основной номер</div>
                 </div>
               </div>
