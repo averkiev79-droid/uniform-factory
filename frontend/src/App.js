@@ -19,6 +19,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/admin" element={<AdminApp />} />
           <Route path="/" element={
