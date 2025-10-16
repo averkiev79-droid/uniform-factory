@@ -104,7 +104,7 @@ export const Header = () => {
               <div className="pt-4 border-t border-gray-100">
                 <a 
                   href="/calculator"
-                  className="block w-full bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 text-center"
+                  className="block w-full bg-navy hover:bg-navy-hover text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 text-center"
                 >
                   Заказать расчет
                 </a>
