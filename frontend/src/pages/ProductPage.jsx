@@ -216,10 +216,19 @@ export const ProductPage = () => {
                   {product.name}
                 </h1>
                 <div className="flex space-x-2">
-                  <Button size="sm" variant="outline">
-                    <Heart className="w-4 h-4" />
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={toggleFavorite}
+                    className={isFavorite ? 'text-red-500 border-red-300' : ''}
+                  >
+                    <Heart className={`w-4 h-4 ${isFavorite ? 'fill-red-500' : ''}`} />
                   </Button>
-                  <Button size="sm" variant="outline">
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={handleShare}
+                  >
                     <Share2 className="w-4 h-4" />
                   </Button>
                 </div>
