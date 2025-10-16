@@ -8,6 +8,8 @@ import { AboutPage } from './pages/AboutPage';
 import { PortfolioPage } from './pages/PortfolioPage';
 import { ContactsPage } from './pages/ContactsPage';
 import { CalculatorPage } from './pages/CalculatorPage';
+import { CategoryProductsPage } from './pages/CategoryProductsPage';
+import { ProductPage } from './pages/ProductPage';
 import { AdminApp } from './components/AdminApp';
 
 function App() {
