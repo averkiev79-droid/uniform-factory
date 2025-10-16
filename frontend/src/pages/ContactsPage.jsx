@@ -275,7 +275,7 @@ export const ContactsPage = () => {
           {/* Interactive Yandex Map */}
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <iframe
-              src="https://yandex.ru/map-widget/v1/?ll=30.211773%2C59.847542&z=16&l=map&pt=30.211773,59.847542,pm2rdl"
+              src="https://yandex.ru/map-widget/v1/?ll=30.16947%2C59.832462&z=16&l=map&pt=30.16947,59.832462,pm2rdl"
               width="100%"
               height="400"
               frameBorder="0"
