@@ -158,3 +158,66 @@ class CalculatorOptions(BaseModel):
     quantities: List[CalculatorQuantity]
     fabrics: List[CalculatorFabric]
     branding: List[CalculatorBranding]
+
+# Product Models
+class ProductImage(BaseModel):
+    id: Optional[str] = None
+    product_id: str
+    image_url: str
+    alt_text: Optional[str] = None
+    order: int = 1
+
+class ProductCharacteristic(BaseModel):
+    id: Optional[str] = None
+    product_id: str
+    name: str
+    value: str
+    order: int = 1
+
+class Product(BaseModel):
+    id: Optional[str] = None
+    category_id: str
+    name: str
+    description: str
+    short_description: Optional[str] = None
+    price_from: int
+    price_to: Optional[int] = None
+    material: Optional[str] = None
+    sizes: Optional[List[str]] = None
+    colors: Optional[List[str]] = None
+    is_available: bool = True
+    featured: bool = False
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+
+class ProductCreate(BaseModel):
+    category_id: str
+    name: str
+    description: str
+    short_description: Optional[str] = None
+    price_from: int
+    price_to: Optional[int] = None
+    material: Optional[str] = None
+    sizes: Optional[List[str]] = None
+    colors: Optional[List[str]] = None
+    is_available: bool = True
+    featured: bool = False
+    images: Optional[List[str]] = None  # URLs
+    characteristics: Optional[List[dict]] = None  # [{"name": "Ткань", "value": "Хлопок"}]
+
+class ProductUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    short_description: Optional[str] = None
+    price_from: Optional[int] = None
+    price_to: Optional[int] = None
+    material: Optional[str] = None
+    sizes: Optional[List[str]] = None
+    colors: Optional[List[str]] = None
+    is_available: Optional[bool] = None
+    featured: Optional[bool] = None
+
+class ProductWithDetails(Product):
+    images: List[ProductImage] = []
+    characteristics: List[ProductCharacteristic] = []
+    category_name: Optional[str] = None
