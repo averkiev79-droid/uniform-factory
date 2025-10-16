@@ -46,20 +46,26 @@ export const Advantages = () => {
             return (
               <Card 
                 key={advantage.id} 
-                className="group hover:shadow-lg transition-all duration-300 border-0 shadow-sm bg-white"
+                className="group hover:shadow-lg transition-all duration-300 border-0 shadow-sm bg-white cursor-pointer"
+                onClick={() => navigate(`/advantage/${advantageSlugs[advantage.id]}`)}
               >
                 <CardContent className="p-8 text-center space-y-4">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-100 text-navy rounded-xl group-hover:bg-navy group-hover:text-white transition-colors duration-300">
                     <Icon className="w-8 h-8" />
                   </div>
                   
-                  <h3 className="text-xl font-bold text-gray-900">
+                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-navy transition-colors">
                     {advantage.title}
                   </h3>
                   
                   <p className="text-gray-600 leading-relaxed">
                     {advantage.description}
                   </p>
+                  
+                  <div className="flex items-center justify-center text-navy font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                    Подробнее
+                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </CardContent>
               </Card>
             );
