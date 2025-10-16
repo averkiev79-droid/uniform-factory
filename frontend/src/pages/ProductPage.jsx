@@ -92,6 +92,36 @@ export const ProductPage = () => {
     }
   }, [productId]);
 
+  // Navigate to previous image
+  const handlePreviousImage = () => {
+    if (!product || !product.images) return;
+    setSelectedImageIndex((prev) => 
+      prev === 0 ? product.images.length - 1 : prev - 1
+    );
+  };
+
+  // Navigate to next image
+  const handleNextImage = () => {
+    if (!product || !product.images) return;
+    setSelectedImageIndex((prev) => 
+      prev === product.images.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'ArrowLeft') {
+        handlePreviousImage();
+      } else if (e.key === 'ArrowRight') {
+        handleNextImage();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [product]);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
