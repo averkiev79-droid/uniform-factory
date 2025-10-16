@@ -108,9 +108,9 @@ export const CategoryProductsPage = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 mb-4">{error}</p>
-          <Button onClick={() => navigate(-1)}>
+          <Button onClick={() => navigate('/catalog')}>
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Назад
+            Назад к каталогу
           </Button>
         </div>
       </div>
