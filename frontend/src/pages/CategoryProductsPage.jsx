@@ -206,22 +206,18 @@ export const CategoryProductsPage = () => {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="w-10 h-10 p-0 bg-white/90 hover:bg-white"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          // Add to favorites logic
-                        }}
+                        className={`w-10 h-10 p-0 bg-white/90 hover:bg-white ${
+                          favorites.includes(product.id) ? 'text-red-500 border-red-300' : ''
+                        }`}
+                        onClick={(e) => toggleFavorite(product.id, e)}
                       >
-                        <Heart className="w-4 h-4" />
+                        <Heart className={`w-4 h-4 ${favorites.includes(product.id) ? 'fill-red-500' : ''}`} />
                       </Button>
                       <Button
                         size="sm"
                         variant="outline"
                         className="w-10 h-10 p-0 bg-white/90 hover:bg-white"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          // Share logic
-                        }}
+                        onClick={(e) => handleShare(product, e)}
                       >
                         <Share2 className="w-4 h-4" />
                       </Button>
