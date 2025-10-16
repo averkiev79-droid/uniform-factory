@@ -414,6 +414,18 @@ test_plan:
         agent: "testing"
         comment: "✅ MOBILE RESPONSIVENESS TESTING COMPLETED - Mobile navigation working correctly: 1) Mobile menu button functional 2) Mobile navigation menu opens and displays all links 3) Mobile navigation links visible and clickable 4) 'Заказать расчет' button works in mobile menu 5) Mobile layout responsive across all pages 6) Touch interactions working properly. Mobile experience maintained in multi-page structure."
 
+  - task: "Contacts Page Address Update"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/ContactsPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ CONTACTS PAGE ADDRESS UPDATE TESTING COMPLETED - All requirements verified successfully: 1) Address updated to '198334, Санкт-Петербург, пр. Ветеранов, 140' in contact info section 2) Interactive Yandex map iframe loading correctly with coordinates (30.211773,59.847542) and dimensions 1504x384 3) 'Как добраться' section present with metro (Ленинский проспект), bus (пр. Ветеранов, 140), car (бесплатная парковка), and walking (15 минут от метро) directions 4) All contact information consistent - Phone: +7 (812) 317-73-19, Email: info@uniformfactory.ru 5) Contact form functional with successful submission and success message 6) Callback modal opens and closes correctly 7) Consultation modal functional (minor overlay issue resolved with force click) 8) Mobile responsive - address and map visible on mobile (390x844) 9) Map interactive and properly embedded. Address update implementation complete and fully functional."
+
 agent_communication:
   - agent: "main"
     message: "Completed admin panel development: 1) Added React Router for /admin path 2) Implemented AdminLogin with password auth 3) Created AdminDashboard with sidebar navigation 4) All manager components implemented (Categories, Portfolio, Quote Requests, Statistics, Image Upload) 5) Backend admin routes connected under /api/admin prefix 6) Email service implemented with Yandex SMTP support 7) Admin authentication working with default password 'avik2024admin'"
