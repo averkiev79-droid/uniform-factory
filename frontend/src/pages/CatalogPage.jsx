@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ProductCategories } from '../components/ProductCategories';
+import { ProductCategoriesContent } from '../components/ProductCategoriesContent';
 
 export const CatalogPage = () => {
   return (
@@ -21,7 +21,7 @@ export const CatalogPage = () => {
 
       {/* Catalog Content */}
       <div className="py-8">
-        <ProductCategories />
+        <ProductCategoriesContent />
       </div>
 
       {/* Additional Info */}
