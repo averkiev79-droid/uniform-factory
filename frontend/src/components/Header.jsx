@@ -19,12 +19,12 @@ export const Header = () => {
       <div className="bg-gray-50 border-b border-gray-100 py-2">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center text-sm text-gray-600">
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-3 sm:space-x-6">
+              <div className="flex items-center space-x-1">
                 <Phone className="w-4 h-4" />
-                <span>+7 (812) 317-73-19</span>
+                <span className="whitespace-nowrap">+7 (812) 317-73-19</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="hidden sm:flex items-center space-x-2">
                 <Mail className="w-4 h-4" />
                 <span>info@uniformfactory.ru</span>
               </div>
