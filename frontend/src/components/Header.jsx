@@ -42,7 +42,7 @@ export const Header = () => {
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <img
-              src="https://customer-assets.emergentagent.com/job_avik-uniforms/artifacts/2bk35fi8_%D0%9B%D0%BE%D0%B3%D0%BE.png"
+              src="https://customer-assets.emergentagent.com/job_avik-uniforms/artifacts/nwyx8wja_%D0%9B%D0%BE%D0%B3%D0%BE.png"
               alt="Uniform Factory" 
               className="w-10 h-10"
             />
