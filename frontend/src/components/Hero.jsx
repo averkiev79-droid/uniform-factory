@@ -116,7 +116,7 @@ export const Hero = () => {
                 <div className="text-sm text-gray-600">5.0</div>
               </div>
               <div className="mt-2 text-sm text-gray-700">
-                <strong>1200+ клиентов</strong> доверяют качеству AVIK
+                <strong>1200+ клиентов</strong> доверяют нашему качеству
               </div>
             </div>
           </div>
