@@ -126,12 +126,12 @@ export const CategoryProductsPage = () => {
             {/* Back button and count */}
             <div className="flex items-center justify-between">
               <Button
-                onClick={() => navigate(-1)}
+                onClick={() => navigate('/catalog')}
                 variant="outline"
                 size="sm"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Назад
+                Назад к каталогу
               </Button>
               <div className="text-sm text-gray-500">
                 Найдено: {products.length}
