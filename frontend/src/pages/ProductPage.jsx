@@ -286,28 +286,6 @@ export const ProductPage = () => {
                   </div>
                 </div>
               )}
-
-              {/* Sizes */}
-              {product.sizes && product.sizes.length > 0 && (
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">Размеры</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {product.sizes.map((size) => (
-                      <button
-                        key={size}
-                        onClick={() => setSelectedSize(size)}
-                        className={`px-4 py-2 border rounded-lg transition-colors min-w-[60px] ${
-                          selectedSize === size
-                            ? 'border-navy bg-navy text-white'
-                            : 'border-gray-300 hover:border-gray-400'
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
 
             {/* Actions */}
