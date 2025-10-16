@@ -45,7 +45,7 @@ export const AdminDashboard = ({ onLogout }) => {
       default:
         return (
           <div className="space-y-6">
-            <h1 className="text-3xl font-bold text-gray-900">Админ-панель AVIK</h1>
+            <h1 className="text-3xl font-bold text-gray-900">Админ-панель</h1>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
