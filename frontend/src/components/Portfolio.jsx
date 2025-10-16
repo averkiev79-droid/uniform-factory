@@ -172,7 +172,7 @@ export const Portfolio = () => {
 
         {/* More Projects CTA */}
         <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-8 lg:p-12">
+          <div className="bg-gradient-to-r from-[#e6ebf5] to-[#ccd6ea] rounded-2xl p-8 lg:p-12">
             <Building className="w-16 h-16 text-navy mx-auto mb-6" />
             <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
               Хотите увидеть больше проектов?
