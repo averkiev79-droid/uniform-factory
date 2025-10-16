@@ -230,15 +230,6 @@ export const ProductPage = () => {
                 {product.featured && (
                   <Badge className="bg-navy text-white">Популярное</Badge>
                 )}
-                {product.is_available ? (
-                  <Badge variant="outline" className="text-green-700 border-green-200">
-                    В наличии
-                  </Badge>
-                ) : (
-                  <Badge variant="outline" className="text-red-700 border-red-200">
-                    Под заказ
-                  </Badge>
-                )}
               </div>
 
               <p className="text-gray-600 leading-relaxed">
