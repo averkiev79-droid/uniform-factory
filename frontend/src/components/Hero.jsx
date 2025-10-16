@@ -38,7 +38,7 @@ export const Hero = () => {
           {/* Content */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <div className="inline-flex items-center space-x-2 bg-purple-50 text-purple-700 px-4 py-2 rounded-full text-sm font-medium">
+              <div className="inline-flex items-center space-x-2 bg-navy-50 text-navy-700 px-4 py-2 rounded-full text-sm font-medium">
                 <Award className="w-4 h-4" />
                 <span>Премиум качество с 2009 года</span>
               </div>
