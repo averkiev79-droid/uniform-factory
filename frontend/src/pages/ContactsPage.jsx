@@ -275,11 +275,11 @@ export const ContactsPage = () => {
           {/* Interactive Yandex Map */}
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <iframe
-              src="https://yandex.ru/map-widget/v1/?um=constructor%3A78bb7b8b94d8e7a2c2d4c6e8a6c4b2d3c4f5e6a7b8c9d0e1f2g3h4i5j6k7l8m9n0&amp;source=constructor"
+              src="https://yandex.ru/map-widget/v1/?ll=30.211773%2C59.847542&z=16&l=map&pt=30.211773,59.847542,pm2rdl"
               width="100%"
               height="400"
               frameBorder="0"
-              title="Карта расположения Uniform Factory"
+              title="Карта расположения Uniform Factory - пр. Ветеранов, 140, Санкт-Петербург"
               className="w-full h-96"
             />
           </div>
