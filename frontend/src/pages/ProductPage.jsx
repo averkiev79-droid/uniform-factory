@@ -120,9 +120,19 @@ export const ProductPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb */}
+      {/* Breadcrumb & Back Button */}
       <div className="bg-white border-b">
         <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between mb-3">
+            <Button
+              onClick={() => navigate(`/category/${product.category_id}`)}
+              variant="outline"
+              size="sm"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Вернуться в каталог
+            </Button>
+          </div>
           <div className="flex items-center space-x-2 text-sm">
             <button 
               onClick={() => navigate('/')}
