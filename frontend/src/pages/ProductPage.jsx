@@ -176,7 +176,7 @@ export const ProductPage = () => {
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = 'https://via.placeholder.com/600x600/e5e7eb/9ca3af?text=' + encodeURIComponent(product.name.substring(0, 20));
+                  e.target.src = '/images/about-factory.jpg';
                 }}
               />
             </div>
