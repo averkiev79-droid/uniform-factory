@@ -48,12 +48,12 @@ export const AdminDashboard = ({ onLogout }) => {
             <h1 className="text-3xl font-bold text-gray-900">Админ-панель</h1>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+              <div className="bg-navy-50 p-6 rounded-lg border-l-4 border-navy-500">
                 <h3 className="text-lg font-semibold text-gray-900">Категории товаров</h3>
                 <p className="text-gray-600 mt-2">Управление каталогом продукции</p>
                 <Button 
                   onClick={() => setActiveTab('categories')}
-                  className="mt-4 bg-purple-600 hover:bg-purple-700"
+                  className="mt-4 bg-navy hover:bg-navy-hover"
                   size="sm"
                 >
                   Управлять
@@ -144,7 +144,7 @@ export const AdminDashboard = ({ onLogout }) => {
               }}
               className={`w-full flex items-center px-6 py-3 text-left transition-colors ${
                 activeTab === item.id
-                  ? 'bg-purple-50 text-purple-700 border-r-2 border-purple-700'
+                  ? 'bg-navy-50 text-navy-700 border-r-2 border-purple-700'
                   : 'text-gray-600 hover:bg-gray-50'
               }`}
             >

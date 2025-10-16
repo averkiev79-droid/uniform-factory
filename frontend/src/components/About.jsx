@@ -81,9 +81,9 @@ export const About = () => {
               alt="Фабрика Uniform Factory"
               className="w-full h-80 object-cover rounded-2xl shadow-lg"
             />
-            <div className="absolute -bottom-6 -left-6 bg-purple-600 text-white p-6 rounded-xl shadow-lg">
+            <div className="absolute -bottom-6 -left-6 bg-navy text-white p-6 rounded-xl shadow-lg">
               <div className="text-3xl font-bold">5000+</div>
-              <div className="text-purple-100">выполненных заказов</div>
+              <div className="text-navy-100">выполненных заказов</div>
             </div>
           </div>
         </div>
@@ -93,7 +93,7 @@ export const About = () => {
           {features.map((feature, index) => (
             <Card key={index} className="border-0 shadow-sm hover:shadow-lg transition-all duration-300">
               <CardContent className="p-8 text-center space-y-4">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 text-purple-600 rounded-xl">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-100 text-navy rounded-xl">
                   <feature.icon className="w-8 h-8" />
                 </div>
                 <h4 className="text-xl font-bold text-gray-900">
@@ -117,19 +117,19 @@ export const About = () => {
           
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <h4 className="text-xl font-bold text-purple-600 mb-3">Качество</h4>
+              <h4 className="text-xl font-bold text-navy mb-3">Качество</h4>
               <p className="text-gray-600">
                 Используем только лучшие материалы и проверенные технологии производства
               </p>
             </div>
             <div className="text-center">
-              <h4 className="text-xl font-bold text-purple-600 mb-3">Надежность</h4>
+              <h4 className="text-xl font-bold text-navy mb-3">Надежность</h4>
               <p className="text-gray-600">
                 Соблюдаем сроки, выполняем обязательства и всегда держим слово
               </p>
             </div>
             <div className="text-center">
-              <h4 className="text-xl font-bold text-purple-600 mb-3">Инновации</h4>
+              <h4 className="text-xl font-bold text-navy mb-3">Инновации</h4>
               <p className="text-gray-600">
                 Постоянно развиваемся и внедряем новые решения для наших клиентов
               </p>

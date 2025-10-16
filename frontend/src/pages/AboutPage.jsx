@@ -44,8 +44,8 @@ export const AboutPage = () => {
               </p>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-purple-50 p-6 rounded-lg text-center">
-                <div className="text-3xl font-bold text-purple-600 mb-2">15+</div>
+              <div className="bg-navy-50 p-6 rounded-lg text-center">
+                <div className="text-3xl font-bold text-navy mb-2">15+</div>
                 <div className="text-sm text-gray-600">Лет опыта</div>
               </div>
               <div className="bg-blue-50 p-6 rounded-lg text-center">
@@ -76,8 +76,8 @@ export const AboutPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -127,24 +127,24 @@ export const AboutPage = () => {
       </section>
 
       {/* Contact CTA */}
-      <section className="py-16 bg-purple-600">
+      <section className="py-16 bg-navy">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Готовы к сотрудничеству?
           </h2>
-          <p className="text-purple-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-navy-100 mb-8 max-w-2xl mx-auto">
             Свяжитесь с нами и получите персональное предложение для вашего бизнеса
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="/contacts"
-              className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-medium transition-colors duration-200"
+              className="bg-white text-navy hover:bg-gray-100 px-8 py-4 rounded-lg font-medium transition-colors duration-200"
             >
               Связаться с нами
             </a>
             <a 
               href="/calculator"
-              className="border-2 border-white text-white hover:bg-white hover:text-purple-600 px-8 py-4 rounded-lg font-medium transition-colors duration-200"
+              className="border-2 border-white text-white hover:bg-white hover:text-navy px-8 py-4 rounded-lg font-medium transition-colors duration-200"
             >
               Рассчитать стоимость
             </a>

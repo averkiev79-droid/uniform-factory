@@ -25,7 +25,7 @@ export const PortfolioPage = () => {
       </div>
 
       {/* Additional Statistics */}
-      <section className="py-16 bg-purple-50">
+      <section className="py-16 bg-navy-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -35,22 +35,22 @@ export const PortfolioPage = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">15+</div>
+              <div className="text-4xl font-bold text-navy mb-2">15+</div>
               <div className="text-gray-600">Лет на рынке</div>
             </div>
             
             <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">2500+</div>
+              <div className="text-4xl font-bold text-navy mb-2">2500+</div>
               <div className="text-gray-600">Выполненных заказов</div>
             </div>
             
             <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">850+</div>
+              <div className="text-4xl font-bold text-navy mb-2">850+</div>
               <div className="text-gray-600">Довольных клиентов</div>
             </div>
             
             <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">45+</div>
+              <div className="text-4xl font-bold text-navy mb-2">45+</div>
               <div className="text-gray-600">Городов России</div>
             </div>
           </div>

@@ -150,7 +150,7 @@ export const Calculator = () => {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center space-y-4 mb-16">
-          <div className="inline-flex items-center space-x-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium">
+          <div className="inline-flex items-center space-x-2 bg-navy-100 text-navy-700 px-4 py-2 rounded-full text-sm font-medium">
             <CalculatorIcon className="w-4 h-4" />
             <span>Калькулятор стоимости</span>
           </div>
@@ -186,7 +186,7 @@ export const Calculator = () => {
                       onClick={() => handleInputChange('category', category.id)}
                       className={`p-4 text-left rounded-lg border-2 transition-all duration-200 ${
                         formData.category === category.id
-                          ? 'border-purple-500 bg-purple-50 text-purple-700'
+                          ? 'border-navy-500 bg-navy-50 text-navy-700'
                           : 'border-gray-200 hover:border-gray-300 bg-white'
                       }`}
                     >
@@ -211,7 +211,7 @@ export const Calculator = () => {
                       onClick={() => handleInputChange('quantity', quantity.range)}
                       className={`p-3 text-center rounded-lg border-2 transition-all duration-200 ${
                         formData.quantity === quantity.range
-                          ? 'border-purple-500 bg-purple-50 text-purple-700'
+                          ? 'border-navy-500 bg-navy-50 text-navy-700'
                           : 'border-gray-200 hover:border-gray-300 bg-white'
                       }`}
                     >
@@ -231,7 +231,7 @@ export const Calculator = () => {
                       onClick={() => handleInputChange('fabric', fabric.id)}
                       className={`p-3 text-left rounded-lg border-2 transition-all duration-200 ${
                         formData.fabric === fabric.id
-                          ? 'border-purple-500 bg-purple-50 text-purple-700'
+                          ? 'border-navy-500 bg-navy-50 text-navy-700'
                           : 'border-gray-200 hover:border-gray-300 bg-white'
                       }`}
                     >
@@ -251,7 +251,7 @@ export const Calculator = () => {
                       onClick={() => handleInputChange('branding', branding.id)}
                       className={`p-3 text-left rounded-lg border-2 transition-all duration-200 ${
                         formData.branding === branding.id
-                          ? 'border-purple-500 bg-purple-50 text-purple-700'
+                          ? 'border-navy-500 bg-navy-50 text-navy-700'
                           : 'border-gray-200 hover:border-gray-300 bg-white'
                       }`}
                     >
@@ -272,7 +272,7 @@ export const Calculator = () => {
           <div className="space-y-8">
             {/* Price Estimate */}
             {showResults && (
-              <Card className="shadow-lg border-0 bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+              <Card className="shadow-lg border-0 bg-gradient-to-r from-[#05296E] to-indigo-600 text-white">
                 <CardContent className="p-8 text-center space-y-4">
                   <h3 className="text-2xl font-bold">Предварительная стоимость</h3>
                   {loading ? (
@@ -283,7 +283,7 @@ export const Calculator = () => {
                   ) : (
                     <>
                       <div className="text-5xl font-bold">{estimatedPrice.toLocaleString()}₽</div>
-                      <p className="text-purple-100">за единицу изделия</p>
+                      <p className="text-navy-100">за единицу изделия</p>
                     </>
                   )}
                   <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 text-sm">
@@ -312,7 +312,7 @@ export const Calculator = () => {
                         required
                         value={formData.name}
                         onChange={(e) => handleInputChange('name', e.target.value)}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                         placeholder="Ваше имя"
                       />
                     </div>
@@ -323,7 +323,7 @@ export const Calculator = () => {
                         type="text"
                         value={formData.company}
                         onChange={(e) => handleInputChange('company', e.target.value)}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                         placeholder="Название компании"
                       />
                     </div>
@@ -337,7 +337,7 @@ export const Calculator = () => {
                       required
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                       placeholder="email@example.com"
                     />
                   </div>
@@ -350,7 +350,7 @@ export const Calculator = () => {
                       required
                       value={formData.phone}
                       onChange={(e) => handleInputChange('phone', e.target.value)}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                       placeholder="+7 (812) 317-73-19"
                     />
                   </div>
@@ -359,7 +359,7 @@ export const Calculator = () => {
                     type="submit" 
                     size="lg" 
                     disabled={submitting || !showResults}
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 group disabled:opacity-50"
+                    className="w-full bg-navy hover:bg-navy-hover text-white py-4 group disabled:opacity-50"
                   >
                     {submitting ? 'Отправка...' : 'Получить точный расчет'}
                     {!submitting && <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />}

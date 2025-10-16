@@ -103,7 +103,7 @@ export const Portfolio = () => {
               onClick={() => setSelectedFilter(category)}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-200 ${
                 selectedFilter === category
-                  ? 'bg-purple-600 text-white shadow-lg'
+                  ? 'bg-navy text-white shadow-lg'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -142,12 +142,12 @@ export const Portfolio = () => {
               <CardContent className="p-6 space-y-4">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <Badge variant="outline" className="text-purple-600 border-purple-200">
+                    <Badge variant="outline" className="text-navy border-navy-200">
                       {item.category}
                     </Badge>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-navy transition-colors duration-300">
                     {item.company}
                   </h3>
                   
@@ -173,7 +173,7 @@ export const Portfolio = () => {
         {/* More Projects CTA */}
         <div className="mt-16 text-center">
           <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-8 lg:p-12">
-            <Building className="w-16 h-16 text-purple-600 mx-auto mb-6" />
+            <Building className="w-16 h-16 text-navy mx-auto mb-6" />
             <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
               Хотите увидеть больше проектов?
             </h3>
@@ -183,7 +183,7 @@ export const Portfolio = () => {
             </p>
             <button 
               onClick={() => setIsPortfolioModalOpen(true)}
-              className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200"
+              className="bg-navy hover:bg-navy-hover text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200"
             >
               Запросить полное портфолио
             </button>

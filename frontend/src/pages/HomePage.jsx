@@ -11,7 +11,7 @@ export const HomePage = () => {
       <Advantages />
       
       {/* Call to Action Section */}
-      <section className="py-16 bg-purple-50">
+      <section className="py-16 bg-navy-50">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
             Готовы создать униформу для вашего бизнеса?
@@ -22,13 +22,13 @@ export const HomePage = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="/calculator"
-              className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200"
+              className="bg-navy hover:bg-navy-hover text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200"
             >
               Рассчитать стоимость
             </a>
             <a 
               href="/contacts"
-              className="border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200"
+              className="border border-navy text-navy hover:bg-navy hover:text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200"
             >
               Связаться с нами
             </a>

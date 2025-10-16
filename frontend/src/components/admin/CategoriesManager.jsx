@@ -125,7 +125,7 @@ export const CategoriesManager = () => {
         <h1 className="text-3xl font-bold text-gray-900">Управление категориями</h1>
         <Button
           onClick={() => setShowAddForm(true)}
-          className="bg-purple-600 hover:bg-purple-700"
+          className="bg-navy hover:bg-navy-hover"
         >
           <Plus className="mr-2 w-5 h-5" />
           Добавить категорию
@@ -155,7 +155,7 @@ export const CategoriesManager = () => {
                     type="text"
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                     placeholder="Например: Офисная одежда"
                     required
                   />
@@ -168,7 +168,7 @@ export const CategoriesManager = () => {
                     type="text"
                     value={formData.slug}
                     onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                     placeholder="office-wear"
                     required
                   />
@@ -181,7 +181,7 @@ export const CategoriesManager = () => {
                   id="description"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                   rows={3}
                   placeholder="Краткое описание категории"
                   required
@@ -196,7 +196,7 @@ export const CategoriesManager = () => {
                     type="url"
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                     placeholder="https://example.com/image.jpg"
                     required
                   />
@@ -209,7 +209,7 @@ export const CategoriesManager = () => {
                     type="number"
                     value={formData.products_count}
                     onChange={(e) => setFormData({ ...formData, products_count: parseInt(e.target.value) })}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                     placeholder="50"
                     min="0"
                     required
@@ -218,7 +218,7 @@ export const CategoriesManager = () => {
               </div>
 
               <div className="flex space-x-3">
-                <Button type="submit" className="bg-purple-600 hover:bg-purple-700">
+                <Button type="submit" className="bg-navy hover:bg-navy-hover">
                   <Save className="mr-2 w-5 h-5" />
                   {editingId ? 'Сохранить изменения' : 'Добавить категорию'}
                 </Button>

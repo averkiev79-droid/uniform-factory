@@ -65,13 +65,13 @@ export const Footer = () => {
             
             {/* Social Links */}
             <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-purple-600 transition-colors duration-200">
+              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-navy transition-colors duration-200">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-purple-600 transition-colors duration-200">
+              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-navy transition-colors duration-200">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-purple-600 transition-colors duration-200">
+              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-navy transition-colors duration-200">
                 <Linkedin className="w-5 h-5" />
               </a>
             </div>
@@ -137,7 +137,7 @@ export const Footer = () => {
             
             <div className="space-y-4">
               <div className="flex items-start space-x-3">
-                <Phone className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" />
+                <Phone className="w-5 h-5 text-navy-400 mt-1 flex-shrink-0" />
                 <div>
                   <div className="font-medium">+7 (812) 317-73-19</div>
                   <div className="text-sm text-gray-400">Основной номер</div>
@@ -145,7 +145,7 @@ export const Footer = () => {
               </div>
               
               <div className="flex items-start space-x-3">
-                <Mail className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" />
+                <Mail className="w-5 h-5 text-navy-400 mt-1 flex-shrink-0" />
                 <div>
                   <div className="font-medium">info@uniformfactory.ru</div>
                   <div className="text-sm text-gray-400">Общие вопросы</div>
@@ -153,7 +153,7 @@ export const Footer = () => {
               </div>
               
               <div className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" />
+                <MapPin className="w-5 h-5 text-navy-400 mt-1 flex-shrink-0" />
                 <div>
                   <div className="font-medium">Санкт-Петербург</div>
                   <div className="text-sm text-gray-400">пр. Ветеранов 140 лит Г</div>
@@ -161,7 +161,7 @@ export const Footer = () => {
               </div>
               
               <div className="flex items-start space-x-3">
-                <Clock className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" />
+                <Clock className="w-5 h-5 text-navy-400 mt-1 flex-shrink-0" />
                 <div>
                   <div className="font-medium">Пн-Пт: 9:00-18:00</div>
                   <div className="text-sm text-gray-400">Сб-Вс: выходной</div>
@@ -177,7 +177,7 @@ export const Footer = () => {
               </p>
               <button 
                 onClick={() => setIsCallbackModalOpen(true)}
-                className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors duration-200 w-full"
+                className="bg-navy hover:bg-navy-hover text-white px-4 py-2 rounded text-sm font-medium transition-colors duration-200 w-full"
               >
                 Заказать звонок
               </button>

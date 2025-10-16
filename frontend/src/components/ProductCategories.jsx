@@ -76,7 +76,7 @@ export const ProductCategories = () => {
           <p className="text-red-600 mb-8">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg"
+            className="bg-navy hover:bg-navy-hover text-white px-6 py-3 rounded-lg"
           >
             Попробовать снова
           </button>
@@ -126,7 +126,7 @@ export const ProductCategories = () => {
               
               <CardContent className="p-6 space-y-4">
                 <div className="space-y-2">
-                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-navy transition-colors duration-300">
                     {category.title}
                   </h3>
                   <p className="text-gray-600 text-sm leading-relaxed">
@@ -136,7 +136,7 @@ export const ProductCategories = () => {
                 
                 <Button 
                   variant="ghost" 
-                  className="p-0 h-auto text-purple-600 hover:text-purple-700 font-medium group/btn"
+                  className="p-0 h-auto text-navy hover:text-navy-700 font-medium group/btn"
                 >
                   Посмотреть каталог
                   <ArrowRight className="ml-1 w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-200" />
@@ -156,7 +156,7 @@ export const ProductCategories = () => {
               Мы изготовим корпоративную одежду по вашему индивидуальному дизайну. 
               Любая сложность, любые объемы.
             </p>
-            <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white px-8">
+            <Button size="lg" className="bg-navy hover:bg-navy-hover text-white px-8">
               Заказать индивидуальный дизайн
             </Button>
           </div>

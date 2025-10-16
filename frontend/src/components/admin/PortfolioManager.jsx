@@ -128,7 +128,7 @@ export const PortfolioManager = () => {
         <h1 className="text-3xl font-bold text-gray-900">Управление портфолио</h1>
         <Button
           onClick={() => setShowAddForm(true)}
-          className="bg-purple-600 hover:bg-purple-700"
+          className="bg-navy hover:bg-navy-hover"
         >
           <Plus className="mr-2 w-5 h-5" />
           Добавить проект
@@ -158,7 +158,7 @@ export const PortfolioManager = () => {
                     type="text"
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                     placeholder="Например: Сбербанк"
                     required
                   />
@@ -171,7 +171,7 @@ export const PortfolioManager = () => {
                     type="text"
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                     placeholder="Банки, HoReCa, Торговля"
                     required
                   />
@@ -184,7 +184,7 @@ export const PortfolioManager = () => {
                   id="description"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                   rows={3}
                   placeholder="Краткое описание выполненных работ"
                   required
@@ -198,7 +198,7 @@ export const PortfolioManager = () => {
                   type="url"
                   value={formData.image}
                   onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                   placeholder="https://example.com/image.jpg"
                   required
                 />
@@ -212,7 +212,7 @@ export const PortfolioManager = () => {
                     type="number"
                     value={formData.items_count}
                     onChange={(e) => setFormData({ ...formData, items_count: parseInt(e.target.value) })}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                     placeholder="250"
                     min="1"
                     required
@@ -226,7 +226,7 @@ export const PortfolioManager = () => {
                     type="number"
                     value={formData.year}
                     onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value) })}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                     placeholder="2024"
                     min="2000"
                     max={new Date().getFullYear() + 1}
@@ -236,7 +236,7 @@ export const PortfolioManager = () => {
               </div>
 
               <div className="flex space-x-3">
-                <Button type="submit" className="bg-purple-600 hover:bg-purple-700">
+                <Button type="submit" className="bg-navy hover:bg-navy-hover">
                   <Save className="mr-2 w-5 h-5" />
                   {editingId ? 'Сохранить изменения' : 'Добавить проект'}
                 </Button>
@@ -267,7 +267,7 @@ export const PortfolioManager = () => {
               </div>
               
               <div className="mb-3">
-                <span className="inline-block bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">
+                <span className="inline-block bg-navy-100 text-purple-800 text-xs px-2 py-1 rounded-full">
                   {item.category}
                 </span>
               </div>

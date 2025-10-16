@@ -129,7 +129,7 @@ export const QuoteRequestsManager = () => {
             onClick={() => setActiveTab('quotes')}
             className={`py-2 px-1 border-b-2 font-medium text-sm ${
               activeTab === 'quotes'
-                ? 'border-purple-500 text-purple-600'
+                ? 'border-navy-500 text-navy'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
@@ -139,7 +139,7 @@ export const QuoteRequestsManager = () => {
             onClick={() => setActiveTab('contacts')}
             className={`py-2 px-1 border-b-2 font-medium text-sm ${
               activeTab === 'contacts'
-                ? 'border-purple-500 text-purple-600'
+                ? 'border-navy-500 text-navy'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
@@ -202,7 +202,7 @@ export const QuoteRequestsManager = () => {
                       <span className="font-medium">{request.branding}</span>
                     </div>
                   </div>
-                  <div className="mt-3 text-lg font-bold text-purple-600">
+                  <div className="mt-3 text-lg font-bold text-navy">
                     Предварительная стоимость: {request.estimated_price.toLocaleString()} ₽
                   </div>
                 </div>

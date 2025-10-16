@@ -95,8 +95,8 @@ export const ContactsPage = () => {
               
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6 text-purple-600" />
+                  <div className="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-6 h-6 text-navy" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Телефон</h3>
@@ -106,8 +106,8 @@ export const ContactsPage = () => {
                 </div>
                 
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-6 h-6 text-purple-600" />
+                  <div className="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-6 h-6 text-navy" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
@@ -117,8 +117,8 @@ export const ContactsPage = () => {
                 </div>
                 
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-purple-600" />
+                  <div className="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-6 h-6 text-navy" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Адрес</h3>
@@ -128,8 +128,8 @@ export const ContactsPage = () => {
                 </div>
                 
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-6 h-6 text-purple-600" />
+                  <div className="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-6 h-6 text-navy" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Время работы</h3>
@@ -150,14 +150,14 @@ export const ContactsPage = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button 
                     onClick={() => setIsCallbackModalOpen(true)}
-                    className="bg-purple-600 hover:bg-purple-700"
+                    className="bg-navy hover:bg-navy-hover"
                   >
                     Заказать звонок
                   </Button>
                   <Button 
                     onClick={() => setIsConsultationModalOpen(true)}
                     variant="outline"
-                    className="border-purple-600 text-purple-600 hover:bg-purple-50"
+                    className="border-navy text-navy hover:bg-navy-50"
                   >
                     Получить консультацию
                   </Button>
@@ -180,7 +180,7 @@ export const ContactsPage = () => {
                       type="text"
                       value={formData.name}
                       onChange={(e) => handleInputChange('name', e.target.value)}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                       placeholder="Ваше имя"
                       required
                     />
@@ -192,7 +192,7 @@ export const ContactsPage = () => {
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => handleInputChange('phone', e.target.value)}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                       placeholder="+7 (812) 317-73-19"
                       required
                     />
@@ -206,7 +206,7 @@ export const ContactsPage = () => {
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                     placeholder="your@email.com"
                     required
                   />
@@ -219,7 +219,7 @@ export const ContactsPage = () => {
                     type="text"
                     value={formData.company}
                     onChange={(e) => handleInputChange('company', e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                     placeholder="Название компании"
                   />
                 </div>
@@ -231,7 +231,7 @@ export const ContactsPage = () => {
                     rows={4}
                     value={formData.message}
                     onChange={(e) => handleInputChange('message', e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                     placeholder="Расскажите о ваших потребностях..."
                     required
                   />
@@ -250,7 +250,7 @@ export const ContactsPage = () => {
                 <Button 
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-purple-600 hover:bg-purple-700 disabled:opacity-50"
+                  className="w-full bg-navy hover:bg-navy-hover disabled:opacity-50"
                 >
                   {isSubmitting ? 'Отправка...' : 'Отправить сообщение'}
                 </Button>

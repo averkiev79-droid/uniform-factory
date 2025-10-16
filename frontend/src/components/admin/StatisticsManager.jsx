@@ -117,7 +117,7 @@ export const StatisticsManager = () => {
                   type="number"
                   value={statistics.years_in_business}
                   onChange={(e) => handleInputChange('years_in_business', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                   placeholder="15"
                   min="1"
                   required
@@ -134,7 +134,7 @@ export const StatisticsManager = () => {
                   type="number"
                   value={statistics.completed_orders}
                   onChange={(e) => handleInputChange('completed_orders', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                   placeholder="5000"
                   min="1"
                   required
@@ -151,7 +151,7 @@ export const StatisticsManager = () => {
                   type="number"
                   value={statistics.happy_clients}
                   onChange={(e) => handleInputChange('happy_clients', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                   placeholder="1200"
                   min="1"
                   required
@@ -168,7 +168,7 @@ export const StatisticsManager = () => {
                   type="number"
                   value={statistics.cities}
                   onChange={(e) => handleInputChange('cities', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
                   placeholder="150"
                   min="1"
                   required
@@ -184,19 +184,19 @@ export const StatisticsManager = () => {
               <h4 className="font-medium mb-4">Предварительный просмотр:</h4>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">{statistics.years_in_business}+</div>
+                  <div className="text-2xl font-bold text-navy">{statistics.years_in_business}+</div>
                   <div className="text-sm text-gray-600">Лет на рынке</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">{statistics.completed_orders.toLocaleString()}+</div>
+                  <div className="text-2xl font-bold text-navy">{statistics.completed_orders.toLocaleString()}+</div>
                   <div className="text-sm text-gray-600">Выполненных заказов</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">{statistics.happy_clients.toLocaleString()}+</div>
+                  <div className="text-2xl font-bold text-navy">{statistics.happy_clients.toLocaleString()}+</div>
                   <div className="text-sm text-gray-600">Довольных клиентов</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">{statistics.cities}+</div>
+                  <div className="text-2xl font-bold text-navy">{statistics.cities}+</div>
                   <div className="text-sm text-gray-600">Городов России</div>
                 </div>
               </div>
@@ -205,7 +205,7 @@ export const StatisticsManager = () => {
             <Button
               type="submit"
               disabled={saving}
-              className="bg-purple-600 hover:bg-purple-700"
+              className="bg-navy hover:bg-navy-hover"
             >
               <Save className="mr-2 w-5 h-5" />
               {saving ? 'Сохранение...' : 'Сохранить статистику'}

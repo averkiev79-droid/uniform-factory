@@ -76,8 +76,8 @@ export const PortfolioModal = ({ isOpen, onClose }) => {
       <div className="bg-white rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center p-6 border-b">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-              <FileText className="w-5 h-5 text-purple-600" />
+            <div className="w-10 h-10 bg-navy-100 rounded-full flex items-center justify-center">
+              <FileText className="w-5 h-5 text-navy" />
             </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-900">
@@ -118,7 +118,7 @@ export const PortfolioModal = ({ isOpen, onClose }) => {
                   type="text"
                   value={formData.name}
                   onChange={(e) => handleInputChange('name', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                   placeholder="Введите ваше имя"
                   required
                 />
@@ -131,7 +131,7 @@ export const PortfolioModal = ({ isOpen, onClose }) => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => handleInputChange('email', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                   placeholder="Введите ваш email"
                   required
                 />
@@ -144,7 +144,7 @@ export const PortfolioModal = ({ isOpen, onClose }) => {
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => handleInputChange('phone', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                   placeholder="+7 (812) 317-73-19"
                   required
                 />
@@ -157,7 +157,7 @@ export const PortfolioModal = ({ isOpen, onClose }) => {
                   type="text"
                   value={formData.company}
                   onChange={(e) => handleInputChange('company', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                   placeholder="Название компании"
                 />
               </div>
@@ -168,7 +168,7 @@ export const PortfolioModal = ({ isOpen, onClose }) => {
                   id="industry"
                   value={formData.industry}
                   onChange={(e) => handleInputChange('industry', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                 >
                   <option value="">Выберите отрасль</option>
                   <option value="Ресторанный бизнес">Ресторанный бизнес</option>
@@ -201,7 +201,7 @@ export const PortfolioModal = ({ isOpen, onClose }) => {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 bg-purple-600 hover:bg-purple-700"
+                  className="flex-1 bg-navy hover:bg-navy-hover"
                 >
                   {isSubmitting ? 'Отправка...' : 'Отправить запрос'}
                 </Button>

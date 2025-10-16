@@ -37,7 +37,7 @@ export const Advantages = () => {
                 className="group hover:shadow-lg transition-all duration-300 border-0 shadow-sm bg-white"
               >
                 <CardContent className="p-8 text-center space-y-4">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 text-purple-600 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-100 text-navy rounded-xl group-hover:bg-navy group-hover:text-white transition-colors duration-300">
                     <Icon className="w-8 h-8" />
                   </div>
                   
@@ -69,10 +69,10 @@ export const Advantages = () => {
             
             <div className="lg:text-right space-y-4">
               <div className="space-y-2">
-                <div className="text-3xl font-bold text-purple-600">2 часа</div>
+                <div className="text-3xl font-bold text-navy">2 часа</div>
                 <div className="text-gray-600">среднее время ответа</div>
               </div>
-              <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200 w-full lg:w-auto">
+              <button className="bg-navy hover:bg-navy-hover text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200 w-full lg:w-auto">
                 Получить предложение
               </button>
             </div>

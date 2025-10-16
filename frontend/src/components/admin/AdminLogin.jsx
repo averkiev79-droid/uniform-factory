@@ -40,8 +40,8 @@ export const AdminLogin = ({ onLogin }) => {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
-            <Lock className="w-8 h-8 text-purple-600" />
+          <div className="mx-auto w-16 h-16 bg-navy-100 rounded-full flex items-center justify-center">
+            <Lock className="w-8 h-8 text-navy" />
           </div>
           <div>
             <CardTitle className="text-2xl font-bold text-gray-900">
@@ -69,7 +69,7 @@ export const AdminLogin = ({ onLogin }) => {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full p-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full p-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                   placeholder="Введите пароль"
                   required
                 />
@@ -85,7 +85,7 @@ export const AdminLogin = ({ onLogin }) => {
 
             <Button
               type="submit"
-              className="w-full bg-purple-600 hover:bg-purple-700"
+              className="w-full bg-navy hover:bg-navy-hover"
               disabled={loading}
             >
               {loading ? 'Вход...' : 'Войти в админ-панель'}

@@ -143,7 +143,7 @@ export const ImageUploader = () => {
                 <Button 
                   onClick={handleUpload}
                   disabled={uploading}
-                  className="bg-purple-600 hover:bg-purple-700"
+                  className="bg-navy hover:bg-navy-hover"
                 >
                   {uploading ? 'Загрузка...' : 'Загрузить изображение'}
                 </Button>

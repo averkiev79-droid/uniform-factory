@@ -89,7 +89,7 @@ export const CallbackModal = ({ isOpen, onClose }) => {
           /* Form */
           <>
             <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-navy-100 text-navy rounded-full flex items-center justify-center mx-auto mb-4">
                 <Phone className="w-8 h-8" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">
@@ -115,7 +115,7 @@ export const CallbackModal = ({ isOpen, onClose }) => {
                   required
                   value={formData.name}
                   onChange={(e) => handleInputChange('name', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                   placeholder="Как к вам обращаться?"
                 />
               </div>
@@ -128,7 +128,7 @@ export const CallbackModal = ({ isOpen, onClose }) => {
                   required
                   value={formData.phone}
                   onChange={(e) => handleInputChange('phone', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                   placeholder="+7 (812) 317-73-19"
                 />
               </div>
@@ -145,7 +145,7 @@ export const CallbackModal = ({ isOpen, onClose }) => {
                 </Button>
                 <Button 
                   type="submit" 
-                  className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
+                  className="flex-1 bg-navy hover:bg-navy-hover text-white"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? 'Отправка...' : 'Заказать звонок'}

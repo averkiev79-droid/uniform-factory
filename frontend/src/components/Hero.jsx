@@ -85,7 +85,7 @@ export const Hero = () => {
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                   {statistics.map((stat, index) => (
                     <div key={index} className="text-center lg:text-left">
-                      <div className="text-2xl lg:text-3xl font-bold text-purple-600">{stat.value}</div>
+                      <div className="text-2xl lg:text-3xl font-bold text-navy">{stat.value}</div>
                       <div className="text-sm text-gray-600">{stat.label}</div>
                     </div>
                   ))}

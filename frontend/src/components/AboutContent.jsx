@@ -65,9 +65,9 @@ export const AboutContent = () => {
             alt="Фабрика Uniform Factory"
             className="w-full h-80 object-cover rounded-2xl shadow-lg"
           />
-          <div className="absolute -bottom-6 -left-6 bg-purple-600 text-white p-6 rounded-xl shadow-lg">
+          <div className="absolute -bottom-6 -left-6 bg-navy text-white p-6 rounded-xl shadow-lg">
             <div className="text-3xl font-bold">5000+</div>
-            <div className="text-purple-100">выполненных заказов</div>
+            <div className="text-navy-100">выполненных заказов</div>
           </div>
         </div>
       </div>
@@ -77,7 +77,7 @@ export const AboutContent = () => {
         {features.map((feature, index) => (
           <Card key={index} className="border-0 shadow-sm hover:shadow-lg transition-all duration-300">
             <CardContent className="p-8 text-center space-y-4">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 text-purple-600 rounded-xl">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-100 text-navy rounded-xl">
                 <feature.icon className="w-8 h-8" />
               </div>
               <h4 className="text-xl font-bold text-gray-900">
@@ -103,13 +103,13 @@ export const AboutContent = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
             href="/contacts" 
-            className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200"
+            className="bg-navy hover:bg-navy-hover text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200"
           >
             Получить консультацию
           </a>
           <a 
             href="/portfolio" 
-            className="border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200"
+            className="border border-navy text-navy hover:bg-navy hover:text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200"
           >
             Посмотреть работы
           </a>

@@ -54,7 +54,7 @@ export const ProductCategoriesContent = () => {
         <p className="text-red-600 mb-8">{error}</p>
         <button
           onClick={() => window.location.reload()}
-          className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg"
+          className="bg-navy hover:bg-navy-hover text-white px-6 py-3 rounded-lg"
         >
           Попробовать снова
         </button>
@@ -85,10 +85,10 @@ export const ProductCategoriesContent = () => {
             </div>
             <CardContent className="p-6">
               <div className="flex items-start justify-between mb-3">
-                <h3 className="text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
+                <h3 className="text-xl font-bold text-gray-900 group-hover:text-navy transition-colors">
                   {category.title}
                 </h3>
-                <Badge variant="secondary" className="bg-purple-100 text-purple-600">
+                <Badge variant="secondary" className="bg-navy-100 text-navy">
                   {category.products_count || category.count} шт
                 </Badge>
               </div>
@@ -99,7 +99,7 @@ export const ProductCategoriesContent = () => {
                 <span className="text-sm text-gray-500">
                   от {category.base_price || '1200'} ₽
                 </span>
-                <span className="text-purple-600 font-medium group-hover:underline">
+                <span className="text-navy font-medium group-hover:underline">
                   Подробнее →
                 </span>
               </div>
