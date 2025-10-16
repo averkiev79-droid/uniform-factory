@@ -15,8 +15,53 @@ export const ProductPage = () => {
   const [error, setError] = useState(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  // Check if product is in favorites
+  useEffect(() => {
+    if (productId) {
+      const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+      setIsFavorite(favorites.includes(productId));
+    }
+  }, [productId]);
+
+  // Toggle favorite
+  const toggleFavorite = () => {
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    let newFavorites;
+    
+    if (favorites.includes(productId)) {
+      newFavorites = favorites.filter(id => id !== productId);
+      setIsFavorite(false);
+    } else {
+      newFavorites = [...favorites, productId];
+      setIsFavorite(true);
+    }
+    
+    localStorage.setItem('favorites', JSON.stringify(newFavorites));
+  };
+
+  // Share product
+  const handleShare = async () => {
+    const shareData = {
+      title: product.name,
+      text: product.short_description || product.description,
+      url: window.location.href
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        // Fallback: copy to clipboard
+        await navigator.clipboard.writeText(window.location.href);
+        alert('Ссылка скопирована в буфер обмена!');
+      }
+    } catch (err) {
+      console.error('Error sharing:', err);
+    }
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
