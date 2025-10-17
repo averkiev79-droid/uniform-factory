@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Завершить разработку админ-панели AVIK Uniform Factory и настроить email уведомления"
+user_problem_statement: "Завершить разработку админ-панели AVIK Uniform Factory и настроить email уведомления. Добавить функционал управления изображениями главной страницы через админ-панель."
 
 backend:
   - task: "Admin Authentication API"
