@@ -53,8 +53,8 @@ async def upload_image(file: UploadFile = File(...)):
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
     
-    # Return URL for accessing the image
-    return {"success": True, "url": f"/uploads/{unique_filename}"}
+    # Return URL for accessing the image (via public API endpoint)
+    return {"success": True, "url": f"/api/uploads/{unique_filename}"}
 
 @admin_router.get("/uploads/{filename}")
 async def get_uploaded_file(filename: str):
