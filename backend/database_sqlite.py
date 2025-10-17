@@ -92,6 +92,16 @@ class ContactRequest(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+class AppSettings(Base):
+    __tablename__ = "app_settings"
+    
+    id = Column(String, primary_key=True, default="default")
+    hero_image = Column(String, default="/images/hero-main.jpg")
+    hero_mobile_image = Column(String)  # Optional: separate mobile image
+    about_image = Column(String)  # Optional: for about page
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
 # Product Tables
 class SQLProduct(Base):
     __tablename__ = "products"
