@@ -6,7 +6,8 @@ import { apiService } from '../services/api';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 export const AboutContent = () => {
-  const [aboutImage, setAboutImage] = useState('/images/about-factory.jpg');
+  const [aboutImage, setAboutImage] = useState(null); // Start with null
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -14,10 +15,13 @@ export const AboutContent = () => {
         const settings = await apiService.getSettings();
         if (settings.about_image) {
           setAboutImage(settings.about_image);
+        } else {
+          setAboutImage('/images/about-factory.jpg');
         }
       } catch (err) {
         console.error('Failed to fetch settings:', err);
-        // Keep fallback image
+        // Set fallback image
+        setAboutImage('/images/about-factory.jpg');
       }
     };
 
