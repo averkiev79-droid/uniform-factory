@@ -6,29 +6,37 @@ import { stats } from '../mock'; // Fallback data
 export const Hero = () => {
   const [statistics, setStatistics] = useState(stats);
   const [loading, setLoading] = useState(true);
+  const [heroImage, setHeroImage] = useState('/images/hero-main.jpg');
 
   useEffect(() => {
-    const fetchStatistics = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
-        const data = await apiService.getStatistics();
-        // Transform API data to match frontend format
+        
+        // Fetch statistics
+        const statsData = await apiService.getStatistics();
         const transformedData = [
-          { label: "Лет на рынке", value: `${data.years_in_business}+`, icon: "Calendar" },
-          { label: "Выполненных заказов", value: `${data.completed_orders}+`, icon: "CheckCircle" },
-          { label: "Довольных клиентов", value: `${data.happy_clients}+`, icon: "Users" },
-          { label: "Городов России", value: `${data.cities}+`, icon: "MapPin" }
+          { label: "Лет на рынке", value: `${statsData.years_in_business}+`, icon: "Calendar" },
+          { label: "Выполненных заказов", value: `${statsData.completed_orders}+`, icon: "CheckCircle" },
+          { label: "Довольных клиентов", value: `${statsData.happy_clients}+`, icon: "Users" },
+          { label: "Городов России", value: `${statsData.cities}+`, icon: "MapPin" }
         ];
         setStatistics(transformedData);
+        
+        // Fetch settings for hero image
+        const settings = await apiService.getSettings();
+        if (settings.hero_image) {
+          setHeroImage(settings.hero_image);
+        }
       } catch (err) {
-        console.error('Failed to fetch statistics:', err);
+        console.error('Failed to fetch data:', err);
         // Keep fallback data
       } finally {
         setLoading(false);
       }
     };
 
-    fetchStatistics();
+    fetchData();
   }, []);
 
   return (
