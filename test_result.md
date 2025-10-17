@@ -201,11 +201,14 @@ backend:
     file: "backend/admin_routes.py, backend/services_sqlite.py, backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "✅ App settings management implemented: 1) Created AppSettings SQLite table and model 2) Added SettingsService with get_settings() and update_settings() 3) Added public endpoint GET /api/settings 4) Added admin endpoints GET/PUT /api/admin/settings 5) Settings support hero_image, hero_mobile_image, and about_image fields"
+      - working: true
+        agent: "testing"
+        comment: "✅ APP SETTINGS MANAGEMENT API TESTING COMPLETED SUCCESSFULLY - All 6 tests passed (100% success rate): 1) GET /api/settings - Public endpoint returns correct structure with hero_image defaulting to '/images/hero-main.jpg' 2) GET /api/admin/settings - Admin endpoint returns same data structure 3) PUT /api/admin/settings (hero_image) - Successfully updates hero_image with form-data and persists changes 4) PUT /api/admin/settings (all_fields) - Successfully updates hero_image, hero_mobile_image, and about_image fields 5) Integration verification - Public endpoint correctly reflects admin changes 6) Error handling - Gracefully handles empty data without errors. All endpoints work correctly with SQLite database, form-data handling is proper, and integration between admin and public endpoints is seamless."
 
   - task: "Email Notifications Service"
     implemented: true
