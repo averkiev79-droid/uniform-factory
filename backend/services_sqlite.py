@@ -614,4 +614,73 @@ class ProductService:
                 "updated_at": product.updated_at
             }
         finally:
+
+
+class SettingsService:
+    """Service for managing app settings"""
+    
+    @staticmethod
+    def get_settings() -> dict:
+        """Get current app settings"""
+        db = SessionLocal()
+        try:
+            # Import here to avoid circular imports
+            from database_sqlite import AppSettings
+            
+            settings = db.query(AppSettings).filter(AppSettings.id == "default").first()
+            if not settings:
+                # Create default settings if not exist
+                settings = AppSettings(
+                    id="default",
+                    hero_image="/images/hero-main.jpg"
+                )
+                db.add(settings)
+                db.commit()
+                db.refresh(settings)
+            
+            return {
+                "id": settings.id,
+                "hero_image": settings.hero_image,
+                "hero_mobile_image": settings.hero_mobile_image,
+                "about_image": settings.about_image,
+                "updated_at": settings.updated_at
+            }
+        finally:
+            db.close()
+    
+    @staticmethod
+    def update_settings(settings_update: dict) -> dict:
+        """Update app settings"""
+        db = SessionLocal()
+        try:
+            from database_sqlite import AppSettings
+            
+            settings = db.query(AppSettings).filter(AppSettings.id == "default").first()
+            if not settings:
+                # Create if not exist
+                settings = AppSettings(id="default")
+                db.add(settings)
+            
+            # Update only provided fields
+            if "hero_image" in settings_update and settings_update["hero_image"] is not None:
+                settings.hero_image = settings_update["hero_image"]
+            if "hero_mobile_image" in settings_update:
+                settings.hero_mobile_image = settings_update["hero_mobile_image"]
+            if "about_image" in settings_update:
+                settings.about_image = settings_update["about_image"]
+            
+            settings.updated_at = datetime.utcnow()
+            db.commit()
+            db.refresh(settings)
+            
+            return {
+                "id": settings.id,
+                "hero_image": settings.hero_image,
+                "hero_mobile_image": settings.hero_mobile_image,
+                "about_image": settings.about_image,
+                "updated_at": settings.updated_at
+            }
+        finally:
+            db.close()
+
             db.close()
