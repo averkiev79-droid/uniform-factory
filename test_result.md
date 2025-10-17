@@ -319,6 +319,30 @@ frontend:
         agent: "main"
         comment: "✅ Image upload interface implemented"
 
+  - task: "Image Manager Component"
+    implemented: true
+    working: true
+    file: "frontend/src/components/admin/ImageManager.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ Image Manager component created: 1) Interface for managing hero_image, hero_mobile_image, and about_image 2) Two input modes: path input or file upload 3) Image preview functionality 4) Integration with upload API 5) Save functionality with form-data 6) Added to AdminDashboard menu as 'Изображения главной'"
+
+  - task: "Hero Component Dynamic Images"
+    implemented: true
+    working: true
+    file: "frontend/src/components/Hero.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ Hero component updated to fetch hero image from settings API: 1) Added getSettings() call in useEffect 2) Dynamic heroImage state 3) Error handling with fallback to default image"
+
   - task: "Portfolio Request Button and Modal"
     implemented: true
     working: true
