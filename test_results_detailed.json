@@ -3,33 +3,33 @@
     "endpoint": "/health",
     "method": "GET",
     "success": true,
-    "details": "Health check passed - Status: healthy, Service: avik-uniform-api",
+    "details": "Health check passed - Status: healthy, Service: uniform-factory-api",
     "response_data": {
       "status": "healthy",
-      "service": "avik-uniform-api",
+      "service": "uniform-factory-api",
       "database": "sqlite"
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/categories",
     "method": "GET",
     "success": true,
-    "details": "Retrieved 7 categories successfully",
+    "details": "Retrieved 6 categories successfully",
     "response_data": {
-      "count": 7,
+      "count": 6,
       "sample": {
         "id": "1",
         "title": "Униформа для ресторанов и отелей",
         "description": "Профессиональная одежда для сферы HoReCa",
-        "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
+        "image": "/images/categories/category1.jpg",
         "products_count": 120,
         "slug": "restaurants-hotels",
-        "created_at": "2025-09-28T15:08:31.856968",
-        "updated_at": "2025-09-28T15:08:31.856969"
+        "created_at": "2025-10-16T16:46:58.669598",
+        "updated_at": "2025-10-16T16:46:58.669600"
       }
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/portfolio",
@@ -42,15 +42,15 @@
         "id": "1",
         "company": "Сбербанк",
         "description": "Деловые костюмы для сотрудников банка",
-        "image": "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500&h=400&fit=crop",
+        "image": "/images/portfolio/portfolio1.jpg",
         "category": "Банки",
         "items_count": 2500,
         "year": 2023,
-        "created_at": "2025-09-28T15:08:31.856283",
-        "updated_at": "2025-09-28T15:08:31.856285"
+        "created_at": "2025-10-16T16:46:58.668889",
+        "updated_at": "2025-10-16T16:46:58.668892"
       }
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/calculator/options",
@@ -157,7 +157,7 @@
         }
       ]
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/calculator/estimate",
@@ -173,19 +173,19 @@
         "brandingPrice": 150
       }
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/calculator/quote-request",
     "method": "POST",
     "success": true,
-    "details": "Quote request created: REQ-2025-E78296",
+    "details": "Quote request created: REQ-2025-2FC293",
     "response_data": {
       "success": true,
-      "request_id": "REQ-2025-E78296",
+      "request_id": "REQ-2025-2FC293",
       "message": "Заявка принята. Мы свяжемся с вами в течение 2 часов."
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/contact/callback-request",
@@ -196,7 +196,7 @@
       "success": true,
       "message": "Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут."
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/testimonials",
@@ -212,11 +212,11 @@
         "author": "Анна Петрова",
         "position": "Директор по закупкам",
         "rating": 5,
-        "created_at": "2025-09-28T15:08:31.857931",
-        "updated_at": "2025-09-28T15:08:31.857932"
+        "created_at": "2025-10-16T16:46:58.670551",
+        "updated_at": "2025-10-16T16:46:58.670552"
       }
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/statistics",
@@ -226,12 +226,12 @@
     "response_data": {
       "id": "1",
       "years_in_business": 15,
-      "completed_orders": 2500,
-      "happy_clients": 850,
-      "cities": 45,
-      "updated_at": "2025-09-29T11:18:59.819963"
+      "completed_orders": 5000,
+      "happy_clients": 1200,
+      "cities": 150,
+      "updated_at": "2025-10-16T16:46:58.670093"
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/calculator/estimate (invalid)",
@@ -239,7 +239,7 @@
     "success": true,
     "details": "Correctly rejected invalid data: {\"detail\":\"Invalid calculator parameters\"}",
     "response_data": null,
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/calculator/quote-request (incomplete)",
@@ -247,7 +247,7 @@
     "success": true,
     "details": "Correctly rejected incomplete data: validation error",
     "response_data": null,
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/admin/login",
@@ -258,7 +258,7 @@
       "success": true,
       "token": "admin-authenticated"
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/admin/login (invalid)",
@@ -266,28 +266,28 @@
     "success": true,
     "details": "Correctly rejected invalid password: {\"detail\":\"Invalid password\"}",
     "response_data": null,
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/admin/categories",
     "method": "GET",
     "success": true,
-    "details": "Retrieved 7 admin categories successfully",
+    "details": "Retrieved 6 admin categories successfully",
     "response_data": {
-      "count": 7
+      "count": 6
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/admin/categories",
     "method": "POST",
     "success": true,
-    "details": "Category created successfully with ID: 76d884ee-d5e7-4fa0-95de-4235d768af98",
+    "details": "Category created successfully with ID: 65b18a88-d5de-49f4-8fad-0989ad3c4f3d",
     "response_data": {
       "success": true,
-      "id": "76d884ee-d5e7-4fa0-95de-4235d768af98"
+      "id": "65b18a88-d5de-49f4-8fad-0989ad3c4f3d"
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/admin/categories/{id}",
@@ -297,7 +297,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/admin/categories/{id}",
@@ -307,7 +307,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/admin/portfolio",
@@ -317,18 +317,18 @@
     "response_data": {
       "count": 6
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/admin/portfolio",
     "method": "POST",
     "success": true,
-    "details": "Portfolio item created successfully with ID: 0634c890-e0ac-4229-b458-ba447bcd4a12",
+    "details": "Portfolio item created successfully with ID: 7d41f891-e932-46f4-bc1a-ed5b0aca1a44",
     "response_data": {
       "success": true,
-      "id": "0634c890-e0ac-4229-b458-ba447bcd4a12"
+      "id": "7d41f891-e932-46f4-bc1a-ed5b0aca1a44"
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/admin/portfolio/{id}",
@@ -338,7 +338,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/admin/portfolio/{id}",
@@ -348,17 +348,17 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/admin/quote-requests",
     "method": "GET",
     "success": true,
-    "details": "Retrieved 15 quote requests successfully",
+    "details": "Retrieved 1 quote requests successfully",
     "response_data": {
-      "count": 15
+      "count": 1
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:37"
   },
   {
     "endpoint": "/admin/quote-requests/{id}/status",
@@ -368,7 +368,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:38"
   },
   {
     "endpoint": "/admin/statistics",
@@ -378,12 +378,12 @@
     "response_data": {
       "id": "1",
       "years_in_business": 15,
-      "completed_orders": 2500,
-      "happy_clients": 850,
-      "cities": 45,
-      "updated_at": "2025-09-29T11:18:59.819963"
+      "completed_orders": 5000,
+      "happy_clients": 1200,
+      "cities": 150,
+      "updated_at": "2025-10-16T16:46:58.670093"
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:38"
   },
   {
     "endpoint": "/admin/statistics",
@@ -393,17 +393,127 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:38"
   },
   {
     "endpoint": "/admin/upload-image",
     "method": "POST",
     "success": true,
-    "details": "Image uploaded successfully: /uploads/1a921038-9d76-4eaa-8b87-ef8f45440e3a.jpg",
+    "details": "Image uploaded successfully: /uploads/fae21d4e-2536-4117-81bb-3d1558c2685b.jpg",
     "response_data": {
       "success": true,
-      "url": "/uploads/1a921038-9d76-4eaa-8b87-ef8f45440e3a.jpg"
+      "url": "/uploads/fae21d4e-2536-4117-81bb-3d1558c2685b.jpg"
     },
-    "timestamp": "2025-09-29 11:21:30"
+    "timestamp": "2025-10-17 13:02:38"
+  },
+  {
+    "endpoint": "/settings",
+    "method": "GET",
+    "success": true,
+    "details": "Public settings retrieved successfully with hero_image: /images/hero-main.jpg",
+    "response_data": {
+      "id": "default",
+      "hero_image": "/images/hero-main.jpg",
+      "hero_mobile_image": null,
+      "about_image": null,
+      "updated_at": "2025-10-17T12:56:41.135961"
+    },
+    "timestamp": "2025-10-17 13:02:38"
+  },
+  {
+    "endpoint": "/admin/settings",
+    "method": "GET",
+    "success": true,
+    "details": "Admin settings retrieved successfully",
+    "response_data": {
+      "id": "default",
+      "hero_image": "/images/hero-main.jpg",
+      "hero_mobile_image": null,
+      "about_image": null,
+      "updated_at": "2025-10-17T12:56:41.135961"
+    },
+    "timestamp": "2025-10-17 13:02:38"
+  },
+  {
+    "endpoint": "/admin/settings (hero_image)",
+    "method": "PUT",
+    "success": true,
+    "details": "Hero image updated successfully to: /images/new-hero.jpg",
+    "response_data": {
+      "success": true,
+      "message": "Настройки обновлены",
+      "settings": {
+        "id": "default",
+        "hero_image": "/images/new-hero.jpg",
+        "hero_mobile_image": null,
+        "about_image": null,
+        "updated_at": "2025-10-17T13:02:38.156794"
+      }
+    },
+    "timestamp": "2025-10-17 13:02:38"
+  },
+  {
+    "endpoint": "/admin/settings (persistence check)",
+    "method": "GET",
+    "success": true,
+    "details": "Hero image persisted correctly",
+    "response_data": {
+      "id": "default",
+      "hero_image": "/images/new-hero.jpg",
+      "hero_mobile_image": null,
+      "about_image": null,
+      "updated_at": "2025-10-17T13:02:38.156794"
+    },
+    "timestamp": "2025-10-17 13:02:38"
+  },
+  {
+    "endpoint": "/admin/settings (all_fields)",
+    "method": "PUT",
+    "success": true,
+    "details": "All fields updated successfully",
+    "response_data": {
+      "success": true,
+      "message": "Настройки обновлены",
+      "settings": {
+        "id": "default",
+        "hero_image": "/images/hero-updated.jpg",
+        "hero_mobile_image": "/images/hero-mobile.jpg",
+        "about_image": "/images/about-updated.jpg",
+        "updated_at": "2025-10-17T13:02:38.225879"
+      }
+    },
+    "timestamp": "2025-10-17 13:02:38"
+  },
+  {
+    "endpoint": "/settings (integration)",
+    "method": "GET",
+    "success": true,
+    "details": "Public endpoint correctly reflects admin changes",
+    "response_data": {
+      "id": "default",
+      "hero_image": "/images/integration-test.jpg",
+      "hero_mobile_image": "/images/mobile-integration.jpg",
+      "about_image": "/images/about-integration.jpg",
+      "updated_at": "2025-10-17T13:02:38.243886"
+    },
+    "timestamp": "2025-10-17 13:02:38"
+  },
+  {
+    "endpoint": "/admin/settings (empty_data)",
+    "method": "PUT",
+    "success": true,
+    "details": "Gracefully handled empty data",
+    "response_data": {
+      "success": true,
+      "message": "Настройки обновлены",
+      "settings": {
+        "id": "default",
+        "hero_image": "/images/integration-test.jpg",
+        "hero_mobile_image": "/images/mobile-integration.jpg",
+        "about_image": "/images/about-integration.jpg",
+        "updated_at": "2025-10-17T13:02:38.310701"
+      }
+    },
+    "timestamp": "2025-10-17 13:02:38"
   }
 ]
