@@ -614,6 +614,7 @@ class ProductService:
                 "updated_at": product.updated_at
             }
         finally:
+            db.close()
 
 
 class SettingsService:
