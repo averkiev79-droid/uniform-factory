@@ -119,7 +119,7 @@ export const Hero = () => {
           <div className="relative">
             <div className="aspect-square lg:aspect-auto lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
               <img 
-                src={heroImage} 
+                src={getImageUrl(heroImage)} 
                 alt="Профессиональная корпоративная одежда"
                 className="w-full h-full object-cover"
                 loading="eager"
