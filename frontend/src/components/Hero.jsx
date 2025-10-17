@@ -3,10 +3,23 @@ import { ArrowRight, Star, Award } from 'lucide-react';
 import { apiService } from '../services/api';
 import { stats } from '../mock'; // Fallback data
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
 export const Hero = () => {
   const [statistics, setStatistics] = useState(stats);
   const [loading, setLoading] = useState(true);
   const [heroImage, setHeroImage] = useState('/images/hero-main.jpg');
+
+  // Helper function to get full image URL
+  const getImageUrl = (path) => {
+    if (!path) return '/images/hero-main.jpg';
+    // If path starts with /api/, it's an uploaded file - use BACKEND_URL
+    if (path.startsWith('/api/')) {
+      return `${BACKEND_URL}${path}`;
+    }
+    // Otherwise it's a local file in public folder
+    return path;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
