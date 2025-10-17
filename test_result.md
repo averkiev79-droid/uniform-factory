@@ -423,8 +423,9 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Product Catalog Frontend Integration"
-    - "Admin Product Management"
+    - "App Settings Management API"
+    - "Image Manager Component"
+    - "Hero Component Dynamic Images"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
