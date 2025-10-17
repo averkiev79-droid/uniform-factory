@@ -93,9 +93,13 @@ export const AboutContent = () => {
         
         <div className="relative">
           <img 
-            src="/images/about-factory.jpg" 
+            src={getImageUrl(aboutImage)} 
             alt="Фабрика Uniform Factory"
             className="w-full h-80 object-cover rounded-2xl shadow-lg"
+            onError={(e) => {
+              console.error('About image failed to load, using fallback');
+              e.target.src = '/images/about-factory.jpg';
+            }}
           />
           <div className="absolute -bottom-6 -left-6 bg-navy text-white p-6 rounded-xl shadow-lg">
             <div className="text-3xl font-bold">5000+</div>
