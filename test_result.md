@@ -195,6 +195,18 @@ backend:
         agent: "testing"
         comment: "✅ Image upload API tested successfully. POST /api/admin/upload-image accepts file uploads via multipart/form-data, validates image content type, generates unique filenames, and returns upload URL. File storage works correctly in uploads directory."
 
+  - task: "App Settings Management API"
+    implemented: true
+    working: true
+    file: "backend/admin_routes.py, backend/services_sqlite.py, backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ App settings management implemented: 1) Created AppSettings SQLite table and model 2) Added SettingsService with get_settings() and update_settings() 3) Added public endpoint GET /api/settings 4) Added admin endpoints GET/PUT /api/admin/settings 5) Settings support hero_image, hero_mobile_image, and about_image fields"
+
   - task: "Email Notifications Service"
     implemented: true
     working: true
