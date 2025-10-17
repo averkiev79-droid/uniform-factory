@@ -24,6 +24,17 @@ const ImageManager = () => {
     about_image: 'path'
   });
 
+  // Helper function to get full image URL
+  const getImageUrl = (path) => {
+    if (!path) return '';
+    // If path starts with /api/, it's an uploaded file - use BACKEND_URL
+    if (path.startsWith('/api/')) {
+      return `${BACKEND_URL}${path}`;
+    }
+    // Otherwise it's a local file in public folder
+    return path;
+  };
+
   useEffect(() => {
     fetchSettings();
   }, []);
