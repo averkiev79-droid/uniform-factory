@@ -48,6 +48,8 @@ export const AdminDashboard = ({ onLogout }) => {
         return <QuoteRequestsManager />;
       case 'statistics':
         return <StatisticsManager />;
+      case 'images':
+        return <ImageManager />;
       case 'upload':
         return <ImageUploader />;
       default:
