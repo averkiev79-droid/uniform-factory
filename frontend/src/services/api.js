@@ -203,6 +203,17 @@ export const apiService = {
       console.error(`Failed to fetch product ${productId}:`, error);
       throw error;
     }
+  },
+
+  // Settings
+  async getSettings() {
+    try {
+      const response = await api.get('/settings');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch settings:', error);
+      throw error;
+    }
   }
 };
 
