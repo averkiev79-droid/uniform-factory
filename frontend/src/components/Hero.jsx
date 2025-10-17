@@ -106,10 +106,14 @@ export const Hero = () => {
           <div className="relative">
             <div className="aspect-square lg:aspect-auto lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
               <img 
-                src="/images/hero-main.jpg" 
+                src={heroImage} 
                 alt="Профессиональная корпоративная одежда"
                 className="w-full h-full object-cover"
                 loading="eager"
+                onError={(e) => {
+                  console.error('Hero image failed to load, using fallback');
+                  e.target.src = '/images/hero-main.jpg';
+                }}
               />
             </div>
             
