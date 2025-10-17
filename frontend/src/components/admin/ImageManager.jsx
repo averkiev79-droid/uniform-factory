@@ -245,7 +245,7 @@ const ImageManager = () => {
             </label>
             <div className="relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden">
               <img
-                src={settings[field]}
+                src={getImageUrl(settings[field])}
                 alt={label}
                 className="w-full h-full object-cover"
                 onError={(e) => {
