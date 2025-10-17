@@ -221,3 +221,17 @@ class ProductWithDetails(Product):
     images: List[ProductImage] = []
     characteristics: List[ProductCharacteristic] = []
     category_name: Optional[str] = None
+
+
+# App Settings Models
+class AppSettingsModel(BaseModel):
+    id: str = "default"
+    hero_image: str = "/images/hero-main.jpg"
+    hero_mobile_image: Optional[str] = None
+    about_image: Optional[str] = None
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+class AppSettingsUpdate(BaseModel):
+    hero_image: Optional[str] = None
+    hero_mobile_image: Optional[str] = None
+    about_image: Optional[str] = None
