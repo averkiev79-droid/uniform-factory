@@ -748,6 +748,236 @@ class APITester:
         except Exception as e:
             self.log_result('/admin/upload-image', 'POST', False, f"Exception: {str(e)}")
     
+    # ===== APP SETTINGS MANAGEMENT TESTS =====
+    
+    def test_public_settings_endpoint(self):
+        """Test 1: Public Settings Endpoint - GET /api/settings"""
+        try:
+            response = self.session.get(f"{self.base_url}/settings")
+            
+            if response.status_code == 200:
+                data = response.json()
+                required_fields = ['id', 'hero_image', 'hero_mobile_image', 'about_image', 'updated_at']
+                
+                if all(field in data for field in required_fields):
+                    # Check if hero_image defaults to "/images/hero-main.jpg"
+                    if data.get('hero_image') == "/images/hero-main.jpg" or data.get('hero_image'):
+                        self.log_result('/settings', 'GET', True, 
+                                      f"Public settings retrieved successfully with hero_image: {data.get('hero_image')}", data)
+                    else:
+                        self.log_result('/settings', 'GET', False, 
+                                      f"Hero image not set correctly: {data.get('hero_image')}", data)
+                else:
+                    missing = [f for f in required_fields if f not in data]
+                    self.log_result('/settings', 'GET', False, 
+                                  f"Missing required fields: {missing}", data)
+            else:
+                self.log_result('/settings', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/settings', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_admin_get_settings(self):
+        """Test 2: Admin Get Settings - GET /api/admin/settings"""
+        try:
+            response = self.session.get(f"{self.base_url}/admin/settings")
+            
+            if response.status_code == 200:
+                data = response.json()
+                required_fields = ['id', 'hero_image', 'hero_mobile_image', 'about_image', 'updated_at']
+                
+                if all(field in data for field in required_fields):
+                    self.log_result('/admin/settings', 'GET', True, 
+                                  f"Admin settings retrieved successfully", data)
+                else:
+                    missing = [f for f in required_fields if f not in data]
+                    self.log_result('/admin/settings', 'GET', False, 
+                                  f"Missing required fields: {missing}", data)
+            else:
+                self.log_result('/admin/settings', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/settings', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_admin_update_settings_hero_image(self):
+        """Test 3: Admin Update Settings - Hero Image - PUT /api/admin/settings"""
+        settings_data = {
+            "hero_image": "/images/new-hero.jpg"
+        }
+        
+        try:
+            # Set correct Content-Type for form data
+            headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+            response = self.session.put(f"{self.base_url}/admin/settings", data=settings_data, headers=headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success') and data.get('settings'):
+                    settings = data['settings']
+                    if settings.get('hero_image') == "/images/new-hero.jpg":
+                        self.log_result('/admin/settings (hero_image)', 'PUT', True, 
+                                      f"Hero image updated successfully to: {settings.get('hero_image')}", data)
+                        
+                        # Verify persistence by getting settings again
+                        verify_response = self.session.get(f"{self.base_url}/admin/settings")
+                        if verify_response.status_code == 200:
+                            verify_data = verify_response.json()
+                            if verify_data.get('hero_image') == "/images/new-hero.jpg":
+                                self.log_result('/admin/settings (persistence check)', 'GET', True, 
+                                              f"Hero image persisted correctly", verify_data)
+                            else:
+                                self.log_result('/admin/settings (persistence check)', 'GET', False, 
+                                              f"Hero image not persisted: {verify_data.get('hero_image')}", verify_data)
+                        else:
+                            self.log_result('/admin/settings (persistence check)', 'GET', False, 
+                                          f"Failed to verify persistence: {verify_response.status_code}")
+                    else:
+                        self.log_result('/admin/settings (hero_image)', 'PUT', False, 
+                                      f"Hero image not updated correctly: {settings.get('hero_image')}", data)
+                else:
+                    self.log_result('/admin/settings (hero_image)', 'PUT', False, 
+                                  f"Invalid update response: {data}", data)
+            else:
+                self.log_result('/admin/settings (hero_image)', 'PUT', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/settings (hero_image)', 'PUT', False, f"Exception: {str(e)}")
+    
+    def test_admin_update_settings_all_fields(self):
+        """Test 4: Admin Update Settings - All Fields - PUT /api/admin/settings"""
+        settings_data = {
+            "hero_image": "/images/hero-updated.jpg",
+            "hero_mobile_image": "/images/hero-mobile.jpg",
+            "about_image": "/images/about-updated.jpg"
+        }
+        
+        try:
+            # Set correct Content-Type for form data
+            headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+            response = self.session.put(f"{self.base_url}/admin/settings", data=settings_data, headers=headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success') and data.get('settings'):
+                    settings = data['settings']
+                    
+                    # Verify all fields are updated correctly
+                    all_correct = (
+                        settings.get('hero_image') == "/images/hero-updated.jpg" and
+                        settings.get('hero_mobile_image') == "/images/hero-mobile.jpg" and
+                        settings.get('about_image') == "/images/about-updated.jpg"
+                    )
+                    
+                    if all_correct:
+                        self.log_result('/admin/settings (all_fields)', 'PUT', True, 
+                                      f"All fields updated successfully", data)
+                    else:
+                        self.log_result('/admin/settings (all_fields)', 'PUT', False, 
+                                      f"Not all fields updated correctly: hero={settings.get('hero_image')}, mobile={settings.get('hero_mobile_image')}, about={settings.get('about_image')}", data)
+                else:
+                    self.log_result('/admin/settings (all_fields)', 'PUT', False, 
+                                  f"Invalid update response: {data}", data)
+            else:
+                self.log_result('/admin/settings (all_fields)', 'PUT', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/settings (all_fields)', 'PUT', False, f"Exception: {str(e)}")
+    
+    def test_verify_integration_with_frontend(self):
+        """Test 5: Verify Integration with Frontend - GET /api/settings after admin changes"""
+        try:
+            # First, update settings via admin endpoint
+            settings_data = {
+                "hero_image": "/images/integration-test.jpg",
+                "hero_mobile_image": "/images/mobile-integration.jpg",
+                "about_image": "/images/about-integration.jpg"
+            }
+            
+            headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+            update_response = self.session.put(f"{self.base_url}/admin/settings", data=settings_data, headers=headers)
+            
+            if update_response.status_code == 200:
+                # Now verify public endpoint reflects the changes
+                public_response = self.session.get(f"{self.base_url}/settings")
+                
+                if public_response.status_code == 200:
+                    public_data = public_response.json()
+                    
+                    # Verify public endpoint returns updated values
+                    integration_correct = (
+                        public_data.get('hero_image') == "/images/integration-test.jpg" and
+                        public_data.get('hero_mobile_image') == "/images/mobile-integration.jpg" and
+                        public_data.get('about_image') == "/images/about-integration.jpg"
+                    )
+                    
+                    if integration_correct:
+                        self.log_result('/settings (integration)', 'GET', True, 
+                                      f"Public endpoint correctly reflects admin changes", public_data)
+                    else:
+                        self.log_result('/settings (integration)', 'GET', False, 
+                                      f"Public endpoint does not reflect admin changes: {public_data}", public_data)
+                else:
+                    self.log_result('/settings (integration)', 'GET', False, 
+                                  f"Public endpoint failed: {public_response.status_code}")
+            else:
+                self.log_result('/settings (integration)', 'PUT', False, 
+                              f"Admin update failed: {update_response.status_code}")
+                
+        except Exception as e:
+            self.log_result('/settings (integration)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_settings_error_handling(self):
+        """Test 6: Error Handling - Test with invalid/empty data"""
+        try:
+            # Test with empty data
+            empty_data = {}
+            headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+            response = self.session.put(f"{self.base_url}/admin/settings", data=empty_data, headers=headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success'):
+                    self.log_result('/admin/settings (empty_data)', 'PUT', True, 
+                                  f"Gracefully handled empty data", data)
+                else:
+                    self.log_result('/admin/settings (empty_data)', 'PUT', False, 
+                                  f"Did not handle empty data gracefully: {data}", data)
+            else:
+                self.log_result('/admin/settings (empty_data)', 'PUT', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/settings (empty_data)', 'PUT', False, f"Exception: {str(e)}")
+    
+    def run_settings_tests(self):
+        """Run all App Settings Management API tests"""
+        print(f"\n🖼️  Starting App Settings Management API tests")
+        print("=" * 50)
+        
+        # Test 1: Public Settings Endpoint
+        self.test_public_settings_endpoint()
+        
+        # Test 2: Admin Get Settings
+        self.test_admin_get_settings()
+        
+        # Test 3: Admin Update Settings - Hero Image
+        self.test_admin_update_settings_hero_image()
+        
+        # Test 4: Admin Update Settings - All Fields
+        self.test_admin_update_settings_all_fields()
+        
+        # Test 5: Verify Integration with Frontend
+        self.test_verify_integration_with_frontend()
+        
+        # Test 6: Error Handling
+        self.test_settings_error_handling()
+        
+        print("=" * 50)
+    
     def run_admin_tests(self):
         """Run all admin panel tests"""
         print(f"\n🔐 Starting Admin Panel API tests")
