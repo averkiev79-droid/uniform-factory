@@ -255,6 +255,16 @@ async def get_statistics():
         logger.error(f"Error getting statistics: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
+@api_router.get("/settings")
+async def get_settings():
+    """Get app settings (public endpoint for frontend)"""
+    try:
+        settings = SettingsService.get_settings()
+        return settings
+    except Exception as e:
+        logger.error(f"Error getting settings: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
 # Admin endpoints (for future use)
 @api_router.get("/admin/quote-requests")
 async def get_quote_requests(status: Optional[str] = None):
