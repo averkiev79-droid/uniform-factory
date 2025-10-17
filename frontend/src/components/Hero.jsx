@@ -43,12 +43,12 @@ export const Hero = () => {
           { label: "Городов России", value: `${statsData.cities}+`, icon: "MapPin" }
         ];
         setStatistics(transformedData);
-        if (settings.hero_image) {
-          setHeroImage(settings.hero_image);
-        }
       } catch (err) {
         console.error('Failed to fetch data:', err);
-        // Keep fallback data
+        // Set fallback image if API fails
+        if (!heroImage) {
+          setHeroImage('/images/hero-main.jpg');
+        }
       } finally {
         setLoading(false);
       }
