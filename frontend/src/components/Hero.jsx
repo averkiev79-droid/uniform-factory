@@ -8,7 +8,8 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const Hero = () => {
   const [statistics, setStatistics] = useState(stats);
   const [loading, setLoading] = useState(true);
-  const [heroImage, setHeroImage] = useState('/images/hero-main.jpg');
+  const [heroImage, setHeroImage] = useState(null); // Start with null instead of default
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   // Helper function to get full image URL
   const getImageUrl = (path) => {
@@ -24,9 +25,16 @@ export const Hero = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
+        // Fetch settings for hero image first (before showing anything)
+        const settings = await apiService.getSettings();
+        if (settings.hero_image) {
+          setHeroImage(settings.hero_image);
+        } else {
+          setHeroImage('/images/hero-main.jpg');
+        }
         
-        // Fetch statistics
+        // Then fetch statistics
+        setLoading(true);
         const statsData = await apiService.getStatistics();
         const transformedData = [
           { label: "Лет на рынке", value: `${statsData.years_in_business}+`, icon: "Calendar" },
@@ -35,9 +43,6 @@ export const Hero = () => {
           { label: "Городов России", value: `${statsData.cities}+`, icon: "MapPin" }
         ];
         setStatistics(transformedData);
-        
-        // Fetch settings for hero image
-        const settings = await apiService.getSettings();
         if (settings.hero_image) {
           setHeroImage(settings.hero_image);
         }
