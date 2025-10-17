@@ -461,6 +461,42 @@ async def admin_update_product(product_id: str, product: ProductCreate):
 
 @admin_router.delete("/products/{product_id}")
 async def admin_delete_product(product_id: str):
+
+
+# App Settings Management
+@admin_router.get("/settings")
+async def admin_get_settings():
+    """Get app settings"""
+    try:
+        from services_sqlite import SettingsService
+        settings = SettingsService.get_settings()
+        return settings
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@admin_router.put("/settings")
+async def admin_update_settings(
+    hero_image: Optional[str] = Form(None),
+    hero_mobile_image: Optional[str] = Form(None),
+    about_image: Optional[str] = Form(None)
+):
+    """Update app settings"""
+    try:
+        from services_sqlite import SettingsService
+        
+        settings_update = {}
+        if hero_image is not None:
+            settings_update["hero_image"] = hero_image
+        if hero_mobile_image is not None:
+            settings_update["hero_mobile_image"] = hero_mobile_image
+        if about_image is not None:
+            settings_update["about_image"] = about_image
+        
+        settings = SettingsService.update_settings(settings_update)
+        return {"success": True, "message": "Настройки обновлены", "settings": settings}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
     """Delete product"""
     db = SessionLocal()
     try:
