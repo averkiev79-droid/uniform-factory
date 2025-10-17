@@ -1003,6 +1003,9 @@ class APITester:
         self.test_admin_image_upload()
         
         print("=" * 50)
+        
+        # App Settings Management tests
+        self.run_settings_tests()
     
     def run_all_tests(self):
         """Run all API tests"""
