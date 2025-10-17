@@ -1,8 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Factory, Award, Users, Clock, Target, Handshake } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
+import { apiService } from '../services/api';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 export const AboutContent = () => {
+  const [aboutImage, setAboutImage] = useState('/images/about-factory.jpg');
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const settings = await apiService.getSettings();
+        if (settings.about_image) {
+          setAboutImage(settings.about_image);
+        }
+      } catch (err) {
+        console.error('Failed to fetch settings:', err);
+        // Keep fallback image
+      }
+    };
+
+    fetchSettings();
+  }, []);
+
+  // Helper function to get full image URL
+  const getImageUrl = (path) => {
+    if (!path) return '/images/about-factory.jpg';
+    // If path starts with /api/, it's an uploaded file - use BACKEND_URL
+    if (path.startsWith('/api/')) {
+      return `${BACKEND_URL}${path}`;
+    }
+    // Otherwise it's a local file in public folder
+    return path;
+  };
+
   const features = [
     {
       icon: Factory,
