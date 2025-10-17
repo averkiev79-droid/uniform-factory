@@ -11,7 +11,7 @@ from typing import Dict, Any, List
 import time
 
 # Backend URL from frontend .env
-BACKEND_URL = "https://uniformfactory-app.preview.emergentagent.com/api"
+BACKEND_URL = "https://uniform-dashboard.preview.emergentagent.com/api"
 
 class APITester:
     def __init__(self, base_url: str):
