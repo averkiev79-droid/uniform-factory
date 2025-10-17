@@ -461,6 +461,19 @@ async def admin_update_product(product_id: str, product: ProductCreate):
 
 @admin_router.delete("/products/{product_id}")
 async def admin_delete_product(product_id: str):
+    """Delete product"""
+    db = SessionLocal()
+    try:
+        from database_sqlite import SQLProduct
+        product = db.query(SQLProduct).filter(SQLProduct.id == product_id).first()
+        if not product:
+            raise HTTPException(status_code=404, detail="Product not found")
+        
+        db.delete(product)
+        db.commit()
+        return {"success": True, "message": "Товар удален"}
+    finally:
+        db.close()
 
 
 # App Settings Management
