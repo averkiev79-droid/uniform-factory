@@ -37,6 +37,7 @@ export const AdminDashboard = ({ onLogout }) => {
     { id: 'quotes', name: 'Заявки', icon: Mail },
     { id: 'statistics', name: 'Статистика', icon: BarChart3 },
     { id: 'webvitals', name: 'Производительность', icon: Activity },
+    { id: 'legal', name: 'Юридические документы', icon: FileText },
     { id: 'images', name: 'Изображения главной', icon: Image },
     { id: 'upload', name: 'Загрузка изображений', icon: Upload }
   ];
