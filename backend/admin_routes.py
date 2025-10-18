@@ -119,7 +119,7 @@ async def update_category(
     description: str = Form(...),
     products_count: int = Form(...),
     slug: str = Form(...),
-    image: str = Form(...)
+    image: str = Form(None)  # Made optional for editing
 ):
     """Update category"""
     db = SessionLocal()
@@ -130,7 +130,8 @@ async def update_category(
         
         category.title = title
         category.description = description
-        category.image = image
+        if image:  # Only update image if provided
+            category.image = image
         category.products_count = products_count
         category.slug = slug
         
