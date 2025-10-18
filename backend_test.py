@@ -1173,6 +1173,9 @@ class APITester:
         self.test_invalid_calculator_estimate()
         self.test_missing_fields_quote_request()
         
+        # Contact Forms Bug Fix Tests (Priority)
+        self.run_contact_forms_tests()
+        
         # Admin panel tests
         self.run_admin_tests()
         
