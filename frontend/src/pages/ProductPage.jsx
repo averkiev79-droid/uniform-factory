@@ -17,6 +17,13 @@ export const ProductPage = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  
+  // Touch swipe state
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
 
   // Check if product is in favorites
   useEffect(() => {
