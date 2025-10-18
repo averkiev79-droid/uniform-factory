@@ -392,7 +392,7 @@ class APITester:
                               f"HTTP {response.status_code}: {response.text}")
                 
         except Exception as e:
-            self.log_result('/contact/quote-request (FIXED)', 'POST', False, f"Exception: {str(e)}")
+            self.log_result('/calculator/quote-request (FIXED)', 'POST', False, f"Exception: {str(e)}")
     
     def run_contact_forms_tests(self):
         """Run all Contact Forms Bug Fix tests"""
