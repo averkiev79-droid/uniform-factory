@@ -192,21 +192,30 @@ export const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-gray-800">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-sm text-gray-400">
+        <div className="container mx-auto px-4 py-4 md:py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+            <div className="text-xs md:text-sm text-gray-400 text-center md:text-left">
               © {currentYear} Uniform Factory. Все права защищены.
             </div>
-            <div className="flex space-x-6 text-sm text-gray-400">
-              <a href="#" className="hover:text-white transition-colors duration-200">
+            <div className="flex flex-wrap justify-center gap-3 md:gap-6 text-xs md:text-sm text-gray-400">
+              <button
+                onClick={() => navigate('/privacy-policy')}
+                className="hover:text-white transition-colors duration-200 whitespace-nowrap"
+              >
                 Политика конфиденциальности
-              </a>
-              <a href="#" className="hover:text-white transition-colors duration-200">
+              </button>
+              <button
+                onClick={() => navigate('/user-agreement')}
+                className="hover:text-white transition-colors duration-200 whitespace-nowrap"
+              >
                 Пользовательское соглашение
-              </a>
-              <a href="#" className="hover:text-white transition-colors duration-200">
+              </button>
+              <button
+                onClick={() => navigate('/company-details')}
+                className="hover:text-white transition-colors duration-200 whitespace-nowrap"
+              >
                 Реквизиты
-              </a>
+              </button>
             </div>
           </div>
         </div>
