@@ -101,14 +101,14 @@ export const Footer = () => {
             </div>
             
             <div>
-              <h3 className="text-lg font-bold mb-4">Каталог</h3>
-              <ul className="space-y-3">
+              <h3 className="text-base md:text-lg font-bold mb-3 md:mb-4">Каталог</h3>
+              <ul className="space-y-2 md:space-y-3">
                 {footerLinks.catalog.map((link) => (
                   <li key={link.name}>
                     <a 
                       href={link.href}
                       onClick={(e) => handleLinkClick(e, link)} 
-                      className="text-gray-300 hover:text-white transition-colors duration-200"
+                      className="text-sm md:text-base text-gray-300 hover:text-white transition-colors duration-200"
                     >
                       {link.name}
                     </a>
@@ -118,14 +118,14 @@ export const Footer = () => {
             </div>
             
             <div>
-              <h3 className="text-lg font-bold mb-4">Услуги</h3>
-              <ul className="space-y-3">
+              <h3 className="text-base md:text-lg font-bold mb-3 md:mb-4">Услуги</h3>
+              <ul className="space-y-2 md:space-y-3">
                 {footerLinks.services.map((link) => (
                   <li key={link.name}>
                     <a 
                       href={link.href}
                       onClick={(e) => handleLinkClick(e, link)}
-                      className="text-gray-300 hover:text-white transition-colors duration-200"
+                      className="text-sm md:text-base text-gray-300 hover:text-white transition-colors duration-200"
                     >
                       {link.name}
                     </a>
@@ -136,12 +136,12 @@ export const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-6">
-            <h3 className="text-lg font-bold">Контакты</h3>
+          <div className="space-y-4 md:space-y-6">
+            <h3 className="text-base md:text-lg font-bold">Контакты</h3>
             
-            <div className="space-y-4">
-              <div className="flex items-start space-x-3">
-                <Phone className="w-5 h-5 text-navy-400 mt-1 flex-shrink-0" />
+            <div className="space-y-3 md:space-y-4">
+              <div className="flex items-start space-x-2 md:space-x-3">
+                <Phone className="w-4 h-4 md:w-5 md:h-5 text-navy-400 mt-1 flex-shrink-0" />
                 <div>
                   <div className="font-medium">+7 (812) 317-73-19</div>
                   <div className="text-sm text-gray-400">Основной номер</div>
