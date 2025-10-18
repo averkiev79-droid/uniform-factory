@@ -545,36 +545,3 @@ async def get_web_vitals_metrics():
             db.close()
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-    about_image: Optional[str] = Form(None)
-):
-    """Update app settings"""
-    try:
-        from services_sqlite import SettingsService
-        
-        settings_update = {}
-        if hero_image is not None:
-            settings_update["hero_image"] = hero_image
-        if hero_mobile_image is not None:
-            settings_update["hero_mobile_image"] = hero_mobile_image
-        if about_image is not None:
-            settings_update["about_image"] = about_image
-        
-        settings = SettingsService.update_settings(settings_update)
-        return {"success": True, "message": "Настройки обновлены", "settings": settings}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-    """Delete product"""
-    db = SessionLocal()
-    try:
-        from database_sqlite import SQLProduct
-        product = db.query(SQLProduct).filter(SQLProduct.id == product_id).first()
-        if not product:
-            raise HTTPException(status_code=404, detail="Product not found")
-        
-        db.delete(product)
-        db.commit()
-        return {"success": True, "message": "Товар удален"}
-    finally:
-        db.close()
