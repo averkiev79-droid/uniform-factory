@@ -36,7 +36,7 @@ const WebVitalsMonitor = () => {
   const calculateStats = (metricsData) => {
     const grouped = {
       CLS: [],
-      FID: [],
+      INP: [],
       FCP: [],
       LCP: [],
       TTFB: []
