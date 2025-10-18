@@ -115,6 +115,16 @@ class WebVitals(Base):
     page = Column(String)
     timestamp = Column(DateTime, default=datetime.utcnow)
 
+class LegalDocument(Base):
+    __tablename__ = "legal_documents"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    doc_type = Column(String, nullable=False)  # privacy_policy, user_agreement, company_details
+    title = Column(String, nullable=False)
+    content = Column(Text, nullable=False)  # Markdown content
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
 # Product Tables
 class SQLProduct(Base):
     __tablename__ = "products"
