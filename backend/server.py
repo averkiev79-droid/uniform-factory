@@ -139,8 +139,9 @@ async def create_quote_request(request: QuoteRequestCreate, background_tasks: Ba
         
         # Send email notification in background
         if os.getenv('SENDER_EMAIL') and os.getenv('EMAIL_PASSWORD'):
+            from datetime import datetime
             request_data = {
-                'request_id': response.get('request_id'),
+                'request_id': response.request_id,
                 'name': request.name,
                 'email': request.email,
                 'phone': request.phone,
@@ -150,7 +151,7 @@ async def create_quote_request(request: QuoteRequestCreate, background_tasks: Ba
                 'fabric': request.fabric,
                 'branding': request.branding,
                 'estimated_price': request.estimated_price,
-                'created_at': response.get('created_at')
+                'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
             background_tasks.add_task(send_quote_notification_email, request_data)
         
