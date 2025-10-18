@@ -24,6 +24,7 @@ import { ProductsManager } from './ProductsManager';
 import ImageManager from './ImageManager';
 import WebVitalsMonitor from './WebVitalsMonitor';
 import LegalDocsManager from './LegalDocsManager';
+import UploadedImagesViewer from './UploadedImagesViewer';
 
 export const AdminDashboard = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState('dashboard');
