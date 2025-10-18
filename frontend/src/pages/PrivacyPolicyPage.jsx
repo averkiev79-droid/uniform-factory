@@ -66,7 +66,7 @@ export const PrivacyPolicyPage = () => {
                 prose-li:mb-2
                 prose-strong:text-gray-900 prose-strong:font-semibold
               ">
-                <ReactMarkdown>{document.content}</ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{document.content}</ReactMarkdown>
               </div>
             </>
           ) : (
