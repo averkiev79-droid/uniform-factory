@@ -254,19 +254,19 @@ export const ProductPage = () => {
                   {/* Previous Button */}
                   <button
                     onClick={handlePreviousImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 lg:w-12 lg:h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center opacity-70 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 z-10"
                     aria-label="Предыдущее фото"
                   >
-                    <ChevronLeft className="w-6 h-6 text-gray-800" />
+                    <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6 text-gray-800" />
                   </button>
                   
                   {/* Next Button */}
                   <button
                     onClick={handleNextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 lg:w-12 lg:h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center opacity-70 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 z-10"
                     aria-label="Следующее фото"
                   >
-                    <ChevronRight className="w-6 h-6 text-gray-800" />
+                    <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 text-gray-800" />
                   </button>
                   
                   {/* Image Counter */}
