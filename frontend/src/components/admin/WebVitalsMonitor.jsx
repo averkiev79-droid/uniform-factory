@@ -109,13 +109,13 @@ const WebVitalsMonitor = () => {
       info: 'Измеряет стабильность макета. Значение < 0.1 считается хорошим.'
     },
     {
-      key: 'fid',
-      name: 'FID',
-      title: 'First Input Delay',
-      description: 'Время до первого взаимодействия',
+      key: 'inp',
+      name: 'INP',
+      title: 'Interaction to Next Paint',
+      description: 'Отзывчивость на действия',
       icon: MousePointer,
       unit: 'мс',
-      info: 'Время ответа на первое взаимодействие пользователя. < 100мс хорошо.'
+      info: 'Время отклика на взаимодействие пользователя. < 200мс хорошо.'
     },
     {
       key: 'fcp',
