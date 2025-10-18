@@ -13,6 +13,9 @@ import { CategoryProductsPage } from './pages/CategoryProductsPage';
 import { ProductPage } from './pages/ProductPage';
 import { FavoritesPage } from './pages/FavoritesPage';
 import { AdvantagePage } from './pages/AdvantagePage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { UserAgreementPage } from './pages/UserAgreementPage';
+import { CompanyDetailsPage } from './pages/CompanyDetailsPage';
 import { AdminApp } from './components/AdminApp';
 
 function App() {
