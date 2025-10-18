@@ -16,7 +16,7 @@ export const CompanyDetailsPage = () => {
   }, []);
 
   const fetchDocument = async () => {
-    try:
+    try {
       setLoading(true);
       const response = await axios.get(`${BACKEND_URL}/api/legal/company_details`);
       setDocument(response.data);
