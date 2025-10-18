@@ -102,6 +102,19 @@ class AppSettings(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+class WebVitals(Base):
+    __tablename__ = "web_vitals"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    name = Column(String, nullable=False)  # CLS, FID, FCP, LCP, TTFB
+    value = Column(Float, nullable=False)
+    rating = Column(String)  # good, needs-improvement, poor
+    delta = Column(Float)
+    metric_id = Column(String)
+    navigation_type = Column(String)
+    page = Column(String)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+
 # Product Tables
 class SQLProduct(Base):
     __tablename__ = "products"
