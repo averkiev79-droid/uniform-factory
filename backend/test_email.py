@@ -45,7 +45,7 @@ def test_email():
     
     try:
         print("Отправка тестового письма...")
-        send_quote_notification_email(test_quote, admin_email)
+        send_quote_notification_email(test_quote)
         print("✅ УСПЕХ! Тестовое письмо отправлено!")
         print(f"Проверьте почту: {admin_email}")
         return True
