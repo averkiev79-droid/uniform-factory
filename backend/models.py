@@ -234,7 +234,9 @@ class AppSettingsModel(BaseModel):
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
 class AppSettingsUpdate(BaseModel):
-
+    hero_image: Optional[str] = None
+    hero_mobile_image: Optional[str] = None
+    about_image: Optional[str] = None
 
 # Web Vitals Models
 class WebVitalsMetric(BaseModel):
