@@ -493,6 +493,42 @@ async def admin_get_settings():
 async def admin_update_settings(
     hero_image: Optional[str] = Form(None),
     hero_mobile_image: Optional[str] = Form(None),
+
+
+# Web Vitals Management
+@admin_router.get("/web-vitals")
+async def get_web_vitals_metrics():
+    """Get Web Vitals metrics for monitoring"""
+    try:
+        from database_sqlite import WebVitals, SessionLocal
+        from datetime import datetime, timedelta
+        
+        db = SessionLocal()
+        try:
+            # Get metrics from last 7 days
+            week_ago = datetime.utcnow() - timedelta(days=7)
+            metrics = db.query(WebVitals).filter(
+                WebVitals.timestamp >= week_ago
+            ).order_by(WebVitals.timestamp.desc()).all()
+            
+            result = []
+            for metric in metrics:
+                result.append({
+                    'id': metric.id,
+                    'name': metric.name,
+                    'value': metric.value,
+                    'rating': metric.rating,
+                    'delta': metric.delta,
+                    'page': metric.page,
+                    'timestamp': metric.timestamp.isoformat()
+                })
+            
+            return {'metrics': result}
+        finally:
+            db.close()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
     about_image: Optional[str] = Form(None)
 ):
     """Update app settings"""
