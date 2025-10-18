@@ -129,6 +129,31 @@ export const ProductPage = () => {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [product]);
 
+  // Touch swipe handlers
+  const onTouchStart = (e) => {
+    setTouchEnd(null); // Reset touch end
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      handleNextImage(); // Swipe left = next image
+    }
+    if (isRightSwipe) {
+      handlePreviousImage(); // Swipe right = previous image
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
