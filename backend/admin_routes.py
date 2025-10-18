@@ -545,3 +545,87 @@ async def get_web_vitals_metrics():
             db.close()
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# Legal Documents Management
+@admin_router.get("/legal-documents")
+async def get_all_legal_documents():
+    """Get all legal documents"""
+    try:
+        from database_sqlite import LegalDocument, SessionLocal
+        
+        db = SessionLocal()
+        try:
+            documents = db.query(LegalDocument).all()
+            result = []
+            for doc in documents:
+                result.append({
+                    'id': doc.id,
+                    'doc_type': doc.doc_type,
+                    'title': doc.title,
+                    'content': doc.content,
+                    'updated_at': doc.updated_at.isoformat(),
+                    'created_at': doc.created_at.isoformat()
+                })
+            return {'documents': result}
+        finally:
+            db.close()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@admin_router.get("/legal-documents/{doc_type}")
+async def get_legal_document(doc_type: str):
+    """Get specific legal document"""
+    try:
+        from database_sqlite import LegalDocument, SessionLocal
+        
+        db = SessionLocal()
+        try:
+            doc = db.query(LegalDocument).filter(LegalDocument.doc_type == doc_type).first()
+            if not doc:
+                raise HTTPException(status_code=404, detail="Document not found")
+            
+            return {
+                'id': doc.id,
+                'doc_type': doc.doc_type,
+                'title': doc.title,
+                'content': doc.content,
+                'updated_at': doc.updated_at.isoformat(),
+                'created_at': doc.created_at.isoformat()
+            }
+        finally:
+            db.close()
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@admin_router.put("/legal-documents/{doc_type}")
+async def update_legal_document(
+    doc_type: str,
+    title: str = Form(...),
+    content: str = Form(...)
+):
+    """Update legal document"""
+    try:
+        from database_sqlite import LegalDocument, SessionLocal
+        from datetime import datetime
+        
+        db = SessionLocal()
+        try:
+            doc = db.query(LegalDocument).filter(LegalDocument.doc_type == doc_type).first()
+            if not doc:
+                raise HTTPException(status_code=404, detail="Document not found")
+            
+            doc.title = title
+            doc.content = content
+            doc.updated_at = datetime.utcnow()
+            
+            db.commit()
+            return {"success": True, "message": "Документ обновлен"}
+        finally:
+            db.close()
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
