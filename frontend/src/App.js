@@ -75,6 +75,21 @@ function App() {
               <AdvantagePage />
             </Layout>
           } />
+          <Route path="/privacy-policy" element={
+            <Layout>
+              <PrivacyPolicyPage />
+            </Layout>
+          } />
+          <Route path="/user-agreement" element={
+            <Layout>
+              <UserAgreementPage />
+            </Layout>
+          } />
+          <Route path="/company-details" element={
+            <Layout>
+              <CompanyDetailsPage />
+            </Layout>
+          } />
         </Routes>
       </Router>
     </div>
