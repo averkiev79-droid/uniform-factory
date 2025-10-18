@@ -418,6 +418,18 @@ frontend:
         agent: "testing"
         comment: "✅ GET /api/health - Health check passed successfully. Returns correct status and service name."
 
+  - task: "Contact Forms Bug Fix Verification"
+    implemented: true
+    working: true
+    file: "backend/server.py, backend/models.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ CONTACT FORMS BUG FIX VERIFICATION COMPLETED SUCCESSFULLY - All 3 contact forms tested and working correctly after fixing 500 error bug: 1) Consultation Form (POST /api/contact/consultation) - Returns 200 OK with success message 'Заявка на консультацию принята. Мы свяжемся с вами в течение 2 часов.' 2) Callback Request Form (POST /api/contact/callback-request) - Returns 200 OK with success message 'Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут.' - Fixed CallbackRequestCreate model to include optional email and company fields 3) Quote Request Form (POST /api/calculator/quote-request) - Returns 200 OK with success message and request_id 'REQ-2025-30AECE' 4) Email notifications working correctly - Backend logs show 'Email sent successfully to simplepay@mail.ru' 5) All forms now properly handle Pydantic response objects without using .get() method. Bug fix successful - no more 500 errors on contact form submissions."
+
 metadata:
   created_by: "main_agent"
   version: "3.0"
