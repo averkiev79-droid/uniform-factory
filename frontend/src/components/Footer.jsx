@@ -151,7 +151,7 @@ export const Footer = () => {
               <div className="flex items-start space-x-2 md:space-x-3">
                 <Mail className="w-4 h-4 md:w-5 md:h-5 text-navy-400 mt-1 flex-shrink-0" />
                 <div>
-                  <div className="text-sm md:text-base font-medium break-all">info@uniformfactory.ru</div>
+                  <div className="text-sm md:text-base font-medium break-all">mail@uniformfactory.ru</div>
                   <div className="text-xs md:text-sm text-gray-400">Общие вопросы</div>
                 </div>
               </div>
