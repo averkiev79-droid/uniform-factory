@@ -134,6 +134,7 @@ export const ProductPage = () => {
   const onTouchStart = (e) => {
     setTouchEnd(null); // Reset touch end
     setTouchStart(e.targetTouches[0].clientX);
+    setIsDragging(true);
   };
 
   const onTouchMove = (e) => {
@@ -141,7 +142,10 @@ export const ProductPage = () => {
   };
 
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (!touchStart || !touchEnd) {
+      setIsDragging(false);
+      return;
+    }
     
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
@@ -153,6 +157,8 @@ export const ProductPage = () => {
     if (isRightSwipe) {
       handlePreviousImage(); // Swipe right = previous image
     }
+    
+    setIsDragging(false);
   };
 
   if (loading) {
