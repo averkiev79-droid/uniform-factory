@@ -547,6 +547,59 @@ async def get_web_vitals_metrics():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+
+# Uploaded Files Management
+@admin_router.get("/uploaded-files")
+async def get_uploaded_files():
+    """Get list of all uploaded files"""
+    try:
+        import os
+        from pathlib import Path
+        
+        upload_dir = Path("uploads")
+        if not upload_dir.exists():
+            return {"files": []}
+        
+        files = []
+        for file_path in upload_dir.iterdir():
+            if file_path.is_file() and file_path.suffix.lower() in ['.jpg', '.jpeg', '.png', '.webp', '.gif']:
+                stat = file_path.stat()
+                files.append({
+                    "filename": file_path.name,
+                    "size": stat.st_size,
+                    "modified": stat.st_mtime,
+                    "url": f"/api/uploads/{file_path.name}"
+                })
+        
+        # Sort by modified time (newest first)
+        files.sort(key=lambda x: x['modified'], reverse=True)
+        
+        return {"files": files}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@admin_router.delete("/uploaded-files/{filename}")
+async def delete_uploaded_file(filename: str):
+    """Delete uploaded file"""
+    try:
+        from pathlib import Path
+        
+        file_path = Path("uploads") / filename
+        if not file_path.exists():
+            raise HTTPException(status_code=404, detail="File not found")
+        
+        # Security check - ensure file is in uploads directory
+        if not str(file_path.resolve()).startswith(str(Path("uploads").resolve())):
+            raise HTTPException(status_code=403, detail="Access denied")
+        
+        file_path.unlink()
+        return {"success": True, "message": "Файл удален"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # Legal Documents Management
 @admin_router.get("/legal-documents")
 async def get_all_legal_documents():
