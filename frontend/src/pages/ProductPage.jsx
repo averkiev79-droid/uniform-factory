@@ -417,7 +417,7 @@ export const ProductPage = () => {
                 <Button 
                   variant="outline" 
                   className="py-3"
-                  onClick={() => window.location.href = 'mailto:info@uniformfactory.ru'}
+                  onClick={() => window.location.href = 'mailto:mail@uniformfactory.ru'}
                 >
                   <Mail className="w-4 h-4 mr-2" />
                   Написать
