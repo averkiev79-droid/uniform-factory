@@ -181,7 +181,7 @@ export const Footer = () => {
               </p>
               <button 
                 onClick={() => setIsCallbackModalOpen(true)}
-                className="bg-navy hover:bg-navy-hover text-white px-4 py-2 rounded text-sm font-medium transition-colors duration-200 w-full"
+                className="bg-navy hover:bg-navy-hover text-white px-3 md:px-4 py-2 rounded text-xs md:text-sm font-medium transition-colors duration-200 w-full"
               >
                 Заказать звонок
               </button>
