@@ -21,6 +21,7 @@ export const ProductPage = () => {
   // Touch swipe state
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
   
   // Minimum swipe distance (in px)
   const minSwipeDistance = 50;
