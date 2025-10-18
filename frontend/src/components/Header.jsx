@@ -48,7 +48,7 @@ export const Header = () => {
               </div>
               <div className="hidden sm:flex items-center space-x-2">
                 <Mail className="w-4 h-4" />
-                <span>info@uniformfactory.ru</span>
+                <span>mail@uniformfactory.ru</span>
               </div>
             </div>
             <div className="hidden md:block">
