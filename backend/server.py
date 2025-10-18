@@ -269,6 +269,35 @@ async def get_settings():
         logger.error(f"Error getting settings: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
+# Analytics endpoints
+@api_router.post("/analytics/web-vitals")
+async def save_web_vitals(metric: WebVitalsMetric):
+    """Save Web Vitals metric"""
+    try:
+        from database_sqlite import WebVitals, SessionLocal
+        from datetime import datetime
+        
+        db = SessionLocal()
+        try:
+            web_vital = WebVitals(
+                name=metric.name,
+                value=metric.value,
+                rating=metric.rating,
+                delta=metric.delta,
+                metric_id=metric.id,
+                navigation_type=metric.navigationType,
+                page=metric.page,
+                timestamp=datetime.fromisoformat(metric.timestamp.replace('Z', '+00:00'))
+            )
+            db.add(web_vital)
+            db.commit()
+            return {"success": True}
+        finally:
+            db.close()
+    except Exception as e:
+        logger.error(f"Error saving web vitals: {e}")
+        return {"success": False}
+
 # Admin endpoints (for future use)
 @api_router.get("/admin/quote-requests")
 async def get_quote_requests(status: Optional[str] = None):
