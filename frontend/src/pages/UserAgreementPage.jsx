@@ -16,7 +16,7 @@ export const UserAgreementPage = () => {
   }, []);
 
   const fetchDocument = async () => {
-    try:
+    try {
       setLoading(true);
       const response = await axios.get(`${BACKEND_URL}/api/legal/user_agreement`);
       setDocument(response.data);
