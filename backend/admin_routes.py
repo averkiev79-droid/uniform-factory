@@ -214,7 +214,7 @@ async def update_portfolio_item(
     category: str = Form(...),
     items_count: int = Form(...),
     year: int = Form(...),
-    image: str = Form(...)
+    image: str = Form(None)  # Made optional for editing
 ):
     """Update portfolio item"""
     db = SessionLocal()
@@ -225,7 +225,8 @@ async def update_portfolio_item(
         
         item.company = company
         item.description = description
-        item.image = image
+        if image:  # Only update image if provided
+            item.image = image
         item.category = category
         item.items_count = items_count
         item.year = year
