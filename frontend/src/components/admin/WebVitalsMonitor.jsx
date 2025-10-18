@@ -10,7 +10,7 @@ const WebVitalsMonitor = () => {
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     cls: { avg: 0, rating: 'good' },
-    fid: { avg: 0, rating: 'good' },
+    inp: { avg: 0, rating: 'good' },
     fcp: { avg: 0, rating: 'good' },
     lcp: { avg: 0, rating: 'good' },
     ttfb: { avg: 0, rating: 'good' }
