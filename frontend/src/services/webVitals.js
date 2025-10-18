@@ -1,4 +1,4 @@
-import { onCLS, onFID, onFCP, onLCP, onTTFB } from 'web-vitals';
+import { onCLS, onINP, onFCP, onLCP, onTTFB } from 'web-vitals';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -38,7 +38,7 @@ function sendToAnalytics(metric) {
 
 export function initWebVitals() {
   onCLS(sendToAnalytics);  // Cumulative Layout Shift
-  onFID(sendToAnalytics);  // First Input Delay
+  onINP(sendToAnalytics);  // Interaction to Next Paint (replaces FID)
   onFCP(sendToAnalytics);  // First Contentful Paint
   onLCP(sendToAnalytics);  // Largest Contentful Paint
   onTTFB(sendToAnalytics); // Time to First Byte
