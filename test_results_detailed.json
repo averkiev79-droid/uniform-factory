@@ -9,7 +9,7 @@
       "service": "uniform-factory-api",
       "database": "sqlite"
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/categories",
@@ -22,14 +22,14 @@
         "id": "1",
         "title": "Униформа для ресторанов и отелей",
         "description": "Профессиональная одежда для сферы HoReCa",
-        "image": "/images/categories/category1.jpg",
+        "image": "https://uniform-dashboard.preview.emergentagent.com/api/uploads/e8ef47cd-8137-4b54-8068-8bea57939cab.png",
         "products_count": 120,
         "slug": "restaurants-hotels",
         "created_at": "2025-10-16T16:46:58.669598",
-        "updated_at": "2025-10-16T16:46:58.669600"
+        "updated_at": "2025-10-17T14:30:45.590375"
       }
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/portfolio",
@@ -50,7 +50,7 @@
         "updated_at": "2025-10-16T16:46:58.668892"
       }
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/calculator/options",
@@ -157,7 +157,7 @@
         }
       ]
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/calculator/estimate",
@@ -173,30 +173,27 @@
         "brandingPrice": 150
       }
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/calculator/quote-request",
     "method": "POST",
     "success": true,
-    "details": "Quote request created: REQ-2025-2FC293",
+    "details": "Quote request created: REQ-2025-0918CE",
     "response_data": {
       "success": true,
-      "request_id": "REQ-2025-2FC293",
+      "request_id": "REQ-2025-0918CE",
       "message": "Заявка принята. Мы свяжемся с вами в течение 2 часов."
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/contact/callback-request",
     "method": "POST",
-    "success": true,
-    "details": "Callback request created successfully",
-    "response_data": {
-      "success": true,
-      "message": "Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут."
-    },
-    "timestamp": "2025-10-17 13:02:37"
+    "success": false,
+    "details": "HTTP 500: {\"detail\":\"Internal server error\"}",
+    "response_data": null,
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/testimonials",
@@ -216,7 +213,7 @@
         "updated_at": "2025-10-16T16:46:58.670552"
       }
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/statistics",
@@ -226,12 +223,12 @@
     "response_data": {
       "id": "1",
       "years_in_business": 15,
-      "completed_orders": 5000,
-      "happy_clients": 1200,
-      "cities": 150,
-      "updated_at": "2025-10-16T16:46:58.670093"
+      "completed_orders": 2500,
+      "happy_clients": 850,
+      "cities": 45,
+      "updated_at": "2025-10-17T13:02:38.035703"
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/calculator/estimate (invalid)",
@@ -239,7 +236,7 @@
     "success": true,
     "details": "Correctly rejected invalid data: {\"detail\":\"Invalid calculator parameters\"}",
     "response_data": null,
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/calculator/quote-request (incomplete)",
@@ -247,7 +244,34 @@
     "success": true,
     "details": "Correctly rejected incomplete data: validation error",
     "response_data": null,
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
+  },
+  {
+    "endpoint": "/contact/consultation (FIXED)",
+    "method": "POST",
+    "success": true,
+    "details": "Consultation form working after fix - Success: True, Message: Заявка на консультацию принята. Мы свяжемся с вами в течение 2 часов.",
+    "response_data": {
+      "success": true,
+      "message": "Заявка на консультацию принята. Мы свяжемся с вами в течение 2 часов."
+    },
+    "timestamp": "2025-10-18 09:42:08"
+  },
+  {
+    "endpoint": "/contact/callback-request (FIXED)",
+    "method": "POST",
+    "success": false,
+    "details": "500 ERROR - Bug not fixed! Response: {\"detail\":\"Internal server error\"}",
+    "response_data": null,
+    "timestamp": "2025-10-18 09:42:08"
+  },
+  {
+    "endpoint": "/contact/quote-request (FIXED)",
+    "method": "POST",
+    "success": false,
+    "details": "HTTP 404: {\"detail\":\"Not Found\"}",
+    "response_data": null,
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/login",
@@ -258,7 +282,7 @@
       "success": true,
       "token": "admin-authenticated"
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/login (invalid)",
@@ -266,7 +290,7 @@
     "success": true,
     "details": "Correctly rejected invalid password: {\"detail\":\"Invalid password\"}",
     "response_data": null,
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/categories",
@@ -276,18 +300,18 @@
     "response_data": {
       "count": 6
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/categories",
     "method": "POST",
     "success": true,
-    "details": "Category created successfully with ID: 65b18a88-d5de-49f4-8fad-0989ad3c4f3d",
+    "details": "Category created successfully with ID: 773bd07f-a828-4d87-8086-5b6cf80e9e6a",
     "response_data": {
       "success": true,
-      "id": "65b18a88-d5de-49f4-8fad-0989ad3c4f3d"
+      "id": "773bd07f-a828-4d87-8086-5b6cf80e9e6a"
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/categories/{id}",
@@ -297,7 +321,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/categories/{id}",
@@ -307,7 +331,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/portfolio",
@@ -317,18 +341,18 @@
     "response_data": {
       "count": 6
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/portfolio",
     "method": "POST",
     "success": true,
-    "details": "Portfolio item created successfully with ID: 7d41f891-e932-46f4-bc1a-ed5b0aca1a44",
+    "details": "Portfolio item created successfully with ID: 94519e05-3845-4948-9943-9fa934209fa9",
     "response_data": {
       "success": true,
-      "id": "7d41f891-e932-46f4-bc1a-ed5b0aca1a44"
+      "id": "94519e05-3845-4948-9943-9fa934209fa9"
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/portfolio/{id}",
@@ -338,7 +362,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/portfolio/{id}",
@@ -348,17 +372,17 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/quote-requests",
     "method": "GET",
     "success": true,
-    "details": "Retrieved 1 quote requests successfully",
+    "details": "Retrieved 2 quote requests successfully",
     "response_data": {
-      "count": 1
+      "count": 2
     },
-    "timestamp": "2025-10-17 13:02:37"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/quote-requests/{id}/status",
@@ -368,7 +392,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-10-17 13:02:38"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/statistics",
@@ -378,12 +402,12 @@
     "response_data": {
       "id": "1",
       "years_in_business": 15,
-      "completed_orders": 5000,
-      "happy_clients": 1200,
-      "cities": 150,
-      "updated_at": "2025-10-16T16:46:58.670093"
+      "completed_orders": 2500,
+      "happy_clients": 850,
+      "cities": 45,
+      "updated_at": "2025-10-17T13:02:38.035703"
     },
-    "timestamp": "2025-10-17 13:02:38"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/statistics",
@@ -393,32 +417,32 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-10-17 13:02:38"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/upload-image",
     "method": "POST",
     "success": true,
-    "details": "Image uploaded successfully: /uploads/fae21d4e-2536-4117-81bb-3d1558c2685b.jpg",
+    "details": "Image uploaded successfully: /api/uploads/a319e762-562b-409d-96c4-acb20c53a001.jpg",
     "response_data": {
       "success": true,
-      "url": "/uploads/fae21d4e-2536-4117-81bb-3d1558c2685b.jpg"
+      "url": "/api/uploads/a319e762-562b-409d-96c4-acb20c53a001.jpg"
     },
-    "timestamp": "2025-10-17 13:02:38"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/settings",
     "method": "GET",
     "success": true,
-    "details": "Public settings retrieved successfully with hero_image: /images/hero-main.jpg",
+    "details": "Public settings retrieved successfully with hero_image: /api/uploads/e56ec7e5-1ad8-4073-b6e1-e3f9388148b4.png",
     "response_data": {
       "id": "default",
-      "hero_image": "/images/hero-main.jpg",
-      "hero_mobile_image": null,
-      "about_image": null,
-      "updated_at": "2025-10-17T12:56:41.135961"
+      "hero_image": "/api/uploads/e56ec7e5-1ad8-4073-b6e1-e3f9388148b4.png",
+      "hero_mobile_image": "/images/mobile-integration.jpg",
+      "about_image": "/api/uploads/822498da-233f-4fd4-8606-61a047f3f99a.jpg",
+      "updated_at": "2025-10-17T14:11:23.416031"
     },
-    "timestamp": "2025-10-17 13:02:38"
+    "timestamp": "2025-10-18 09:42:08"
   },
   {
     "endpoint": "/admin/settings",
@@ -427,12 +451,12 @@
     "details": "Admin settings retrieved successfully",
     "response_data": {
       "id": "default",
-      "hero_image": "/images/hero-main.jpg",
-      "hero_mobile_image": null,
-      "about_image": null,
-      "updated_at": "2025-10-17T12:56:41.135961"
+      "hero_image": "/api/uploads/e56ec7e5-1ad8-4073-b6e1-e3f9388148b4.png",
+      "hero_mobile_image": "/images/mobile-integration.jpg",
+      "about_image": "/api/uploads/822498da-233f-4fd4-8606-61a047f3f99a.jpg",
+      "updated_at": "2025-10-17T14:11:23.416031"
     },
-    "timestamp": "2025-10-17 13:02:38"
+    "timestamp": "2025-10-18 09:42:09"
   },
   {
     "endpoint": "/admin/settings (hero_image)",
@@ -445,12 +469,12 @@
       "settings": {
         "id": "default",
         "hero_image": "/images/new-hero.jpg",
-        "hero_mobile_image": null,
-        "about_image": null,
-        "updated_at": "2025-10-17T13:02:38.156794"
+        "hero_mobile_image": "/images/mobile-integration.jpg",
+        "about_image": "/api/uploads/822498da-233f-4fd4-8606-61a047f3f99a.jpg",
+        "updated_at": "2025-10-18T09:42:09.010592"
       }
     },
-    "timestamp": "2025-10-17 13:02:38"
+    "timestamp": "2025-10-18 09:42:09"
   },
   {
     "endpoint": "/admin/settings (persistence check)",
@@ -460,11 +484,11 @@
     "response_data": {
       "id": "default",
       "hero_image": "/images/new-hero.jpg",
-      "hero_mobile_image": null,
-      "about_image": null,
-      "updated_at": "2025-10-17T13:02:38.156794"
+      "hero_mobile_image": "/images/mobile-integration.jpg",
+      "about_image": "/api/uploads/822498da-233f-4fd4-8606-61a047f3f99a.jpg",
+      "updated_at": "2025-10-18T09:42:09.010592"
     },
-    "timestamp": "2025-10-17 13:02:38"
+    "timestamp": "2025-10-18 09:42:09"
   },
   {
     "endpoint": "/admin/settings (all_fields)",
@@ -479,10 +503,10 @@
         "hero_image": "/images/hero-updated.jpg",
         "hero_mobile_image": "/images/hero-mobile.jpg",
         "about_image": "/images/about-updated.jpg",
-        "updated_at": "2025-10-17T13:02:38.225879"
+        "updated_at": "2025-10-18T09:42:09.075596"
       }
     },
-    "timestamp": "2025-10-17 13:02:38"
+    "timestamp": "2025-10-18 09:42:09"
   },
   {
     "endpoint": "/settings (integration)",
@@ -494,9 +518,9 @@
       "hero_image": "/images/integration-test.jpg",
       "hero_mobile_image": "/images/mobile-integration.jpg",
       "about_image": "/images/about-integration.jpg",
-      "updated_at": "2025-10-17T13:02:38.243886"
+      "updated_at": "2025-10-18T09:42:09.091916"
     },
-    "timestamp": "2025-10-17 13:02:38"
+    "timestamp": "2025-10-18 09:42:09"
   },
   {
     "endpoint": "/admin/settings (empty_data)",
@@ -511,9 +535,9 @@
         "hero_image": "/images/integration-test.jpg",
         "hero_mobile_image": "/images/mobile-integration.jpg",
         "about_image": "/images/about-integration.jpg",
-        "updated_at": "2025-10-17T13:02:38.310701"
+        "updated_at": "2025-10-18T09:42:09.155435"
       }
     },
-    "timestamp": "2025-10-17 13:02:38"
+    "timestamp": "2025-10-18 09:42:09"
   }
 ]
