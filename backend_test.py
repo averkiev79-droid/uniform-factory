@@ -347,21 +347,21 @@ class APITester:
             self.log_result('/contact/callback-request (FIXED)', 'POST', False, f"Exception: {str(e)}")
     
     def test_quote_request_form_fixed(self):
-        """Test 3: Quote Request Form (Calculator) - POST /api/contact/quote-request (Fixed Bug)"""
+        """Test 3: Quote Request Form (Calculator) - POST /api/calculator/quote-request (Fixed Bug)"""
         test_data = {
             "name": "Тест Расчет",
             "email": "quote@example.com",
             "phone": "+7 (999) 111-22-33",
             "company": "Тест ООО",
-            "category": "Офисная одежда",
-            "quantity": "50-100",
-            "fabric": "Хлопок",
-            "branding": "Вышивка",
+            "category": "shirts",
+            "quantity": "51-100",
+            "fabric": "cotton",
+            "branding": "embroidery",
             "estimated_price": 5000
         }
         
         try:
-            response = self.session.post(f"{self.base_url}/contact/quote-request", 
+            response = self.session.post(f"{self.base_url}/calculator/quote-request", 
                                        json=test_data)
             
             if response.status_code == 200:
