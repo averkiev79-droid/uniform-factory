@@ -217,13 +217,14 @@ async def create_contact_message(request: ContactMessageCreate, background_tasks
         
         # Send email notification in background
         if os.getenv('SENDER_EMAIL') and os.getenv('EMAIL_PASSWORD'):
+            from datetime import datetime
             request_data = {
                 'name': request.name,
                 'email': request.email,
                 'phone': request.phone,
                 'company': request.company,
                 'message': request.message,
-                'created_at': response.get('created_at')
+                'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
             background_tasks.add_task(send_contact_message_email, request_data)
         
