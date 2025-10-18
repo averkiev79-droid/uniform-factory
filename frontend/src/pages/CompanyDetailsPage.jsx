@@ -67,7 +67,7 @@ export const CompanyDetailsPage = () => {
                 prose-td:p-3 prose-td:border prose-td:border-gray-300
                 prose-tr:even:bg-gray-50
               ">
-                <ReactMarkdown>{document.content}</ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{document.content}</ReactMarkdown>
               </div>
             </>
           ) : (
