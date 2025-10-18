@@ -169,13 +169,14 @@ async def create_callback_request(request: CallbackRequestCreate, background_tas
         
         # Send email notification in background
         if os.getenv('SENDER_EMAIL') and os.getenv('EMAIL_PASSWORD'):
+            from datetime import datetime
             request_data = {
                 'name': request.name,
                 'phone': request.phone,
                 'email': request.email,
                 'company': request.company,
                 'message': getattr(request, 'message', None),
-                'created_at': response.get('created_at')
+                'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
             background_tasks.add_task(send_callback_notification_email, request_data)
         
