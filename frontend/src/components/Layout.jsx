@@ -2,6 +2,7 @@ import React from 'react';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { CookieBanner } from '../components/CookieBanner';
+import WhatsAppWidget from '../components/WhatsAppWidget';
 
 export const Layout = ({ children }) => {
   return (
@@ -12,6 +13,7 @@ export const Layout = ({ children }) => {
       </main>
       <Footer />
       <CookieBanner />
+      <WhatsAppWidget />
     </div>
   );
 };
