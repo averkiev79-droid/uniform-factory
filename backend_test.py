@@ -266,6 +266,151 @@ class APITester:
                 
         except Exception as e:
             self.log_result('/contact/callback-request', 'POST', False, f"Exception: {str(e)}")
+
+    # ===== CONTACT FORMS TESTS (FIXED BUG VERIFICATION) =====
+    
+    def test_consultation_form_fixed(self):
+        """Test 1: Consultation Form - POST /api/contact/consultation (Fixed Bug)"""
+        test_data = {
+            "name": "Тест Консультация",
+            "email": "test@example.com",
+            "phone": "+7 (999) 123-45-67",
+            "company": "Тестовая Компания",
+            "message": "Хочу получить консультацию по пошиву униформы"
+        }
+        
+        try:
+            response = self.session.post(f"{self.base_url}/contact/consultation", 
+                                       json=test_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                required_fields = ['success', 'message']
+                
+                if all(field in data for field in required_fields):
+                    if data['success'] and data['message']:
+                        self.log_result('/contact/consultation (FIXED)', 'POST', True, 
+                                      f"Consultation form working after fix - Success: {data['success']}, Message: {data['message']}", data)
+                    else:
+                        self.log_result('/contact/consultation (FIXED)', 'POST', False, 
+                                      f"Invalid response values - Success: {data.get('success')}, Message: {data.get('message')}", data)
+                else:
+                    missing = [f for f in required_fields if f not in data]
+                    self.log_result('/contact/consultation (FIXED)', 'POST', False, 
+                                  f"Missing required fields: {missing}", data)
+            elif response.status_code == 500:
+                self.log_result('/contact/consultation (FIXED)', 'POST', False, 
+                              f"500 ERROR - Bug not fixed! Response: {response.text}")
+            else:
+                self.log_result('/contact/consultation (FIXED)', 'POST', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/contact/consultation (FIXED)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_callback_request_form_fixed(self):
+        """Test 2: Callback Request Form - POST /api/contact/callback-request (Fixed Bug)"""
+        test_data = {
+            "name": "Тест Обратный звонок",
+            "phone": "+7 (999) 987-65-43",
+            "email": "callback@example.com",
+            "company": "Тестовая Фирма"
+        }
+        
+        try:
+            response = self.session.post(f"{self.base_url}/contact/callback-request", 
+                                       json=test_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                required_fields = ['success', 'message']
+                
+                if all(field in data for field in required_fields):
+                    if data['success'] and data['message']:
+                        self.log_result('/contact/callback-request (FIXED)', 'POST', True, 
+                                      f"Callback request form working after fix - Success: {data['success']}, Message: {data['message']}", data)
+                    else:
+                        self.log_result('/contact/callback-request (FIXED)', 'POST', False, 
+                                      f"Invalid response values - Success: {data.get('success')}, Message: {data.get('message')}", data)
+                else:
+                    missing = [f for f in required_fields if f not in data]
+                    self.log_result('/contact/callback-request (FIXED)', 'POST', False, 
+                                  f"Missing required fields: {missing}", data)
+            elif response.status_code == 500:
+                self.log_result('/contact/callback-request (FIXED)', 'POST', False, 
+                              f"500 ERROR - Bug not fixed! Response: {response.text}")
+            else:
+                self.log_result('/contact/callback-request (FIXED)', 'POST', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/contact/callback-request (FIXED)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_quote_request_form_fixed(self):
+        """Test 3: Quote Request Form (Calculator) - POST /api/contact/quote-request (Fixed Bug)"""
+        test_data = {
+            "name": "Тест Расчет",
+            "email": "quote@example.com",
+            "phone": "+7 (999) 111-22-33",
+            "company": "Тест ООО",
+            "category": "Офисная одежда",
+            "quantity": "50-100",
+            "fabric": "Хлопок",
+            "branding": "Вышивка",
+            "estimated_price": 5000
+        }
+        
+        try:
+            response = self.session.post(f"{self.base_url}/contact/quote-request", 
+                                       json=test_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                required_fields = ['success', 'message']
+                
+                if all(field in data for field in required_fields):
+                    if data['success'] and data['message']:
+                        # Check if request_id is also present (as mentioned in requirements)
+                        if 'request_id' in data:
+                            self.log_result('/contact/quote-request (FIXED)', 'POST', True, 
+                                          f"Quote request form working after fix - Success: {data['success']}, Request ID: {data['request_id']}, Message: {data['message']}", data)
+                        else:
+                            self.log_result('/contact/quote-request (FIXED)', 'POST', True, 
+                                          f"Quote request form working after fix - Success: {data['success']}, Message: {data['message']}", data)
+                    else:
+                        self.log_result('/contact/quote-request (FIXED)', 'POST', False, 
+                                      f"Invalid response values - Success: {data.get('success')}, Message: {data.get('message')}", data)
+                else:
+                    missing = [f for f in required_fields if f not in data]
+                    self.log_result('/contact/quote-request (FIXED)', 'POST', False, 
+                                  f"Missing required fields: {missing}", data)
+            elif response.status_code == 500:
+                self.log_result('/contact/quote-request (FIXED)', 'POST', False, 
+                              f"500 ERROR - Bug not fixed! Response: {response.text}")
+            else:
+                self.log_result('/contact/quote-request (FIXED)', 'POST', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/contact/quote-request (FIXED)', 'POST', False, f"Exception: {str(e)}")
+    
+    def run_contact_forms_tests(self):
+        """Run all Contact Forms Bug Fix tests"""
+        print(f"\n📞 Starting Contact Forms Bug Fix Verification Tests")
+        print("=" * 60)
+        print("Testing the fix for 500 error when using .get() method on Pydantic response objects")
+        print("=" * 60)
+        
+        # Test 1: Consultation Form
+        self.test_consultation_form_fixed()
+        
+        # Test 2: Callback Request Form  
+        self.test_callback_request_form_fixed()
+        
+        # Test 3: Quote Request Form (Calculator)
+        self.test_quote_request_form_fixed()
+        
+        print("=" * 60)
     
     def test_testimonials(self):
         """Test GET /api/testimonials"""
