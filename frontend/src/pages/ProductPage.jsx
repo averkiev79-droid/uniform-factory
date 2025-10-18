@@ -230,16 +230,22 @@ export const ProductPage = () => {
           {/* Images Section */}
           <div className="space-y-4">
             {/* Main Image */}
-            <div className="relative aspect-square bg-white rounded-lg overflow-hidden shadow-sm flex items-center justify-center group">
+            <div 
+              className="relative aspect-square bg-white rounded-lg overflow-hidden shadow-sm flex items-center justify-center group"
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+            >
               <img
                 src={images[selectedImageIndex]?.image_url}
                 alt={images[selectedImageIndex]?.alt_text || product.name}
                 loading="eager"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover select-none"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = '/images/about-factory.jpg';
                 }}
+                draggable={false}
               />
               
               {/* Navigation Arrows */}
