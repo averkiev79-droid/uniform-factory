@@ -55,7 +55,17 @@ export const CompanyDetailsPage = () => {
               <p className="text-sm text-gray-500 mb-8">
                 Последнее обновление: {new Date(document.updated_at).toLocaleDateString('ru-RU')}
               </p>
-              <div className="prose prose-lg max-w-none prose-table:text-sm">
+              <div className="prose prose-lg prose-slate max-w-none 
+                prose-headings:text-gray-900 prose-headings:font-bold
+                prose-h1:text-3xl prose-h1:mb-6 prose-h1:mt-8
+                prose-h2:text-2xl prose-h2:mb-4 prose-h2:mt-6
+                prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-4
+                prose-strong:text-gray-900 prose-strong:font-semibold
+                prose-table:w-full prose-table:border-collapse
+                prose-th:bg-gray-100 prose-th:p-3 prose-th:text-left prose-th:font-semibold prose-th:border prose-th:border-gray-300
+                prose-td:p-3 prose-td:border prose-td:border-gray-300
+                prose-tr:even:bg-gray-50
+              ">
                 <ReactMarkdown>{document.content}</ReactMarkdown>
               </div>
             </>
