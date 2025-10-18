@@ -143,40 +143,40 @@ export const Footer = () => {
               <div className="flex items-start space-x-2 md:space-x-3">
                 <Phone className="w-4 h-4 md:w-5 md:h-5 text-navy-400 mt-1 flex-shrink-0" />
                 <div>
-                  <div className="font-medium">+7 (812) 317-73-19</div>
-                  <div className="text-sm text-gray-400">Основной номер</div>
+                  <div className="text-sm md:text-base font-medium">+7 (812) 317-73-19</div>
+                  <div className="text-xs md:text-sm text-gray-400">Основной номер</div>
                 </div>
               </div>
               
-              <div className="flex items-start space-x-3">
-                <Mail className="w-5 h-5 text-navy-400 mt-1 flex-shrink-0" />
+              <div className="flex items-start space-x-2 md:space-x-3">
+                <Mail className="w-4 h-4 md:w-5 md:h-5 text-navy-400 mt-1 flex-shrink-0" />
                 <div>
-                  <div className="font-medium">info@uniformfactory.ru</div>
-                  <div className="text-sm text-gray-400">Общие вопросы</div>
+                  <div className="text-sm md:text-base font-medium break-all">info@uniformfactory.ru</div>
+                  <div className="text-xs md:text-sm text-gray-400">Общие вопросы</div>
                 </div>
               </div>
               
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-navy-400 mt-1 flex-shrink-0" />
+              <div className="flex items-start space-x-2 md:space-x-3">
+                <MapPin className="w-4 h-4 md:w-5 md:h-5 text-navy-400 mt-1 flex-shrink-0" />
                 <div>
-                  <div className="font-medium">198334, Санкт-Петербург, пр. Ветеранов, 140</div>
-                  <div className="text-sm text-gray-400">пр. Ветеранов 140 лит Г</div>
+                  <div className="text-sm md:text-base font-medium">Санкт-Петербург</div>
+                  <div className="text-xs md:text-sm text-gray-400">пр. Ветеранов, 140, лит Г</div>
                 </div>
               </div>
               
-              <div className="flex items-start space-x-3">
-                <Clock className="w-5 h-5 text-navy-400 mt-1 flex-shrink-0" />
+              <div className="flex items-start space-x-2 md:space-x-3">
+                <Clock className="w-4 h-4 md:w-5 md:h-5 text-navy-400 mt-1 flex-shrink-0" />
                 <div>
-                  <div className="font-medium">Пн-Пт: 9:00-18:00</div>
-                  <div className="text-sm text-gray-400">Сб-Вс: выходной</div>
+                  <div className="text-sm md:text-base font-medium">Пн-Пт: 9:00-18:00</div>
+                  <div className="text-xs md:text-sm text-gray-400">Сб-Вс: выходной</div>
                 </div>
               </div>
             </div>
             
             {/* CTA */}
-            <div className="bg-white rounded-lg p-4 shadow-lg">
-              <h4 className="font-semibold mb-2 text-gray-900">Нужна консультация?</h4>
-              <p className="text-sm text-gray-600 mb-3">
+            <div className="bg-white rounded-lg p-3 md:p-4 shadow-lg">
+              <h4 className="text-sm md:text-base font-semibold mb-2 text-gray-900">Нужна консультация?</h4>
+              <p className="text-xs md:text-sm text-gray-600 mb-3">
                 Оставьте номер телефона, и мы перезвоним в течение 15 минут
               </p>
               <button 
