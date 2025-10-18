@@ -269,6 +269,34 @@ async def get_settings():
         logger.error(f"Error getting settings: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
+# Legal Documents endpoints (public)
+@api_router.get("/legal/{doc_type}")
+async def get_legal_document_public(doc_type: str):
+    """Get legal document (public access)"""
+    try:
+        from database_sqlite import LegalDocument, SessionLocal
+        
+        db = SessionLocal()
+        try:
+            doc = db.query(LegalDocument).filter(LegalDocument.doc_type == doc_type).first()
+            if not doc:
+                raise HTTPException(status_code=404, detail="Document not found")
+            
+            return {
+                'id': doc.id,
+                'doc_type': doc.doc_type,
+                'title': doc.title,
+                'content': doc.content,
+                'updated_at': doc.updated_at.isoformat()
+            }
+        finally:
+            db.close()
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting legal document: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
 # Analytics endpoints
 @api_router.post("/analytics/web-vitals")
 async def save_web_vitals(metric: WebVitalsMetric):
