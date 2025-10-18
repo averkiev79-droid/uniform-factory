@@ -113,6 +113,8 @@ class QuoteRequestResponse(BaseModel):
 class CallbackRequestCreate(BaseModel):
     name: str
     phone: str
+    email: Optional[str] = None
+    company: Optional[str] = None
 
 class ConsultationRequestCreate(BaseModel):
     name: str
