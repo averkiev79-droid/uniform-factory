@@ -56,6 +56,8 @@ export const AdminDashboard = ({ onLogout }) => {
         return <StatisticsManager />;
       case 'webvitals':
         return <WebVitalsMonitor />;
+      case 'legal':
+        return <LegalDocsManager />;
       case 'images':
         return <ImageManager />;
       case 'upload':
