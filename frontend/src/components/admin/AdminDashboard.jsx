@@ -40,7 +40,8 @@ export const AdminDashboard = ({ onLogout }) => {
     { id: 'webvitals', name: 'Производительность', icon: Activity },
     { id: 'legal', name: 'Юридические документы', icon: FileText },
     { id: 'images', name: 'Изображения главной', icon: Image },
-    { id: 'upload', name: 'Загрузка изображений', icon: Upload }
+    { id: 'upload', name: 'Загрузка изображений', icon: Upload },
+    { id: 'gallery', name: 'Галерея загруженных', icon: Image }
   ];
 
   const renderContent = () => {
