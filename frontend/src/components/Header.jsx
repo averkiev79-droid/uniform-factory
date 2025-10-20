@@ -160,6 +160,24 @@ export const Header = () => {
           </div>
         )}
       </div>
+
+      {/* Search Modal */}
+      {showSearch && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center pt-20">
+          <div className="bg-white rounded-lg shadow-2xl w-full max-w-3xl mx-4 p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">Поиск товаров</h3>
+              <button
+                onClick={() => setShowSearch(false)}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <ProductSearch onClose={() => setShowSearch(false)} />
+          </div>
+        </div>
+      )}
     </header>
   );
 };
