@@ -8,6 +8,9 @@ import uuid
 from pathlib import Path
 import shutil
 
+# Import security middleware
+from security_middleware import validate_upload_file, sanitize_string, sanitize_email, sanitize_phone
+
 from database_sqlite import SessionLocal
 from database_sqlite import (
     ProductCategory as DBProductCategory,
