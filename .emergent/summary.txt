@@ -1,17 +1,25 @@
 <analysis>
-The AI engineer effectively steered the Uniform Factory application through significant feature expansions and bug fixes. The journey involved transitioning to a multi-page architecture, establishing a robust product catalog, and resolving persistent image loading issues by localizing all media. A key iterative challenge was synchronizing frontend expectations with backend data structures, particularly for dynamic content and form submissions, leading to several rounds of debugging for API responses and database interactions. Frontend UI/UX was consistently refined, adding features like dynamic image loading with skeleton loaders, mobile swipe gestures for carousels, and improved footer responsiveness. Backend development focused on creating flexible data models and API endpoints for app settings, legal documents, and analytics. Throughout, the AI systematically addressed user feedback, adapting implementations and correcting errors, demonstrating a thorough problem-solving approach in a full-stack environment.
+The AI engineer effectively expanded the Uniform Factory application, transitioning it to a multi-page architecture and implementing a robust product catalog. Key challenges involved synchronizing frontend and backend data, localizing media, and refining UI/UX. The trajectory covers recent work on administrative features like an image gallery, legal document management, and site analytics (Yandex.Metrica, Web Vitals). Critical bugs related to image loading paths and database inconsistencies were systematically addressed. The latest work focused on implementing advanced search with filters, product article numbers, an analytics dashboard, SEO optimization (meta-tags, sitemap, Open Graph for VK), and a Telegram notification bot. The AI demonstrated a methodical approach, often diagnosing issues, providing multiple solutions, and adapting to user feedback, including preferences for specific social media and deployment strategies.
 </analysis>
 
 <product_requirements>
-The Uniform Factory required a modern, responsive website with Home, About Us, Catalog, Contacts, and Portfolio pages, featuring a product catalog, order calculator, and interactive elements. This expanded to include an admin panel for managing categories, portfolio, and requests, alongside email notifications. Critical bug fixes addressed navigation, mobile responsiveness, and contact details. Major updates involved converting to a multi-page structure, rebranding, and implementing a comprehensive product catalog with detailed product cards, multiple photos, descriptions, and full admin capabilities. Explicit requests included removing product sizes/stock labels, activating favorite/share features, cookie consent banner, favicon, resolving persistent image loading issues, fixing navigation bugs (back buttons, scroll to top), improving footer form visibility, making advantages clickable to dedicated pages, and, most recently: adding admin panel function to replace main page photos (hero, about); implementing email notifications (Yandex SMTP); adding a WhatsApp online consultant (later removed); integrating site visit statistics (Yandex.Metrica) and load speed monitoring (Web Vitals); creating dedicated, admin-editable pages for legal documents (Privacy Policy, User Agreement, Company Details); adding swipe gestures for product images on mobile; and implementing an admin panel gallery to view uploaded photos.
+The Uniform Factory required a modern, responsive website with core pages (Home, About Us, Catalog, Contacts, Portfolio), a product catalog, order calculator, and interactive elements. This expanded to include an admin panel for categories, portfolio, and requests, with email notifications. Previous fixes addressed navigation, mobile responsiveness, and contact details. Major updates involved a multi-page structure, rebranding, and a comprehensive product catalog. Explicit requests included removing product sizes/stock, activating favorite/share, cookie consent, favicon, image loading fixes, navigation bugs, improved footer forms, clickable advantages, and, more recently:
+- Admin panel for main page photos (hero, about).
+- Email notifications (Yandex SMTP).
+- WhatsApp consultant (later removed).
+- Site visit statistics (Yandex.Metrica) and load speed monitoring (Web Vitals).
+- Admin-editable legal documents (Privacy Policy, User Agreement, Company Details).
+- Swipe gestures for product images on mobile.
+- Admin panel gallery for uploaded photos.
+- **New requests:** Product search (name, filters, autocomplete, article), Telegram bot, extended analytics (popular items, conversion, traffic sources), SEO (meta-tags, sitemap, Open Graph for VK, content for promotion), copy products from aviktime.ru (specific categories), connect  domain.
 </product_requirements>
 
 <key_technical_concepts>
--   **Frontend:** React.js, React Router, Tailwind CSS, Axios, , , , .
--   **Backend:** FastAPI, Pydantic, SQLAlchemy (SQLite), Uvicorn.
--   **Database:** SQLite.
--   **Email:** Yandex SMTP.
--   **Web APIs:** Web Share API, Local Storage.
+- **Frontend:** React.js, React Router, Tailwind CSS, Axios, , , , , , .
+- **Backend:** FastAPI, Pydantic, SQLAlchemy (SQLite), Uvicorn, Python .
+- **Database:** SQLite.
+- **Email:** Yandex SMTP.
+- **Web APIs:** Web Share API, Local Storage, Telegram Bot API.
 </key_technical_concepts>
 
 <code_architecture>
@@ -20,41 +28,56 @@ The application uses a React frontend, FastAPI backend, and SQLite database.
 **Directory Structure (Simplified):**
 
 
--   ****: Stores backend configuration. Updated with Yandex SMTP credentials (, , ).
--   ****: Handles admin-specific API routes. New endpoints for ,  retrieval,  management, and  listing were added. Image input validation for category and portfolio updates was relaxed.
--   ****: Manages SQLite DB schema. New , , and  SQLAlchemy models were introduced.  added for initial data population.
--   ****: Defines Pydantic data models. Extended with , ,  models and their respective Create/Update schemas.
--   ****: FastAPI entry point. Added public endpoints for ,  retrieval,  metric submission, and serving files from the  directory. Fixed  method usage on Pydantic objects for various contact forms.
--   ****: Implements business logic.  was added for managing application settings.
--   ****: Root HTML file. Yandex.Metrica tracking script was embedded.
--   ****: Main React component. New routes were added for , , and .
--   ****: Centralized frontend API client. Expanded with functions to interact with , , , and file upload endpoints.
--   ****: (NEW) A service to collect and report Web Vitals (INP, LCP, CLS, FCP, TTFB) metrics to the backend.
--   ****: Site header. Updated contact email to .
--   ****: Site footer. Updated legal document links to React Router  components, improved mobile responsiveness, and updated contact email to .
--   ****: Hero section. Modified to dynamically fetch its main image from the  API, incorporating loading states and a skeleton loader to prevent content flickering. Updated contact email.
--   ****: About page content. Similar to , updated to dynamically fetch its image from  API with loading states and a skeleton loader.
--   ****: Product detail page. Enhanced to support swipe gestures for its image carousel on mobile devices. Updated contact email.
--   ****: Admin panel main component. Integrated , , , and  components into its navigation and rendering logic.
--   ****: (NEW) Admin interface for managing main page images (hero, about), allowing both URL input and file uploads.
--   ****: (NEW) Admin interface for editing legal documents (Privacy Policy, User Agreement, Company Details) using a Markdown editor.
--   ****: (NEW, in progress) Component to display a gallery of uploaded images in the admin panel.
--   ****: (NEW) Page to display the Privacy Policy content, formatted using  and .
--   ****: (NEW) Page to display the User Agreement content, formatted using  and .
--   ****: (NEW) Page to display Company Details content (e.g., requisites), formatted using  and .
--   ****: Configured to include  plugin to enhance the rendering of markdown content.
--   ****: Added custom CSS for smooth animation transitions, particularly for the product image carousel.
+
+-   ****: Stores backend configuration. Updated with Yandex SMTP and new Telegram bot , .
+-   ****: Handles admin-specific API routes. Updated to filter uploaded files by minimum size (1KB). Relaxed image input validation.
+-   ****: Manages SQLite DB schema. Added ,  columns to  model. New SQLAlchemy models for , , , and analytics models.
+-   ****: Defines Pydantic data models. Extended with , , , , , , ,  models and their schemas. Added Pydantic validators for input sanitization in contact forms.  model updated with  and .
+-   ****: FastAPI entry point.
+    -   Added  and .
+    -   Fixed  method usage on Pydantic objects.
+    -   Added public endpoints for , ,  metric submission, serving  directory, , .
+    -   Added new  and  endpoints.
+    -   Modified  to increment .
+    -   Integrated Telegram notifications into callback, consultation, contact, and quote request endpoints.
+    -   Fixed multiple indentation and import errors ().
+-   ****: Implements business logic.
+    -   Added  and .
+    -    extended with  method and  method (moved from AnalyticsService).
+-   ** (NEW)**: Implements security features like file validation and rate limiting.
+-   ** (NEW)**: A script to add  and  columns to existing product tables.
+-   ** (NEW)**: Script to generate .
+-   ** (NEW)**: Service for sending notifications via Telegram Bot API.
+-   ****: Main React component. Added  for SEO management. New routes for , , .
+-   ****: Centralized frontend API client. Expanded with functions for , , , file upload endpoints, , and .
+-   ****: Site header. Updated contact email. Added search icon and integrated  component.
+-   ****: Site footer. Updated legal document links, mobile responsiveness, and contact email.
+-   ****: Product detail page. Enhanced with swipe gestures for image carousel and now displays product .
+-   ****: Displays product  in product cards.
+-   ****: Admin panel main component. Integrated , , , , and  components.
+-   ** (NEW)**: Frontend component for product search with autocompletion.
+-   ** (NEW)**: Admin interface to display site analytics (popular products/categories, conversion).
+-   ** (NEW)**: Universal React component for managing meta-tags, Open Graph, and Schema.org for SEO.
+-   ** (NEW)**: Centralized data for SEO content per page.
+-   ** (NEW)**: Documentation detailing security measures implemented.
+-   ** (NEW)**: Detailed instructions for deploying the app on sweb.ru.
+-   ** (NEW)**: Shell script for automated deployment and updates on sweb.ru.
+-   ** (NEW)**: Guide for synchronizing code in a hybrid deployment scenario.
+-   ** (NEW)**: Configuration details for production deployment.
+-   ** / **: Updated with new Python () and Node.js (, ) dependencies.
 </code_architecture>
 
 <pending_tasks>
--   Improve the rendering and styling of legal documents, specifically the Company Details page, where structured information (like requisites) from markdown is not displayed with proper line breaks or table formatting.
--   Complete the integration of the  component into  for full image gallery functionality.
+- Complete the integration of the  component into  if not fully completed (it was mostly done).
+- Implement full Re-Deploy to make the Search button visible on the deployed version.
+- Implement the Product Import feature (copying products from aviktime.ru).
+- Connect the  domain.
 </pending_tasks>
 
 <current_work>
-Immediately before this summary request, the AI engineer was actively implementing a new administrative panel feature to allow viewing of all uploaded images. This task involved creating a new backend API endpoint () to retrieve a list of image files stored on the server. Concurrently, a new frontend React component, , was being developed to present these images in a gallery format within the admin interface. The very last action performed was the creation of this  component and the initiation of its integration into  to make it accessible via the admin navigation menu. This work is a direct response to a user request for better management and visibility of uploaded media. Prior to this, several issues were addressed, including fixing the inconsistent display of main page images caused by database resets, and improving the markdown rendering for legal documents, though the latter still requires further refinement for structured text.
+Immediately before this summary, the AI engineer successfully completed the integration of the Telegram notification bot into the backend. This involved adding  and  to , creating  to handle Telegram API calls, installing the  library, and integrating notification calls into all relevant contact form endpoints (, , , ) in . The backend was restarted, and the Telegram bot was confirmed to be sending test messages successfully. Prior to this, extensive work was done on Phase 1 (Search, Filters, Article, Analytics) and Phase 2 (SEO), which included backend API development for search and analytics, frontend components for search and analytics dashboard, and comprehensive SEO meta-tag implementation for various pages. A bug where the frontend search button was not appearing due to caching on the deployed version was identified, and the user chose to defer a full re-deploy until later tasks were completed. All images on the deployed site () are confirmed to be loading correctly, and product cards are displaying.
 </current_work>
 
 <optional_next_step>
-Complete the integration of the  component into .
+The next logical step is to test the newly integrated Telegram bot by sending a test request via the website forms.
 </optional_next_step>
