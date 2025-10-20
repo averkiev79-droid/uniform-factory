@@ -52,13 +52,15 @@ class TelegramService:
     @staticmethod
     def send_quote_request_notification(request_data: dict) -> bool:
         """Send notification about new quote request"""
+        company_line = f"🏢 <b>Компания:</b> {request_data.get('company')}" if request_data.get('company') else ""
+        
         text = f"""
 🆕 <b>Новая заявка на расчёт</b>
 
 👤 <b>Клиент:</b> {request_data.get('name')}
 📧 <b>Email:</b> {request_data.get('email')}
 📱 <b>Телефон:</b> {request_data.get('phone')}
-{f"🏢 <b>Компания:</b> {request_data.get('company')}" if request_data.get('company') else ""}
+{company_line}
 
 📦 <b>Детали заказа:</b>
 • Категория: {request_data.get('category')}
