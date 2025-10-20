@@ -74,7 +74,8 @@ const SEO = ({
             "availableLanguage": ["Russian"]
           },
           "sameAs": [
-            // Добавьте ссылки на соцсети если есть
+            // Добавьте ссылку на вашу группу ВКонтакте если есть
+            // Например: "https://vk.com/uniformfactory"
           ]
         })}
       </script>
