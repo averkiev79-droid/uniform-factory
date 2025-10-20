@@ -15,7 +15,7 @@ from typing import List, Dict, Optional
 # Добавляем путь к backend для импорта модулей
 sys.path.append(os.path.dirname(__file__))
 
-from database_sqlite import get_db, SQLProduct, SQLProductCharacteristic, SQLCategory
+from database_sqlite import get_db, SQLProduct, SQLProductCharacteristic
 from sqlalchemy.orm import Session
 
 # Категории для импорта
