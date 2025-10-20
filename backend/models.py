@@ -323,6 +323,9 @@ class ProductUpdate(BaseModel):
     featured: Optional[bool] = None
 
 class ProductWithDetails(Product):
+    images: List[ProductImage] = []
+    characteristics: List[ProductCharacteristic] = []
+    category_name: Optional[str] = None
 
 
 # Analytics Models
