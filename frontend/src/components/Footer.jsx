@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import { CallbackModal } from './CallbackModal';
 import { ConsultationModal } from './ConsultationModal';
+
+// VK Icon Component
+const VKIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12.785 16.241s.288-.032.436-.193c.136-.148.132-.427.132-.427s-.02-1.304.572-1.496c.583-.19 1.331 1.26 2.125 1.817.6.42 1.056.328 1.056.328l2.124-.03s1.11-.07.584-.963c-.043-.073-.308-.664-1.583-1.88-1.335-1.273-1.156-.1.452-3.053.98-1.798 1.372-2.896 1.249-3.365-.117-.447-.84-.329-.84-.329l-2.393.015s-.177-.025-.309.056c-.129.079-.212.263-.212.263s-.379 1.036-.884 1.918c-1.064 1.86-1.491 1.958-1.665 1.841-.404-.27-.303-1.084-.303-1.662 0-1.807.267-2.561-.52-2.756-.262-.065-.454-.107-1.123-.114-.858-.009-1.585.003-1.996.21-.273.137-.484.443-.355.461.159.022.52.1.71.366.247.343.238 1.114.238 1.114s.142 2.127-.331 2.391c-.324.182-.768-.189-1.723-1.88-.489-.856-.858-1.803-.858-1.803s-.071-.179-.198-.275c-.154-.116-.37-.152-.37-.152l-2.274.015s-.341.01-.467.161c-.111.134-.009.411-.009.411s1.778 4.268 3.793 6.418c1.847 1.972 3.945 1.842 3.945 1.842h.953z"/>
+  </svg>
+);
 
 export const Footer = () => {
   const navigate = useNavigate();
