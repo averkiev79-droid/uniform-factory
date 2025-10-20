@@ -1152,6 +1152,370 @@ class APITester:
         # App Settings Management tests
         self.run_settings_tests()
     
+    # ===== NEW SECURITY FEATURES TESTS =====
+    
+    def test_uploaded_images_gallery_get(self):
+        """Test GET /api/admin/uploaded-files - Uploaded Images Gallery"""
+        try:
+            response = self.session.get(f"{self.base_url}/admin/uploaded-files")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if 'files' in data and isinstance(data['files'], list):
+                    files = data['files']
+                    self.log_result('/admin/uploaded-files', 'GET', True, 
+                                  f"Retrieved {len(files)} uploaded files successfully", 
+                                  {'count': len(files), 'sample': files[0] if files else None})
+                    
+                    # Validate file structure if files exist
+                    if files:
+                        first_file = files[0]
+                        required_fields = ['filename', 'size', 'modified', 'url']
+                        if all(field in first_file for field in required_fields):
+                            self.log_result('/admin/uploaded-files (structure)', 'GET', True, 
+                                          f"File structure valid: {list(first_file.keys())}", first_file)
+                        else:
+                            missing = [f for f in required_fields if f not in first_file]
+                            self.log_result('/admin/uploaded-files (structure)', 'GET', False, 
+                                          f"Missing required fields: {missing}", first_file)
+                else:
+                    self.log_result('/admin/uploaded-files', 'GET', False, 
+                                  f"Expected 'files' array, got: {data}", data)
+            else:
+                self.log_result('/admin/uploaded-files', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/uploaded-files', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_file_upload_security_validations(self):
+        """Test POST /api/admin/upload-image - Security Validations"""
+        import tempfile
+        import os
+        
+        # Test 1: Valid image upload (should succeed)
+        try:
+            with tempfile.NamedTemporaryFile(mode='wb', suffix='.jpg', delete=False) as tmp_file:
+                # Create a small valid image-like file (under 10MB)
+                tmp_file.write(b"fake_image_content_for_testing" * 100)  # Small file
+                tmp_file_path = tmp_file.name
+            
+            try:
+                with open(tmp_file_path, 'rb') as f:
+                    files = {'file': ('valid_test.jpg', f, 'image/jpeg')}
+                    upload_session = requests.Session()
+                    response = upload_session.post(f"{self.base_url}/admin/upload-image", files=files)
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    if data.get('success') and data.get('url'):
+                        self.log_result('/admin/upload-image (valid)', 'POST', True, 
+                                      f"Valid image uploaded successfully: {data['url']}", data)
+                    else:
+                        self.log_result('/admin/upload-image (valid)', 'POST', False, 
+                                      f"Invalid response structure: {data}", data)
+                else:
+                    self.log_result('/admin/upload-image (valid)', 'POST', False, 
+                                  f"Valid upload failed: HTTP {response.status_code}: {response.text}")
+            finally:
+                os.unlink(tmp_file_path)
+                
+        except Exception as e:
+            self.log_result('/admin/upload-image (valid)', 'POST', False, f"Exception: {str(e)}")
+        
+        # Test 2: Large file upload (should fail with 400)
+        try:
+            with tempfile.NamedTemporaryFile(mode='wb', suffix='.jpg', delete=False) as tmp_file:
+                # Create a file larger than 10MB
+                large_content = b"x" * (11 * 1024 * 1024)  # 11MB
+                tmp_file.write(large_content)
+                tmp_file_path = tmp_file.name
+            
+            try:
+                with open(tmp_file_path, 'rb') as f:
+                    files = {'file': ('large_test.jpg', f, 'image/jpeg')}
+                    upload_session = requests.Session()
+                    response = upload_session.post(f"{self.base_url}/admin/upload-image", files=files)
+                
+                if response.status_code == 400:
+                    self.log_result('/admin/upload-image (large_file)', 'POST', True, 
+                                  f"Correctly rejected large file (>10MB): {response.text}")
+                else:
+                    self.log_result('/admin/upload-image (large_file)', 'POST', False, 
+                                  f"Should reject large file, got HTTP {response.status_code}: {response.text}")
+            finally:
+                os.unlink(tmp_file_path)
+                
+        except Exception as e:
+            self.log_result('/admin/upload-image (large_file)', 'POST', False, f"Exception: {str(e)}")
+        
+        # Test 3: Non-image file upload (should fail with 400)
+        try:
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as tmp_file:
+                tmp_file.write("This is a text file, not an image")
+                tmp_file_path = tmp_file.name
+            
+            try:
+                with open(tmp_file_path, 'rb') as f:
+                    files = {'file': ('test.txt', f, 'text/plain')}
+                    upload_session = requests.Session()
+                    response = upload_session.post(f"{self.base_url}/admin/upload-image", files=files)
+                
+                if response.status_code == 400:
+                    self.log_result('/admin/upload-image (non_image)', 'POST', True, 
+                                  f"Correctly rejected non-image file: {response.text}")
+                else:
+                    self.log_result('/admin/upload-image (non_image)', 'POST', False, 
+                                  f"Should reject non-image file, got HTTP {response.status_code}: {response.text}")
+            finally:
+                os.unlink(tmp_file_path)
+                
+        except Exception as e:
+            self.log_result('/admin/upload-image (non_image)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_rate_limiting(self):
+        """Test rate limiting - 60 requests per 60 seconds"""
+        try:
+            print("Testing rate limiting (this may take a moment)...")
+            
+            # Make rapid requests to health endpoint
+            request_count = 0
+            rate_limited = False
+            
+            for i in range(65):  # Try 65 requests to exceed limit of 60
+                response = self.session.get(f"{self.base_url}/health")
+                request_count += 1
+                
+                # Check for rate limit headers
+                if i == 0:  # Check headers on first request
+                    if 'X-RateLimit-Limit' in response.headers:
+                        self.log_result('/health (rate_limit_headers)', 'GET', True, 
+                                      f"Rate limit headers present: Limit={response.headers.get('X-RateLimit-Limit')}, Remaining={response.headers.get('X-RateLimit-Remaining')}")
+                    else:
+                        self.log_result('/health (rate_limit_headers)', 'GET', False, 
+                                      f"Rate limit headers missing in response")
+                
+                if response.status_code == 429:
+                    rate_limited = True
+                    self.log_result('/health (rate_limiting)', 'GET', True, 
+                                  f"Rate limiting triggered after {request_count} requests: {response.text}")
+                    break
+                elif response.status_code != 200:
+                    self.log_result('/health (rate_limiting)', 'GET', False, 
+                                  f"Unexpected status during rate limit test: {response.status_code}")
+                    break
+            
+            if not rate_limited:
+                self.log_result('/health (rate_limiting)', 'GET', False, 
+                              f"Rate limiting not triggered after {request_count} requests")
+                
+        except Exception as e:
+            self.log_result('/health (rate_limiting)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_input_validation_contact_forms(self):
+        """Test input validation on contact forms"""
+        
+        # Test 1: Invalid email format (should fail)
+        try:
+            invalid_email_data = {
+                "name": "Тест Валидация",
+                "email": "invalid-email-format",  # Invalid email
+                "phone": "+7 (999) 123-45-67",
+                "company": "Тестовая Компания",
+                "message": "Тест валидации email"
+            }
+            
+            response = self.session.post(f"{self.base_url}/contact/consultation", 
+                                       json=invalid_email_data)
+            
+            if response.status_code == 400:
+                self.log_result('/contact/consultation (invalid_email)', 'POST', True, 
+                              f"Correctly rejected invalid email format: {response.text}")
+            else:
+                self.log_result('/contact/consultation (invalid_email)', 'POST', False, 
+                              f"Should reject invalid email, got HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/contact/consultation (invalid_email)', 'POST', False, f"Exception: {str(e)}")
+        
+        # Test 2: Invalid phone (less than 10 digits, should fail)
+        try:
+            invalid_phone_data = {
+                "name": "Тест Валидация",
+                "email": "test@example.com",
+                "phone": "123",  # Too short phone
+                "company": "Тестовая Компания",
+                "message": "Тест валидации телефона"
+            }
+            
+            response = self.session.post(f"{self.base_url}/contact/consultation", 
+                                       json=invalid_phone_data)
+            
+            if response.status_code == 400:
+                self.log_result('/contact/consultation (invalid_phone)', 'POST', True, 
+                              f"Correctly rejected invalid phone format: {response.text}")
+            else:
+                self.log_result('/contact/consultation (invalid_phone)', 'POST', False, 
+                              f"Should reject invalid phone, got HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/contact/consultation (invalid_phone)', 'POST', False, f"Exception: {str(e)}")
+        
+        # Test 3: Valid callback request (should succeed)
+        try:
+            valid_callback_data = {
+                "name": "Валидный Тест",
+                "phone": "+7 (999) 888-77-66",
+                "email": "valid@example.com",
+                "company": "Валидная Компания"
+            }
+            
+            response = self.session.post(f"{self.base_url}/contact/callback-request", 
+                                       json=valid_callback_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success'):
+                    self.log_result('/contact/callback-request (valid)', 'POST', True, 
+                                  f"Valid callback request processed successfully: {data.get('message')}")
+                else:
+                    self.log_result('/contact/callback-request (valid)', 'POST', False, 
+                                  f"Valid request failed: {data}")
+            else:
+                self.log_result('/contact/callback-request (valid)', 'POST', False, 
+                              f"Valid callback request failed: HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/contact/callback-request (valid)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_security_headers(self):
+        """Test security headers in responses"""
+        try:
+            response = self.session.get(f"{self.base_url}/health")
+            
+            required_headers = {
+                'X-Content-Type-Options': 'nosniff',
+                'X-Frame-Options': 'DENY',
+                'X-XSS-Protection': '1; mode=block',
+                'Strict-Transport-Security': None,  # Just check presence
+                'Content-Security-Policy': None     # Just check presence
+            }
+            
+            missing_headers = []
+            incorrect_headers = []
+            
+            for header, expected_value in required_headers.items():
+                if header not in response.headers:
+                    missing_headers.append(header)
+                elif expected_value and response.headers[header] != expected_value:
+                    incorrect_headers.append(f"{header}: got '{response.headers[header]}', expected '{expected_value}'")
+            
+            if not missing_headers and not incorrect_headers:
+                self.log_result('/health (security_headers)', 'GET', True, 
+                              f"All security headers present and correct", 
+                              {h: response.headers.get(h) for h in required_headers.keys()})
+            else:
+                issues = []
+                if missing_headers:
+                    issues.append(f"Missing: {missing_headers}")
+                if incorrect_headers:
+                    issues.append(f"Incorrect: {incorrect_headers}")
+                
+                self.log_result('/health (security_headers)', 'GET', False, 
+                              f"Security header issues: {'; '.join(issues)}", 
+                              {h: response.headers.get(h) for h in required_headers.keys()})
+                
+        except Exception as e:
+            self.log_result('/health (security_headers)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_delete_uploaded_file(self):
+        """Test DELETE /api/admin/uploaded-files/{filename} - File deletion with security checks"""
+        try:
+            # First, get list of uploaded files
+            get_response = self.session.get(f"{self.base_url}/admin/uploaded-files")
+            
+            if get_response.status_code == 200:
+                data = get_response.json()
+                files = data.get('files', [])
+                
+                if files:
+                    # Try to delete the first file
+                    filename = files[0]['filename']
+                    
+                    delete_response = self.session.delete(f"{self.base_url}/admin/uploaded-files/{filename}")
+                    
+                    if delete_response.status_code == 200:
+                        delete_data = delete_response.json()
+                        if delete_data.get('success'):
+                            self.log_result('/admin/uploaded-files/{filename}', 'DELETE', True, 
+                                          f"File deleted successfully: {filename}")
+                            
+                            # Verify file is actually deleted by checking list again
+                            verify_response = self.session.get(f"{self.base_url}/admin/uploaded-files")
+                            if verify_response.status_code == 200:
+                                verify_data = verify_response.json()
+                                remaining_files = verify_data.get('files', [])
+                                remaining_filenames = [f['filename'] for f in remaining_files]
+                                
+                                if filename not in remaining_filenames:
+                                    self.log_result('/admin/uploaded-files (delete_verification)', 'GET', True, 
+                                                  f"File deletion verified - file no longer in list")
+                                else:
+                                    self.log_result('/admin/uploaded-files (delete_verification)', 'GET', False, 
+                                                  f"File still appears in list after deletion")
+                        else:
+                            self.log_result('/admin/uploaded-files/{filename}', 'DELETE', False, 
+                                          f"Delete response indicates failure: {delete_data}")
+                    elif delete_response.status_code == 404:
+                        self.log_result('/admin/uploaded-files/{filename}', 'DELETE', True, 
+                                      f"File not found (404) - expected for non-existent file")
+                    else:
+                        self.log_result('/admin/uploaded-files/{filename}', 'DELETE', False, 
+                                      f"HTTP {delete_response.status_code}: {delete_response.text}")
+                else:
+                    # Test with non-existent file (should return 404)
+                    delete_response = self.session.delete(f"{self.base_url}/admin/uploaded-files/nonexistent.jpg")
+                    
+                    if delete_response.status_code == 404:
+                        self.log_result('/admin/uploaded-files/{filename} (nonexistent)', 'DELETE', True, 
+                                      f"Correctly returned 404 for non-existent file")
+                    else:
+                        self.log_result('/admin/uploaded-files/{filename} (nonexistent)', 'DELETE', False, 
+                                      f"Should return 404 for non-existent file, got {delete_response.status_code}")
+            else:
+                self.log_result('/admin/uploaded-files (for_delete_test)', 'GET', False, 
+                              f"Could not get file list for delete test: {get_response.status_code}")
+                
+        except Exception as e:
+            self.log_result('/admin/uploaded-files/{filename}', 'DELETE', False, f"Exception: {str(e)}")
+    
+    def run_security_features_tests(self):
+        """Run all new security features tests"""
+        print(f"\n🔒 Starting Security Features Tests")
+        print("=" * 60)
+        print("Testing new security enhancements: file upload validation, rate limiting, input validation, security headers")
+        print("=" * 60)
+        
+        # Test 1: Uploaded Images Gallery
+        self.test_uploaded_images_gallery_get()
+        
+        # Test 2: File Upload Security Validations
+        self.test_file_upload_security_validations()
+        
+        # Test 3: Rate Limiting
+        self.test_rate_limiting()
+        
+        # Test 4: Input Validation on Contact Forms
+        self.test_input_validation_contact_forms()
+        
+        # Test 5: Security Headers
+        self.test_security_headers()
+        
+        # Test 6: File Deletion with Security Checks
+        self.test_delete_uploaded_file()
+        
+        print("=" * 60)
+
     def run_all_tests(self):
         """Run all API tests"""
         print(f"🚀 Starting API tests for AVIK Uniform Factory")
@@ -1178,6 +1542,9 @@ class APITester:
         
         # Admin panel tests
         self.run_admin_tests()
+        
+        # NEW: Security Features Tests (Priority)
+        self.run_security_features_tests()
         
         print("=" * 80)
         self.print_summary()
