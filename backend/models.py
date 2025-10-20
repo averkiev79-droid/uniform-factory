@@ -323,6 +323,36 @@ class ProductUpdate(BaseModel):
     featured: Optional[bool] = None
 
 class ProductWithDetails(Product):
+
+
+# Analytics Models
+class AnalyticsProduct(BaseModel):
+    """Popular product stats"""
+    product_id: str
+    product_name: str
+    category_name: str
+    views_count: int
+    article: Optional[str] = None
+
+class AnalyticsCategory(BaseModel):
+    """Popular category stats"""
+    category_id: str
+    category_name: str
+    products_count: int
+    views_count: int
+
+class AnalyticsOverview(BaseModel):
+    """Overall analytics"""
+    total_products: int
+    total_categories: int
+    total_views: int
+    total_quote_requests: int
+    total_contact_requests: int
+    quote_requests_pending: int
+    conversion_rate: float  # % заявок от просмотров
+    popular_products: List[AnalyticsProduct]
+    popular_categories: List[AnalyticsCategory]
+
     images: List[ProductImage] = []
     characteristics: List[ProductCharacteristic] = []
     category_name: Optional[str] = None
