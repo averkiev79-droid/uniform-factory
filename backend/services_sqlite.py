@@ -822,22 +822,6 @@ class AnalyticsService:
         finally:
             db.close()
 
-    
-    @staticmethod
-    def increment_views(product_id: str):
-        """Increment product views count for analytics"""
-        db = SessionLocal()
-        try:
-            from database_sqlite import SQLProduct
-            product = db.query(SQLProduct).filter(SQLProduct.id == product_id).first()
-            if product:
-                if not hasattr(product, 'views_count') or product.views_count is None:
-                    product.views_count = 0
-                product.views_count += 1
-                db.commit()
-        finally:
-            db.close()
-
 
 class SettingsService:
     """Service for managing app settings"""
