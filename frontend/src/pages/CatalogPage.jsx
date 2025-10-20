@@ -6,6 +6,12 @@ import { seoData } from '../data/seoData';
 export const CatalogPage = () => {
   return (
     <div>
+      <SEO
+        title={seoData.catalog.title}
+        description={seoData.catalog.description}
+        keywords={seoData.catalog.keywords}
+        canonical="/catalog"
+      />
       {/* Page Header */}
       <section className="bg-gray-50 py-12">
         <div className="container mx-auto px-4">
