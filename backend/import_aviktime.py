@@ -134,24 +134,39 @@ def parse_product_detail(product_url: str) -> Optional[Dict]:
     if article_elem and article_elem.next_sibling:
         article = article_elem.next_sibling.strip()
     
-    # Описание
+    # Описание - берем ТОЛЬКО текст из "Описание изделия:"
     description = ""
     desc_elem = soup.find(text=re.compile(r'Описание изделия:'))
     if desc_elem:
-        desc_parent = desc_elem.find_parent()
-        if desc_parent:
-            # Получаем весь текст после "Описание изделия:"
-            desc_text = desc_parent.get_text(strip=True)
-            description = desc_text.replace('Описание изделия:', '').strip()
-    
-    # Если описания нет, ищем любой текстовый блок
-    if not description:
-        content_divs = soup.find_all('div')
-        for div in content_divs:
-            text = div.get_text(strip=True)
-            if len(text) > 50 and 'описание' not in text.lower():
-                description = text
+        # Собираем только текст после "Описание изделия:" до следующего тега или конца
+        desc_parts = []
+        current = desc_elem
+        
+        # Идем по следующим элементам
+        while current:
+            current = current.next_sibling
+            if not current:
                 break
+            
+            # Если встретили тег (не текст), останавливаемся
+            if hasattr(current, 'name') and current.name:
+                # Проверяем, не является ли это просто <br>
+                if current.name == 'br':
+                    desc_parts.append('\n')
+                    continue
+                else:
+                    break
+            
+            # Если это текст, добавляем его
+            text = str(current).strip()
+            if text and not text.startswith('**'):  # Игнорируем артикулы и прочее
+                desc_parts.append(text)
+        
+        description = ' '.join(desc_parts).strip()
+    
+    # Если описание всё равно пустое или слишком короткое
+    if not description or len(description) < 10:
+        description = "Подробную информацию уточняйте у менеджера"
     
     # Цена (если есть)
     price = None
