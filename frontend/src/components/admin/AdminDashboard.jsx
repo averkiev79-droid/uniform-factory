@@ -64,6 +64,8 @@ export const AdminDashboard = ({ onLogout }) => {
         return <ImageManager />;
       case 'upload':
         return <ImageUploader />;
+      case 'gallery':
+        return <UploadedImagesViewer />;
       default:
         return (
           <div className="space-y-6">
