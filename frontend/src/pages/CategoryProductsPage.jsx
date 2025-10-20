@@ -121,6 +121,24 @@ export const CategoryProductsPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* SEO Meta Tags */}
+      {category && (
+        <>
+          <SEO 
+            title={`${category.title} - каталог униформы`}
+            description={`${category.description || category.title} - широкий выбор моделей корпоративной одежды. ${products.length} товаров в наличии. Доставка по России.`}
+            keywords={`${category.title}, униформа ${category.title.toLowerCase()}, корпоративная одежда, купить униформу`}
+            canonical={`/category/${categoryId}`}
+          />
+          
+          <BreadcrumbSchema items={[
+            { name: 'Главная', url: '/' },
+            { name: 'Каталог', url: '/catalog' },
+            { name: category.title }
+          ]} />
+        </>
+      )}
+      
       {/* Header */}
       <div className="bg-white border-b">
         <div className="container mx-auto px-4 py-6">
