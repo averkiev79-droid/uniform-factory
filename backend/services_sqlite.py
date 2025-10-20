@@ -617,6 +617,130 @@ class ProductService:
             db.close()
 
 
+    @staticmethod
+    def search_products(
+        query: Optional[str] = None,
+        category_id: Optional[str] = None,
+        price_from: Optional[int] = None,
+        price_to: Optional[int] = None,
+        material: Optional[str] = None,
+        limit: int = 50
+    ):
+        """
+        Search and filter products
+        
+        Args:
+            query: Search query (название или артикул)
+            category_id: Filter by category
+            price_from: Minimum price
+            price_to: Maximum price
+            material: Filter by material
+            limit: Maximum results
+        """
+        db = SessionLocal()
+        try:
+            from database_sqlite import SQLProduct, SQLProductImage, SQLProductCharacteristic, ProductCategory
+            import json
+            
+            # Start with base query
+            products_query = db.query(SQLProduct)
+            
+            # Apply filters
+            if query:
+                # Search by name or article
+                search_filter = (
+                    (SQLProduct.name.ilike(f"%{query}%")) |
+                    (SQLProduct.article.ilike(f"%{query}%"))
+                )
+                products_query = products_query.filter(search_filter)
+            
+            if category_id:
+                products_query = products_query.filter(SQLProduct.category_id == category_id)
+            
+            if price_from is not None:
+                products_query = products_query.filter(SQLProduct.price_from >= price_from)
+            
+            if price_to is not None:
+                products_query = products_query.filter(SQLProduct.price_from <= price_to)
+            
+            if material:
+                products_query = products_query.filter(SQLProduct.material.ilike(f"%{material}%"))
+            
+            # Limit results
+            products = products_query.limit(limit).all()
+            
+            result = []
+            for product in products:
+                # Get category name
+                category = db.query(ProductCategory).filter(ProductCategory.id == product.category_id).first()
+                category_name = category.title if category else "Unknown"
+                
+                # Parse JSON fields
+                sizes = json.loads(product.sizes) if product.sizes else []
+                colors = json.loads(product.colors) if product.colors else []
+                
+                # Get images
+                images = []
+                for img in product.images:
+                    images.append({
+                        "id": img.id,
+                        "image_url": img.image_url,
+                        "alt_text": img.alt_text,
+                        "order": img.order
+                    })
+                
+                # Get characteristics
+                characteristics = []
+                for char in product.characteristics:
+                    characteristics.append({
+                        "id": char.id,
+                        "name": char.name,
+                        "value": char.value,
+                        "order": char.order
+                    })
+                
+                result.append({
+                    "id": product.id,
+                    "category_id": product.category_id,
+                    "category_name": category_name,
+                    "name": product.name,
+                    "article": product.article,
+                    "description": product.description,
+                    "short_description": product.short_description,
+                    "price_from": product.price_from,
+                    "price_to": product.price_to,
+                    "material": product.material,
+                    "sizes": sizes,
+                    "colors": colors,
+                    "is_available": product.is_available,
+                    "featured": product.featured,
+                    "views_count": product.views_count if hasattr(product, 'views_count') else 0,
+                    "images": images,
+                    "characteristics": characteristics,
+                    "created_at": product.created_at,
+                    "updated_at": product.updated_at
+                })
+            
+            return result
+        finally:
+            db.close()
+    
+    @staticmethod
+    def increment_views(product_id: str):
+        """Increment product views count for analytics"""
+        db = SessionLocal()
+        try:
+            from database_sqlite import SQLProduct
+            product = db.query(SQLProduct).filter(SQLProduct.id == product_id).first()
+            if product:
+                if not hasattr(product, 'views_count') or product.views_count is None:
+                    product.views_count = 0
+                product.views_count += 1
+                db.commit()
+        finally:
+            db.close()
+
+
 class SettingsService:
     """Service for managing app settings"""
     
