@@ -213,12 +213,11 @@ def import_product_to_db(db: Session, product_data: Dict, category_id: int) -> b
             name=product_data['name'],
             description=product_data['description'],
             article=product_data.get('article', ''),
-            base_price=product_data.get('price') or 0.0,
-            discount_price=None,
-            sizes=[],  # Размеры не импортируем
-            colors=[],  # Цвета не импортируем
-            materials=[],  # Материалы не импортируем
-            images=[],  # Изображения не импортируем
+            price_from=int(product_data.get('price') or 0),
+            price_to=None,
+            material="",
+            sizes="[]",  # JSON string
+            colors="[]",  # JSON string
             is_available=True
         )
         
