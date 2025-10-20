@@ -296,6 +296,7 @@ class Product(BaseModel):
 class ProductCreate(BaseModel):
     category_id: str
     name: str
+    article: Optional[str] = None  # Артикул товара
     description: str
     short_description: Optional[str] = None
     price_from: int
