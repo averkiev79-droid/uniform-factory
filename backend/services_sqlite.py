@@ -1,5 +1,6 @@
 from typing import List, Optional
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from database_sqlite import (
     SessionLocal,
     ProductCategory as DBProductCategory,
