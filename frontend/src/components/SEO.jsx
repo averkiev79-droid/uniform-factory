@@ -29,6 +29,13 @@ const SEO = ({
       <meta name="keywords" content={pageKeywords} />
       {noindex && <meta name="robots" content="noindex, nofollow" />}
       
+      {/* Webmaster Verification Tags - ADD YOUR CODES HERE */}
+      {/* Yandex Webmaster Verification */}
+      {/* <meta name="yandex-verification" content="YOUR_YANDEX_CODE" /> */}
+      
+      {/* Google Search Console Verification */}
+      {/* <meta name="google-site-verification" content="YOUR_GOOGLE_CODE" /> */}
+      
       {/* Canonical URL */}
       {canonical && <link rel="canonical" href={pageUrl} />}
       
