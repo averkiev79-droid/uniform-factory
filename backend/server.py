@@ -495,8 +495,28 @@ async def get_robots():
     robots_txt = """User-agent: *
 Allow: /
 Disallow: /admin
+Disallow: /api/admin
+Disallow: /calculator/result
+Disallow: /favorites
 
+# Yandex
+User-agent: Yandex
+Allow: /
+Disallow: /admin
+Disallow: /api/admin
+
+# Google
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Disallow: /api/admin
+
+# Sitemaps
+Sitemap: https://uniformfactory.ru/sitemap.xml
 Sitemap: https://uniformfactory.ru/api/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
 
 # Block bad bots
 User-agent: AhrefsBot
