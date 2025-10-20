@@ -226,6 +226,17 @@ export const apiService = {
       console.error('Failed to fetch settings:', error);
       throw error;
     }
+  },
+
+  // Analytics
+  async getAnalyticsOverview() {
+    try {
+      const response = await api.get('/analytics/overview');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch analytics:', error);
+      throw error;
+    }
   }
 };
 
