@@ -426,6 +426,20 @@ async def get_product_by_id(product_id: str):
 @api_router.post("/products")
 async def create_product(product: ProductCreate):
     """Create new product"""
+
+
+# Analytics endpoints
+@api_router.get("/analytics/overview")
+async def get_analytics_overview():
+    """Get analytics overview (popular products, categories, conversion, etc.)"""
+    try:
+        from services_sqlite import AnalyticsService
+        analytics = AnalyticsService.get_analytics_overview()
+        return analytics
+    except Exception as e:
+        logger.error(f"Error getting analytics overview: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
     try:
         from services_sqlite import ProductService
         result = ProductService.create_product(product)
