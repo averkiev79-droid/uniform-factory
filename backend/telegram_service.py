@@ -118,13 +118,15 @@ class TelegramService:
     @staticmethod
     def send_contact_message_notification(request_data: dict) -> bool:
         """Send notification about contact form message"""
+        company_line = f"🏢 <b>Компания:</b> {request_data.get('company')}" if request_data.get('company') else ""
+        
         text = f"""
 ✉️ <b>Новое сообщение с сайта</b>
 
 👤 <b>От:</b> {request_data.get('name')}
 📧 <b>Email:</b> {request_data.get('email')}
 📱 <b>Телефон:</b> {request_data.get('phone')}
-{f"🏢 <b>Компания:</b> {request_data.get('company')}" if request_data.get('company') else ""}
+{company_line}
 
 📝 <b>Сообщение:</b>
 {request_data.get('message', 'Нет текста')}
