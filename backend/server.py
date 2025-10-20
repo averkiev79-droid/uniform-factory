@@ -206,18 +206,23 @@ async def create_consultation_request(request: ConsultationRequestCreate, backgr
     try:
         response = ContactService.create_consultation_request(request)
         
+        # Prepare notification data
+        from datetime import datetime
+        request_data = {
+            'name': request.name,
+            'phone': request.phone,
+            'email': request.email,
+            'company': request.company,
+            'message': getattr(request, 'message', None),
+            'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        }
+        
         # Send email notification in background
         if os.getenv('SENDER_EMAIL') and os.getenv('EMAIL_PASSWORD'):
-            from datetime import datetime
-            request_data = {
-                'name': request.name,
-                'phone': request.phone,
-                'email': request.email,
-                'company': request.company,
-                'message': getattr(request, 'message', None),
-                'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            }
             background_tasks.add_task(send_callback_notification_email, request_data)
+        
+        # Send Telegram notification in background
+        background_tasks.add_task(TelegramService.send_consultation_request_notification, request_data)
         
         return response
     except Exception as e:
