@@ -3,9 +3,13 @@ Telegram Bot Service for Uniform Factory
 Sends notifications about new requests to admin
 """
 import os
+from dotenv import load_dotenv
 import requests
 from typing import Optional
 import logging
+
+# Load environment variables
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
