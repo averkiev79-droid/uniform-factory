@@ -12,7 +12,8 @@ import {
   ShoppingBag,
   Image,
   Activity,
-  FileText
+  FileText,
+  TrendingUp
 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { CategoriesManager } from './CategoriesManager';
@@ -25,6 +26,7 @@ import ImageManager from './ImageManager';
 import WebVitalsMonitor from './WebVitalsMonitor';
 import LegalDocsManager from './LegalDocsManager';
 import UploadedImagesViewer from './UploadedImagesViewer';
+import AnalyticsDashboard from './AnalyticsDashboard';
 
 export const AdminDashboard = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState('dashboard');
