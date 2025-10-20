@@ -205,6 +205,18 @@ export const apiService = {
     }
   },
 
+
+  async searchProducts(params) {
+    try {
+      const response = await api.get('/products/search', { params });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to search products:', error);
+      throw error;
+    }
+  },
+
+
   // Settings
   async getSettings() {
     try {
