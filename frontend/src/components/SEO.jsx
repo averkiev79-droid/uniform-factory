@@ -32,7 +32,7 @@ const SEO = ({
       {/* Canonical URL */}
       {canonical && <link rel="canonical" href={pageUrl} />}
       
-      {/* Open Graph / Facebook */}
+      {/* Open Graph / VK (ВКонтакте) */}
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={pageUrl} />
       <meta property="og:title" content={pageTitle} />
@@ -40,13 +40,6 @@ const SEO = ({
       <meta property="og:image" content={imageUrl} />
       <meta property="og:site_name" content="Uniform Factory" />
       <meta property="og:locale" content="ru_RU" />
-      
-      {/* Twitter Card */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={pageUrl} />
-      <meta name="twitter:title" content={pageTitle} />
-      <meta name="twitter:description" content={pageDescription} />
-      <meta name="twitter:image" content={imageUrl} />
       
       {/* Additional SEO */}
       <meta name="author" content="Uniform Factory" />
