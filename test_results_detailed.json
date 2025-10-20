@@ -9,7 +9,7 @@
       "service": "uniform-factory-api",
       "database": "sqlite"
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:57"
   },
   {
     "endpoint": "/categories",
@@ -22,14 +22,14 @@
         "id": "1",
         "title": "Униформа для ресторанов и отелей",
         "description": "Профессиональная одежда для сферы HoReCa",
-        "image": "https://apparel-platform-2.preview.emergentagent.com/api/uploads/e8ef47cd-8137-4b54-8068-8bea57939cab.png",
+        "image": "https://uniform-dashboard.preview.emergentagent.com/api/uploads/e8ef47cd-8137-4b54-8068-8bea57939cab.png",
         "products_count": 120,
         "slug": "restaurants-hotels",
-        "created_at": "2025-10-16T16:46:58.669598",
-        "updated_at": "2025-10-17T14:30:45.590375"
+        "created_at": "2025-10-18T11:39:41.554203",
+        "updated_at": "2025-10-18T12:19:34.539730"
       }
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:57"
   },
   {
     "endpoint": "/portfolio",
@@ -42,15 +42,15 @@
         "id": "1",
         "company": "Сбербанк",
         "description": "Деловые костюмы для сотрудников банка",
-        "image": "/images/portfolio/portfolio1.jpg",
+        "image": "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500&h=400&fit=crop",
         "category": "Банки",
         "items_count": 2500,
         "year": 2023,
-        "created_at": "2025-10-16T16:46:58.668889",
-        "updated_at": "2025-10-16T16:46:58.668892"
+        "created_at": "2025-10-18T11:39:41.553468",
+        "updated_at": "2025-10-18T11:39:41.553470"
       }
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:57"
   },
   {
     "endpoint": "/calculator/options",
@@ -157,7 +157,7 @@
         }
       ]
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:57"
   },
   {
     "endpoint": "/calculator/estimate",
@@ -173,27 +173,30 @@
         "brandingPrice": 150
       }
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:57"
   },
   {
     "endpoint": "/calculator/quote-request",
     "method": "POST",
     "success": true,
-    "details": "Quote request created: REQ-2025-0918CE",
+    "details": "Quote request created: REQ-2025-FD759F",
     "response_data": {
       "success": true,
-      "request_id": "REQ-2025-0918CE",
+      "request_id": "REQ-2025-FD759F",
       "message": "Заявка принята. Мы свяжемся с вами в течение 2 часов."
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:57"
   },
   {
     "endpoint": "/contact/callback-request",
     "method": "POST",
-    "success": false,
-    "details": "HTTP 500: {\"detail\":\"Internal server error\"}",
-    "response_data": null,
-    "timestamp": "2025-10-18 09:42:08"
+    "success": true,
+    "details": "Callback request created successfully",
+    "response_data": {
+      "success": true,
+      "message": "Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут."
+    },
+    "timestamp": "2025-10-20 07:45:57"
   },
   {
     "endpoint": "/testimonials",
@@ -209,11 +212,11 @@
         "author": "Анна Петрова",
         "position": "Директор по закупкам",
         "rating": 5,
-        "created_at": "2025-10-16T16:46:58.670551",
-        "updated_at": "2025-10-16T16:46:58.670552"
+        "created_at": "2025-10-18T11:39:41.555182",
+        "updated_at": "2025-10-18T11:39:41.555183"
       }
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:57"
   },
   {
     "endpoint": "/statistics",
@@ -223,12 +226,12 @@
     "response_data": {
       "id": "1",
       "years_in_business": 15,
-      "completed_orders": 2500,
-      "happy_clients": 850,
-      "cities": 45,
-      "updated_at": "2025-10-17T13:02:38.035703"
+      "completed_orders": 5000,
+      "happy_clients": 1200,
+      "cities": 150,
+      "updated_at": "2025-10-18T11:39:41.554713"
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:57"
   },
   {
     "endpoint": "/calculator/estimate (invalid)",
@@ -236,7 +239,7 @@
     "success": true,
     "details": "Correctly rejected invalid data: {\"detail\":\"Invalid calculator parameters\"}",
     "response_data": null,
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:57"
   },
   {
     "endpoint": "/calculator/quote-request (incomplete)",
@@ -244,7 +247,7 @@
     "success": true,
     "details": "Correctly rejected incomplete data: validation error",
     "response_data": null,
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/contact/consultation (FIXED)",
@@ -255,23 +258,30 @@
       "success": true,
       "message": "Заявка на консультацию принята. Мы свяжемся с вами в течение 2 часов."
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/contact/callback-request (FIXED)",
     "method": "POST",
-    "success": false,
-    "details": "500 ERROR - Bug not fixed! Response: {\"detail\":\"Internal server error\"}",
-    "response_data": null,
-    "timestamp": "2025-10-18 09:42:08"
+    "success": true,
+    "details": "Callback request form working after fix - Success: True, Message: Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут.",
+    "response_data": {
+      "success": true,
+      "message": "Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут."
+    },
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/contact/quote-request (FIXED)",
     "method": "POST",
-    "success": false,
-    "details": "HTTP 404: {\"detail\":\"Not Found\"}",
-    "response_data": null,
-    "timestamp": "2025-10-18 09:42:08"
+    "success": true,
+    "details": "Quote request form working after fix - Success: True, Request ID: REQ-2025-B1B12A, Message: Заявка принята. Мы свяжемся с вами в течение 2 часов.",
+    "response_data": {
+      "success": true,
+      "request_id": "REQ-2025-B1B12A",
+      "message": "Заявка принята. Мы свяжемся с вами в течение 2 часов."
+    },
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/login",
@@ -282,7 +292,7 @@
       "success": true,
       "token": "admin-authenticated"
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/login (invalid)",
@@ -290,7 +300,7 @@
     "success": true,
     "details": "Correctly rejected invalid password: {\"detail\":\"Invalid password\"}",
     "response_data": null,
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/categories",
@@ -300,18 +310,18 @@
     "response_data": {
       "count": 6
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/categories",
     "method": "POST",
     "success": true,
-    "details": "Category created successfully with ID: 773bd07f-a828-4d87-8086-5b6cf80e9e6a",
+    "details": "Category created successfully with ID: 487f6c21-c92a-4627-95e4-708830efb803",
     "response_data": {
       "success": true,
-      "id": "773bd07f-a828-4d87-8086-5b6cf80e9e6a"
+      "id": "487f6c21-c92a-4627-95e4-708830efb803"
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/categories/{id}",
@@ -321,7 +331,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/categories/{id}",
@@ -331,7 +341,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/portfolio",
@@ -341,18 +351,18 @@
     "response_data": {
       "count": 6
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/portfolio",
     "method": "POST",
     "success": true,
-    "details": "Portfolio item created successfully with ID: 94519e05-3845-4948-9943-9fa934209fa9",
+    "details": "Portfolio item created successfully with ID: ec1ca5d5-3fc1-4917-899a-856045a2718f",
     "response_data": {
       "success": true,
-      "id": "94519e05-3845-4948-9943-9fa934209fa9"
+      "id": "ec1ca5d5-3fc1-4917-899a-856045a2718f"
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/portfolio/{id}",
@@ -362,7 +372,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/portfolio/{id}",
@@ -372,7 +382,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/quote-requests",
@@ -382,7 +392,7 @@
     "response_data": {
       "count": 2
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/quote-requests/{id}/status",
@@ -392,7 +402,7 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/statistics",
@@ -402,12 +412,12 @@
     "response_data": {
       "id": "1",
       "years_in_business": 15,
-      "completed_orders": 2500,
-      "happy_clients": 850,
-      "cities": 45,
-      "updated_at": "2025-10-17T13:02:38.035703"
+      "completed_orders": 5000,
+      "happy_clients": 1200,
+      "cities": 150,
+      "updated_at": "2025-10-18T11:39:41.554713"
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/statistics",
@@ -417,32 +427,32 @@
     "response_data": {
       "success": true
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/upload-image",
     "method": "POST",
     "success": true,
-    "details": "Image uploaded successfully: /api/uploads/a319e762-562b-409d-96c4-acb20c53a001.jpg",
+    "details": "Image uploaded successfully: /api/uploads/9a26567a-8ece-4482-8cab-e159e5ce1a73.jpg",
     "response_data": {
       "success": true,
-      "url": "/api/uploads/a319e762-562b-409d-96c4-acb20c53a001.jpg"
+      "url": "/api/uploads/9a26567a-8ece-4482-8cab-e159e5ce1a73.jpg"
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/settings",
     "method": "GET",
     "success": true,
-    "details": "Public settings retrieved successfully with hero_image: /api/uploads/e56ec7e5-1ad8-4073-b6e1-e3f9388148b4.png",
+    "details": "Public settings retrieved successfully with hero_image: https://uniform-dashboard.preview.emergentagent.com/api/uploads/6651a385-c57e-4b6e-90bc-844e5f9d4755.png",
     "response_data": {
       "id": "default",
-      "hero_image": "/api/uploads/e56ec7e5-1ad8-4073-b6e1-e3f9388148b4.png",
-      "hero_mobile_image": "/images/mobile-integration.jpg",
-      "about_image": "/api/uploads/822498da-233f-4fd4-8606-61a047f3f99a.jpg",
-      "updated_at": "2025-10-17T14:11:23.416031"
+      "hero_image": "https://uniform-dashboard.preview.emergentagent.com/api/uploads/6651a385-c57e-4b6e-90bc-844e5f9d4755.png",
+      "hero_mobile_image": null,
+      "about_image": null,
+      "updated_at": "2025-10-18T12:18:09.262825"
     },
-    "timestamp": "2025-10-18 09:42:08"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/settings",
@@ -451,12 +461,12 @@
     "details": "Admin settings retrieved successfully",
     "response_data": {
       "id": "default",
-      "hero_image": "/api/uploads/e56ec7e5-1ad8-4073-b6e1-e3f9388148b4.png",
-      "hero_mobile_image": "/images/mobile-integration.jpg",
-      "about_image": "/api/uploads/822498da-233f-4fd4-8606-61a047f3f99a.jpg",
-      "updated_at": "2025-10-17T14:11:23.416031"
+      "hero_image": "https://uniform-dashboard.preview.emergentagent.com/api/uploads/6651a385-c57e-4b6e-90bc-844e5f9d4755.png",
+      "hero_mobile_image": null,
+      "about_image": null,
+      "updated_at": "2025-10-18T12:18:09.262825"
     },
-    "timestamp": "2025-10-18 09:42:09"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/settings (hero_image)",
@@ -469,12 +479,12 @@
       "settings": {
         "id": "default",
         "hero_image": "/images/new-hero.jpg",
-        "hero_mobile_image": "/images/mobile-integration.jpg",
-        "about_image": "/api/uploads/822498da-233f-4fd4-8606-61a047f3f99a.jpg",
-        "updated_at": "2025-10-18T09:42:09.010592"
+        "hero_mobile_image": null,
+        "about_image": null,
+        "updated_at": "2025-10-20T07:45:58.456076"
       }
     },
-    "timestamp": "2025-10-18 09:42:09"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/settings (persistence check)",
@@ -484,11 +494,11 @@
     "response_data": {
       "id": "default",
       "hero_image": "/images/new-hero.jpg",
-      "hero_mobile_image": "/images/mobile-integration.jpg",
-      "about_image": "/api/uploads/822498da-233f-4fd4-8606-61a047f3f99a.jpg",
-      "updated_at": "2025-10-18T09:42:09.010592"
+      "hero_mobile_image": null,
+      "about_image": null,
+      "updated_at": "2025-10-20T07:45:58.456076"
     },
-    "timestamp": "2025-10-18 09:42:09"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/settings (all_fields)",
@@ -503,10 +513,10 @@
         "hero_image": "/images/hero-updated.jpg",
         "hero_mobile_image": "/images/hero-mobile.jpg",
         "about_image": "/images/about-updated.jpg",
-        "updated_at": "2025-10-18T09:42:09.075596"
+        "updated_at": "2025-10-20T07:45:58.472325"
       }
     },
-    "timestamp": "2025-10-18 09:42:09"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/settings (integration)",
@@ -518,9 +528,9 @@
       "hero_image": "/images/integration-test.jpg",
       "hero_mobile_image": "/images/mobile-integration.jpg",
       "about_image": "/images/about-integration.jpg",
-      "updated_at": "2025-10-18T09:42:09.091916"
+      "updated_at": "2025-10-20T07:45:58.523219"
     },
-    "timestamp": "2025-10-18 09:42:09"
+    "timestamp": "2025-10-20 07:45:58"
   },
   {
     "endpoint": "/admin/settings (empty_data)",
@@ -535,9 +545,135 @@
         "hero_image": "/images/integration-test.jpg",
         "hero_mobile_image": "/images/mobile-integration.jpg",
         "about_image": "/images/about-integration.jpg",
-        "updated_at": "2025-10-18T09:42:09.155435"
+        "updated_at": "2025-10-20T07:45:58.580018"
       }
     },
-    "timestamp": "2025-10-18 09:42:09"
+    "timestamp": "2025-10-20 07:45:58"
+  },
+  {
+    "endpoint": "/admin/uploaded-files",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 14 uploaded files successfully",
+    "response_data": {
+      "count": 14,
+      "sample": {
+        "filename": "9a26567a-8ece-4482-8cab-e159e5ce1a73.jpg",
+        "size": 37,
+        "modified": 1760946358.434522,
+        "url": "/api/uploads/9a26567a-8ece-4482-8cab-e159e5ce1a73.jpg"
+      }
+    },
+    "timestamp": "2025-10-20 07:45:58"
+  },
+  {
+    "endpoint": "/admin/uploaded-files (structure)",
+    "method": "GET",
+    "success": true,
+    "details": "File structure valid: ['filename', 'size', 'modified', 'url']",
+    "response_data": {
+      "filename": "9a26567a-8ece-4482-8cab-e159e5ce1a73.jpg",
+      "size": 37,
+      "modified": 1760946358.434522,
+      "url": "/api/uploads/9a26567a-8ece-4482-8cab-e159e5ce1a73.jpg"
+    },
+    "timestamp": "2025-10-20 07:45:58"
+  },
+  {
+    "endpoint": "/admin/upload-image (valid)",
+    "method": "POST",
+    "success": true,
+    "details": "Valid image uploaded successfully: /api/uploads/c7d03073-241b-4446-9c1f-cd47ff2f4028.jpg",
+    "response_data": {
+      "success": true,
+      "url": "/api/uploads/c7d03073-241b-4446-9c1f-cd47ff2f4028.jpg"
+    },
+    "timestamp": "2025-10-20 07:45:58"
+  },
+  {
+    "endpoint": "/admin/upload-image (large_file)",
+    "method": "POST",
+    "success": true,
+    "details": "Correctly rejected large file (>10MB): {\"detail\":\"Файл слишком большой. Максимальный размер: 10MB\"}",
+    "response_data": null,
+    "timestamp": "2025-10-20 07:45:58"
+  },
+  {
+    "endpoint": "/admin/upload-image (non_image)",
+    "method": "POST",
+    "success": true,
+    "details": "Correctly rejected non-image file: {\"detail\":\"Недопустимый тип файла. Разрешены: .webp, .jpeg, .png, .jpg, .gif\"}",
+    "response_data": null,
+    "timestamp": "2025-10-20 07:45:58"
+  },
+  {
+    "endpoint": "/health (rate_limit_headers)",
+    "method": "GET",
+    "success": true,
+    "details": "Rate limit headers present: Limit=60, Remaining=52",
+    "response_data": null,
+    "timestamp": "2025-10-20 07:45:58"
+  },
+  {
+    "endpoint": "/health (rate_limiting)",
+    "method": "GET",
+    "success": false,
+    "details": "Rate limiting not triggered after 65 requests",
+    "response_data": null,
+    "timestamp": "2025-10-20 07:45:59"
+  },
+  {
+    "endpoint": "/contact/consultation (invalid_email)",
+    "method": "POST",
+    "success": false,
+    "details": "Should reject invalid email, got HTTP 422: {\"detail\":[{\"type\":\"value_error\",\"loc\":[\"body\",\"email\"],\"msg\":\"Value error, Недопустимый формат email\",\"input\":\"invalid-email-format\",\"ctx\":{\"error\":{}},\"url\":\"https://errors.pydantic.dev/2.11/v/value_error\"}]}",
+    "response_data": null,
+    "timestamp": "2025-10-20 07:45:59"
+  },
+  {
+    "endpoint": "/contact/consultation (invalid_phone)",
+    "method": "POST",
+    "success": false,
+    "details": "Should reject invalid phone, got HTTP 422: {\"detail\":[{\"type\":\"value_error\",\"loc\":[\"body\",\"phone\"],\"msg\":\"Value error, Недопустимый формат телефона\",\"input\":\"123\",\"ctx\":{\"error\":{}},\"url\":\"https://errors.pydantic.dev/2.11/v/value_error\"}]}",
+    "response_data": null,
+    "timestamp": "2025-10-20 07:45:59"
+  },
+  {
+    "endpoint": "/contact/callback-request (valid)",
+    "method": "POST",
+    "success": true,
+    "details": "Valid callback request processed successfully: Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут.",
+    "response_data": null,
+    "timestamp": "2025-10-20 07:46:00"
+  },
+  {
+    "endpoint": "/health (security_headers)",
+    "method": "GET",
+    "success": true,
+    "details": "All security headers present and correct",
+    "response_data": {
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "X-XSS-Protection": "1; mode=block",
+      "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+      "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://mc.yandex.ru; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: http:; font-src 'self' https://fonts.gstatic.com; frame-src 'self' https://yandex.ru https://mc.yandex.ru; connect-src 'self' https://mc.yandex.ru"
+    },
+    "timestamp": "2025-10-20 07:46:00"
+  },
+  {
+    "endpoint": "/admin/uploaded-files/{filename}",
+    "method": "DELETE",
+    "success": true,
+    "details": "File deleted successfully: c7d03073-241b-4446-9c1f-cd47ff2f4028.jpg",
+    "response_data": null,
+    "timestamp": "2025-10-20 07:46:00"
+  },
+  {
+    "endpoint": "/admin/uploaded-files (delete_verification)",
+    "method": "GET",
+    "success": true,
+    "details": "File deletion verified - file no longer in list",
+    "response_data": null,
+    "timestamp": "2025-10-20 07:46:00"
   }
 ]
