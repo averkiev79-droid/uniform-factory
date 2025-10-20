@@ -6,6 +6,9 @@ import { Badge } from '../components/ui/badge';
 import { Card, CardContent } from '../components/ui/card';
 import { ConsultationModal } from '../components/ConsultationModal';
 import { apiService } from '../services/api';
+import ProductSchema from '../components/ProductSchema';
+import BreadcrumbSchema from '../components/BreadcrumbSchema';
+import SEO from '../components/SEO';
 
 export const ProductPage = () => {
   const { productId } = useParams();
