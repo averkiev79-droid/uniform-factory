@@ -688,3 +688,44 @@ async def update_legal_document(
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# Web Vitals Monitoring
+@admin_router.get("/web-vitals")
+async def get_web_vitals_metrics():
+    """Get Web Vitals metrics for monitoring"""
+    try:
+        from database_sqlite import WebVitals
+        from datetime import datetime, timedelta
+        
+        db = SessionLocal()
+        try:
+            # Получаем метрики за последние 7 дней
+            seven_days_ago = datetime.utcnow() - timedelta(days=7)
+            metrics = db.query(WebVitals).filter(
+                WebVitals.timestamp >= seven_days_ago
+            ).order_by(WebVitals.timestamp.desc()).all()
+            
+            return {
+                "metrics": [
+                    {
+                        "id": m.id,
+                        "name": m.name,
+                        "value": m.value,
+                        "rating": m.rating,
+                        "delta": m.delta,
+                        "metric_id": m.metric_id,
+                        "navigation_type": m.navigation_type,
+                        "page": m.page,
+                        "timestamp": m.timestamp.isoformat() if m.timestamp else None
+                    }
+                    for m in metrics
+                ],
+                "total": len(metrics)
+            }
+        finally:
+            db.close()
+    except Exception as e:
+        print(f"Error fetching web vitals: {e}")
+        return {"metrics": [], "total": 0}
+
