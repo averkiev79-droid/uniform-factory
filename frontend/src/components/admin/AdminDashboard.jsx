@@ -192,23 +192,65 @@ export const AdminDashboard = ({ onLogout }) => {
           <h2 className="text-xl font-bold text-gray-900">Admin Panel</h2>
         </div>
         
-        <nav className="mt-6 flex-1">
+        <nav className="mt-6 flex-1 overflow-y-auto">
           {menuItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                setActiveTab(item.id);
-                setIsSidebarOpen(false);
-              }}
-              className={`w-full flex items-center px-6 py-3 text-left transition-colors ${
-                activeTab === item.id
-                  ? 'bg-navy-50 text-navy-700 border-r-2 border-navy-700'
-                  : 'text-gray-600 hover:bg-gray-50'
-              }`}
-            >
-              <item.icon className="mr-3 w-5 h-5" />
-              {item.name}
-            </button>
+            <div key={item.id}>
+              {item.hasSubmenu ? (
+                <>
+                  <button
+                    onClick={() => setIsContentExpanded(!isContentExpanded)}
+                    className={`w-full flex items-center justify-between px-6 py-3 text-left transition-colors ${
+                      isContentExpanded
+                        ? 'bg-navy-50 text-navy-700'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <item.icon className="mr-3 w-5 h-5" />
+                      {item.name}
+                    </div>
+                    <ChevronRight className={`w-4 h-4 transition-transform ${isContentExpanded ? 'rotate-90' : ''}`} />
+                  </button>
+                  
+                  {isContentExpanded && (
+                    <div className="bg-gray-50">
+                      {item.submenu.map((subItem) => (
+                        <button
+                          key={subItem.id}
+                          onClick={() => {
+                            setActiveTab(subItem.id);
+                            setIsSidebarOpen(false);
+                          }}
+                          className={`w-full flex items-center pl-12 pr-6 py-2 text-left text-sm transition-colors ${
+                            activeTab === subItem.id
+                              ? 'bg-navy-100 text-navy-700 border-r-2 border-navy-700'
+                              : 'text-gray-600 hover:bg-gray-100'
+                          }`}
+                        >
+                          <subItem.icon className="mr-3 w-4 h-4" />
+                          {subItem.name}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <button
+                  onClick={() => {
+                    setActiveTab(item.id);
+                    setIsSidebarOpen(false);
+                  }}
+                  className={`w-full flex items-center px-6 py-3 text-left transition-colors ${
+                    activeTab === item.id
+                      ? 'bg-navy-50 text-navy-700 border-r-2 border-navy-700'
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  <item.icon className="mr-3 w-5 h-5" />
+                  {item.name}
+                </button>
+              )}
+            </div>
           ))}
         </nav>
         
