@@ -132,6 +132,7 @@ class SQLProduct(Base):
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     category_id = Column(String, ForeignKey("categories.id"), nullable=False)
     name = Column(String, nullable=False)
+    article = Column(String, unique=True, index=True)  # Артикул товара
     description = Column(Text, nullable=False)
     short_description = Column(String)
     price_from = Column(Integer, nullable=False)
@@ -141,6 +142,7 @@ class SQLProduct(Base):
     colors = Column(String)  # JSON string
     is_available = Column(Boolean, default=True)
     featured = Column(Boolean, default=False)
+    views_count = Column(Integer, default=0)  # Для аналитики популярности
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
