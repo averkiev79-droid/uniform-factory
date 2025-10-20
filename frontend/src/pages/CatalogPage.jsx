@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ProductCategoriesContent } from '../components/ProductCategoriesContent';
+import SEO from '../components/SEO';
+import { seoData } from '../data/seoData';
 
 export const CatalogPage = () => {
   return (
