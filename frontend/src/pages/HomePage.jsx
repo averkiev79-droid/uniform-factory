@@ -2,10 +2,17 @@ import React from 'react';
 import { Hero } from '../components/Hero';
 import { ProductCategories } from '../components/ProductCategories';
 import { Advantages } from '../components/Advantages';
+import SEO from '../components/SEO';
 
 export const HomePage = () => {
   return (
     <div>
+      <SEO
+        title="Производство корпоративной одежды и униформы на заказ"
+        description="Производство униформы для ресторанов, гостиниц, офисов, магазинов. Пошив корпоративной одежды для официантов, поваров, администраторов, продавцов. Работаем по всей России. ☎ +7 (812) 317-73-19"
+        keywords="униформа на заказ, корпоративная одежда, спецодежда, униформа для ресторанов, униформа для гостиниц, пошив униформы, производство униформы, униформа для официантов, униформа для поваров, униформа москва, спецодежда для персонала, униформа для сотрудников"
+        canonical="/"
+      />
       <Hero />
       <ProductCategories />
       <Advantages />
