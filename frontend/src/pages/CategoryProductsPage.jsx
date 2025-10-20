@@ -5,6 +5,8 @@ import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { apiService } from '../services/api';
+import SEO from '../components/SEO';
+import BreadcrumbSchema from '../components/BreadcrumbSchema';
 
 export const CategoryProductsPage = () => {
   const { categoryId } = useParams();
