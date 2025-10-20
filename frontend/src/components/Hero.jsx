@@ -66,7 +66,7 @@ export const Hero = () => {
             <div className="space-y-4">
               <div className="inline-flex items-center space-x-2 bg-navy-50 text-navy-700 px-4 py-2 rounded-full text-sm font-medium">
                 <Award className="w-4 h-4" />
-                <span>Премиум качество с 2009 года</span>
+                <span>Премиум качество с 1993 года</span>
               </div>
               
               <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight">
