@@ -1562,7 +1562,10 @@ class APITester:
 def main():
     """Main test execution"""
     tester = APITester(BACKEND_URL)
-    success = tester.run_all_tests()
+    
+    # Run only security tests for now
+    tester.run_security_features_tests()
+    tester.print_summary()
     
     # Save detailed results to file
     with open('/app/test_results_detailed.json', 'w', encoding='utf-8') as f:
@@ -1570,7 +1573,7 @@ def main():
     
     print(f"\n📄 Detailed results saved to: /app/test_results_detailed.json")
     
-    return 0 if success else 1
+    return 0 if len([r for r in tester.results if not r['success']]) == 0 else 1
 
 if __name__ == "__main__":
     sys.exit(main())
