@@ -46,6 +46,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Add security middlewares
+app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(RateLimitMiddleware)
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
