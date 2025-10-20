@@ -236,6 +236,12 @@ export const CategoryProductsPage = () => {
                       {product.name}
                     </h3>
                     
+                    {product.article && (
+                      <p className="text-xs text-gray-500 font-mono">
+                        Арт. {product.article}
+                      </p>
+                    )}
+                    
                     <p className="text-sm text-gray-600 line-clamp-2">
                       {product.short_description || product.description}
                     </p>
