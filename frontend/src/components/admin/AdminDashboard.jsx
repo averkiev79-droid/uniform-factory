@@ -13,7 +13,10 @@ import {
   Image,
   Activity,
   FileText,
-  TrendingUp
+  TrendingUp,
+  FileEdit,
+  Folder,
+  ChevronRight
 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { CategoriesManager } from './CategoriesManager';
@@ -27,24 +30,36 @@ import WebVitalsMonitor from './WebVitalsMonitor';
 import LegalDocsManager from './LegalDocsManager';
 import UploadedImagesViewer from './UploadedImagesViewer';
 import AnalyticsDashboard from './AnalyticsDashboard';
+import ContentEditor from './ContentEditor';
 
 export const AdminDashboard = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isContentExpanded, setIsContentExpanded] = useState(false);
 
   const menuItems = [
     { id: 'dashboard', name: 'Обзор', icon: LayoutGrid },
     { id: 'analytics', name: 'Аналитика', icon: TrendingUp },
     { id: 'categories', name: 'Категории', icon: Package },
     { id: 'products', name: 'Товары', icon: ShoppingBag },
-    { id: 'portfolio', name: 'Портфолио', icon: Briefcase },
     { id: 'quotes', name: 'Заявки', icon: Mail },
     { id: 'statistics', name: 'Статистика', icon: BarChart3 },
     { id: 'webvitals', name: 'Производительность', icon: Activity },
-    { id: 'legal', name: 'Юридические документы', icon: FileText },
-    { id: 'images', name: 'Изображения главной', icon: Image },
-    { id: 'upload', name: 'Загрузка изображений', icon: Upload },
-    { id: 'gallery', name: 'Галерея загруженных', icon: Image }
+    // Контент - раздел с подменю
+    { 
+      id: 'content', 
+      name: 'Контент', 
+      icon: Folder,
+      hasSubmenu: true,
+      submenu: [
+        { id: 'content-editor', name: 'Редактор текстов', icon: FileEdit },
+        { id: 'images', name: 'Изображения главной', icon: Image },
+        { id: 'upload', name: 'Загрузка изображений', icon: Upload },
+        { id: 'gallery', name: 'Галерея загруженных', icon: Image },
+        { id: 'portfolio', name: 'Портфолио', icon: Briefcase },
+        { id: 'legal', name: 'Юридические документы', icon: FileText }
+      ]
+    }
   ];
 
   const renderContent = () => {
