@@ -429,6 +429,42 @@ frontend:
       - working: true
         agent: "testing"
         comment: "✅ CONTACT FORMS BUG FIX VERIFICATION COMPLETED SUCCESSFULLY - All 3 contact forms tested and working correctly after fixing 500 error bug: 1) Consultation Form (POST /api/contact/consultation) - Returns 200 OK with success message 'Заявка на консультацию принята. Мы свяжемся с вами в течение 2 часов.' 2) Callback Request Form (POST /api/contact/callback-request) - Returns 200 OK with success message 'Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут.' - Fixed CallbackRequestCreate model to include optional email and company fields 3) Quote Request Form (POST /api/calculator/quote-request) - Returns 200 OK with success message and request_id 'REQ-2025-30AECE' 4) Email notifications working correctly - Backend logs show 'Email sent successfully to simplepay@mail.ru' 5) All forms now properly handle Pydantic response objects without using .get() method. Bug fix successful - no more 500 errors on contact form submissions."
+  
+  - task: "Uploaded Images Gallery"
+    implemented: true
+    working: true
+    file: "frontend/src/components/admin/UploadedImagesViewer.jsx, frontend/src/components/admin/AdminDashboard.jsx, backend/admin_routes.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ Uploaded Images Gallery completed: 1) Added 'Галерея загруженных' menu item to AdminDashboard 2) Integrated UploadedImagesViewer component into renderContent switch 3) Component displays uploaded images with file info (size, date), preview, copy URL, download, and delete functionality 4) Backend endpoint GET /api/admin/uploaded-files working correctly 5) DELETE endpoint for file removal implemented 6) Tested via screenshot - displays 13 images with full management capabilities"
+  
+  - task: "Legal Documents Formatting Enhancement"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/CompanyDetailsPage.jsx, frontend/src/pages/PrivacyPolicyPage.jsx, frontend/src/pages/UserAgreementPage.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ Legal documents formatting improved: 1) Enhanced prose CSS classes for all legal document pages 2) Added proper whitespace handling with prose-p:whitespace-pre-wrap 3) Improved list spacing with prose-ul:space-y-2 and prose-ol:space-y-2 4) Enhanced table styling with border-collapse, proper cell padding, and alternating row colors 5) Added inline code styling 6) Added inline style whiteSpace: 'pre-wrap' for better line break handling 7) Tested with CompanyDetailsPage - content displays with proper formatting and line breaks"
+  
+  - task: "Security Enhancements"
+    implemented: true
+    working: true
+    file: "backend/security_middleware.py, backend/server.py, backend/admin_routes.py, backend/models.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ Security measures implemented: 1) Created security_middleware.py with SecurityHeadersMiddleware (X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, HSTS, CSP) 2) Implemented RateLimitMiddleware (60 requests per 60 seconds per IP) 3) Added validate_upload_file function (10MB limit, image types only, extension validation, filename sanitization) 4) Added input sanitization functions (sanitize_string, sanitize_email, sanitize_phone) 5) Updated all Pydantic models (QuoteRequestCreate, CallbackRequestCreate, ConsultationRequestCreate, ContactMessageCreate) with @validator decorators for email/phone validation and text field sanitization 6) Integrated middleware into server.py 7) Updated admin_routes.py to use validate_upload_file 8) Backend restarted successfully"
 
 metadata:
   created_by: "main_agent"
