@@ -564,15 +564,18 @@ async def get_uploaded_files():
             return {"files": []}
         
         files = []
+        MIN_FILE_SIZE = 1024  # 1KB minimum to filter out test files
         for file_path in upload_dir.iterdir():
             if file_path.is_file() and file_path.suffix.lower() in ['.jpg', '.jpeg', '.png', '.webp', '.gif']:
                 stat = file_path.stat()
-                files.append({
-                    "filename": file_path.name,
-                    "size": stat.st_size,
-                    "modified": stat.st_mtime,
-                    "url": f"/api/uploads/{file_path.name}"
-                })
+                # Only include files larger than 1KB
+                if stat.st_size >= MIN_FILE_SIZE:
+                    files.append({
+                        "filename": file_path.name,
+                        "size": stat.st_size,
+                        "modified": stat.st_mtime,
+                        "url": f"/api/uploads/{file_path.name}"
+                    })
         
         # Sort by modified time (newest first)
         files.sort(key=lambda x: x['modified'], reverse=True)
