@@ -1,18 +1,17 @@
 <analysis>
-The AI engineer successfully progressed the Uniform Factory application from an MVP to a feature-rich, multi-page site. Key achievements included fully implementing a comprehensive product catalog with backend API, frontend pages, and administrative panel for CRUD operations. A significant recurring challenge was image loading, particularly on mobile, which was systematically resolved by localizing all external images (products, categories, portfolio, hero, about) to the application's server, drastically improving reliability and performance. UI/UX was enhanced with mobile layout fixes, functional navigation (back buttons, scroll-to-top), an active Favorites feature, Share functionality, cookie consent banner, favicon, and improved footer/CTA elements. The most recent task involved extending the admin panel to manage main page images, starting with database schema creation.
+The AI engineer effectively steered the Uniform Factory application through significant feature expansions and bug fixes. The journey involved transitioning to a multi-page architecture, establishing a robust product catalog, and resolving persistent image loading issues by localizing all media. A key iterative challenge was synchronizing frontend expectations with backend data structures, particularly for dynamic content and form submissions, leading to several rounds of debugging for API responses and database interactions. Frontend UI/UX was consistently refined, adding features like dynamic image loading with skeleton loaders, mobile swipe gestures for carousels, and improved footer responsiveness. Backend development focused on creating flexible data models and API endpoints for app settings, legal documents, and analytics. Throughout, the AI systematically addressed user feedback, adapting implementations and correcting errors, demonstrating a thorough problem-solving approach in a full-stack environment.
 </analysis>
 
 <product_requirements>
-The Uniform Factory initially required a modern, responsive website with Home, About Us, Catalog, Contacts, and Portfolio pages, featuring a product catalog, order calculator, and interactive elements. Subsequent needs expanded to an admin panel for managing categories, portfolio, and requests, alongside email notifications. Critical bug fixes included navigation, mobile responsiveness, and contact details. Major updates involved converting to a multi-page structure, rebranding to a dark blue theme with new logos, and implementing a comprehensive product catalog with detailed product cards, multiple photos, descriptions, and full admin capabilities. Further explicit requests included removing product sizes/stock labels, activating favorite/share features, implementing a cookie consent banner, adding a favicon, resolving persistent image loading issues across the site, fixing various navigation bugs (back buttons, scroll to top), improving footer form visibility, making advantages clickable to dedicated pages, and, finally, adding a function to replace main page photos via the admin panel.
+The Uniform Factory required a modern, responsive website with Home, About Us, Catalog, Contacts, and Portfolio pages, featuring a product catalog, order calculator, and interactive elements. This expanded to include an admin panel for managing categories, portfolio, and requests, alongside email notifications. Critical bug fixes addressed navigation, mobile responsiveness, and contact details. Major updates involved converting to a multi-page structure, rebranding, and implementing a comprehensive product catalog with detailed product cards, multiple photos, descriptions, and full admin capabilities. Explicit requests included removing product sizes/stock labels, activating favorite/share features, cookie consent banner, favicon, resolving persistent image loading issues, fixing navigation bugs (back buttons, scroll to top), improving footer form visibility, making advantages clickable to dedicated pages, and, most recently: adding admin panel function to replace main page photos (hero, about); implementing email notifications (Yandex SMTP); adding a WhatsApp online consultant (later removed); integrating site visit statistics (Yandex.Metrica) and load speed monitoring (Web Vitals); creating dedicated, admin-editable pages for legal documents (Privacy Policy, User Agreement, Company Details); adding swipe gestures for product images on mobile; and implementing an admin panel gallery to view uploaded photos.
 </product_requirements>
 
 <key_technical_concepts>
-- **Frontend:** React.js, React Router, Tailwind CSS, Shadcn UI, Axios.
-- **Backend:** FastAPI, Pydantic, SQLAlchemy (SQLite), Uvicorn.
-- **Database:** SQLite.
-- **Email:** Yandex SMTP.
-- **Web APIs:** Web Share API.
-- **Local Storage:** For Favorites and Cookie Consent.
+-   **Frontend:** React.js, React Router, Tailwind CSS, Axios, , , , .
+-   **Backend:** FastAPI, Pydantic, SQLAlchemy (SQLite), Uvicorn.
+-   **Database:** SQLite.
+-   **Email:** Yandex SMTP.
+-   **Web APIs:** Web Share API, Local Storage.
 </key_technical_concepts>
 
 <code_architecture>
@@ -21,62 +20,41 @@ The application uses a React frontend, FastAPI backend, and SQLite database.
 **Directory Structure (Simplified):**
 
 
-
--   ****: Entry point for FastAPI.
-    -   **Changes**: Product-related API endpoints were added for public access.
--   ****: Defines SQLAlchemy and Pydantic models.
-    -   **Changes**: , , and associated Pydantic models were introduced to support product catalog.
--   ****: Manages SQLite DB connection and ORM.
-    -   **Changes**: Registered new product models and added  to populate the database with example data.
--   ****: Business logic for DB interactions.
-    -   **Changes**:  was implemented for comprehensive CRUD operations on product data.
--   ****: FastAPI routes for the admin panel.
-    -   **Changes**: CRUD endpoints for product management were added, including a PUT route for updates.
--   ****: Main React application component.
-    -   **Changes**: Major routing overhaul to support multi-page architecture, including routes for , , , and dynamic . Integrated .
--   ****: Centralized API calls.
-    -   **Changes**: Expanded with new functions to fetch product data (all products, by category, and single product).
--   ****: Site-wide header.
-    -   **Changes**: Updated navigation with React Router  components. Added a Favorites button with an active counter.
--   ****: Site-wide footer.
-    -   **Changes**: Converted old anchor links to React Router links. Styling adjustments made to the Consultation needed? block for better contrast (white background, dark text).
--   ****: Hero section.
-    -   **Changes**: Updated the main hero image to use a locally hosted file.
--   ****: Advantages display component.
-    -   **Changes**: Made individual advantage cards clickable, linking them to a dynamic . Integrated the  for the main CTA button.
--   ****: Component for category-specific product listings.
-    -   **Changes**: Mobile layout fixes, implemented lazy loading and error handling for images, integrated active favorite/share buttons on product cards, explicit click handlers for product cards, and switched to local image URLs.
--   ****: Component for detailed product information.
-    -   **Changes**: Removed size options and In stock label. Added a Back to Catalog button, active favorite/share buttons, lazy loading, error handling, an image carousel with navigation arrows (including keyboard support), local image URLs, and functional Call and Write buttons.
--   ** (NEW)**: A new page to display a user's favorited products.
--   ** (NEW)**: A new component for the admin panel to manage product data (create, read, update, delete).
--   ** (NEW)**: A new component to display a cookie consent notification, which stores user preference in local storage.
--   ****: Provides a consistent layout for public-facing pages.
-    -   **Changes**: Integrated the  to appear on all public pages.
--   ** (NEW)**: A new component to ensure the page automatically scrolls to the top upon navigation changes.
--   ****: The main HTML file.
-    -   **Changes**: Removed the Made with Emergent badge, updated the page title and meta description for SEO, and added favicon links along with  and  attributes.
--   ** (NEW directory and contents)**: A newly created directory structure to host all local images, including those for products, categories, portfolio items, the hero section, and the about page.
--   ****: Contains mock data for development.
-    -   **Changes**: Updated fallback image paths to point to locally hosted images.
+-   ****: Stores backend configuration. Updated with Yandex SMTP credentials (, , ).
+-   ****: Handles admin-specific API routes. New endpoints for ,  retrieval,  management, and  listing were added. Image input validation for category and portfolio updates was relaxed.
+-   ****: Manages SQLite DB schema. New , , and  SQLAlchemy models were introduced.  added for initial data population.
+-   ****: Defines Pydantic data models. Extended with , ,  models and their respective Create/Update schemas.
+-   ****: FastAPI entry point. Added public endpoints for ,  retrieval,  metric submission, and serving files from the  directory. Fixed  method usage on Pydantic objects for various contact forms.
+-   ****: Implements business logic.  was added for managing application settings.
+-   ****: Root HTML file. Yandex.Metrica tracking script was embedded.
+-   ****: Main React component. New routes were added for , , and .
+-   ****: Centralized frontend API client. Expanded with functions to interact with , , , and file upload endpoints.
+-   ****: (NEW) A service to collect and report Web Vitals (INP, LCP, CLS, FCP, TTFB) metrics to the backend.
+-   ****: Site header. Updated contact email to .
+-   ****: Site footer. Updated legal document links to React Router  components, improved mobile responsiveness, and updated contact email to .
+-   ****: Hero section. Modified to dynamically fetch its main image from the  API, incorporating loading states and a skeleton loader to prevent content flickering. Updated contact email.
+-   ****: About page content. Similar to , updated to dynamically fetch its image from  API with loading states and a skeleton loader.
+-   ****: Product detail page. Enhanced to support swipe gestures for its image carousel on mobile devices. Updated contact email.
+-   ****: Admin panel main component. Integrated , , , and  components into its navigation and rendering logic.
+-   ****: (NEW) Admin interface for managing main page images (hero, about), allowing both URL input and file uploads.
+-   ****: (NEW) Admin interface for editing legal documents (Privacy Policy, User Agreement, Company Details) using a Markdown editor.
+-   ****: (NEW, in progress) Component to display a gallery of uploaded images in the admin panel.
+-   ****: (NEW) Page to display the Privacy Policy content, formatted using  and .
+-   ****: (NEW) Page to display the User Agreement content, formatted using  and .
+-   ****: (NEW) Page to display Company Details content (e.g., requisites), formatted using  and .
+-   ****: Configured to include  plugin to enhance the rendering of markdown content.
+-   ****: Added custom CSS for smooth animation transitions, particularly for the product image carousel.
 </code_architecture>
 
 <pending_tasks>
-- User to provide Yandex SMTP email credentials (, , ) in . (Email notifications will not work without these).
-- Complete the implementation of image management for the main page (hero section) within the admin panel.
+-   Improve the rendering and styling of legal documents, specifically the Company Details page, where structured information (like requisites) from markdown is not displayed with proper line breaks or table formatting.
+-   Complete the integration of the  component into  for full image gallery functionality.
 </pending_tasks>
 
 <current_work>
-Immediately before this summary request, the AI engineer was actively initiating the development of an administrative panel feature to allow for dynamic management of main page images. This specific request came from the user who wanted an easier way to update the hero section's main image. The AI engineer is starting this task by creating a new database table in the backend to store global application settings, which will include configurable image paths. This foundational step is crucial for enabling the admin panel to offer a UI for uploading and selecting these images.
-
-A significant amount of work has been completed up to this point, ensuring the application is robust and feature-rich:
-- **Comprehensive Product Catalog:** Fully functional with detailed product pages, image galleries, and category listings, supported by a complete backend CRUD API and admin interface.
-- **Image Localization:** All previously external images (products, categories, portfolio, hero, about sections) have been successfully downloaded and hosted locally within the application, resolving persistent mobile loading issues and improving overall site performance.
-- **UI/UX Enhancements:** Includes mobile-friendly layouts for product categories, a fully functional Favorites feature with a dedicated page and header counter, active Share buttons, corrected navigation logic (e.g., Back buttons, scroll-to-top on page change), and improved visibility for critical CTA elements.
-- **Global Features:** A cookie consent banner and favicon have been implemented, enhancing user experience and compliance.
-- **Performance Optimization:** The site's loading speed has been benchmarked as excellent, largely due to the localization of images and other optimizations.
+Immediately before this summary request, the AI engineer was actively implementing a new administrative panel feature to allow viewing of all uploaded images. This task involved creating a new backend API endpoint () to retrieve a list of image files stored on the server. Concurrently, a new frontend React component, , was being developed to present these images in a gallery format within the admin interface. The very last action performed was the creation of this  component and the initiation of its integration into  to make it accessible via the admin navigation menu. This work is a direct response to a user request for better management and visibility of uploaded media. Prior to this, several issues were addressed, including fixing the inconsistent display of main page images caused by database resets, and improving the markdown rendering for legal documents, though the latter still requires further refinement for structured text.
 </current_work>
 
 <optional_next_step>
-Create a new database table and model for storing application settings in the backend to support configurable main page images.
+Complete the integration of the  component into .
 </optional_next_step>
