@@ -17,6 +17,9 @@ from admin_routes import admin_router
 # Import email service
 from email_service import send_quote_notification_email, send_callback_notification_email, send_contact_message_email, EmailDeliveryError
 
+# Import security middleware
+from security_middleware import SecurityHeadersMiddleware, RateLimitMiddleware, sanitize_string, sanitize_email, sanitize_phone
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
