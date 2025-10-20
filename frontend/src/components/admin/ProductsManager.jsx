@@ -36,7 +36,7 @@ export const ProductsManager = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${BACKEND_URL}/api/products`);
+      const response = await axios.get(`${BACKEND_URL}/api/admin/products`);
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
