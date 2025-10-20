@@ -47,7 +47,7 @@ export const AboutContent = () => {
     },
     {
       icon: Award,
-      title: "15+ лет опыта",
+      title: "30+ лет опыта",
       description: "С 1993 года создаем качественную корпоративную одежду для бизнеса"
     },
     {
