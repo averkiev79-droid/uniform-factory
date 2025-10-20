@@ -195,6 +195,27 @@ export const ProductPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* SEO Meta Tags */}
+      <SEO 
+        title={product.name}
+        description={product.short_description || product.description || `${product.name} - корпоративная одежда от производителя`}
+        keywords={`${product.name}, ${product.category_name || 'униформа'}, корпоративная одежда, купить униформу`}
+        ogImage={product.images && product.images.length > 0 ? product.images[0].image_url : undefined}
+        ogType="product"
+        canonical={`/product/${product.id}`}
+      />
+      
+      {/* Product Schema.org */}
+      <ProductSchema product={product} />
+      
+      {/* Breadcrumb Schema.org */}
+      <BreadcrumbSchema items={[
+        { name: 'Главная', url: '/' },
+        { name: 'Каталог', url: '/catalog' },
+        { name: product.category_name || 'Категория', url: `/category/${product.category_id}` },
+        { name: product.name }
+      ]} />
+      
       {/* Breadcrumb & Back Button */}
       <div className="bg-white border-b">
         <div className="container mx-auto px-4 py-4">
