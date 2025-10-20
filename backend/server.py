@@ -509,12 +509,3 @@ app.include_router(admin_router, prefix="/api")
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
-
-# Include router in app
-app.include_router(api_router)
-# Include admin routes under /api prefix  
-app.include_router(admin_router, prefix="/api")
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8001)
