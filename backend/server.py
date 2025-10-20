@@ -489,15 +489,9 @@ Disallow: /
 app.include_router(admin_router, prefix="/api")
 
 if __name__ == "__main__":
-        result = ProductService.create_product(product)
-        return result
-    except Exception as e:
-        logger.error(f"Error creating product: {e}")
-        raise HTTPException(status_code=500, detail="Internal server error")
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8001)
 
-# Serve uploaded files (public access)
-from fastapi.responses import FileResponse
-from pathlib import Path as FilePath
 
 UPLOAD_DIR = FilePath("uploads")
 
