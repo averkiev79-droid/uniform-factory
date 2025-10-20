@@ -94,6 +94,15 @@ export const Header = () => {
 
           {/* CTA Button & Mobile Menu */}
           <div className="flex items-center space-x-3">
+            {/* Search Button */}
+            <button
+              onClick={() => setShowSearch(!showSearch)}
+              className="p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+              title="Поиск"
+            >
+              <SearchIcon className="w-5 h-5" />
+            </button>
+
             {/* Favorites Button */}
             <button
               onClick={() => navigate('/favorites')}
