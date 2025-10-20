@@ -484,10 +484,11 @@ Disallow: /
 """
     return PlainTextResponse(content=robots_txt)
 
-        raise HTTPException(status_code=500, detail="Internal server error")
 
-    try:
-        from services_sqlite import ProductService
+# Admin routes
+app.include_router(admin_router, prefix="/api")
+
+if __name__ == "__main__":
         result = ProductService.create_product(product)
         return result
     except Exception as e:
