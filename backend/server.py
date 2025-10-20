@@ -438,6 +438,52 @@ async def get_analytics_overview():
         return analytics
     except Exception as e:
         logger.error(f"Error getting analytics overview: {e}")
+
+
+# SEO endpoints
+@api_router.get("/sitemap.xml")
+async def get_sitemap():
+    """Generate and return sitemap.xml"""
+    try:
+        from pathlib import Path
+        from fastapi.responses import Response
+        import subprocess
+        
+        # Generate fresh sitemap
+        subprocess.run(['python3', 'generate_sitemap.py'], cwd='/app/backend', check=True)
+        
+        # Read and return sitemap
+        sitemap_path = Path('/app/backend/sitemap.xml')
+        if sitemap_path.exists():
+            with open(sitemap_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            return Response(content=content, media_type='application/xml')
+        else:
+            raise HTTPException(status_code=404, detail="Sitemap not found")
+    except Exception as e:
+        logger.error(f"Error generating sitemap: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate sitemap")
+
+@api_router.get("/robots.txt")
+async def get_robots():
+    """Return robots.txt"""
+    from fastapi.responses import PlainTextResponse
+    
+    robots_txt = """User-agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: https://uniformfactory.ru/api/sitemap.xml
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+"""
+    return PlainTextResponse(content=robots_txt)
+
         raise HTTPException(status_code=500, detail="Internal server error")
 
     try:
