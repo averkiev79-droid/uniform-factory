@@ -487,6 +487,13 @@ async def get_sitemap():
         logger.error(f"Error generating sitemap: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate sitemap")
 
+@api_router.get("/yandex_b5b79ad64d21de08.html")
+async def yandex_verification():
+    """Return Yandex verification file"""
+    from fastapi.responses import HTMLResponse
+    return HTMLResponse(content="<html><body>Verification: b5b79ad64d21de08</body></html>")
+
+
 @api_router.get("/robots.txt")
 async def get_robots():
     """Return robots.txt"""
