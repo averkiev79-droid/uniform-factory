@@ -29,9 +29,9 @@ const SEO = ({
       <meta name="keywords" content={pageKeywords} />
       {noindex && <meta name="robots" content="noindex, nofollow" />}
       
-      {/* Webmaster Verification Tags - ADD YOUR CODES HERE */}
+      {/* Webmaster Verification Tags */}
       {/* Yandex Webmaster Verification */}
-      {/* <meta name="yandex-verification" content="YOUR_YANDEX_CODE" /> */}
+      <meta name="yandex-verification" content="b5b79ad64d21de08" />
       
       {/* Google Search Console Verification */}
       {/* <meta name="google-site-verification" content="YOUR_GOOGLE_CODE" /> */}
