@@ -441,6 +441,9 @@ frontend:
       - working: true
         agent: "main"
         comment: "✅ Uploaded Images Gallery completed: 1) Added 'Галерея загруженных' menu item to AdminDashboard 2) Integrated UploadedImagesViewer component into renderContent switch 3) Component displays uploaded images with file info (size, date), preview, copy URL, download, and delete functionality 4) Backend endpoint GET /api/admin/uploaded-files working correctly 5) DELETE endpoint for file removal implemented 6) Tested via screenshot - displays 13 images with full management capabilities"
+      - working: true
+        agent: "testing"
+        comment: "✅ UPLOADED IMAGES GALLERY BACKEND TESTING COMPLETED - Backend endpoints fully functional: 1) GET /api/admin/uploaded-files returns proper JSON structure with 'files' array containing filename, size, modified timestamp, url for each uploaded image 2) DELETE /api/admin/uploaded-files/{filename} successfully deletes files with security checks (prevents directory traversal) and verification 3) File structure validation confirmed - all required fields present in API response 4) Integration tested - file deletion properly removes files from filesystem and updates API responses. Backend gallery management is working correctly."
   
   - task: "Legal Documents Formatting Enhancement"
     implemented: true
