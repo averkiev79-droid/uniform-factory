@@ -728,6 +728,99 @@ class ProductService:
             return result
         finally:
             db.close()
+
+
+
+class AnalyticsService:
+    """Service for analytics and reporting"""
+    
+    @staticmethod
+    def get_analytics_overview():
+        """Get overall analytics overview"""
+        db = SessionLocal()
+        try:
+            from database_sqlite import SQLProduct, ProductCategory, SQLProductImage
+            import json
+            
+            # Total counts
+            total_products = db.query(SQLProduct).count()
+            total_categories = db.query(ProductCategory).count()
+            total_quote_requests = db.query(DBQuoteRequest).count()
+            total_contact_requests = db.query(DBContactRequest).count()
+            
+            # Total views
+            total_views_result = db.query(func.sum(SQLProduct.views_count)).scalar()
+            total_views = total_views_result if total_views_result else 0
+            
+            # Pending quote requests
+            quote_requests_pending = db.query(DBQuoteRequest).filter(
+                DBQuoteRequest.status == "pending"
+            ).count()
+            
+            # Conversion rate (заявок от просмотров)
+            conversion_rate = 0.0
+            if total_views > 0:
+                total_requests = total_quote_requests + total_contact_requests
+                conversion_rate = (total_requests / total_views) * 100
+            
+            # Popular products (top 10 by views)
+            popular_products_query = db.query(SQLProduct).order_by(
+                SQLProduct.views_count.desc()
+            ).limit(10).all()
+            
+            popular_products = []
+            for product in popular_products_query:
+                category = db.query(ProductCategory).filter(
+                    ProductCategory.id == product.category_id
+                ).first()
+                
+                popular_products.append({
+                    "product_id": product.id,
+                    "product_name": product.name,
+                    "category_name": category.title if category else "Unknown",
+                    "views_count": product.views_count if hasattr(product, 'views_count') else 0,
+                    "article": product.article if hasattr(product, 'article') else None
+                })
+            
+            # Popular categories (by total views of products)
+            categories = db.query(ProductCategory).all()
+            popular_categories = []
+            
+            for category in categories:
+                category_products = db.query(SQLProduct).filter(
+                    SQLProduct.category_id == category.id
+                ).all()
+                
+                total_category_views = sum(
+                    p.views_count if hasattr(p, 'views_count') and p.views_count else 0 
+                    for p in category_products
+                )
+                
+                popular_categories.append({
+                    "category_id": category.id,
+                    "category_name": category.title,
+                    "products_count": len(category_products),
+                    "views_count": total_category_views
+                })
+            
+            # Sort by views
+            popular_categories.sort(key=lambda x: x['views_count'], reverse=True)
+            popular_categories = popular_categories[:10]
+            
+            return {
+                "total_products": total_products,
+                "total_categories": total_categories,
+                "total_views": total_views,
+                "total_quote_requests": total_quote_requests,
+                "total_contact_requests": total_contact_requests,
+                "quote_requests_pending": quote_requests_pending,
+                "conversion_rate": round(conversion_rate, 2),
+                "popular_products": popular_products,
+                "popular_categories": popular_categories
+            }
+        finally:
+            db.close()
+
     
     @staticmethod
     def increment_views(product_id: str):
