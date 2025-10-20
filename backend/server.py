@@ -356,6 +356,43 @@ async def get_all_products():
         logger.error(f"Error getting products: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
+
+@api_router.get("/products/search")
+async def search_products(
+    q: Optional[str] = None,
+    category_id: Optional[str] = None,
+    price_from: Optional[int] = None,
+    price_to: Optional[int] = None,
+    material: Optional[str] = None,
+    limit: int = 50
+):
+    """
+    Search and filter products
+    
+    Query parameters:
+    - q: Search query (название или артикул)
+    - category_id: Filter by category ID
+    - price_from: Minimum price
+    - price_to: Maximum price  
+    - material: Filter by material
+    - limit: Max results (default 50)
+    """
+    try:
+        from services_sqlite import ProductService
+        products = ProductService.search_products(
+            query=q,
+            category_id=category_id,
+            price_from=price_from,
+            price_to=price_to,
+            material=material,
+            limit=limit
+        )
+        return products
+    except Exception as e:
+        logger.error(f"Error searching products: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
+
 @api_router.get("/products/category/{category_id}")
 async def get_products_by_category(category_id: str):
     """Get products by category"""
