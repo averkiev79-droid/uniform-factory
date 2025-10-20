@@ -78,13 +78,16 @@ class TelegramService:
     @staticmethod
     def send_callback_request_notification(request_data: dict) -> bool:
         """Send notification about callback request"""
+        email_line = f"📧 <b>Email:</b> {request_data.get('email')}" if request_data.get('email') else ""
+        company_line = f"🏢 <b>Компания:</b> {request_data.get('company')}" if request_data.get('company') else ""
+        
         text = f"""
 📞 <b>Запрос на обратный звонок</b>
 
 👤 <b>Имя:</b> {request_data.get('name')}
 📱 <b>Телефон:</b> {request_data.get('phone')}
-{f"📧 <b>Email:</b> {request_data.get('email')}" if request_data.get('email') else ""}
-{f"🏢 <b>Компания:</b> {request_data.get('company')}" if request_data.get('company') else ""}
+{email_line}
+{company_line}
 
 ⏰ <b>Время:</b> {request_data.get('created_at', 'Только что')}
         """.strip()
