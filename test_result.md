@@ -480,9 +480,7 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Uploaded Images Gallery"
     - "Legal Documents Formatting"
-    - "Security Enhancements"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
