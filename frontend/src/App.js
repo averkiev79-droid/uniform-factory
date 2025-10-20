@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import "./App.css";
 import { Layout } from './components/Layout';
 import { ScrollToTop } from './components/ScrollToTop';
@@ -20,10 +21,11 @@ import { AdminApp } from './components/AdminApp';
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <ScrollToTop />
-        <Routes>
+    <HelmetProvider>
+      <div className="App">
+        <Router>
+          <ScrollToTop />
+          <Routes>
           <Route path="/admin" element={<AdminApp />} />
           <Route path="/" element={
             <Layout>
