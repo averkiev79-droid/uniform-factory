@@ -43,12 +43,12 @@ async def admin_login(request: LoginRequest):
 # File Upload
 @admin_router.post("/upload-image")
 async def upload_image(file: UploadFile = File(...)):
-    """Upload image file"""
-    if not file.content_type.startswith("image/"):
-        raise HTTPException(status_code=400, detail="File must be an image")
+    """Upload image file with security validation"""
+    # Validate file
+    await validate_upload_file(file)
     
     # Generate unique filename
-    file_extension = file.filename.split(".")[-1]
+    file_extension = file.filename.split(".")[-1].lower()
     unique_filename = f"{uuid.uuid4()}.{file_extension}"
     file_path = UPLOAD_DIR / unique_filename
     
