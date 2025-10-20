@@ -92,15 +92,18 @@ class TelegramService:
     @staticmethod
     def send_consultation_request_notification(request_data: dict) -> bool:
         """Send notification about consultation request"""
+        company_line = f"🏢 <b>Компания:</b> {request_data.get('company')}" if request_data.get('company') else ""
+        message_line = f"📝 <b>Сообщение:</b>\n{request_data.get('message')}" if request_data.get('message') else ""
+        
         text = f"""
 💬 <b>Заявка на консультацию</b>
 
 👤 <b>Клиент:</b> {request_data.get('name')}
 📧 <b>Email:</b> {request_data.get('email')}
 📱 <b>Телефон:</b> {request_data.get('phone')}
-{f"🏢 <b>Компания:</b> {request_data.get('company')}" if request_data.get('company') else ""}
+{company_line}
 
-{f"📝 <b>Сообщение:</b>\n{request_data.get('message')}" if request_data.get('message') else ""}
+{message_line}
 
 ⏰ <b>Время:</b> {request_data.get('created_at', 'Только что')}
         """.strip()
