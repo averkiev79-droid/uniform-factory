@@ -311,6 +311,7 @@ class ProductCreate(BaseModel):
 
 class ProductUpdate(BaseModel):
     name: Optional[str] = None
+    article: Optional[str] = None  # Артикул товара
     description: Optional[str] = None
     short_description: Optional[str] = None
     price_from: Optional[int] = None
