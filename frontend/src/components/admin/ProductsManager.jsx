@@ -462,7 +462,20 @@ export const ProductsManager = () => {
                       {product.price_from.toLocaleString()} ₽
                       {product.price_to && ` - ${product.price_to.toLocaleString()} ₽`}
                     </span>
-                    <span className="text-xs text-gray-500">{product.category_name}</span>
+                    {/* Быстрое изменение категории */}
+                    <select
+                      value={product.category_id}
+                      onChange={(e) => handleQuickCategoryChange(product.id, e.target.value)}
+                      className="text-xs border border-gray-300 rounded px-2 py-1 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      title="Изменить категорию"
+                    >
+                      {categories.map(cat => (
+                        <option key={cat.id} value={cat.id}>{cat.title}</option>
+                      ))}
+                    </select>
+                    {product.article && (
+                      <span className="text-xs text-gray-500">Арт. {product.article}</span>
+                    )}
                     {product.featured && (
                       <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded">Популярное</span>
                     )}
