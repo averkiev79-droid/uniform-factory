@@ -235,18 +235,23 @@ async def create_contact_message(request: ContactMessageCreate, background_tasks
     try:
         response = ContactService.create_contact_message(request)
         
+        # Prepare notification data
+        from datetime import datetime
+        request_data = {
+            'name': request.name,
+            'email': request.email,
+            'phone': request.phone,
+            'company': request.company,
+            'message': request.message,
+            'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        }
+        
         # Send email notification in background
         if os.getenv('SENDER_EMAIL') and os.getenv('EMAIL_PASSWORD'):
-            from datetime import datetime
-            request_data = {
-                'name': request.name,
-                'email': request.email,
-                'phone': request.phone,
-                'company': request.company,
-                'message': request.message,
-                'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            }
             background_tasks.add_task(send_contact_message_email, request_data)
+        
+        # Send Telegram notification in background
+        background_tasks.add_task(TelegramService.send_contact_message_notification, request_data)
         
         return response
     except Exception as e:
