@@ -406,12 +406,16 @@ async def get_products_by_category(category_id: str):
 
 @api_router.get("/products/{product_id}")
 async def get_product_by_id(product_id: str):
-    """Get product by ID"""
+    """Get product by ID and increment views"""
     try:
         from services_sqlite import ProductService
         product = ProductService.get_product_by_id(product_id)
         if not product:
             raise HTTPException(status_code=404, detail="Product not found")
+        
+        # Increment views count for analytics
+        ProductService.increment_views(product_id)
+        
         return product
     except HTTPException:
         raise
