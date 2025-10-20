@@ -279,6 +279,7 @@ class Product(BaseModel):
     id: Optional[str] = None
     category_id: str
     name: str
+    article: Optional[str] = None  # Артикул товара
     description: str
     short_description: Optional[str] = None
     price_from: int
@@ -288,6 +289,7 @@ class Product(BaseModel):
     colors: Optional[List[str]] = None
     is_available: bool = True
     featured: bool = False
+    views_count: int = 0  # Для аналитики
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
 
