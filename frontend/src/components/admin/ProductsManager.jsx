@@ -142,6 +142,37 @@ export const ProductsManager = () => {
     }
   };
 
+  // Быстрое изменение категории товара
+  const handleQuickCategoryChange = async (productId, newCategoryId) => {
+    try {
+      // Найдем товар
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      // Обновляем только категорию
+      await axios.put(`${BACKEND_URL}/api/admin/products/${productId}`, {
+        category_id: newCategoryId,
+        name: product.name,
+        description: product.description,
+        short_description: product.short_description || '',
+        price_from: product.price_from,
+        price_to: product.price_to || null,
+        material: product.material || '',
+        sizes: product.sizes || [],
+        colors: product.colors || [],
+        is_available: product.is_available,
+        featured: product.featured || false
+      });
+
+      // Обновляем список
+      fetchProducts();
+      alert('Категория изменена');
+    } catch (error) {
+      console.error('Error updating category:', error);
+      alert('Ошибка изменения категории');
+    }
+  };
+
   const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
