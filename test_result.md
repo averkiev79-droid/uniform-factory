@@ -432,15 +432,15 @@ frontend:
 
 metadata:
   created_by: "main_agent"
-  version: "3.0"
+  version: "3.1"
   test_sequence: 3
   run_ui: false
 
 test_plan:
   current_focus: 
-    - "App Settings Management API"
-    - "Image Manager Component"
-    - "Hero Component Dynamic Images"
+    - "Uploaded Images Gallery"
+    - "Legal Documents Formatting"
+    - "Security Enhancements"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
