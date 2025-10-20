@@ -209,6 +209,30 @@ class ContactMessageCreate(BaseModel):
     phone: str
     company: Optional[str] = None
     message: str
+    
+    @validator('name', 'company', 'message')
+    def sanitize_text_fields(cls, v):
+        if v is None:
+            return v
+        return v.strip()[:1000] if isinstance(v, str) else v  # message can be longer
+    
+    @validator('email')
+    def validate_email(cls, v):
+        import re
+        v = v.strip().lower()
+        email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_pattern, v):
+            raise ValueError('Недопустимый формат email')
+        return v
+    
+    @validator('phone')
+    def validate_phone(cls, v):
+        import re
+        v = re.sub(r'[^\d+]', '', v)
+        digits_only = re.sub(r'\D', '', v)
+        if len(digits_only) < 10:
+            raise ValueError('Недопустимый формат телефона')
+        return v
 
 # Calculator Options
 class CalculatorCategory(BaseModel):
