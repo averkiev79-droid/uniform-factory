@@ -1328,7 +1328,7 @@ class APITester:
             response = self.session.post(f"{self.base_url}/contact/consultation", 
                                        json=invalid_email_data)
             
-            if response.status_code == 400:
+            if response.status_code in [400, 422]:  # FastAPI returns 422 for validation errors
                 self.log_result('/contact/consultation (invalid_email)', 'POST', True, 
                               f"Correctly rejected invalid email format: {response.text}")
             else:
