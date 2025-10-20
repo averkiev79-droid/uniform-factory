@@ -319,9 +319,16 @@ export const ProductPage = () => {
             {/* Header */}
             <div>
               <div className="flex items-start justify-between mb-2">
-                <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
-                  {product.name}
-                </h1>
+                <div>
+                  <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
+                    {product.name}
+                  </h1>
+                  {product.article && (
+                    <p className="text-sm text-gray-500 mt-1 font-mono">
+                      Артикул: {product.article}
+                    </p>
+                  )}
+                </div>
                 <div className="flex space-x-2">
                   <Button 
                     size="sm" 
