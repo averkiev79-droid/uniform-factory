@@ -382,6 +382,8 @@ class WebVitalsMetric(BaseModel):
     delta: Optional[float] = None
     id: Optional[str] = None
     navigationType: Optional[str] = None
+    page: Optional[str] = None
+    timestamp: Optional[str] = None
 
 
 # Legal Documents Models
