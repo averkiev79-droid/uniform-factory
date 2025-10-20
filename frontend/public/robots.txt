@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /calculator/result
+Disallow: /favorites
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+# Google
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://uniformfactory.ru/sitemap.xml
+Sitemap: https://apparel-platform-2.emergent.host/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
