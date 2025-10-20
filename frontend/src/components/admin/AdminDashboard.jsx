@@ -49,6 +49,8 @@ export const AdminDashboard = ({ onLogout }) => {
 
   const renderContent = () => {
     switch (activeTab) {
+      case 'analytics':
+        return <AnalyticsDashboard />;
       case 'categories':
         return <CategoriesManager />;
       case 'products':
