@@ -485,13 +485,9 @@ Disallow: /
     return PlainTextResponse(content=robots_txt)
 
 
-# Admin routes
-app.include_router(admin_router, prefix="/api")
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8001)
-
+# Serve uploaded files (public access)
+from fastapi.responses import FileResponse
+from pathlib import Path as FilePath
 
 UPLOAD_DIR = FilePath("uploads")
 
@@ -499,9 +495,20 @@ UPLOAD_DIR = FilePath("uploads")
 async def serve_uploaded_file(filename: str):
     """Serve uploaded files publicly"""
     file_path = UPLOAD_DIR / filename
-    if not file_path.exists():
-        raise HTTPException(status_code=404, detail="File not found")
-    return FileResponse(file_path)
+    if file_path.exists() and file_path.is_file():
+        return FileResponse(file_path)
+    raise HTTPException(status_code=404, detail="File not found")
+
+
+# Include router in app
+app.include_router(api_router)
+
+# Admin routes
+app.include_router(admin_router, prefix="/api")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8001)
 
 # Include router in app
 app.include_router(api_router)
