@@ -654,9 +654,12 @@ class ProductService:
             # Apply filters
             if query:
                 # Search by name or article
+                # Use upper() for case-insensitive search with Cyrillic text in SQLite
+                from sqlalchemy import func
+                query_upper = query.upper()
                 search_filter = (
-                    (SQLProduct.name.ilike(f"%{query}%")) |
-                    (SQLProduct.article.ilike(f"%{query}%"))
+                    (func.upper(SQLProduct.name).like(f"%{query_upper}%")) |
+                    (func.upper(SQLProduct.article).like(f"%{query_upper}%"))
                 )
                 products_query = products_query.filter(search_filter)
             
