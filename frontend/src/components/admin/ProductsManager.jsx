@@ -384,6 +384,67 @@ export const ProductsManager = () => {
     }));
   };
 
+  // Image upload handlers
+  const handleImageUpload = async (event) => {
+    const files = Array.from(event.target.files);
+    if (files.length === 0) return;
+
+    setUploadingImage(true);
+    try {
+      const uploadPromises = files.map(async (file) => {
+        const formDataToSend = new FormData();
+        formDataToSend.append('file', file);
+
+        const response = await axios.post(`${BACKEND_URL}/api/admin/upload-image`, formDataToSend, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
+        return `${BACKEND_URL}${response.data.url}`;
+      });
+
+      const uploadedUrls = await Promise.all(uploadPromises);
+      
+      setFormData(prev => ({
+        ...prev,
+        images: [...prev.images, ...uploadedUrls]
+      }));
+
+      alert(`Загружено ${uploadedUrls.length} изображений`);
+    } catch (error) {
+      console.error('Error uploading images:', error);
+      alert('Ошибка загрузки изображений');
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const removeImage = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index)
+    }));
+  };
+
+  const moveImageUp = (index) => {
+    if (index === 0) return;
+    setFormData(prev => {
+      const newImages = [...prev.images];
+      [newImages[index - 1], newImages[index]] = [newImages[index], newImages[index - 1]];
+      return { ...prev, images: newImages };
+    });
+  };
+
+  const moveImageDown = (index) => {
+    if (index === formData.images.length - 1) return;
+    setFormData(prev => {
+      const newImages = [...prev.images];
+      [newImages[index], newImages[index + 1]] = [newImages[index + 1], newImages[index]];
+      return { ...prev, images: newImages };
+    });
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
