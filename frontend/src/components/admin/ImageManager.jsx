@@ -309,6 +309,9 @@ const ImageManager = () => {
         </div>
       )}
 
+      {/* Guidelines */}
+      <ImageUploadGuidelines type="general" />
+
       {/* Image fields */}
       <div className="space-y-6">
         {renderImageField(
