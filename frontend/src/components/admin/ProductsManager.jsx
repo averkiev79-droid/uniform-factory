@@ -657,7 +657,7 @@ export const ProductsManager = () => {
                 <span className="text-sm text-gray-600">
                   Выбрано: {selectedProducts.length}
                 </span>
-                <div className="flex gap-2 ml-auto">
+                <div className="flex gap-2 ml-auto flex-wrap">
                   <Button
                     variant="outline"
                     size="sm"
@@ -665,13 +665,31 @@ export const ProductsManager = () => {
                     className="text-green-600 hover:text-green-700"
                   >
                     <Eye className="w-4 h-4 mr-1" />
-                    Опубликовать
+                    В наличии
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleBulkOnOrder}
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    <Clock className="w-4 h-4 mr-1" />
+                    Под заказ
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleBulkFeatured}
+                    className="text-yellow-600 hover:text-yellow-700"
+                  >
+                    <Star className="w-4 h-4 mr-1" />
+                    Популярное
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={handleBulkUnpublish}
-                    className="text-orange-600 hover:text-orange-700"
+                    className="text-red-600 hover:text-red-700"
                   >
                     <EyeOff className="w-4 h-4 mr-1" />
                     Скрыть
