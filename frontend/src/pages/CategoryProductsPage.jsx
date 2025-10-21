@@ -276,7 +276,7 @@ export const CategoryProductsPage = () => {
 
                     {/* Price */}
                     <div className="flex items-center justify-between pt-2">
-                      <div>
+                      <div className="flex-1">
                         <span className="text-lg font-bold text-navy">
                           от {product.price_from.toLocaleString()} ₽
                         </span>
@@ -285,6 +285,20 @@ export const CategoryProductsPage = () => {
                             до {product.price_to.toLocaleString()} ₽
                           </span>
                         )}
+                        
+                        {/* Status badges */}
+                        <div className="flex gap-1 mt-1 flex-wrap">
+                          {product.on_order && (
+                            <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-semibold">
+                              Под заказ
+                            </span>
+                          )}
+                          {product.featured && (
+                            <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded font-semibold">
+                              Популярное
+                            </span>
+                          )}
+                        </div>
                       </div>
                       
                       <Button
