@@ -1908,6 +1908,9 @@ class APITester:
         print(f"Backend URL: {self.base_url}")
         print("=" * 80)
         
+        # Product Search Functionality Tests (NEW - HIGH PRIORITY)
+        self.run_product_search_tests()
+        
         # Core functionality tests
         self.test_health_check()
         self.test_categories()
