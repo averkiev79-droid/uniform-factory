@@ -110,11 +110,11 @@ const ProductSearch = ({ onClose }) => {
                   )}
                   <div className="flex-1">
                     <div className="font-medium text-gray-900">{product.name}</div>
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <div className="flex items-center gap-2 text-sm">
                       {product.article && (
-                        <span className="font-mono">Арт. {product.article}</span>
+                        <span className="font-mono font-semibold text-navy">Артикул: {product.article}</span>
                       )}
-                      <span>•</span>
+                      {product.article && <span className="text-gray-400">•</span>}
                       <span>{product.category_name}</span>
                       <span>•</span>
                       <span className="font-semibold text-blue-600">
