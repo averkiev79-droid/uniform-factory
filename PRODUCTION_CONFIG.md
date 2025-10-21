@@ -38,7 +38,7 @@ print(secrets.token_urlsafe(32))
 
 **Для разработки (Emergent):**
 ```env
-REACT_APP_BACKEND_URL=https://uniform-factory.preview.emergentagent.com
+REACT_APP_BACKEND_URL=https://uniform-factory-seo.preview.emergentagent.com
 WDS_SOCKET_PORT=443
 ```
 

@@ -1,83 +1,63 @@
 <analysis>
-The AI engineer effectively expanded the Uniform Factory application, transitioning it to a multi-page architecture and implementing a robust product catalog. Key challenges involved synchronizing frontend and backend data, localizing media, and refining UI/UX. The trajectory covers recent work on administrative features like an image gallery, legal document management, and site analytics (Yandex.Metrica, Web Vitals). Critical bugs related to image loading paths and database inconsistencies were systematically addressed. The latest work focused on implementing advanced search with filters, product article numbers, an analytics dashboard, SEO optimization (meta-tags, sitemap, Open Graph for VK), and a Telegram notification bot. The AI demonstrated a methodical approach, often diagnosing issues, providing multiple solutions, and adapting to user feedback, including preferences for specific social media and deployment strategies.
+The AI engineer's work primarily focused on extending the Uniform Factory application by implementing several new features and addressing numerous deployment and data-related challenges. Key accomplishments include the integration of product import from , comprehensive SEO enhancements (meta-tags, sitemap, robots.txt, Schema.org), and fixing the Web Vitals monitoring. A significant portion of the effort was dedicated to debugging persistent frontend deployment issues, often stemming from browser caching or misconfigured development vs. production server setups. The AI demonstrated an iterative problem-solving approach, adapting to user feedback and external tool diagnostics (e.g., , ) to overcome these hurdles, especially concerning domain migration and frontend build inconsistencies across different deployments.
 </analysis>
 
 <product_requirements>
-The Uniform Factory required a modern, responsive website with core pages (Home, About Us, Catalog, Contacts, Portfolio), a product catalog, order calculator, and interactive elements. This expanded to include an admin panel for categories, portfolio, and requests, with email notifications. Previous fixes addressed navigation, mobile responsiveness, and contact details. Major updates involved a multi-page structure, rebranding, and a comprehensive product catalog. Explicit requests included removing product sizes/stock, activating favorite/share, cookie consent, favicon, image loading fixes, navigation bugs, improved footer forms, clickable advantages, and, more recently:
-- Admin panel for main page photos (hero, about).
-- Email notifications (Yandex SMTP).
-- WhatsApp consultant (later removed).
-- Site visit statistics (Yandex.Metrica) and load speed monitoring (Web Vitals).
-- Admin-editable legal documents (Privacy Policy, User Agreement, Company Details).
-- Swipe gestures for product images on mobile.
-- Admin panel gallery for uploaded photos.
-- **New requests:** Product search (name, filters, autocomplete, article), Telegram bot, extended analytics (popular items, conversion, traffic sources), SEO (meta-tags, sitemap, Open Graph for VK, content for promotion), copy products from aviktime.ru (specific categories), connect  domain.
+The Uniform Factory needs a modern, responsive website with a product catalog and order calculator, extended with an admin panel for content management and analytics. Initial requirements included core pages, email notifications, and basic site analytics. Recent, explicit requests focused on: implementing a robust product search with article numbers and filters; integrating a Telegram notification bot; developing extended analytics for popular items, conversion, and traffic sources; comprehensive SEO optimization (meta-tags, sitemap, Open Graph for VK); the ability to copy products from  into specific categories; connecting the  domain; reorganizing the admin panel with a Content section to manage images, portfolio, legal documents, and page texts, alongside updating the company founding year to 1993 (30+ years of experience); replacing generic social media links with VK and Telegram; and ensuring product article numbers are displayed consistently on product cards and detail pages.
 </product_requirements>
 
 <key_technical_concepts>
-- **Frontend:** React.js, React Router, Tailwind CSS, Axios, , , , , , .
-- **Backend:** FastAPI, Pydantic, SQLAlchemy (SQLite), Uvicorn, Python .
+- **Frontend:** React.js, React Router, Tailwind CSS, Axios, , , .
+- **Backend:** FastAPI, Pydantic, SQLAlchemy (SQLite), Python , .
 - **Database:** SQLite.
-- **Email:** Yandex SMTP.
-- **Web APIs:** Web Share API, Local Storage, Telegram Bot API.
+- **Integrations:** Yandex SMTP, Telegram Bot API, Yandex.Metrica, Google Search Console, Open Graph.
+- **SEO/Deployment:** , , Schema.org (ProductSchema, BreadcrumbList Schema).
 </key_technical_concepts>
 
 <code_architecture>
 The application uses a React frontend, FastAPI backend, and SQLite database.
 
-**Directory Structure (Simplified):**
 
-
-
--   ****: Stores backend configuration. Updated with Yandex SMTP and new Telegram bot , .
--   ****: Handles admin-specific API routes. Updated to filter uploaded files by minimum size (1KB). Relaxed image input validation.
--   ****: Manages SQLite DB schema. Added ,  columns to  model. New SQLAlchemy models for , , , and analytics models.
--   ****: Defines Pydantic data models. Extended with , , , , , , ,  models and their schemas. Added Pydantic validators for input sanitization in contact forms.  model updated with  and .
--   ****: FastAPI entry point.
-    -   Added  and .
-    -   Fixed  method usage on Pydantic objects.
-    -   Added public endpoints for , ,  metric submission, serving  directory, , .
-    -   Added new  and  endpoints.
-    -   Modified  to increment .
-    -   Integrated Telegram notifications into callback, consultation, contact, and quote request endpoints.
-    -   Fixed multiple indentation and import errors ().
--   ****: Implements business logic.
-    -   Added  and .
-    -    extended with  method and  method (moved from AnalyticsService).
--   ** (NEW)**: Implements security features like file validation and rate limiting.
--   ** (NEW)**: A script to add  and  columns to existing product tables.
--   ** (NEW)**: Script to generate .
--   ** (NEW)**: Service for sending notifications via Telegram Bot API.
--   ****: Main React component. Added  for SEO management. New routes for , , .
--   ****: Centralized frontend API client. Expanded with functions for , , , file upload endpoints, , and .
--   ****: Site header. Updated contact email. Added search icon and integrated  component.
--   ****: Site footer. Updated legal document links, mobile responsiveness, and contact email.
--   ****: Product detail page. Enhanced with swipe gestures for image carousel and now displays product .
--   ****: Displays product  in product cards.
--   ****: Admin panel main component. Integrated , , , , and  components.
--   ** (NEW)**: Frontend component for product search with autocompletion.
--   ** (NEW)**: Admin interface to display site analytics (popular products/categories, conversion).
--   ** (NEW)**: Universal React component for managing meta-tags, Open Graph, and Schema.org for SEO.
--   ** (NEW)**: Centralized data for SEO content per page.
--   ** (NEW)**: Documentation detailing security measures implemented.
--   ** (NEW)**: Detailed instructions for deploying the app on sweb.ru.
--   ** (NEW)**: Shell script for automated deployment and updates on sweb.ru.
--   ** (NEW)**: Guide for synchronizing code in a hybrid deployment scenario.
--   ** (NEW)**: Configuration details for production deployment.
--   ** / **: Updated with new Python () and Node.js (, ) dependencies.
+- ****: Updated with , .
+- ****: Added new endpoint  for fetching Web Vitals metrics.
+- ****: The  model was updated to include  and . The  class was defined for storing performance metrics.
+- ****: The  Pydantic model was extended to include  and  fields, crucial for correct metric submission.
+- ****: Integrates  and . New public endpoints for , ,  metric submission (), serving , , and . Modified  to increment . Telegram notifications integrated into contact forms. Fixes for  serving correct static content.
+- ****:  was extended with  and .  was updated.
+- ** (NEW)**: Python script for web scraping product data from , including iterative fixes for data mapping and description parsing.
+- ** (NEW)**: Script to clean up product descriptions in the database.
+- ** (NEW)**: Utility script to query product count from the database.
+- ** (NEW)**: Utility script to check Web Vitals entries in the database.
+- ****: Integrated  for SEO management and added new routes for legal documents.
+- ****: Expanded with functions for , , , file upload, , and .
+- ****: Updated to include a search icon and integrate the  component.
+- ****: Updated legal document links and replaced social media icons with VK and Telegram.
+- ****: Enhanced with swipe gestures, displays product , and integrated  and  for SEO.
+- ****: Displays product  in product cards and integrated  and .
+- ****: Reorganized to introduce a Content submenu, including , , , , and the new .
+- ****: Modified to include a quick category change dropdown in product cards and corrected API calls to .
+- ** (NEW)**: Component for editing various page texts.
+- ****: Enhanced for meta-tags, Open Graph, Schema.org, and Yandex verification meta-tags.
+- ** (NEW)**: Component for Schema.org product structured data.
+- ** (NEW)**: Component for Schema.org breadcrumb structured data.
+- ****: Updated with centralized SEO content and changed the company founding year to 1993.
+- ** (NEW)**: Created to control search engine crawling, disallowing admin and API paths.
+- ** (NEW)**: Generated XML sitemap to assist search engine indexing.
+- ** (NEW)**: Yandex site verification file.
+- ** / **: Updated with new Python (, ) and Node.js (, ) dependencies.
 </code_architecture>
 
 <pending_tasks>
-- Complete the integration of the  component into  if not fully completed (it was mostly done).
-- Implement full Re-Deploy to make the Search button visible on the deployed version.
-- Implement the Product Import feature (copying products from aviktime.ru).
-- Connect the  domain.
+- Complete the integration of the  component into  if not fully completed.
+- Conduct full testing of the Telegram bot integration (deferred by user).
+- Ensure all latest frontend changes are visible on  by linking the domain to the correct, updated deployment and performing a full re-deploy.
+- Address the user's report of a missing article number on a specific product detail page.
 </pending_tasks>
 
 <current_work>
-Immediately before this summary, the AI engineer successfully completed the integration of the Telegram notification bot into the backend. This involved adding  and  to , creating  to handle Telegram API calls, installing the  library, and integrating notification calls into all relevant contact form endpoints (, , , ) in . The backend was restarted, and the Telegram bot was confirmed to be sending test messages successfully. Prior to this, extensive work was done on Phase 1 (Search, Filters, Article, Analytics) and Phase 2 (SEO), which included backend API development for search and analytics, frontend components for search and analytics dashboard, and comprehensive SEO meta-tag implementation for various pages. A bug where the frontend search button was not appearing due to caching on the deployed version was identified, and the user chose to defer a full re-deploy until later tasks were completed. All images on the deployed site () are confirmed to be loading correctly, and product cards are displaying.
+Immediately before this summary request, the AI engineer was addressing several issues related to deployment and feature visibility. After successfully updating social media links to VK and Telegram, and verifying that product article numbers were correctly displayed in category listings on the  domain, the user reported a new issue: the article number was still missing inside a specific product detail card on the *preview* domain: . This indicates the current focus is on debugging this specific UI rendering issue for individual product pages, potentially a frontend component issue or data fetching discrepancy for that particular product. This follows extensive work on SEO, Web Vitals monitoring, admin panel reorganization, and domain connection, all of which faced persistent caching and deployment synchronization challenges between development and production environments, and across different Emergent deployments.
 </current_work>
 
 <optional_next_step>
-The next logical step is to test the newly integrated Telegram bot by sending a test request via the website forms.
+Investigate why the product article is not displayed on the specific product detail page: .
 </optional_next_step>
