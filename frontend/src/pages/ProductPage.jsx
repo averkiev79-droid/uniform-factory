@@ -366,11 +366,23 @@ export const ProductPage = () => {
                   <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
                     {product.name}
                   </h1>
-                  {product.article && (
-                    <p className="text-base font-bold text-navy mt-2 font-mono bg-gray-100 inline-block px-3 py-1 rounded">
-                      Артикул: {product.article}
-                    </p>
-                  )}
+                  <div className="flex items-center gap-2 mt-2 flex-wrap">
+                    {product.article && (
+                      <p className="text-base font-bold text-navy font-mono bg-gray-100 px-3 py-1 rounded">
+                        Артикул: {product.article}
+                      </p>
+                    )}
+                    {product.on_order && (
+                      <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-md font-semibold">
+                        🕐 Под заказ
+                      </span>
+                    )}
+                    {product.featured && (
+                      <span className="text-sm bg-yellow-100 text-yellow-700 px-3 py-1 rounded-md font-semibold">
+                        ⭐ Популярное
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="flex space-x-2">
                   <Button 
