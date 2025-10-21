@@ -1506,6 +1506,402 @@ class APITester:
         
         print("=" * 60)
 
+    # ===== PRODUCT SEARCH FUNCTIONALITY TESTS =====
+    
+    def test_product_search_by_name_russian(self):
+        """Test 1: Search by product name in Russian (q=рубашка)"""
+        try:
+            response = self.session.get(f"{self.base_url}/products/search", params={"q": "рубашка"})
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    if len(data) > 0:
+                        # Verify each result has required fields
+                        first_result = data[0]
+                        required_fields = ['id', 'name', 'article', 'category_name', 'price_from', 'images']
+                        
+                        if all(field in first_result for field in required_fields):
+                            # Check if article is not null
+                            if first_result.get('article'):
+                                self.log_result('/products/search (рубашка)', 'GET', True, 
+                                              f"Found {len(data)} products by Russian name, article present: {first_result.get('article')}", 
+                                              {'count': len(data), 'sample_article': first_result.get('article')})
+                            else:
+                                self.log_result('/products/search (рубашка)', 'GET', False, 
+                                              f"Found products but article field is null/empty", first_result)
+                        else:
+                            missing = [f for f in required_fields if f not in first_result]
+                            self.log_result('/products/search (рубашка)', 'GET', False, 
+                                          f"Missing required fields: {missing}", first_result)
+                    else:
+                        self.log_result('/products/search (рубашка)', 'GET', True, 
+                                      f"No products found for 'рубашка' (empty result is valid)", data)
+                else:
+                    self.log_result('/products/search (рубашка)', 'GET', False, 
+                                  f"Expected array, got: {type(data)}", data)
+            else:
+                self.log_result('/products/search (рубашка)', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/products/search (рубашка)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_product_search_by_article_manual(self):
+        """Test 2: Search by manual article number (q=WS-001)"""
+        try:
+            response = self.session.get(f"{self.base_url}/products/search", params={"q": "WS-001"})
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    if len(data) > 0:
+                        # Should find exactly the product with article WS-001
+                        found_product = None
+                        for product in data:
+                            if product.get('article') == 'WS-001':
+                                found_product = product
+                                break
+                        
+                        if found_product:
+                            required_fields = ['id', 'name', 'article', 'category_name', 'price_from', 'images']
+                            if all(field in found_product for field in required_fields):
+                                self.log_result('/products/search (WS-001)', 'GET', True, 
+                                              f"Found product by manual article WS-001: {found_product.get('name')}", found_product)
+                            else:
+                                missing = [f for f in required_fields if f not in found_product]
+                                self.log_result('/products/search (WS-001)', 'GET', False, 
+                                              f"Found product but missing fields: {missing}", found_product)
+                        else:
+                            self.log_result('/products/search (WS-001)', 'GET', False, 
+                                          f"Search returned {len(data)} results but none with article WS-001", data)
+                    else:
+                        self.log_result('/products/search (WS-001)', 'GET', False, 
+                                      f"No products found for article WS-001", data)
+                else:
+                    self.log_result('/products/search (WS-001)', 'GET', False, 
+                                  f"Expected array, got: {type(data)}", data)
+            else:
+                self.log_result('/products/search (WS-001)', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/products/search (WS-001)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_product_search_by_article_imported(self):
+        """Test 3: Search by imported article (q=4A.490E)"""
+        try:
+            response = self.session.get(f"{self.base_url}/products/search", params={"q": "4A.490E"})
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    if len(data) > 0:
+                        # Should find exactly the product with article 4A.490E
+                        found_product = None
+                        for product in data:
+                            if product.get('article') == '4A.490E':
+                                found_product = product
+                                break
+                        
+                        if found_product:
+                            required_fields = ['id', 'name', 'article', 'category_name', 'price_from', 'images']
+                            if all(field in found_product for field in required_fields):
+                                self.log_result('/products/search (4A.490E)', 'GET', True, 
+                                              f"Found product by imported article 4A.490E: {found_product.get('name')}", found_product)
+                            else:
+                                missing = [f for f in required_fields if f not in found_product]
+                                self.log_result('/products/search (4A.490E)', 'GET', False, 
+                                              f"Found product but missing fields: {missing}", found_product)
+                        else:
+                            self.log_result('/products/search (4A.490E)', 'GET', False, 
+                                          f"Search returned {len(data)} results but none with article 4A.490E", data)
+                    else:
+                        self.log_result('/products/search (4A.490E)', 'GET', False, 
+                                      f"No products found for imported article 4A.490E", data)
+                else:
+                    self.log_result('/products/search (4A.490E)', 'GET', False, 
+                                  f"Expected array, got: {type(data)}", data)
+            else:
+                self.log_result('/products/search (4A.490E)', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/products/search (4A.490E)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_product_search_with_limit(self):
+        """Test 4: Search with limit parameter"""
+        try:
+            response = self.session.get(f"{self.base_url}/products/search", params={"q": "рубашка", "limit": 2})
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    if len(data) <= 2:
+                        self.log_result('/products/search (limit=2)', 'GET', True, 
+                                      f"Limit parameter working correctly, returned {len(data)} results (≤2)", 
+                                      {'count': len(data), 'limit_requested': 2})
+                    else:
+                        self.log_result('/products/search (limit=2)', 'GET', False, 
+                                      f"Limit not respected: requested 2, got {len(data)}", data)
+                else:
+                    self.log_result('/products/search (limit=2)', 'GET', False, 
+                                  f"Expected array, got: {type(data)}", data)
+            else:
+                self.log_result('/products/search (limit=2)', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/products/search (limit=2)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_product_search_empty_results(self):
+        """Test 5: Search with query that should return empty results"""
+        try:
+            response = self.session.get(f"{self.base_url}/products/search", params={"q": "nonexistentproduct12345"})
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    if len(data) == 0:
+                        self.log_result('/products/search (empty)', 'GET', True, 
+                                      f"Empty search results handled correctly", data)
+                    else:
+                        self.log_result('/products/search (empty)', 'GET', False, 
+                                      f"Expected empty results, got {len(data)} items", data)
+                else:
+                    self.log_result('/products/search (empty)', 'GET', False, 
+                                  f"Expected array, got: {type(data)}", data)
+            else:
+                self.log_result('/products/search (empty)', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/products/search (empty)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_products_list_all(self):
+        """Test 6: GET /api/products - list all products, verify articles are present"""
+        try:
+            response = self.session.get(f"{self.base_url}/products")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list) and len(data) > 0:
+                    # Check that products have article field
+                    products_with_articles = 0
+                    products_without_articles = 0
+                    sample_articles = []
+                    
+                    for product in data:
+                        if product.get('article'):
+                            products_with_articles += 1
+                            if len(sample_articles) < 3:
+                                sample_articles.append(product.get('article'))
+                        else:
+                            products_without_articles += 1
+                    
+                    if products_with_articles > 0:
+                        self.log_result('/products (articles check)', 'GET', True, 
+                                      f"Retrieved {len(data)} products, {products_with_articles} have articles, {products_without_articles} without. Sample articles: {sample_articles}", 
+                                      {'total': len(data), 'with_articles': products_with_articles, 'sample_articles': sample_articles})
+                    else:
+                        self.log_result('/products (articles check)', 'GET', False, 
+                                      f"No products have article field populated", 
+                                      {'total': len(data), 'with_articles': 0})
+                else:
+                    self.log_result('/products (articles check)', 'GET', False, 
+                                  f"Expected non-empty array, got: {type(data)} with length {len(data) if isinstance(data, list) else 'N/A'}", data)
+            else:
+                self.log_result('/products (articles check)', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/products (articles check)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_products_by_category(self):
+        """Test 7: GET /api/products/category/1 - list category products, verify articles"""
+        try:
+            response = self.session.get(f"{self.base_url}/products/category/1")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    if len(data) > 0:
+                        # Check that products have article field
+                        products_with_articles = 0
+                        sample_articles = []
+                        
+                        for product in data:
+                            if product.get('article'):
+                                products_with_articles += 1
+                                if len(sample_articles) < 2:
+                                    sample_articles.append(product.get('article'))
+                        
+                        if products_with_articles > 0:
+                            self.log_result('/products/category/1 (articles)', 'GET', True, 
+                                          f"Category 1 has {len(data)} products, {products_with_articles} have articles. Sample: {sample_articles}", 
+                                          {'total': len(data), 'with_articles': products_with_articles, 'sample_articles': sample_articles})
+                        else:
+                            self.log_result('/products/category/1 (articles)', 'GET', False, 
+                                          f"Category 1 products don't have article field", 
+                                          {'total': len(data), 'with_articles': 0})
+                    else:
+                        self.log_result('/products/category/1 (articles)', 'GET', True, 
+                                      f"Category 1 has no products (empty result is valid)", data)
+                else:
+                    self.log_result('/products/category/1 (articles)', 'GET', False, 
+                                  f"Expected array, got: {type(data)}", data)
+            else:
+                self.log_result('/products/category/1 (articles)', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/products/category/1 (articles)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_single_product_detail(self):
+        """Test 8: GET /api/products/{id} - single product detail, verify article field"""
+        try:
+            # First get a product ID from the products list
+            list_response = self.session.get(f"{self.base_url}/products")
+            
+            if list_response.status_code == 200:
+                products = list_response.json()
+                if isinstance(products, list) and len(products) > 0:
+                    # Get the first product's ID
+                    product_id = products[0].get('id')
+                    
+                    if product_id:
+                        # Get single product detail
+                        detail_response = self.session.get(f"{self.base_url}/products/{product_id}")
+                        
+                        if detail_response.status_code == 200:
+                            product_detail = detail_response.json()
+                            
+                            if isinstance(product_detail, dict):
+                                required_fields = ['id', 'name', 'article', 'category_name', 'price_from']
+                                
+                                if all(field in product_detail for field in required_fields):
+                                    article = product_detail.get('article')
+                                    if article:
+                                        self.log_result(f'/products/{product_id} (article)', 'GET', True, 
+                                                      f"Single product detail includes article: {article}", 
+                                                      {'product_id': product_id, 'article': article, 'name': product_detail.get('name')})
+                                    else:
+                                        self.log_result(f'/products/{product_id} (article)', 'GET', False, 
+                                                      f"Single product detail missing article field", product_detail)
+                                else:
+                                    missing = [f for f in required_fields if f not in product_detail]
+                                    self.log_result(f'/products/{product_id} (article)', 'GET', False, 
+                                                  f"Missing required fields: {missing}", product_detail)
+                            else:
+                                self.log_result(f'/products/{product_id} (article)', 'GET', False, 
+                                              f"Expected object, got: {type(product_detail)}", product_detail)
+                        else:
+                            self.log_result(f'/products/{product_id} (article)', 'GET', False, 
+                                          f"HTTP {detail_response.status_code}: {detail_response.text}")
+                    else:
+                        self.log_result('/products/{id} (article)', 'GET', False, 
+                                      f"No product ID found in products list", products[0])
+                else:
+                    self.log_result('/products/{id} (article)', 'GET', False, 
+                                  f"No products available to test single product detail")
+            else:
+                self.log_result('/products/{id} (article)', 'GET', False, 
+                              f"Failed to get products list: {list_response.status_code}")
+                
+        except Exception as e:
+            self.log_result('/products/{id} (article)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_article_field_patterns(self):
+        """Test 9: Verify article field format matches expected patterns"""
+        try:
+            response = self.session.get(f"{self.base_url}/products")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list) and len(data) > 0:
+                    manual_articles = []  # Should match WS-001, AP-101, etc.
+                    imported_articles = []  # Should match 4A.490E, 4A.48A-1, etc.
+                    invalid_articles = []
+                    
+                    for product in data:
+                        article = product.get('article')
+                        if article:
+                            # Check for manual pattern (XX-NNN)
+                            if '-' in article and len(article.split('-')) == 2:
+                                parts = article.split('-')
+                                if len(parts[0]) == 2 and parts[0].isalpha() and parts[1].isdigit():
+                                    manual_articles.append(article)
+                                else:
+                                    # Check for imported pattern (contains dots and alphanumeric)
+                                    if '.' in article:
+                                        imported_articles.append(article)
+                                    else:
+                                        invalid_articles.append(article)
+                            elif '.' in article:
+                                imported_articles.append(article)
+                            else:
+                                invalid_articles.append(article)
+                    
+                    total_valid = len(manual_articles) + len(imported_articles)
+                    
+                    if total_valid > 0:
+                        self.log_result('/products (article patterns)', 'GET', True, 
+                                      f"Article patterns verified: {len(manual_articles)} manual (WS-001 style), {len(imported_articles)} imported (4A.490E style), {len(invalid_articles)} invalid", 
+                                      {
+                                          'manual_samples': manual_articles[:3],
+                                          'imported_samples': imported_articles[:3],
+                                          'invalid_samples': invalid_articles[:3] if invalid_articles else []
+                                      })
+                    else:
+                        self.log_result('/products (article patterns)', 'GET', False, 
+                                      f"No valid article patterns found", 
+                                      {'invalid_articles': invalid_articles[:5]})
+                else:
+                    self.log_result('/products (article patterns)', 'GET', False, 
+                                  f"No products available to check article patterns")
+            else:
+                self.log_result('/products (article patterns)', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/products (article patterns)', 'GET', False, f"Exception: {str(e)}")
+    
+    def run_product_search_tests(self):
+        """Run all Product Search Functionality tests"""
+        print(f"\n🔍 Starting Product Search Functionality Tests")
+        print("=" * 60)
+        print("Testing smart product search and article display functionality")
+        print("=" * 60)
+        
+        # Test 1: Search by Russian product name
+        self.test_product_search_by_name_russian()
+        
+        # Test 2: Search by manual article number
+        self.test_product_search_by_article_manual()
+        
+        # Test 3: Search by imported article
+        self.test_product_search_by_article_imported()
+        
+        # Test 4: Search with limit parameter
+        self.test_product_search_with_limit()
+        
+        # Test 5: Empty search results
+        self.test_product_search_empty_results()
+        
+        # Test 6: List all products with articles
+        self.test_products_list_all()
+        
+        # Test 7: List category products with articles
+        self.test_products_by_category()
+        
+        # Test 8: Single product detail with article
+        self.test_single_product_detail()
+        
+        # Test 9: Article field patterns verification
+        self.test_article_field_patterns()
+        
+        print("=" * 60)
+
     def run_all_tests(self):
         """Run all API tests"""
         print(f"🚀 Starting API tests for AVIK Uniform Factory")
