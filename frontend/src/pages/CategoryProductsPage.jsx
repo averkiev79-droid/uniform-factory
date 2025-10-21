@@ -257,8 +257,8 @@ export const CategoryProductsPage = () => {
                     </h3>
                     
                     {product.article && (
-                      <p className="text-xs text-gray-500 font-mono">
-                        Арт. {product.article}
+                      <p className="text-sm font-semibold text-navy font-mono">
+                        Артикул: {product.article}
                       </p>
                     )}
                     
