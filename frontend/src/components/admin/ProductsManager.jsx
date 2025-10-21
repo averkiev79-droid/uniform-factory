@@ -586,6 +586,9 @@ export const ProductsManager = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Изображения товара</label>
               
+              {/* Guidelines */}
+              <ImageUploadGuidelines type="product" />
+              
               {/* Upload button */}
               <div className="mb-4">
                 <label className="cursor-pointer">
