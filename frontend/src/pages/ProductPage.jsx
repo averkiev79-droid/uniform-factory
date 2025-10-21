@@ -495,6 +495,15 @@ export const ProductPage = () => {
             </Card>
           </div>
         )}
+
+        {/* Related Products from Search */}
+        {relatedProducts.length > 0 && searchQuery && (
+          <RelatedProducts 
+            products={relatedProducts}
+            currentProductId={productId}
+            searchQuery={searchQuery}
+          />
+        )}
       </div>
 
       {/* Consultation Modal */}
