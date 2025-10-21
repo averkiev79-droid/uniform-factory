@@ -348,7 +348,7 @@ export const ProductPage = () => {
                     {product.name}
                   </h1>
                   {product.article && (
-                    <p className="text-sm text-gray-500 mt-1 font-mono">
+                    <p className="text-base font-bold text-navy mt-2 font-mono bg-gray-100 inline-block px-3 py-1 rounded">
                       Артикул: {product.article}
                     </p>
                   )}
