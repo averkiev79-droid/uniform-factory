@@ -464,6 +464,40 @@ async def admin_update_product(product_id: str, product: ProductCreate):
     finally:
         db.close()
 
+@admin_router.patch("/products/{product_id}")
+async def admin_patch_product(product_id: str, updates: dict):
+    """Partial update product (for bulk operations)"""
+    db = SessionLocal()
+    try:
+        from database_sqlite import SQLProduct
+        from datetime import datetime, timezone
+        
+        # Get existing product
+        existing_product = db.query(SQLProduct).filter(SQLProduct.id == product_id).first()
+        if not existing_product:
+            raise HTTPException(status_code=404, detail="Product not found")
+        
+        # Update only provided fields
+        if 'is_available' in updates:
+            existing_product.is_available = updates['is_available']
+        if 'featured' in updates:
+            existing_product.featured = updates['featured']
+        if 'category_id' in updates:
+            existing_product.category_id = updates['category_id']
+        
+        existing_product.updated_at = datetime.now(timezone.utc)
+        
+        db.commit()
+        
+        return {"message": "Product updated successfully", "id": product_id}
+    except HTTPException:
+        raise
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        db.close()
+
 @admin_router.delete("/products/{product_id}")
 async def admin_delete_product(product_id: str):
     """Delete product"""
