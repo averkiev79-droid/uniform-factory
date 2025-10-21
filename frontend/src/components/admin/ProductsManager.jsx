@@ -260,6 +260,7 @@ export const ProductsManager = () => {
     setFormData({
       category_id: product.category_id,
       name: product.name,
+      article: product.article || '',
       description: product.description,
       short_description: product.short_description || '',
       price_from: product.price_from,
@@ -268,6 +269,7 @@ export const ProductsManager = () => {
       sizes: product.sizes || [],
       colors: product.colors || [],
       is_available: product.is_available,
+      on_order: product.on_order || false,
       featured: product.featured,
       images: product.images?.map(img => img.image_url) || [],
       characteristics: product.characteristics || []
