@@ -100,15 +100,21 @@ const ProductSearch = ({ onClose }) => {
                   onClick={() => handleProductClick(product.id)}
                   className="w-full px-4 py-3 hover:bg-gray-50 flex items-center gap-4 text-left transition-colors border-b border-gray-100 last:border-b-0"
                 >
-                  {product.images && product.images[0] ? (
+                  {product.images && product.images.length > 0 && product.images[0]?.image_url ? (
                     <img
                       src={product.images[0].image_url}
                       alt={product.name}
                       className="w-20 h-20 object-cover rounded-lg shadow-sm"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = '/images/about-factory.jpg';
+                      }}
                     />
                   ) : (
-                    <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
-                      <Search className="w-8 h-8 text-gray-400" />
+                    <div className="w-20 h-20 bg-gradient-to-br from-navy to-blue-500 rounded-lg flex items-center justify-center shadow-sm">
+                      <span className="text-white text-2xl font-bold">
+                        {product.name.charAt(0)}
+                      </span>
                     </div>
                   )}
                   <div className="flex-1 min-w-0">
