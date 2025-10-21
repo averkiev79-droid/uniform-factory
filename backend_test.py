@@ -2256,6 +2256,9 @@ class APITester:
         # NEW: Security Features Tests (Priority)
         self.run_security_features_tests()
         
+        # NEW: PATCH endpoint tests for bulk product operations
+        self.run_patch_endpoint_tests()
+        
         print("=" * 80)
         self.print_summary()
     
