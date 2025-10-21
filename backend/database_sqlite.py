@@ -140,8 +140,9 @@ class SQLProduct(Base):
     material = Column(String)
     sizes = Column(String)  # JSON string
     colors = Column(String)  # JSON string
-    is_available = Column(Boolean, default=True)
-    featured = Column(Boolean, default=False)
+    is_available = Column(Boolean, default=True)  # В наличии
+    on_order = Column(Boolean, default=False)  # Под заказ
+    featured = Column(Boolean, default=False)  # Популярное
     views_count = Column(Integer, default=0)  # Для аналитики популярности
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
