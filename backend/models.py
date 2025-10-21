@@ -287,8 +287,9 @@ class Product(BaseModel):
     material: Optional[str] = None
     sizes: Optional[List[str]] = None
     colors: Optional[List[str]] = None
-    is_available: bool = True
-    featured: bool = False
+    is_available: bool = True  # В наличии
+    on_order: bool = False  # Под заказ
+    featured: bool = False  # Популярное
     views_count: int = 0  # Для аналитики
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
@@ -304,8 +305,9 @@ class ProductCreate(BaseModel):
     material: Optional[str] = None
     sizes: Optional[List[str]] = None
     colors: Optional[List[str]] = None
-    is_available: bool = True
-    featured: bool = False
+    is_available: bool = True  # В наличии
+    on_order: bool = False  # Под заказ
+    featured: bool = False  # Популярное
     images: Optional[List[str]] = None  # URLs
     characteristics: Optional[List[dict]] = None  # [{"name": "Ткань", "value": "Хлопок"}]
 
