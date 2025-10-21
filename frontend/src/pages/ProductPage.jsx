@@ -95,6 +95,20 @@ export const ProductPage = () => {
         if (productData.colors && productData.colors.length > 0) {
           setSelectedColor(productData.colors[0]);
         }
+
+        // Load related products from search if available
+        const savedQuery = sessionStorage.getItem('searchQuery');
+        const savedResults = sessionStorage.getItem('searchResults');
+        
+        if (savedQuery && savedResults) {
+          try {
+            const results = JSON.parse(savedResults);
+            setSearchQuery(savedQuery);
+            setRelatedProducts(results);
+          } catch (e) {
+            console.error('Error parsing search results:', e);
+          }
+        }
       } catch (err) {
         console.error('Error fetching product:', err);
         setError('Товар не найден или произошла ошибка загрузки');
