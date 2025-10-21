@@ -93,6 +93,9 @@ export const ImageUploader = () => {
         </CardHeader>
         
         <CardContent className="space-y-4">
+          {/* Guidelines */}
+          <ImageUploadGuidelines type="general" />
+          
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center justify-between">
               <span>{error}</span>
