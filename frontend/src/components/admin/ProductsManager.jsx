@@ -730,6 +730,40 @@ export const ProductsManager = () => {
               <p className="text-sm text-gray-400">Попробуйте изменить запрос</p>
             </div>
           )}
+
+          {/* Пагинация */}
+          {filteredProducts.length > itemsPerPage && (
+            <div className="flex items-center justify-between pt-6 border-t mt-6">
+              <div className="text-sm text-gray-600">
+                Показано {startIndex + 1}-{Math.min(endIndex, filteredProducts.length)} из {filteredProducts.length} товаров
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={goToPrevPage}
+                  disabled={currentPage === 1}
+                  className="flex items-center gap-1"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  Назад
+                </Button>
+                <span className="text-sm font-medium px-3">
+                  Страница {currentPage} из {totalPages}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={goToNextPage}
+                  disabled={currentPage === totalPages}
+                  className="flex items-center gap-1"
+                >
+                  Вперёд
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
