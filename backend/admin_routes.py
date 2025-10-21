@@ -481,6 +481,8 @@ async def admin_patch_product(product_id: str, updates: dict):
         # Update only provided fields
         if 'is_available' in updates:
             existing_product.is_available = updates['is_available']
+        if 'on_order' in updates:
+            existing_product.on_order = updates['on_order']
         if 'featured' in updates:
             existing_product.featured = updates['featured']
         if 'category_id' in updates:
