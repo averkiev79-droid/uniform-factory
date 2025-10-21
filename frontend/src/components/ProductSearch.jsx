@@ -98,31 +98,31 @@ const ProductSearch = ({ onClose }) => {
                 <button
                   key={product.id}
                   onClick={() => handleProductClick(product.id)}
-                  className="w-full px-4 py-3 hover:bg-gray-50 flex items-center gap-3 text-left transition-colors"
+                  className="w-full px-4 py-3 hover:bg-gray-50 flex items-center gap-4 text-left transition-colors border-b border-gray-100 last:border-b-0"
                 >
                   {product.images && product.images[0] ? (
                     <img
                       src={product.images[0].image_url}
                       alt={product.name}
-                      className="w-12 h-12 object-cover rounded"
+                      className="w-20 h-20 object-cover rounded-lg shadow-sm"
                     />
                   ) : (
-                    <div className="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
-                      <Search className="w-6 h-6 text-gray-400" />
+                    <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
+                      <Search className="w-8 h-8 text-gray-400" />
                     </div>
                   )}
-                  <div className="flex-1">
-                    <div className="font-medium text-gray-900">{product.name}</div>
-                    <div className="flex items-center gap-2 text-sm">
+                  <div className="flex-1 min-w-0">
+                    <div className="font-semibold text-gray-900 truncate">{product.name}</div>
+                    <div className="flex items-center gap-2 text-sm mt-1">
                       {product.article && (
-                        <span className="font-mono font-semibold text-navy">Артикул: {product.article}</span>
+                        <span className="font-mono font-semibold text-navy bg-blue-50 px-2 py-0.5 rounded">
+                          {product.article}
+                        </span>
                       )}
-                      {product.article && <span className="text-gray-400">•</span>}
-                      <span>{product.category_name}</span>
-                      <span>•</span>
-                      <span className="font-semibold text-blue-600">
-                        от {product.price_from.toLocaleString('ru-RU')} ₽
-                      </span>
+                      <span className="text-gray-500">{product.category_name}</span>
+                    </div>
+                    <div className="text-base font-bold text-blue-600 mt-1">
+                      от {product.price_from.toLocaleString('ru-RU')} ₽
                     </div>
                   </div>
                 </button>
