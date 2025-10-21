@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Upload, Image, Copy, Check, X } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import ImageUploadGuidelines from './ImageUploadGuidelines';
 
 export const ImageUploader = () => {
   const [selectedFile, setSelectedFile] = useState(null);
