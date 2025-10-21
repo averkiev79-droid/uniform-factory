@@ -614,11 +614,14 @@ test_plan:
     file: "frontend/src/components/admin/ProductsManager.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "✅ Enhanced ProductsManager with new features: 1) Search by article number and product name - real-time filtering with search bar 2) Bulk operations for publishing/unpublishing products with checkboxes 3) Select all/deselect all functionality 4) Visual improvements - article numbers now displayed as badges 5) Empty state handling for search results 6) Bulk publish button (makes selected products available) 7) Bulk unpublish button (hides selected products) 8) Selected products counter. Uses existing PUT /api/admin/products/{id} endpoint for bulk operations."
+      - working: true
+        agent: "testing"
+        comment: "✅ PATCH ENDPOINT FOR BULK PRODUCT OPERATIONS TESTING COMPLETED SUCCESSFULLY - All 13 tests passed (100% success rate): 1) GET /api/admin/products retrieved 176 products for testing 2) PATCH /api/admin/products/{id} single operations: Hide product (is_available: false) and Show product (is_available: true) both working correctly 3) Product status verification confirmed is_available field changes properly 4) Bulk operations tested with 3 products: All 3 products successfully hidden and then published using multiple PATCH requests 5) Error handling verified: 404 for non-existent product ID, graceful handling of invalid body fields 6) Response structure validated: All PATCH requests return proper message and product ID 7) Integration confirmed: New PATCH endpoint works seamlessly for bulk unpublishing/publishing operations as requested. The bulk product operations feature is fully functional and ready for production use."
 
 agent_communication:
   - agent: "main"
