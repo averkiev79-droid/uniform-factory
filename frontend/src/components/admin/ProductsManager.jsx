@@ -628,7 +628,7 @@ export const ProductsManager = () => {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {filteredProducts.map((product) => (
+          {currentProducts.map((product) => (
             <div
               key={product.id}
               className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
@@ -656,7 +656,7 @@ export const ProductsManager = () => {
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900">{product.name}</h3>
                   <p className="text-sm text-gray-600 line-clamp-1">{product.short_description || product.description}</p>
-                  <div className="flex items-center gap-3 mt-1">
+                  <div className="flex items-center gap-2 mt-2 flex-wrap">
                     <span className="text-sm font-medium text-blue-600">
                       {product.price_from.toLocaleString()} ₽
                       {product.price_to && ` - ${product.price_to.toLocaleString()} ₽`}
@@ -673,15 +673,15 @@ export const ProductsManager = () => {
                       ))}
                     </select>
                     {product.article && (
-                      <span className="text-xs font-mono font-semibold text-gray-700 bg-gray-100 px-2 py-1 rounded">
-                        Арт. {product.article}
+                      <span className="text-sm font-mono font-bold text-white bg-navy px-3 py-1 rounded-md shadow-sm">
+                        {product.article}
                       </span>
                     )}
                     {product.featured && (
                       <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded">Популярное</span>
                     )}
                     {!product.is_available && (
-                      <span className="text-xs bg-red-100 text-red-800 px-2 py-0.5 rounded">Нет в наличии</span>
+                      <span className="text-xs bg-red-100 text-red-800 px-2 py-0.5 rounded">Скрыто</span>
                     )}
                   </div>
                 </div>
