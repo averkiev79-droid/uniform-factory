@@ -41,6 +41,7 @@ export const ProductsManager = () => {
       setLoading(true);
       const response = await axios.get(`${BACKEND_URL}/api/admin/products`);
       setProducts(response.data);
+      setFilteredProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
       alert('Ошибка загрузки товаров');
@@ -55,6 +56,100 @@ export const ProductsManager = () => {
       setCategories(response.data);
     } catch (error) {
       console.error('Error fetching categories:', error);
+    }
+  };
+
+  // Поиск товаров
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setFilteredProducts(products);
+      return;
+    }
+
+    const query = searchQuery.toLowerCase();
+    const filtered = products.filter(product => {
+      return (
+        product.name.toLowerCase().includes(query) ||
+        (product.article && product.article.toLowerCase().includes(query)) ||
+        (product.description && product.description.toLowerCase().includes(query))
+      );
+    });
+    setFilteredProducts(filtered);
+  }, [searchQuery, products]);
+
+  // Выбор всех товаров
+  const toggleSelectAll = () => {
+    if (selectedProducts.length === filteredProducts.length) {
+      setSelectedProducts([]);
+    } else {
+      setSelectedProducts(filteredProducts.map(p => p.id));
+    }
+  };
+
+  // Выбор одного товара
+  const toggleSelectProduct = (productId) => {
+    setSelectedProducts(prev => {
+      if (prev.includes(productId)) {
+        return prev.filter(id => id !== productId);
+      } else {
+        return [...prev, productId];
+      }
+    });
+  };
+
+  // Массовая публикация
+  const handleBulkPublish = async () => {
+    if (selectedProducts.length === 0) {
+      alert('Выберите товары для публикации');
+      return;
+    }
+
+    if (!window.confirm(`Опубликовать ${selectedProducts.length} товаров?`)) {
+      return;
+    }
+
+    try {
+      await Promise.all(
+        selectedProducts.map(productId =>
+          axios.put(`${BACKEND_URL}/api/admin/products/${productId}`, {
+            is_available: true
+          })
+        )
+      );
+      alert('Товары успешно опубликованы');
+      setSelectedProducts([]);
+      fetchProducts();
+    } catch (error) {
+      console.error('Error publishing products:', error);
+      alert('Ошибка при публикации товаров');
+    }
+  };
+
+  // Массовое скрытие
+  const handleBulkUnpublish = async () => {
+    if (selectedProducts.length === 0) {
+      alert('Выберите товары для скрытия');
+      return;
+    }
+
+    if (!window.confirm(`Скрыть ${selectedProducts.length} товаров?`)) {
+      return;
+    }
+
+    try {
+      await Promise.all(
+        selectedProducts.map(productId =>
+          axios.put(`${BACKEND_URL}/api/admin/products/${productId}`, {
+            is_available: false
+          })
+        )
+      );
+      alert('Товары успешно скрыты');
+      setSelectedProducts([]);
+      fetchProducts();
+    } catch (error) {
+      console.error('Error unpublishing products:', error);
+      alert('Ошибка при скрытии товаров');
     }
   };
 
