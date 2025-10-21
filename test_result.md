@@ -608,6 +608,18 @@ test_plan:
         agent: "testing"
         comment: "✅ PRODUCT SMART SEARCH BACKEND TESTING COMPLETED SUCCESSFULLY - All search functionality working perfectly: 1) Search by Russian product name (рубашка) found 2 products with articles present 2) Search by manual article (WS-001) found correct product: 'Белая рубашка для официантов' 3) Search by imported article (4A.490E) found correct product: 'Блуза женская' 4) Limit parameter working correctly (tested limit=2, returned ≤2 results) 5) Empty search results handled properly 6) All search results include required fields: id, name, article, category_name, price_from, images 7) Backend API /api/products/search fully functional with ILIKE queries on both name and article fields. Smart search is production-ready."
 
+  - task: "Admin Product Management with Search and Bulk Operations"
+    implemented: true
+    working: true
+    file: "frontend/src/components/admin/ProductsManager.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ Enhanced ProductsManager with new features: 1) Search by article number and product name - real-time filtering with search bar 2) Bulk operations for publishing/unpublishing products with checkboxes 3) Select all/deselect all functionality 4) Visual improvements - article numbers now displayed as badges 5) Empty state handling for search results 6) Bulk publish button (makes selected products available) 7) Bulk unpublish button (hides selected products) 8) Selected products counter. Uses existing PUT /api/admin/products/{id} endpoint for bulk operations."
+
 agent_communication:
   - agent: "main"
     message: "Completed admin panel development: 1) Added React Router for /admin path 2) Implemented AdminLogin with password auth 3) Created AdminDashboard with sidebar navigation 4) All manager components implemented (Categories, Portfolio, Quote Requests, Statistics, Image Upload) 5) Backend admin routes connected under /api/admin prefix 6) Email service implemented with Yandex SMTP support 7) Admin authentication working with default password 'avik2024admin'"
