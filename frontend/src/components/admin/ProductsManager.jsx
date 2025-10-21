@@ -65,6 +65,7 @@ export const ProductsManager = () => {
   useEffect(() => {
     if (!searchQuery.trim()) {
       setFilteredProducts(products);
+      setCurrentPage(1); // Сброс на первую страницу при новом поиске
       return;
     }
 
@@ -77,7 +78,28 @@ export const ProductsManager = () => {
       );
     });
     setFilteredProducts(filtered);
+    setCurrentPage(1); // Сброс на первую страницу при новом поиске
   }, [searchQuery, products]);
+
+  // Пагинация
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentProducts = filteredProducts.slice(startIndex, endIndex);
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   // Выбор всех товаров
   const toggleSelectAll = () => {
