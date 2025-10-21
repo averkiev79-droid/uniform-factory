@@ -502,6 +502,19 @@ export const ProductsManager = () => {
               />
             </div>
 
+            {/* Article */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Артикул</label>
+              <input
+                type="text"
+                value={formData.article}
+                onChange={(e) => handleInputChange('article', e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md font-mono"
+                placeholder="Например: WS-001 или 4A.490E"
+              />
+              <p className="text-xs text-gray-500 mt-1">Уникальный код товара для идентификации</p>
+            </div>
+
             {/* Short Description */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Краткое описание</label>
