@@ -40,6 +40,13 @@ if [ ! -f "avik_uniform.db" ]; then
     python3 -c "from database_sqlite import init_sqlite_database; init_sqlite_database()"
 fi
 
+# Применение миграций (если есть)
+echo "🔄 Проверка миграций..."
+if [ -f "migrate_add_articles_to_products.py" ]; then
+    echo "   Применение миграции: добавление артикулов товарам..."
+    python3 migrate_add_articles_to_products.py
+fi
+
 # Перезапуск backend через supervisor
 echo "🔄 Перезапуск Backend..."
 sudo supervisorctl restart uniform-backend
