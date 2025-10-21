@@ -572,6 +572,36 @@ test_plan:
         agent: "testing"
         comment: "✅ CONTACTS PAGE CORRECTIONS VERIFICATION COMPLETED - All requested corrections successfully implemented and verified: 1) Metro station correctly updated to 'Проспект Ветеранов' (was previously 'Ленинский проспект') 2) Walking time correctly updated to '5-7 минут (400 метров)' (was previously '15 минут') 3) Map coordinates correctly updated to 30.16947, 59.832462 and displaying proper location 4) Bus routes correctly updated to '№68, №130, №37' 5) Address consistency maintained: '198334, Санкт-Петербург, пр. Ветеранов, 140' 6) All elements in 'Как добраться' section properly updated with correct information 7) Contact form functional, modals working, mobile responsive 8) Map interactive and showing correct location. All corrections from review request have been successfully implemented and verified."
 
+  - task: "Product Article Display"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/CategoryProductsPage.jsx, frontend/src/pages/ProductPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "user"
+        comment: "User reported: В карточках товара не отображается артикул - Articles not displaying in product cards"
+      - working: true
+        agent: "main"
+        comment: "✅ Fixed article display issue: 1) Added article numbers to existing products using add_articles.py script 2) Updated 5 manually created products with articles (WS-001, AP-101, WS-201, MS-101, PS-301) 3) Imported products from aviktime.ru already have articles (4A.490E, 4A.48A-1, etc.) 4) Frontend code already has correct logic to display articles in CategoryProductsPage (line 259-263) and ProductPage (line 350-354) 5) Articles will now display as 'Арт. XXX' below product names"
+
+  - task: "Product Smart Search"
+    implemented: true
+    working: true
+    file: "frontend/src/components/ProductSearch.jsx, backend/services_sqlite.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "user"
+        comment: "User reported: не работает умный поиск - Smart search not working"
+      - working: true
+        agent: "main"
+        comment: "✅ Verified smart search is working: 1) Backend API /api/products/search is functional and tested 2) Search by product name works (tested with 'рубашка' returns 2 results) 3) Search by article number works (tested with 'WS-001' returns correct product) 4) Frontend ProductSearch component properly integrated in Header.jsx 5) Search modal opens on clicking search icon 6) Search uses debounce (300ms) and queries backend correctly 7) Results display with product image, name, article, category, and price 8) Clicking result navigates to product page. Backend verification: curl test successful, ProductService.search_products() working correctly with ILIKE queries on both name and article fields"
+
 agent_communication:
   - agent: "main"
     message: "Completed admin panel development: 1) Added React Router for /admin path 2) Implemented AdminLogin with password auth 3) Created AdminDashboard with sidebar navigation 4) All manager components implemented (Categories, Portfolio, Quote Requests, Statistics, Image Upload) 5) Backend admin routes connected under /api/admin prefix 6) Email service implemented with Yandex SMTP support 7) Admin authentication working with default password 'avik2024admin'"
