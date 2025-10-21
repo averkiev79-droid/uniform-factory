@@ -177,6 +177,62 @@ export const ProductsManager = () => {
     }
   };
 
+  // Массовое "Под заказ"
+  const handleBulkOnOrder = async () => {
+    if (selectedProducts.length === 0) {
+      alert('Выберите товары');
+      return;
+    }
+
+    if (!window.confirm(`Установить статус "Под заказ" для ${selectedProducts.length} товаров?`)) {
+      return;
+    }
+
+    try {
+      await Promise.all(
+        selectedProducts.map(productId =>
+          axios.patch(`${BACKEND_URL}/api/admin/products/${productId}`, {
+            on_order: true
+          })
+        )
+      );
+      alert('Статус "Под заказ" установлен');
+      setSelectedProducts([]);
+      fetchProducts();
+    } catch (error) {
+      console.error('Error setting on_order:', error);
+      alert('Ошибка при установке статуса');
+    }
+  };
+
+  // Массовое "Популярное"
+  const handleBulkFeatured = async () => {
+    if (selectedProducts.length === 0) {
+      alert('Выберите товары');
+      return;
+    }
+
+    if (!window.confirm(`Отметить ${selectedProducts.length} товаров как "Популярные"?`)) {
+      return;
+    }
+
+    try {
+      await Promise.all(
+        selectedProducts.map(productId =>
+          axios.patch(`${BACKEND_URL}/api/admin/products/${productId}`, {
+            featured: true
+          })
+        )
+      );
+      alert('Товары отмечены как популярные');
+      setSelectedProducts([]);
+      fetchProducts();
+    } catch (error) {
+      console.error('Error setting featured:', error);
+      alert('Ошибка при установке статуса');
+    }
+  };
+
   const handleCreate = () => {
     setCurrentProduct(null);
     setFormData({
