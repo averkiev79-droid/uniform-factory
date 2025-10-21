@@ -17,6 +17,7 @@ export const ProductsManager = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10); // Товаров на странице
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [formData, setFormData] = useState({
     category_id: '',
     name: '',
