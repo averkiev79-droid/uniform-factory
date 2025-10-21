@@ -48,6 +48,9 @@ const ProductSearch = ({ onClose }) => {
   }, [query]);
 
   const handleProductClick = (productId) => {
+    // Сохраняем поисковый запрос для показа похожих товаров
+    sessionStorage.setItem('searchQuery', query);
+    sessionStorage.setItem('searchResults', JSON.stringify(results));
     navigate(`/product/${productId}`);
     setQuery('');
     setShowResults(false);
