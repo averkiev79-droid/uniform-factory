@@ -111,7 +111,7 @@ export const ProductsManager = () => {
     try {
       await Promise.all(
         selectedProducts.map(productId =>
-          axios.put(`${BACKEND_URL}/api/admin/products/${productId}`, {
+          axios.patch(`${BACKEND_URL}/api/admin/products/${productId}`, {
             is_available: true
           })
         )
@@ -139,7 +139,7 @@ export const ProductsManager = () => {
     try {
       await Promise.all(
         selectedProducts.map(productId =>
-          axios.put(`${BACKEND_URL}/api/admin/products/${productId}`, {
+          axios.patch(`${BACKEND_URL}/api/admin/products/${productId}`, {
             is_available: false
           })
         )
