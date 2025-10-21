@@ -1,19 +1,762 @@
 [
   {
+    "endpoint": "/products/search (рубашка)",
+    "method": "GET",
+    "success": true,
+    "details": "Found 2 products by Russian name, article present: WS-001",
+    "response_data": {
+      "count": 2,
+      "sample_article": "WS-001"
+    },
+    "timestamp": "2025-10-21 05:46:47"
+  },
+  {
+    "endpoint": "/products/search (WS-001)",
+    "method": "GET",
+    "success": true,
+    "details": "Found product by manual article WS-001: Белая рубашка для официантов",
+    "response_data": {
+      "id": "b50f2809-2eb5-45ff-9c64-5913409107aa",
+      "category_id": "1",
+      "category_name": "Униформа для ресторанов и отелей",
+      "name": "Белая рубашка для официантов",
+      "article": "WS-001",
+      "description": "Классическая белая рубашка из премиум хлопка с добавлением эластана для комфорта в течение всей смены. Приталенный крой подчеркивает профессионализм персонала.",
+      "short_description": "Классическая белая рубашка из премиум хлопка",
+      "price_from": 1500,
+      "price_to": 2200,
+      "material": "Хлопок 95%, Эластан 5%",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "белый"
+      ],
+      "is_available": true,
+      "featured": true,
+      "views_count": 6,
+      "images": [],
+      "characteristics": [],
+      "created_at": "2025-10-18T11:39:41.555978",
+      "updated_at": "2025-10-21T05:41:38.733729"
+    },
+    "timestamp": "2025-10-21 05:46:47"
+  },
+  {
+    "endpoint": "/products/search (4A.490E)",
+    "method": "GET",
+    "success": true,
+    "details": "Found product by imported article 4A.490E: Блуза женская",
+    "response_data": {
+      "id": "50594cef-2aba-4e98-a390-e41243c41604",
+      "category_id": "1",
+      "category_name": "Униформа для ресторанов и отелей",
+      "name": "Блуза женская",
+      "article": "4A.490E",
+      "description": "Подробную информацию о модели, размерах и составе ткани уточняйте у менеджера.",
+      "short_description": null,
+      "price_from": 0,
+      "price_to": null,
+      "material": "",
+      "sizes": [],
+      "colors": [],
+      "is_available": true,
+      "featured": false,
+      "views_count": 0,
+      "images": [],
+      "characteristics": [
+        {
+          "id": "bab2a9c7-1f30-4c8d-a035-4b72b1d30329",
+          "name": "Состав",
+          "value": "Информация о составе доступна у менеджера",
+          "order": 1
+        }
+      ],
+      "created_at": "2025-10-20T15:33:16.947772",
+      "updated_at": "2025-10-20T16:06:15.445896"
+    },
+    "timestamp": "2025-10-21 05:46:47"
+  },
+  {
+    "endpoint": "/products/search (limit=2)",
+    "method": "GET",
+    "success": true,
+    "details": "Limit parameter working correctly, returned 2 results (≤2)",
+    "response_data": {
+      "count": 2,
+      "limit_requested": 2
+    },
+    "timestamp": "2025-10-21 05:46:47"
+  },
+  {
+    "endpoint": "/products/search (empty)",
+    "method": "GET",
+    "success": true,
+    "details": "Empty search results handled correctly",
+    "response_data": [],
+    "timestamp": "2025-10-21 05:46:47"
+  },
+  {
+    "endpoint": "/products (articles check)",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 176 products, 173 have articles, 3 without. Sample articles: ['WS-001', 'AP-101', 'WS-201']",
+    "response_data": {
+      "total": 176,
+      "with_articles": 173,
+      "sample_articles": [
+        "WS-001",
+        "AP-101",
+        "WS-201"
+      ]
+    },
+    "timestamp": "2025-10-21 05:46:47"
+  },
+  {
+    "endpoint": "/products/category/1 (articles)",
+    "method": "GET",
+    "success": true,
+    "details": "Category 1 has 84 products, 84 have articles. Sample: ['WS-001', 'AP-101']",
+    "response_data": {
+      "total": 84,
+      "with_articles": 84,
+      "sample_articles": [
+        "WS-001",
+        "AP-101"
+      ]
+    },
+    "timestamp": "2025-10-21 05:46:47"
+  },
+  {
+    "endpoint": "/products/b50f2809-2eb5-45ff-9c64-5913409107aa (article)",
+    "method": "GET",
+    "success": false,
+    "details": "Missing required fields: ['article']",
+    "response_data": {
+      "id": "b50f2809-2eb5-45ff-9c64-5913409107aa",
+      "category_id": "1",
+      "category_name": "Униформа для ресторанов и отелей",
+      "name": "Белая рубашка для официантов",
+      "description": "Классическая белая рубашка из премиум хлопка с добавлением эластана для комфорта в течение всей смены. Приталенный крой подчеркивает профессионализм персонала.",
+      "short_description": "Классическая белая рубашка из премиум хлопка",
+      "price_from": 1500,
+      "price_to": 2200,
+      "material": "Хлопок 95%, Эластан 5%",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "белый"
+      ],
+      "is_available": true,
+      "featured": true,
+      "images": [],
+      "characteristics": [],
+      "created_at": "2025-10-18T11:39:41.555978",
+      "updated_at": "2025-10-21T05:41:38.733729"
+    },
+    "timestamp": "2025-10-21 05:46:47"
+  },
+  {
+    "endpoint": "/products (article patterns)",
+    "method": "GET",
+    "success": true,
+    "details": "Article patterns verified: 5 manual (WS-001 style), 155 imported (4A.490E style), 13 invalid",
+    "response_data": {
+      "manual_samples": [
+        "WS-001",
+        "AP-101",
+        "WS-201"
+      ],
+      "imported_samples": [
+        "4A.48A-1",
+        "4A.490E",
+        "4A.48B"
+      ],
+      "invalid_samples": [
+        "1837",
+        "2508",
+        "1836"
+      ]
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/health",
+    "method": "GET",
+    "success": true,
+    "details": "Health check passed - Status: healthy, Service: uniform-factory-api",
+    "response_data": {
+      "status": "healthy",
+      "service": "uniform-factory-api",
+      "database": "sqlite"
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/categories",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 6 categories successfully",
+    "response_data": {
+      "count": 6,
+      "sample": {
+        "id": "1",
+        "title": "Униформа для ресторанов и отелей",
+        "description": "Профессиональная одежда для сферы HoReCa",
+        "image": "/api/uploads/e8ef47cd-8137-4b54-8068-8bea57939cab.png",
+        "products_count": 120,
+        "slug": "restaurants-hotels",
+        "created_at": "2025-10-18T11:39:41.554203",
+        "updated_at": "2025-10-18T12:19:34.539730"
+      }
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/portfolio",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 6 portfolio items successfully",
+    "response_data": {
+      "count": 6,
+      "sample": {
+        "id": "1",
+        "company": "Сбербанк",
+        "description": "Деловые костюмы для сотрудников банка",
+        "image": "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500&h=400&fit=crop",
+        "category": "Банки",
+        "items_count": 2500,
+        "year": 2023,
+        "created_at": "2025-10-18T11:39:41.553468",
+        "updated_at": "2025-10-18T11:39:41.553470"
+      }
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/calculator/options",
+    "method": "GET",
+    "success": true,
+    "details": "Calculator options retrieved: {'categories': 6, 'quantities': 5, 'fabrics': 4, 'branding': 4}",
+    "response_data": {
+      "categories": [
+        {
+          "id": "shirts",
+          "name": "Рубашки/Блузы",
+          "base_price": 1200
+        },
+        {
+          "id": "suits",
+          "name": "Костюмы",
+          "base_price": 3500
+        },
+        {
+          "id": "dresses",
+          "name": "Платья",
+          "base_price": 2100
+        },
+        {
+          "id": "aprons",
+          "name": "Фартуки",
+          "base_price": 800
+        },
+        {
+          "id": "jackets",
+          "name": "Жакеты/Пиджаки",
+          "base_price": 2800
+        },
+        {
+          "id": "workwear",
+          "name": "Спецодежда",
+          "base_price": 1800
+        }
+      ],
+      "quantities": [
+        {
+          "range": "1-10",
+          "multiplier": 1.5
+        },
+        {
+          "range": "11-50",
+          "multiplier": 1.2
+        },
+        {
+          "range": "51-100",
+          "multiplier": 1.1
+        },
+        {
+          "range": "101-500",
+          "multiplier": 1.0
+        },
+        {
+          "range": "501+",
+          "multiplier": 0.9
+        }
+      ],
+      "fabrics": [
+        {
+          "id": "cotton",
+          "name": "Хлопок",
+          "multiplier": 1.0
+        },
+        {
+          "id": "polyester",
+          "name": "Полиэстер",
+          "multiplier": 0.8
+        },
+        {
+          "id": "wool",
+          "name": "Шерсть",
+          "multiplier": 1.4
+        },
+        {
+          "id": "premium",
+          "name": "Премиум ткани",
+          "multiplier": 1.8
+        }
+      ],
+      "branding": [
+        {
+          "id": "none",
+          "name": "Без нанесения",
+          "price": 0
+        },
+        {
+          "id": "embroidery",
+          "name": "Вышивка",
+          "price": 150
+        },
+        {
+          "id": "print",
+          "name": "Печать",
+          "price": 80
+        },
+        {
+          "id": "both",
+          "name": "Вышивка + Печать",
+          "price": 200
+        }
+      ]
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/calculator/estimate",
+    "method": "POST",
+    "success": true,
+    "details": "Estimate calculated: 1470 руб.",
+    "response_data": {
+      "estimated_price": 1470,
+      "breakdown": {
+        "basePrice": 1200,
+        "quantityMultiplier": 1.1,
+        "fabricMultiplier": 1.0,
+        "brandingPrice": 150
+      }
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/calculator/quote-request",
+    "method": "POST",
+    "success": true,
+    "details": "Quote request created: REQ-2025-5C5890",
+    "response_data": {
+      "success": true,
+      "request_id": "REQ-2025-5C5890",
+      "message": "Заявка принята. Мы свяжемся с вами в течение 2 часов."
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/contact/callback-request",
+    "method": "POST",
+    "success": true,
+    "details": "Callback request created successfully",
+    "response_data": {
+      "success": true,
+      "message": "Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут."
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/testimonials",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 3 testimonials successfully",
+    "response_data": {
+      "count": 3,
+      "sample": {
+        "id": "1",
+        "company": "ООО 'Премиум Отели'",
+        "text": "Сотрудничаем с AVIK уже 3 года. Качество униформы превосходное, сотрудники довольны комфортом и внешним видом.",
+        "author": "Анна Петрова",
+        "position": "Директор по закупкам",
+        "rating": 5,
+        "created_at": "2025-10-18T11:39:41.555182",
+        "updated_at": "2025-10-18T11:39:41.555183"
+      }
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/statistics",
+    "method": "GET",
+    "success": true,
+    "details": "Statistics retrieved successfully",
+    "response_data": {
+      "id": "1",
+      "years_in_business": 15,
+      "completed_orders": 2500,
+      "happy_clients": 850,
+      "cities": 45,
+      "updated_at": "2025-10-20T07:45:58.395113"
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/calculator/estimate (invalid)",
+    "method": "POST",
+    "success": true,
+    "details": "Correctly rejected invalid data: {\"detail\":\"Invalid calculator parameters\"}",
+    "response_data": null,
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/calculator/quote-request (incomplete)",
+    "method": "POST",
+    "success": true,
+    "details": "Correctly rejected incomplete data: validation error",
+    "response_data": null,
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/contact/consultation (FIXED)",
+    "method": "POST",
+    "success": true,
+    "details": "Consultation form working after fix - Success: True, Message: Заявка на консультацию принята. Мы свяжемся с вами в течение 2 часов.",
+    "response_data": {
+      "success": true,
+      "message": "Заявка на консультацию принята. Мы свяжемся с вами в течение 2 часов."
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/contact/callback-request (FIXED)",
+    "method": "POST",
+    "success": true,
+    "details": "Callback request form working after fix - Success: True, Message: Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут.",
+    "response_data": {
+      "success": true,
+      "message": "Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут."
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/contact/quote-request (FIXED)",
+    "method": "POST",
+    "success": true,
+    "details": "Quote request form working after fix - Success: True, Request ID: REQ-2025-0DA7F9, Message: Заявка принята. Мы свяжемся с вами в течение 2 часов.",
+    "response_data": {
+      "success": true,
+      "request_id": "REQ-2025-0DA7F9",
+      "message": "Заявка принята. Мы свяжемся с вами в течение 2 часов."
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/login",
+    "method": "POST",
+    "success": true,
+    "details": "Admin login successful with token: admin-authenticated",
+    "response_data": {
+      "success": true,
+      "token": "admin-authenticated"
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/login (invalid)",
+    "method": "POST",
+    "success": true,
+    "details": "Correctly rejected invalid password: {\"detail\":\"Invalid password\"}",
+    "response_data": null,
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/categories",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 6 admin categories successfully",
+    "response_data": {
+      "count": 6
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/categories",
+    "method": "POST",
+    "success": true,
+    "details": "Category created successfully with ID: 85c1093e-35d8-4fc5-834e-03319f184a78",
+    "response_data": {
+      "success": true,
+      "id": "85c1093e-35d8-4fc5-834e-03319f184a78"
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/categories/{id}",
+    "method": "PUT",
+    "success": true,
+    "details": "Category updated successfully",
+    "response_data": {
+      "success": true
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/categories/{id}",
+    "method": "DELETE",
+    "success": true,
+    "details": "Category deleted successfully",
+    "response_data": {
+      "success": true
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/portfolio",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 6 admin portfolio items successfully",
+    "response_data": {
+      "count": 6
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/portfolio",
+    "method": "POST",
+    "success": true,
+    "details": "Portfolio item created successfully with ID: 521ba918-421e-4ecb-8e1f-ae98164524eb",
+    "response_data": {
+      "success": true,
+      "id": "521ba918-421e-4ecb-8e1f-ae98164524eb"
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/portfolio/{id}",
+    "method": "PUT",
+    "success": true,
+    "details": "Portfolio item updated successfully",
+    "response_data": {
+      "success": true
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/portfolio/{id}",
+    "method": "DELETE",
+    "success": true,
+    "details": "Portfolio item deleted successfully",
+    "response_data": {
+      "success": true
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/quote-requests",
+    "method": "GET",
+    "success": true,
+    "details": "Retrieved 4 quote requests successfully",
+    "response_data": {
+      "count": 4
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/quote-requests/{id}/status",
+    "method": "PUT",
+    "success": true,
+    "details": "Quote status updated successfully",
+    "response_data": {
+      "success": true
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/statistics",
+    "method": "GET",
+    "success": true,
+    "details": "Admin statistics retrieved successfully",
+    "response_data": {
+      "id": "1",
+      "years_in_business": 15,
+      "completed_orders": 2500,
+      "happy_clients": 850,
+      "cities": 45,
+      "updated_at": "2025-10-20T07:45:58.395113"
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/statistics",
+    "method": "PUT",
+    "success": true,
+    "details": "Statistics updated successfully",
+    "response_data": {
+      "success": true
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/upload-image",
+    "method": "POST",
+    "success": true,
+    "details": "Image uploaded successfully: /api/uploads/6dca4f9a-82d1-4712-8ded-71a90eb8687b.jpg",
+    "response_data": {
+      "success": true,
+      "url": "/api/uploads/6dca4f9a-82d1-4712-8ded-71a90eb8687b.jpg"
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/settings",
+    "method": "GET",
+    "success": true,
+    "details": "Public settings retrieved successfully with hero_image: /images/hero-main.jpg",
+    "response_data": {
+      "id": "default",
+      "hero_image": "/images/hero-main.jpg",
+      "hero_mobile_image": "/images/mobile-integration.jpg",
+      "about_image": "/images/about-factory.jpg",
+      "updated_at": "2025-10-20T07:45:58.580018"
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/settings",
+    "method": "GET",
+    "success": true,
+    "details": "Admin settings retrieved successfully",
+    "response_data": {
+      "id": "default",
+      "hero_image": "/images/hero-main.jpg",
+      "hero_mobile_image": "/images/mobile-integration.jpg",
+      "about_image": "/images/about-factory.jpg",
+      "updated_at": "2025-10-20T07:45:58.580018"
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/settings (hero_image)",
+    "method": "PUT",
+    "success": true,
+    "details": "Hero image updated successfully to: /images/new-hero.jpg",
+    "response_data": {
+      "success": true,
+      "message": "Настройки обновлены",
+      "settings": {
+        "id": "default",
+        "hero_image": "/images/new-hero.jpg",
+        "hero_mobile_image": "/images/mobile-integration.jpg",
+        "about_image": "/images/about-factory.jpg",
+        "updated_at": "2025-10-21T05:46:48.699298"
+      }
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/settings (persistence check)",
+    "method": "GET",
+    "success": true,
+    "details": "Hero image persisted correctly",
+    "response_data": {
+      "id": "default",
+      "hero_image": "/images/new-hero.jpg",
+      "hero_mobile_image": "/images/mobile-integration.jpg",
+      "about_image": "/images/about-factory.jpg",
+      "updated_at": "2025-10-21T05:46:48.699298"
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/settings (all_fields)",
+    "method": "PUT",
+    "success": true,
+    "details": "All fields updated successfully",
+    "response_data": {
+      "success": true,
+      "message": "Настройки обновлены",
+      "settings": {
+        "id": "default",
+        "hero_image": "/images/hero-updated.jpg",
+        "hero_mobile_image": "/images/hero-mobile.jpg",
+        "about_image": "/images/about-updated.jpg",
+        "updated_at": "2025-10-21T05:46:48.759585"
+      }
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/settings (integration)",
+    "method": "GET",
+    "success": true,
+    "details": "Public endpoint correctly reflects admin changes",
+    "response_data": {
+      "id": "default",
+      "hero_image": "/images/integration-test.jpg",
+      "hero_mobile_image": "/images/mobile-integration.jpg",
+      "about_image": "/images/about-integration.jpg",
+      "updated_at": "2025-10-21T05:46:48.816035"
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
+    "endpoint": "/admin/settings (empty_data)",
+    "method": "PUT",
+    "success": true,
+    "details": "Gracefully handled empty data",
+    "response_data": {
+      "success": true,
+      "message": "Настройки обновлены",
+      "settings": {
+        "id": "default",
+        "hero_image": "/images/integration-test.jpg",
+        "hero_mobile_image": "/images/mobile-integration.jpg",
+        "about_image": "/images/about-integration.jpg",
+        "updated_at": "2025-10-21T05:46:48.835982"
+      }
+    },
+    "timestamp": "2025-10-21 05:46:48"
+  },
+  {
     "endpoint": "/admin/uploaded-files",
     "method": "GET",
     "success": true,
-    "details": "Retrieved 14 uploaded files successfully",
+    "details": "Retrieved 8 uploaded files successfully",
     "response_data": {
-      "count": 14,
+      "count": 8,
       "sample": {
-        "filename": "9a26567a-8ece-4482-8cab-e159e5ce1a73.jpg",
-        "size": 37,
-        "modified": 1760946358.434522,
-        "url": "/api/uploads/9a26567a-8ece-4482-8cab-e159e5ce1a73.jpg"
+        "filename": "b36231bf-261d-451e-818c-2d4389f5da95.png",
+        "size": 2482937,
+        "modified": 1760781874.611104,
+        "url": "/api/uploads/b36231bf-261d-451e-818c-2d4389f5da95.png"
       }
     },
-    "timestamp": "2025-10-20 07:46:52"
+    "timestamp": "2025-10-21 05:46:48"
   },
   {
     "endpoint": "/admin/uploaded-files (structure)",
@@ -21,23 +764,23 @@
     "success": true,
     "details": "File structure valid: ['filename', 'size', 'modified', 'url']",
     "response_data": {
-      "filename": "9a26567a-8ece-4482-8cab-e159e5ce1a73.jpg",
-      "size": 37,
-      "modified": 1760946358.434522,
-      "url": "/api/uploads/9a26567a-8ece-4482-8cab-e159e5ce1a73.jpg"
+      "filename": "b36231bf-261d-451e-818c-2d4389f5da95.png",
+      "size": 2482937,
+      "modified": 1760781874.611104,
+      "url": "/api/uploads/b36231bf-261d-451e-818c-2d4389f5da95.png"
     },
-    "timestamp": "2025-10-20 07:46:52"
+    "timestamp": "2025-10-21 05:46:48"
   },
   {
     "endpoint": "/admin/upload-image (valid)",
     "method": "POST",
     "success": true,
-    "details": "Valid image uploaded successfully: /api/uploads/e750ec22-8a13-4c16-8113-21f4156bb2ef.jpg",
+    "details": "Valid image uploaded successfully: /api/uploads/e7df3304-fda2-4f8a-b2c3-c6fb31d0aacc.jpg",
     "response_data": {
       "success": true,
-      "url": "/api/uploads/e750ec22-8a13-4c16-8113-21f4156bb2ef.jpg"
+      "url": "/api/uploads/e7df3304-fda2-4f8a-b2c3-c6fb31d0aacc.jpg"
     },
-    "timestamp": "2025-10-20 07:46:52"
+    "timestamp": "2025-10-21 05:46:48"
   },
   {
     "endpoint": "/admin/upload-image (large_file)",
@@ -45,23 +788,23 @@
     "success": true,
     "details": "Correctly rejected large file (>10MB): {\"detail\":\"Файл слишком большой. Максимальный размер: 10MB\"}",
     "response_data": null,
-    "timestamp": "2025-10-20 07:46:52"
+    "timestamp": "2025-10-21 05:46:49"
   },
   {
     "endpoint": "/admin/upload-image (non_image)",
     "method": "POST",
     "success": true,
-    "details": "Correctly rejected non-image file: {\"detail\":\"Недопустимый тип файла. Разрешены: .webp, .jpeg, .png, .jpg, .gif\"}",
+    "details": "Correctly rejected non-image file: {\"detail\":\"Недопустимый тип файла. Разрешены: .jpg, .gif, .webp, .jpeg, .png\"}",
     "response_data": null,
-    "timestamp": "2025-10-20 07:46:52"
+    "timestamp": "2025-10-21 05:46:49"
   },
   {
     "endpoint": "/health (rate_limit_headers)",
     "method": "GET",
     "success": true,
-    "details": "Rate limit headers present: Limit=60, Remaining=38, Reset=1760946472",
+    "details": "Rate limit headers present: Limit=60, Remaining=48, Reset=1761025669",
     "response_data": null,
-    "timestamp": "2025-10-20 07:46:52"
+    "timestamp": "2025-10-21 05:46:49"
   },
   {
     "endpoint": "/health (rate_limiting)",
@@ -69,7 +812,7 @@
     "success": true,
     "details": "Rate limiting mechanism active - headers confirm implementation working (Limit: 60 req/min)",
     "response_data": null,
-    "timestamp": "2025-10-20 07:46:52"
+    "timestamp": "2025-10-21 05:46:49"
   },
   {
     "endpoint": "/contact/consultation (invalid_email)",
@@ -77,7 +820,7 @@
     "success": true,
     "details": "Correctly rejected invalid email format: {\"detail\":[{\"type\":\"value_error\",\"loc\":[\"body\",\"email\"],\"msg\":\"Value error, Недопустимый формат email\",\"input\":\"invalid-email-format\",\"ctx\":{\"error\":{}},\"url\":\"https://errors.pydantic.dev/2.11/v/value_error\"}]}",
     "response_data": null,
-    "timestamp": "2025-10-20 07:46:52"
+    "timestamp": "2025-10-21 05:46:49"
   },
   {
     "endpoint": "/contact/consultation (invalid_phone)",
@@ -85,7 +828,7 @@
     "success": true,
     "details": "Correctly rejected invalid phone format: {\"detail\":[{\"type\":\"value_error\",\"loc\":[\"body\",\"phone\"],\"msg\":\"Value error, Недопустимый формат телефона\",\"input\":\"123\",\"ctx\":{\"error\":{}},\"url\":\"https://errors.pydantic.dev/2.11/v/value_error\"}]}",
     "response_data": null,
-    "timestamp": "2025-10-20 07:46:52"
+    "timestamp": "2025-10-21 05:46:49"
   },
   {
     "endpoint": "/contact/callback-request (valid)",
@@ -93,7 +836,7 @@
     "success": true,
     "details": "Valid callback request processed successfully: Заявка на обратный звонок принята. Мы перезвоним в течение 15 минут.",
     "response_data": null,
-    "timestamp": "2025-10-20 07:46:52"
+    "timestamp": "2025-10-21 05:46:49"
   },
   {
     "endpoint": "/health (security_headers)",
@@ -107,15 +850,15 @@
       "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
       "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://mc.yandex.ru; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: http:; font-src 'self' https://fonts.gstatic.com; frame-src 'self' https://yandex.ru https://mc.yandex.ru; connect-src 'self' https://mc.yandex.ru"
     },
-    "timestamp": "2025-10-20 07:46:52"
+    "timestamp": "2025-10-21 05:46:49"
   },
   {
     "endpoint": "/admin/uploaded-files/{filename}",
     "method": "DELETE",
     "success": true,
-    "details": "File deleted successfully: e750ec22-8a13-4c16-8113-21f4156bb2ef.jpg",
+    "details": "File deleted successfully: e7df3304-fda2-4f8a-b2c3-c6fb31d0aacc.jpg",
     "response_data": null,
-    "timestamp": "2025-10-20 07:46:53"
+    "timestamp": "2025-10-21 05:46:49"
   },
   {
     "endpoint": "/admin/uploaded-files (delete_verification)",
@@ -123,6 +866,6 @@
     "success": true,
     "details": "File deletion verified - file no longer in list",
     "response_data": null,
-    "timestamp": "2025-10-20 07:46:53"
+    "timestamp": "2025-10-21 05:46:49"
   }
 ]
