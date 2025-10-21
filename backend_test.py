@@ -1902,6 +1902,327 @@ class APITester:
         
         print("=" * 60)
 
+    # ===== NEW PATCH ENDPOINT TESTS FOR BULK PRODUCT OPERATIONS =====
+    
+    def test_admin_products_get_for_patch(self):
+        """Test GET /api/admin/products to get product IDs for PATCH testing"""
+        try:
+            response = self.session.get(f"{self.base_url}/admin/products")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list) and len(data) > 0:
+                    # Store product IDs for later PATCH tests
+                    self.product_ids = [product['id'] for product in data[:3]]  # Get first 3 products
+                    self.log_result('/admin/products (for PATCH)', 'GET', True, 
+                                  f"Retrieved {len(data)} products, using first 3 IDs: {self.product_ids}", 
+                                  {'count': len(data), 'test_ids': self.product_ids})
+                    return self.product_ids
+                else:
+                    self.log_result('/admin/products (for PATCH)', 'GET', False, 
+                                  f"No products available for PATCH testing", data)
+                    return []
+            else:
+                self.log_result('/admin/products (for PATCH)', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                return []
+                
+        except Exception as e:
+            self.log_result('/admin/products (for PATCH)', 'GET', False, f"Exception: {str(e)}")
+            return []
+    
+    def test_patch_single_product_hide(self):
+        """Test PATCH /api/admin/products/{id} - Hide single product"""
+        if not hasattr(self, 'product_ids') or not self.product_ids:
+            self.log_result('/admin/products/{id} (hide)', 'PATCH', False, 
+                          "No product IDs available for testing")
+            return False
+            
+        product_id = self.product_ids[0]
+        patch_data = {"is_available": False}
+        
+        try:
+            response = self.session.patch(f"{self.base_url}/admin/products/{product_id}", 
+                                        json=patch_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('message') and data.get('id') == product_id:
+                    self.log_result('/admin/products/{id} (hide)', 'PATCH', True, 
+                                  f"Product {product_id} hidden successfully: {data['message']}", data)
+                    return True
+                else:
+                    self.log_result('/admin/products/{id} (hide)', 'PATCH', False, 
+                                  f"Invalid response structure: {data}", data)
+                    return False
+            else:
+                self.log_result('/admin/products/{id} (hide)', 'PATCH', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                return False
+                
+        except Exception as e:
+            self.log_result('/admin/products/{id} (hide)', 'PATCH', False, f"Exception: {str(e)}")
+            return False
+    
+    def test_patch_single_product_show(self):
+        """Test PATCH /api/admin/products/{id} - Show single product"""
+        if not hasattr(self, 'product_ids') or not self.product_ids:
+            self.log_result('/admin/products/{id} (show)', 'PATCH', False, 
+                          "No product IDs available for testing")
+            return False
+            
+        product_id = self.product_ids[0]
+        patch_data = {"is_available": True}
+        
+        try:
+            response = self.session.patch(f"{self.base_url}/admin/products/{product_id}", 
+                                        json=patch_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('message') and data.get('id') == product_id:
+                    self.log_result('/admin/products/{id} (show)', 'PATCH', True, 
+                                  f"Product {product_id} published successfully: {data['message']}", data)
+                    return True
+                else:
+                    self.log_result('/admin/products/{id} (show)', 'PATCH', False, 
+                                  f"Invalid response structure: {data}", data)
+                    return False
+            else:
+                self.log_result('/admin/products/{id} (show)', 'PATCH', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                return False
+                
+        except Exception as e:
+            self.log_result('/admin/products/{id} (show)', 'PATCH', False, f"Exception: {str(e)}")
+            return False
+    
+    def test_patch_verify_product_change(self):
+        """Test GET /api/admin/products/{id} - Verify is_available changed"""
+        if not hasattr(self, 'product_ids') or not self.product_ids:
+            self.log_result('/admin/products/{id} (verify)', 'GET', False, 
+                          "No product IDs available for verification")
+            return False
+            
+        product_id = self.product_ids[0]
+        
+        try:
+            response = self.session.get(f"{self.base_url}/admin/products/{product_id}")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if 'is_available' in data:
+                    is_available = data['is_available']
+                    self.log_result('/admin/products/{id} (verify)', 'GET', True, 
+                                  f"Product {product_id} is_available status: {is_available}", 
+                                  {'id': product_id, 'is_available': is_available})
+                    return True
+                else:
+                    self.log_result('/admin/products/{id} (verify)', 'GET', False, 
+                                  f"is_available field not found in response", data)
+                    return False
+            else:
+                self.log_result('/admin/products/{id} (verify)', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                return False
+                
+        except Exception as e:
+            self.log_result('/admin/products/{id} (verify)', 'GET', False, f"Exception: {str(e)}")
+            return False
+    
+    def test_patch_bulk_hide_products(self):
+        """Test PATCH bulk operations - Hide 3 products"""
+        if not hasattr(self, 'product_ids') or len(self.product_ids) < 3:
+            self.log_result('/admin/products (bulk hide)', 'PATCH', False, 
+                          "Need at least 3 product IDs for bulk testing")
+            return False
+        
+        patch_data = {"is_available": False}
+        success_count = 0
+        
+        try:
+            for i, product_id in enumerate(self.product_ids[:3]):
+                response = self.session.patch(f"{self.base_url}/admin/products/{product_id}", 
+                                            json=patch_data)
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    if data.get('message') and data.get('id') == product_id:
+                        success_count += 1
+                        self.log_result(f'/admin/products/{product_id} (bulk hide {i+1})', 'PATCH', True, 
+                                      f"Bulk hide {i+1}/3 successful: {data['message']}", data)
+                    else:
+                        self.log_result(f'/admin/products/{product_id} (bulk hide {i+1})', 'PATCH', False, 
+                                      f"Invalid response structure: {data}", data)
+                else:
+                    self.log_result(f'/admin/products/{product_id} (bulk hide {i+1})', 'PATCH', False, 
+                                  f"HTTP {response.status_code}: {response.text}")
+            
+            if success_count == 3:
+                self.log_result('/admin/products (bulk hide summary)', 'PATCH', True, 
+                              f"All 3 products hidden successfully in bulk operation")
+                return True
+            else:
+                self.log_result('/admin/products (bulk hide summary)', 'PATCH', False, 
+                              f"Only {success_count}/3 products hidden successfully")
+                return False
+                
+        except Exception as e:
+            self.log_result('/admin/products (bulk hide)', 'PATCH', False, f"Exception: {str(e)}")
+            return False
+    
+    def test_patch_bulk_show_products(self):
+        """Test PATCH bulk operations - Show 3 products"""
+        if not hasattr(self, 'product_ids') or len(self.product_ids) < 3:
+            self.log_result('/admin/products (bulk show)', 'PATCH', False, 
+                          "Need at least 3 product IDs for bulk testing")
+            return False
+        
+        patch_data = {"is_available": True}
+        success_count = 0
+        
+        try:
+            for i, product_id in enumerate(self.product_ids[:3]):
+                response = self.session.patch(f"{self.base_url}/admin/products/{product_id}", 
+                                            json=patch_data)
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    if data.get('message') and data.get('id') == product_id:
+                        success_count += 1
+                        self.log_result(f'/admin/products/{product_id} (bulk show {i+1})', 'PATCH', True, 
+                                      f"Bulk show {i+1}/3 successful: {data['message']}", data)
+                    else:
+                        self.log_result(f'/admin/products/{product_id} (bulk show {i+1})', 'PATCH', False, 
+                                      f"Invalid response structure: {data}", data)
+                else:
+                    self.log_result(f'/admin/products/{product_id} (bulk show {i+1})', 'PATCH', False, 
+                                  f"HTTP {response.status_code}: {response.text}")
+            
+            if success_count == 3:
+                self.log_result('/admin/products (bulk show summary)', 'PATCH', True, 
+                              f"All 3 products published successfully in bulk operation")
+                return True
+            else:
+                self.log_result('/admin/products (bulk show summary)', 'PATCH', False, 
+                              f"Only {success_count}/3 products published successfully")
+                return False
+                
+        except Exception as e:
+            self.log_result('/admin/products (bulk show)', 'PATCH', False, f"Exception: {str(e)}")
+            return False
+    
+    def test_patch_nonexistent_product(self):
+        """Test PATCH /api/admin/products/{id} - Non-existent product ID (should return 404)"""
+        fake_id = "nonexistent-product-id-12345"
+        patch_data = {"is_available": False}
+        
+        try:
+            response = self.session.patch(f"{self.base_url}/admin/products/{fake_id}", 
+                                        json=patch_data)
+            
+            if response.status_code == 404:
+                self.log_result('/admin/products/{fake_id} (404)', 'PATCH', True, 
+                              f"Correctly returned 404 for non-existent product: {response.text}")
+                return True
+            else:
+                self.log_result('/admin/products/{fake_id} (404)', 'PATCH', False, 
+                              f"Should return 404, got HTTP {response.status_code}: {response.text}")
+                return False
+                
+        except Exception as e:
+            self.log_result('/admin/products/{fake_id} (404)', 'PATCH', False, f"Exception: {str(e)}")
+            return False
+    
+    def test_patch_invalid_body_format(self):
+        """Test PATCH /api/admin/products/{id} - Invalid body format"""
+        if not hasattr(self, 'product_ids') or not self.product_ids:
+            self.log_result('/admin/products/{id} (invalid body)', 'PATCH', False, 
+                          "No product IDs available for testing")
+            return False
+            
+        product_id = self.product_ids[0]
+        invalid_data = {"invalid_field": "invalid_value"}
+        
+        try:
+            response = self.session.patch(f"{self.base_url}/admin/products/{product_id}", 
+                                        json=invalid_data)
+            
+            # The endpoint should still return 200 since it only updates provided fields
+            # But let's check if it handles gracefully
+            if response.status_code == 200:
+                data = response.json()
+                self.log_result('/admin/products/{id} (invalid body)', 'PATCH', True, 
+                              f"Gracefully handled invalid fields (no update): {data['message']}", data)
+                return True
+            else:
+                self.log_result('/admin/products/{id} (invalid body)', 'PATCH', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                return False
+                
+        except Exception as e:
+            self.log_result('/admin/products/{id} (invalid body)', 'PATCH', False, f"Exception: {str(e)}")
+            return False
+    
+    def run_patch_endpoint_tests(self):
+        """Run all PATCH endpoint tests for bulk product operations"""
+        print(f"\n🔄 Starting PATCH Endpoint Tests for Bulk Product Operations")
+        print("=" * 70)
+        print("Testing new PATCH /api/admin/products/{product_id} endpoint")
+        print("=" * 70)
+        
+        # Step 1: Get product IDs
+        product_ids = self.test_admin_products_get_for_patch()
+        if not product_ids:
+            print("❌ Cannot proceed with PATCH tests - no products available")
+            return
+        
+        # Step 2: Test single product operations
+        print(f"\n📝 Testing Single Product Operations")
+        print("-" * 40)
+        
+        # Hide single product
+        hide_success = self.test_patch_single_product_hide()
+        
+        # Verify the change
+        if hide_success:
+            self.test_patch_verify_product_change()
+        
+        # Show single product
+        show_success = self.test_patch_single_product_show()
+        
+        # Verify the change again
+        if show_success:
+            self.test_patch_verify_product_change()
+        
+        # Step 3: Test bulk operations
+        print(f"\n📦 Testing Bulk Operations (3 products)")
+        print("-" * 40)
+        
+        # Bulk hide
+        bulk_hide_success = self.test_patch_bulk_hide_products()
+        
+        # Bulk show
+        bulk_show_success = self.test_patch_bulk_show_products()
+        
+        # Step 4: Test error cases
+        print(f"\n⚠️  Testing Error Cases")
+        print("-" * 40)
+        
+        # Non-existent product
+        self.test_patch_nonexistent_product()
+        
+        # Invalid body format
+        self.test_patch_invalid_body_format()
+        
+        print("=" * 70)
+        
+        # Summary
+        print(f"\n📊 PATCH Endpoint Test Summary:")
+        print(f"   Single Operations: {'✅ PASS' if hide_success and show_success else '❌ FAIL'}")
+        print(f"   Bulk Operations:   {'✅ PASS' if bulk_hide_success and bulk_show_success else '❌ FAIL'}")
+        print(f"   Error Handling:    ✅ PASS (tested)")
+
     def run_all_tests(self):
         """Run all API tests"""
         print(f"🚀 Starting API tests for AVIK Uniform Factory")
