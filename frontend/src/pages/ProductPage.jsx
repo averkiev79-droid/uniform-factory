@@ -9,6 +9,7 @@ import { apiService } from '../services/api';
 import ProductSchema from '../components/ProductSchema';
 import BreadcrumbSchema from '../components/BreadcrumbSchema';
 import SEO from '../components/SEO';
+import RelatedProducts from '../components/RelatedProducts';
 
 export const ProductPage = () => {
   const { productId } = useParams();
@@ -20,6 +21,10 @@ export const ProductPage = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  
+  // Related products from search
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   
   // Touch swipe state
   const [touchStart, setTouchStart] = useState(null);
