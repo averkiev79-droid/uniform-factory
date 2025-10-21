@@ -425,6 +425,7 @@ async def admin_update_product(product_id: str, product: ProductCreate):
         existing_product.sizes = json.dumps(product.sizes) if product.sizes else None
         existing_product.colors = json.dumps(product.colors) if product.colors else None
         existing_product.is_available = product.is_available
+        existing_product.on_order = product.on_order
         existing_product.featured = product.featured
         existing_product.updated_at = datetime.now(timezone.utc)
         
