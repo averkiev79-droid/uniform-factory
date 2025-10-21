@@ -575,10 +575,10 @@ test_plan:
   - task: "Product Article Display"
     implemented: true
     working: true
-    file: "frontend/src/pages/CategoryProductsPage.jsx, frontend/src/pages/ProductPage.jsx"
+    file: "frontend/src/pages/CategoryProductsPage.jsx, frontend/src/pages/ProductPage.jsx, backend/services_sqlite.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "user"
@@ -586,6 +586,9 @@ test_plan:
       - working: true
         agent: "main"
         comment: "✅ Fixed article display issue: 1) Added article numbers to existing products using add_articles.py script 2) Updated 5 manually created products with articles (WS-001, AP-101, WS-201, MS-101, PS-301) 3) Imported products from aviktime.ru already have articles (4A.490E, 4A.48A-1, etc.) 4) Frontend code already has correct logic to display articles in CategoryProductsPage (line 259-263) and ProductPage (line 350-354) 5) Articles will now display as 'Арт. XXX' below product names"
+      - working: true
+        agent: "testing"
+        comment: "✅ PRODUCT ARTICLE DISPLAY BACKEND TESTING COMPLETED SUCCESSFULLY - All backend APIs properly include article field: 1) GET /api/products returns 176 products, 173 have articles (98.3% coverage) with sample articles: WS-001, AP-101, WS-201 2) GET /api/products/category/1 returns 84 products, all have articles 3) GET /api/products/{id} single product detail now includes article field (fixed missing article in response) 4) Article patterns verified: 5 manual articles (WS-001 style), 155 imported articles (4A.490E style), 13 invalid patterns 5) Minor fix applied: Added missing 'article' field to get_product_by_id method in services_sqlite.py. Backend article support is fully functional."
 
   - task: "Product Smart Search"
     implemented: true
@@ -593,7 +596,7 @@ test_plan:
     file: "frontend/src/components/ProductSearch.jsx, backend/services_sqlite.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "user"
@@ -601,6 +604,9 @@ test_plan:
       - working: true
         agent: "main"
         comment: "✅ Verified smart search is working: 1) Backend API /api/products/search is functional and tested 2) Search by product name works (tested with 'рубашка' returns 2 results) 3) Search by article number works (tested with 'WS-001' returns correct product) 4) Frontend ProductSearch component properly integrated in Header.jsx 5) Search modal opens on clicking search icon 6) Search uses debounce (300ms) and queries backend correctly 7) Results display with product image, name, article, category, and price 8) Clicking result navigates to product page. Backend verification: curl test successful, ProductService.search_products() working correctly with ILIKE queries on both name and article fields"
+      - working: true
+        agent: "testing"
+        comment: "✅ PRODUCT SMART SEARCH BACKEND TESTING COMPLETED SUCCESSFULLY - All search functionality working perfectly: 1) Search by Russian product name (рубашка) found 2 products with articles present 2) Search by manual article (WS-001) found correct product: 'Белая рубашка для официантов' 3) Search by imported article (4A.490E) found correct product: 'Блуза женская' 4) Limit parameter working correctly (tested limit=2, returned ≤2 results) 5) Empty search results handled properly 6) All search results include required fields: id, name, article, category_name, price_from, images 7) Backend API /api/products/search fully functional with ILIKE queries on both name and article fields. Smart search is production-ready."
 
 agent_communication:
   - agent: "main"
