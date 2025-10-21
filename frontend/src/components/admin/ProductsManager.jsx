@@ -15,6 +15,8 @@ export const ProductsManager = () => {
   const [currentProduct, setCurrentProduct] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10); // Товаров на странице
   const [formData, setFormData] = useState({
     category_id: '',
     name: '',
