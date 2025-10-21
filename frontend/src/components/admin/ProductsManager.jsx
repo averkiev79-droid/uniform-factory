@@ -752,10 +752,16 @@ export const ProductsManager = () => {
                       </span>
                     )}
                     {product.featured && (
-                      <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded">Популярное</span>
+                      <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold">⭐ Популярное</span>
+                    )}
+                    {product.on_order && (
+                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-semibold">🕐 Под заказ</span>
                     )}
                     {!product.is_available && (
-                      <span className="text-xs bg-red-100 text-red-800 px-2 py-0.5 rounded">Скрыто</span>
+                      <span className="text-xs bg-red-100 text-red-800 px-2 py-0.5 rounded font-semibold">❌ Скрыто</span>
+                    )}
+                    {product.is_available && !product.on_order && (
+                      <span className="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded font-semibold">✓ В наличии</span>
                     )}
                   </div>
                 </div>
