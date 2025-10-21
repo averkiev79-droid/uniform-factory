@@ -529,22 +529,99 @@ export const ProductsManager = () => {
   return (
     <Card>
       <CardHeader>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mb-4">
           <CardTitle>Управление товарами ({products.length})</CardTitle>
           <Button onClick={handleCreate}>
             <Plus className="w-4 h-4 mr-2" />
             Добавить товар
           </Button>
         </div>
+
+        {/* Поиск по артикулу и названию */}
+        <div className="mt-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Поиск по названию или артикулу..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          
+          {searchQuery && (
+            <p className="text-sm text-gray-600 mt-2">
+              Найдено: {filteredProducts.length} товаров
+            </p>
+          )}
+        </div>
+
+        {/* Массовые операции */}
+        {filteredProducts.length > 0 && (
+          <div className="mt-4 flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+            <button
+              onClick={toggleSelectAll}
+              className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+            >
+              {selectedProducts.length === filteredProducts.length ? (
+                <CheckSquare className="w-5 h-5 text-blue-600" />
+              ) : (
+                <Square className="w-5 h-5" />
+              )}
+              Выбрать все
+            </button>
+            
+            {selectedProducts.length > 0 && (
+              <>
+                <span className="text-sm text-gray-600">
+                  Выбрано: {selectedProducts.length}
+                </span>
+                <div className="flex gap-2 ml-auto">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleBulkPublish}
+                    className="text-green-600 hover:text-green-700"
+                  >
+                    <Eye className="w-4 h-4 mr-1" />
+                    Опубликовать
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleBulkUnpublish}
+                    className="text-orange-600 hover:text-orange-700"
+                  >
+                    <EyeOff className="w-4 h-4 mr-1" />
+                    Скрыть
+                  </Button>
+                </div>
+              </>
+            )}
+          </div>
+        )}
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <div
               key={product.id}
               className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
             >
               <div className="flex items-center space-x-4 flex-1">
+                {/* Чекбокс для выбора */}
+                <button
+                  onClick={() => toggleSelectProduct(product.id)}
+                  className="flex-shrink-0"
+                >
+                  {selectedProducts.includes(product.id) ? (
+                    <CheckSquare className="w-5 h-5 text-blue-600" />
+                  ) : (
+                    <Square className="w-5 h-5 text-gray-400 hover:text-gray-600" />
+                  )}
+                </button>
+
                 {product.images && product.images.length > 0 && (
                   <img
                     src={product.images[0].image_url}
@@ -572,7 +649,9 @@ export const ProductsManager = () => {
                       ))}
                     </select>
                     {product.article && (
-                      <span className="text-xs text-gray-500">Арт. {product.article}</span>
+                      <span className="text-xs font-mono font-semibold text-gray-700 bg-gray-100 px-2 py-1 rounded">
+                        Арт. {product.article}
+                      </span>
                     )}
                     {product.featured && (
                       <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded">Популярное</span>
@@ -610,13 +689,21 @@ export const ProductsManager = () => {
             </div>
           ))}
 
-          {products.length === 0 && (
+          {filteredProducts.length === 0 && !searchQuery && (
             <div className="text-center py-12">
               <p className="text-gray-500 mb-4">Товары не найдены</p>
               <Button onClick={handleCreate}>
                 <Plus className="w-4 h-4 mr-2" />
                 Добавить первый товар
               </Button>
+            </div>
+          )}
+
+          {filteredProducts.length === 0 && searchQuery && (
+            <div className="text-center py-12">
+              <Search className="w-12 h-12 mx-auto text-gray-300 mb-4" />
+              <p className="text-gray-500 mb-2">Товары не найдены</p>
+              <p className="text-sm text-gray-400">Попробуйте изменить запрос</p>
             </div>
           )}
         </div>
