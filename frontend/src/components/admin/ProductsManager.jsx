@@ -22,6 +22,7 @@ export const ProductsManager = () => {
   const [formData, setFormData] = useState({
     category_id: '',
     name: '',
+    article: '',
     description: '',
     short_description: '',
     price_from: '',
@@ -30,6 +31,7 @@ export const ProductsManager = () => {
     sizes: [],
     colors: [],
     is_available: true,
+    on_order: false,
     featured: false,
     images: [],
     characteristics: []
