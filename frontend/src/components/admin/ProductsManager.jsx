@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
-import { Plus, Edit2, Trash2, Eye, X, Save, Search, EyeOff, CheckSquare, Square, ChevronLeft, ChevronRight, Clock, Star } from 'lucide-react';
+import { Plus, Edit2, Trash2, Eye, X, Save, Search, EyeOff, CheckSquare, Square, ChevronLeft, ChevronRight, Clock, Star, Upload, Image as ImageIcon } from 'lucide-react';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
