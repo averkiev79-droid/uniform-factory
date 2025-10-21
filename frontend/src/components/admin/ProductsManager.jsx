@@ -626,7 +626,20 @@ export const ProductsManager = () => {
               {/* Images preview */}
               {formData.images.length > 0 && (
                 <div className="space-y-2">
-                  <p className="text-sm text-gray-600">Загружено изображений: {formData.images.length}</p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-gray-600">Загружено изображений: {formData.images.length}</p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (window.confirm('Удалить все изображения?')) {
+                          setFormData(prev => ({ ...prev, images: [] }));
+                        }
+                      }}
+                      className="text-xs text-red-600 hover:text-red-700 font-medium"
+                    >
+                      Очистить все
+                    </button>
+                  </div>
                   <div className="grid grid-cols-2 gap-3">
                     {formData.images.map((imageUrl, index) => (
                       <div
