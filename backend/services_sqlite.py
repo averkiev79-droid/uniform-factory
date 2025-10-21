@@ -604,6 +604,7 @@ class ProductService:
                 "category_id": product.category_id,
                 "category_name": category_name,
                 "name": product.name,
+                "article": product.article,
                 "description": product.description,
                 "short_description": product.short_description,
                 "price_from": product.price_from,
