@@ -544,9 +544,16 @@ UPLOAD_DIR = FilePath("uploads")
 @api_router.get("/uploads/{filename}")
 async def serve_uploaded_file(filename: str):
     """Serve uploaded files publicly"""
+    from fastapi.responses import FileResponse
     file_path = UPLOAD_DIR / filename
     if file_path.exists() and file_path.is_file():
-        return FileResponse(file_path)
+        response = FileResponse(file_path)
+        # Explicitly add CORS headers for images
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "*"
+        response.headers["Cache-Control"] = "public, max-age=31536000"
+        return response
     raise HTTPException(status_code=404, detail="File not found")
 
 
