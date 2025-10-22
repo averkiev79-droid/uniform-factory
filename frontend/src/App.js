@@ -17,6 +17,7 @@ import { AdvantagePage } from './pages/AdvantagePage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { UserAgreementPage } from './pages/UserAgreementPage';
 import { CompanyDetailsPage } from './pages/CompanyDetailsPage';
+import { SearchResultsPage } from './pages/SearchResultsPage';
 import { AdminApp } from './components/AdminApp';
 
 function App() {
