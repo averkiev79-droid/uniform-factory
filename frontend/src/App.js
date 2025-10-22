@@ -58,6 +58,11 @@ function App() {
               <CalculatorPage />
             </Layout>
           } />
+          <Route path="/search" element={
+            <Layout>
+              <SearchResultsPage />
+            </Layout>
+          } />
           <Route path="/category/:categoryId" element={
             <Layout>
               <CategoryProductsPage />
