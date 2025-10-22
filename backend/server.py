@@ -556,6 +556,16 @@ async def serve_uploaded_file(filename: str):
         return response
     raise HTTPException(status_code=404, detail="File not found")
 
+@api_router.options("/uploads/{filename}")
+async def options_uploaded_file(filename: str):
+    """Handle CORS preflight for uploaded files"""
+    from fastapi.responses import Response
+    response = Response()
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    return response
+
 
 # Include router in app
 app.include_router(api_router)
