@@ -400,16 +400,21 @@ export const ProductsManager = () => {
         const formDataToSend = new FormData();
         formDataToSend.append('file', file);
 
+        console.log('Uploading file:', file.name);
         const response = await axios.post(`${BACKEND_URL}/api/admin/upload-image`, formDataToSend, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
 
-        return `${BACKEND_URL}${response.data.url}`;
+        console.log('Upload response:', response.data);
+        const fullUrl = `${BACKEND_URL}${response.data.url}`;
+        console.log('Full URL:', fullUrl);
+        return fullUrl;
       });
 
       const uploadedUrls = await Promise.all(uploadPromises);
+      console.log('All uploaded URLs:', uploadedUrls);
       
       setFormData(prev => ({
         ...prev,
@@ -419,7 +424,7 @@ export const ProductsManager = () => {
       alert(`Загружено ${uploadedUrls.length} изображений`);
     } catch (error) {
       console.error('Error uploading images:', error);
-      alert('Ошибка загрузки изображений');
+      alert('Ошибка загрузки изображений: ' + (error.response?.data?.detail || error.message));
     } finally {
       setUploadingImage(false);
     }
