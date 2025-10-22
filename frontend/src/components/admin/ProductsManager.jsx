@@ -643,6 +643,52 @@ export const ProductsManager = () => {
                 </label>
               </div>
 
+              {/* Manual URL input */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Или укажите URL изображения
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="url"
+                    placeholder="https://example.com/image.jpg"
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm"
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const url = e.target.value.trim();
+                        if (url) {
+                          setFormData(prev => ({
+                            ...prev,
+                            images: [...prev.images, url]
+                          }));
+                          e.target.value = '';
+                        }
+                      }
+                    }}
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={(e) => {
+                      const input = e.target.parentElement.querySelector('input[type="url"]');
+                      const url = input.value.trim();
+                      if (url) {
+                        setFormData(prev => ({
+                          ...prev,
+                          images: [...prev.images, url]
+                        }));
+                        input.value = '';
+                      }
+                    }}
+                  >
+                    Добавить
+                  </Button>
+                </div>
+                <p className="text-xs text-gray-500 mt-1">Введите URL и нажмите Enter или кнопку "Добавить"</p>
+              </div>
+
               {/* Images preview */}
               {formData.images.length > 0 && (
                 <div className="space-y-2">
