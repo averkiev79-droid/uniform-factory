@@ -24,17 +24,17 @@ const ProductSearch = ({ onClose }) => {
 
   useEffect(() => {
     const searchProducts = async () => {
-      if (query.trim().length < 2) {
+      if (query.trim().length < 1) {
         setResults([]);
         setShowResults(false);
         return;
       }
 
       setLoading(true);
+      setShowResults(true);
       try {
         const data = await apiService.searchProducts({ q: query, limit: 10 });
         setResults(data);
-        setShowResults(true);
       } catch (error) {
         console.error('Search error:', error);
         setResults([]);
@@ -43,9 +43,19 @@ const ProductSearch = ({ onClose }) => {
       }
     };
 
-    const debounce = setTimeout(searchProducts, 300);
+    const debounce = setTimeout(searchProducts, 150);
     return () => clearTimeout(debounce);
   }, [query]);
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (query.trim().length >= 2) {
+      navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+      setQuery('');
+      setShowResults(false);
+      if (onClose) onClose();
+    }
+  };
 
   const handleProductClick = (productId) => {
     // Сохраняем поисковый запрос для показа похожих товаров
