@@ -148,8 +148,24 @@ const ProductSearch = ({ onClose }) => {
                   </div>
                 </button>
               ))}
+              
+              {/* Show all results button */}
+              {results.length >= 5 && query.length >= 2 && (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+                    setQuery('');
+                    setShowResults(false);
+                    if (onClose) onClose();
+                  }}
+                  className="w-full px-4 py-3 text-center text-blue-600 hover:bg-blue-50 font-medium border-t border-gray-100 transition-colors"
+                >
+                  Показать все результаты ({results.length > 10 ? '10+' : results.length})
+                </button>
+              )}
             </div>
-          ) : query.length >= 2 ? (
+          ) : query.length >= 1 ? (
             <div className="py-8 text-center text-gray-500">
               <Search className="w-12 h-12 mx-auto mb-2 text-gray-300" />
               <p>Ничего не найдено</p>
