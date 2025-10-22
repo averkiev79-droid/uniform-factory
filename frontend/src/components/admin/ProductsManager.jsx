@@ -293,13 +293,16 @@ export const ProductsManager = () => {
         price_to: formData.price_to ? parseInt(formData.price_to) : null
       };
 
+      console.log('Saving product with data:', productData);
+      console.log('Images being sent:', productData.images);
+
       if (currentProduct) {
         // Update existing product
         await axios.put(`${BACKEND_URL}/api/admin/products/${currentProduct.id}`, productData);
         alert('Товар успешно обновлен');
       } else {
         // Create new product
-        await axios.post(`${BACKEND_URL}/api/products`, productData);
+        await axios.post(`${BACKEND_URL}/api/admin/products`, productData);
         alert('Товар успешно создан');
       }
 
@@ -307,6 +310,7 @@ export const ProductsManager = () => {
       fetchProducts();
     } catch (error) {
       console.error('Error saving product:', error);
+      console.error('Error response:', error.response?.data);
       alert('Ошибка при сохранении товара: ' + (error.response?.data?.detail || error.message));
     }
   };
