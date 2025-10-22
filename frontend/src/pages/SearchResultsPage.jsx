@@ -23,10 +23,13 @@ export const SearchResultsPage = () => {
 
       try {
         setLoading(true);
-        const data = await apiService.searchProducts(query, 50);
+        console.log('SearchResultsPage - searching for:', query);
+        const data = await apiService.searchProducts({ q: query, limit: 50 });
+        console.log('SearchResultsPage - found results:', data.length);
         setResults(data);
       } catch (error) {
         console.error('Search error:', error);
+        console.error('Search error details:', error.response?.data);
         setResults([]);
       } finally {
         setLoading(false);
