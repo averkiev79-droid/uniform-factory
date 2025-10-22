@@ -33,7 +33,9 @@ const ProductSearch = ({ onClose }) => {
       setLoading(true);
       setShowResults(true);
       try {
+        console.log('Searching for:', query);
         const data = await apiService.searchProducts({ q: query, limit: 10 });
+        console.log('Search results:', data.length, 'items');
         setResults(data);
       } catch (error) {
         console.error('Search error:', error);
