@@ -123,7 +123,7 @@ export const CategoriesManager = () => {
     if (!window.confirm('Удалить эту категорию?')) return;
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/admin/categories/${categoryId}`, {
+      const response = await fetch(`${BACKEND_URL}/api/admin/categories/${categoryId}`, {
         method: 'DELETE'
       });
 
