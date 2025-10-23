@@ -64,10 +64,23 @@ export const apiService = {
   // Categories
   async getCategories() {
     try {
+      // Check cache first
+      if (isCacheValid('categories')) {
+        console.log('Using cached categories');
+        return cache.categories;
+      }
+      
       const response = await api.get('/categories');
+      cache.categories = response.data;
+      cache.timestamp.categories = Date.now();
       return response.data;
     } catch (error) {
       console.error('Failed to fetch categories:', error);
+      // Return cached data if available, even if expired
+      if (cache.categories) {
+        console.log('Using stale cache for categories');
+        return cache.categories;
+      }
       throw error;
     }
   },
