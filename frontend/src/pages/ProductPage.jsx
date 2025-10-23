@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ShoppingCart, Heart, Share2, Phone, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, Heart, Share2, Phone, Mail, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Card, CardContent } from '../components/ui/card';
@@ -10,17 +10,21 @@ import ProductSchema from '../components/ProductSchema';
 import BreadcrumbSchema from '../components/BreadcrumbSchema';
 import SEO from '../components/SEO';
 import RelatedProducts from '../components/RelatedProducts';
+import { useCart } from '../context/CartContext';
 
 export const ProductPage = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedMaterial, setSelectedMaterial] = useState(null);
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
   
   // Related products from search
   const [relatedProducts, setRelatedProducts] = useState([]);
