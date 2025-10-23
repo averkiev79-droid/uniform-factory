@@ -409,10 +409,18 @@ async def admin_update_product(product_id: str, product: ProductCreate):
         import json
         from datetime import datetime, timezone
         
+        print(f"=== Updating product {product_id} ===")
+        print(f"Images received: {len(product.images) if product.images else 0}")
+        if product.images:
+            for i, img in enumerate(product.images[:3]):
+                print(f"  Image {i+1}: {img[:80]}...")
+        
         # Get existing product
         existing_product = db.query(SQLProduct).filter(SQLProduct.id == product_id).first()
         if not existing_product:
             raise HTTPException(status_code=404, detail="Product not found")
+        
+        print(f"Existing product images: {db.query(SQLProductImage).filter(SQLProductImage.product_id == product_id).count()}")
         
         # Update product fields
         existing_product.category_id = product.category_id
