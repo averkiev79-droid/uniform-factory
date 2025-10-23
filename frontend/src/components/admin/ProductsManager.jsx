@@ -818,22 +818,87 @@ export const ProductsManager = () => {
             </div>
 
             {/* Availability & Featured */}
-            <div className="flex gap-6">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={formData.is_available}
-                  onChange={(e) => handleInputChange('is_available', e.target.checked)}
-                  className="mr-2"
-                />
-                <span className="text-sm text-gray-700">В наличии</span>
-              </label>
-              <label className="flex items-center">
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Статус товара</label>
+                <div className="flex items-center gap-4">
+                  <label className="flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData.is_available}
+                      onChange={(e) => {
+                        const isAvailable = e.target.checked;
+                        setFormData(prev => ({
+                          ...prev,
+                          is_available: isAvailable,
+                          on_order: !isAvailable // Если не в наличии, то под заказ
+                        }));
+                      }}
+                      className="w-4 h-4 mr-2"
+                    />
+                    <span className="text-sm text-gray-700">В наличии</span>
+                  </label>
+                  
+                  {/* Status indicator */}
+                  <div className="flex items-center gap-2 ml-4">
+                    <span className="text-sm text-gray-500">Статус:</span>
+                    {formData.is_available ? (
+                      <span className="px-2 py-1 text-xs font-medium text-green-700 bg-green-100 rounded">
+                        В наличии
+                      </span>
+                    ) : formData.on_order ? (
+                      <span className="px-2 py-1 text-xs font-medium text-yellow-700 bg-yellow-100 rounded">
+                        Под заказ
+                      </span>
+                    ) : (
+                      <span className="px-2 py-1 text-xs font-medium text-red-700 bg-red-100 rounded">
+                        Снят с публикации
+                      </span>
+                    )}
+                  </div>
+                </div>
+                
+                {/* Unpublish button */}
+                {(formData.is_available || formData.on_order) && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFormData(prev => ({
+                        ...prev,
+                        is_available: false,
+                        on_order: false
+                      }));
+                    }}
+                    className="mt-2 text-sm text-red-600 hover:text-red-700 underline"
+                  >
+                    Снять с публикации
+                  </button>
+                )}
+                
+                {/* Publish button if unpublished */}
+                {!formData.is_available && !formData.on_order && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFormData(prev => ({
+                        ...prev,
+                        is_available: true,
+                        on_order: false
+                      }));
+                    }}
+                    className="mt-2 text-sm text-green-600 hover:text-green-700 underline"
+                  >
+                    Опубликовать товар
+                  </button>
+                )}
+              </div>
+              
+              <label className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
                   checked={formData.featured}
                   onChange={(e) => handleInputChange('featured', e.target.checked)}
-                  className="mr-2"
+                  className="w-4 h-4 mr-2"
                 />
                 <span className="text-sm text-gray-700">Популярное</span>
               </label>
