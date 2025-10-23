@@ -418,6 +418,7 @@ class ProductService:
                     "material": product.material,
                     "sizes": sizes,
                     "colors": colors,
+                    "branding_options": branding_options,
                     "is_available": product.is_available,
                     "on_order": product.on_order if hasattr(product, 'on_order') else False,
                     "featured": product.featured,
