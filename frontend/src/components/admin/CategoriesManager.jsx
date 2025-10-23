@@ -226,23 +226,62 @@ export const CategoriesManager = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="image">Путь к изображению</Label>
-                  <input
-                    id="image"
-                    type="text"
-                    value={formData.image}
-                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
-                    placeholder="/images/category.jpg или https://example.com/image.jpg"
-                    required={!editingId}
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Локальный путь (например: /images/category.jpg) или полный URL
-                  </p>
+              {/* Image Upload Section */}
+              <div>
+                <Label>Изображение категории</Label>
+                <div className="space-y-3">
+                  {/* Upload Button */}
+                  <div className="flex items-center gap-3">
+                    <label className={`flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors ${uploadingImage ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                      <Upload className="w-5 h-5 text-gray-600" />
+                      <span className="text-sm font-medium">
+                        {uploadingImage ? 'Загрузка...' : 'Загрузить файл'}
+                      </span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        disabled={uploadingImage}
+                        className="hidden"
+                      />
+                    </label>
+                    <p className="text-xs text-gray-500">
+                      JPG, PNG, WebP (макс. 10MB)
+                    </p>
+                  </div>
+
+                  {/* Manual URL Input */}
+                  <div>
+                    <input
+                      id="image"
+                      type="text"
+                      value={formData.image}
+                      onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy"
+                      placeholder="или введите URL изображения"
+                      required={!editingId}
+                    />
+                  </div>
+
+                  {/* Image Preview */}
+                  {formData.image && (
+                    <div className="border border-gray-200 rounded-lg p-3">
+                      <p className="text-sm font-medium text-gray-700 mb-2">Предварительный просмотр:</p>
+                      <img
+                        src={formData.image}
+                        alt="Preview"
+                        className="w-full max-w-xs h-48 object-cover rounded-lg"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = '/images/placeholder.jpg';
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
-                
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="products_count">Количество товаров</Label>
                   <input
