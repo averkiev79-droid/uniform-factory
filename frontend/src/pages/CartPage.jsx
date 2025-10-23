@@ -124,7 +124,7 @@ const CartPage = () => {
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
             {cartItems.map((item, index) => (
-              <div key={`${item.id}-${item.selectedColor}-${item.selectedMaterial}-${index}`} className="bg-white rounded-lg shadow p-6">
+              <div key={`${item.id}-${item.selectedColor}-${item.selectedSize}-${item.selectedMaterial}-${index}`} className="bg-white rounded-lg shadow p-6">
                 <div className="flex gap-4">
                   {/* Image */}
                   <img 
