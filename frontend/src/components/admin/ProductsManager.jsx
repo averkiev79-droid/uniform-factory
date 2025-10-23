@@ -383,8 +383,9 @@ export const ProductsManager = () => {
   };
 
   const handleArrayInput = (field, value) => {
-    const array = value.split(',').map(item => item.trim()).filter(item => item);
-    setFormData(prev => ({ ...prev, [field]: array }));
+    // Просто сохраняем строку как есть, без немедленного парсинга
+    // Парсинг будет при сохранении
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const addCharacteristic = () => {
