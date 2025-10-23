@@ -290,27 +290,36 @@ export const ProductsManager = () => {
       const productData = {
         ...formData,
         price_from: parseInt(formData.price_from),
-        price_to: formData.price_to ? parseInt(formData.price_to) : null
+        price_to: formData.price_to ? parseInt(formData.price_to) : null,
+        // Убедимся, что images - это массив строк (URL-ов)
+        images: Array.isArray(formData.images) ? formData.images : []
       };
 
-      console.log('Saving product with data:', productData);
-      console.log('Images being sent:', productData.images);
+      console.log('=== SAVING PRODUCT ===');
+      console.log('Product ID:', currentProduct?.id);
+      console.log('Product data:', JSON.stringify(productData, null, 2));
+      console.log('Images count:', productData.images.length);
+      console.log('Images URLs:', productData.images);
 
       if (currentProduct) {
         // Update existing product
-        await axios.put(`${BACKEND_URL}/api/admin/products/${currentProduct.id}`, productData);
+        const response = await axios.put(`${BACKEND_URL}/api/admin/products/${currentProduct.id}`, productData);
+        console.log('Update response:', response.data);
         alert('Товар успешно обновлен');
       } else {
         // Create new product
-        await axios.post(`${BACKEND_URL}/api/admin/products`, productData);
+        const response = await axios.post(`${BACKEND_URL}/api/admin/products`, productData);
+        console.log('Create response:', response.data);
         alert('Товар успешно создан');
       }
 
       setIsEditing(false);
       fetchProducts();
     } catch (error) {
-      console.error('Error saving product:', error);
+      console.error('=== ERROR SAVING PRODUCT ===');
+      console.error('Error:', error);
       console.error('Error response:', error.response?.data);
+      console.error('Error status:', error.response?.status);
       alert('Ошибка при сохранении товара: ' + (error.response?.data?.detail || error.message));
     }
   };
