@@ -516,32 +516,49 @@ export const ProductPage = () => {
                 </div>
               )}
               
-              {/* Materials */}
-              {product.characteristics && product.characteristics.some(c => c.name === 'Материал' || c.name === 'Ткань') && (
+              {/* Materials - check both product.material field and characteristics */}
+              {(product.material || (product.characteristics && product.characteristics.some(c => c.name === 'Материал' || c.name === 'Ткань'))) && (
                 <div>
                   <h3 className="text-lg font-semibold mb-3">
                     Материал {selectedMaterial && <span className="text-sm font-normal text-gray-600">({selectedMaterial})</span>}
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    {product.characteristics
-                      .filter(c => c.name === 'Материал' || c.name === 'Ткань')
-                      .map((char) => {
-                        // Split materials by comma if multiple
-                        const materials = char.value.split(',').map(m => m.trim());
-                        return materials.map((material) => (
-                          <button
-                            key={material}
-                            onClick={() => setSelectedMaterial(material)}
-                            className={`px-4 py-2 border rounded-lg transition-colors ${
-                              selectedMaterial === material
-                                ? 'border-navy bg-navy text-white'
-                                : 'border-gray-300 hover:border-gray-400'
-                            }`}
-                          >
-                            {material}
-                          </button>
-                        ));
-                      })}
+                    {product.material ? (
+                      // Use product.material field if available
+                      product.material.split(',').map(m => m.trim()).map((material) => (
+                        <button
+                          key={material}
+                          onClick={() => setSelectedMaterial(material)}
+                          className={`px-4 py-2 border rounded-lg transition-colors ${
+                            selectedMaterial === material
+                              ? 'border-navy bg-navy text-white'
+                              : 'border-gray-300 hover:border-gray-400'
+                          }`}
+                        >
+                          {material}
+                        </button>
+                      ))
+                    ) : (
+                      // Otherwise use characteristics
+                      product.characteristics
+                        .filter(c => c.name === 'Материал' || c.name === 'Ткань')
+                        .map((char) => {
+                          const materials = char.value.split(',').map(m => m.trim());
+                          return materials.map((material) => (
+                            <button
+                              key={material}
+                              onClick={() => setSelectedMaterial(material)}
+                              className={`px-4 py-2 border rounded-lg transition-colors ${
+                                selectedMaterial === material
+                                  ? 'border-navy bg-navy text-white'
+                                  : 'border-gray-300 hover:border-gray-400'
+                              }`}
+                            >
+                              {material}
+                            </button>
+                          ));
+                        })
+                    )}
                   </div>
                 </div>
               )}
