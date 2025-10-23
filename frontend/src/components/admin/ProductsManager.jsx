@@ -126,13 +126,14 @@ export const ProductsManager = () => {
   };
 
   // Массовая публикация
+  // Массовая публикация (В наличии)
   const handleBulkPublish = async () => {
     if (selectedProducts.length === 0) {
       alert('Выберите товары для публикации');
       return;
     }
 
-    if (!window.confirm(`Опубликовать ${selectedProducts.length} товаров?`)) {
+    if (!window.confirm(`Опубликовать ${selectedProducts.length} товаров как "В наличии"?`)) {
       return;
     }
 
@@ -140,11 +141,12 @@ export const ProductsManager = () => {
       await Promise.all(
         selectedProducts.map(productId =>
           axios.patch(`${BACKEND_URL}/api/admin/products/${productId}`, {
-            is_available: true
+            is_available: true,
+            on_order: false
           })
         )
       );
-      alert('Товары успешно опубликованы');
+      alert('Товары успешно опубликованы (В наличии)');
       setSelectedProducts([]);
       fetchProducts();
     } catch (error) {
@@ -153,14 +155,14 @@ export const ProductsManager = () => {
     }
   };
 
-  // Массовое скрытие
+  // Массовое снятие с публикации
   const handleBulkUnpublish = async () => {
     if (selectedProducts.length === 0) {
-      alert('Выберите товары для скрытия');
+      alert('Выберите товары для снятия с публикации');
       return;
     }
 
-    if (!window.confirm(`Скрыть ${selectedProducts.length} товаров?`)) {
+    if (!window.confirm(`Снять с публикации ${selectedProducts.length} товаров?`)) {
       return;
     }
 
@@ -168,16 +170,17 @@ export const ProductsManager = () => {
       await Promise.all(
         selectedProducts.map(productId =>
           axios.patch(`${BACKEND_URL}/api/admin/products/${productId}`, {
-            is_available: false
+            is_available: false,
+            on_order: false
           })
         )
       );
-      alert('Товары успешно скрыты');
+      alert('Товары сняты с публикации');
       setSelectedProducts([]);
       fetchProducts();
     } catch (error) {
       console.error('Error unpublishing products:', error);
-      alert('Ошибка при скрытии товаров');
+      alert('Ошибка при снятии с публикации');
     }
   };
 
