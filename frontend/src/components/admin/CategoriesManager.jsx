@@ -86,8 +86,8 @@ export const CategoriesManager = () => {
       });
 
       const url = editingId 
-        ? `${process.env.REACT_APP_BACKEND_URL}/api/admin/categories/${editingId}`
-        : `${process.env.REACT_APP_BACKEND_URL}/api/admin/categories`;
+        ? `${BACKEND_URL}/api/admin/categories/${editingId}`
+        : `${BACKEND_URL}/api/admin/categories`;
       
       const method = editingId ? 'PUT' : 'POST';
       
