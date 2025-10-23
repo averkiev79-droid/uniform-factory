@@ -336,6 +336,7 @@ class Product(BaseModel):
     material: Optional[str] = None
     sizes: Optional[List[str]] = None
     colors: Optional[List[str]] = None
+    branding_options: Optional[List[str]] = None  # Опции нанесения/брендирования
     is_available: bool = True  # В наличии
     on_order: bool = False  # Под заказ
     featured: bool = False  # Популярное
@@ -354,6 +355,7 @@ class ProductCreate(BaseModel):
     material: Optional[str] = None
     sizes: Optional[List[str]] = None
     colors: Optional[List[str]] = None
+    branding_options: Optional[List[str]] = None  # Опции нанесения/брендирования
     is_available: bool = True  # В наличии
     on_order: bool = False  # Под заказ
     featured: bool = False  # Популярное
