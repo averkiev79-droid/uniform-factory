@@ -632,15 +632,18 @@ test_plan:
 
   - task: "Product Image Persistence Bug Fix"
     implemented: true
-    working: "NA"
+    working: true
     file: "frontend/src/components/admin/ProductsManager.jsx, backend/admin_routes.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "🐛 CRITICAL BUG FIXED: Images disappearing after product save. ROOT CAUSE: handleQuickCategoryChange function sends PUT /api/admin/products/{id} WITHOUT images field. Backend's PUT endpoint (admin_routes.py line 442) DELETES ALL existing images before adding new ones. Missing images field → all images deleted! SOLUTION: Added images, article, characteristics, on_order to handleQuickCategoryChange payload. ADDITIONAL IMPROVEMENTS: Enhanced logging in handleSave, added array validation for images field. Ready for backend testing."
+      - working: true
+        agent: "testing"
+        comment: "✅ CRITICAL IMAGE PERSISTENCE BUG FIX TESTING COMPLETED SUCCESSFULLY - All 10 tests passed (100% success rate): 1) Product Update with Images Full Flow - Images persisted correctly (Before: 2, After: 2) 2) Quick Category Change Simulation - CRITICAL FIX WORKS! Category changed and images preserved (2 images maintained) 3) Image Upload and Save - Uploaded image persisted successfully in product 4) Edge Cases - Empty images array correctly removes all images, null images handled gracefully 5) 422 Error Investigation - Valid images upload correctly, invalid file types properly rejected, CORS headers verified. The handleQuickCategoryChange fix is working perfectly - images no longer disappear when changing product categories. Bug is fully resolved."
 
 agent_communication:
   - agent: "main"
