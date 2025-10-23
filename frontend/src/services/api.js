@@ -193,10 +193,23 @@ export const apiService = {
   // Statistics
   async getStatistics() {
     try {
+      // Check cache first
+      if (isCacheValid('statistics')) {
+        console.log('Using cached statistics');
+        return cache.statistics;
+      }
+      
       const response = await api.get('/statistics');
+      cache.statistics = response.data;
+      cache.timestamp.statistics = Date.now();
       return response.data;
     } catch (error) {
       console.error('Failed to fetch statistics:', error);
+      // Return cached data if available, even if expired
+      if (cache.statistics) {
+        console.log('Using stale cache for statistics');
+        return cache.statistics;
+      }
       throw error;
     }
   },
