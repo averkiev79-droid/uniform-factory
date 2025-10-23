@@ -281,7 +281,7 @@ async def submit_cart_order(order: CartOrderCreate, background_tasks: Background
             # Format items for storage
             items_text = "\n".join([
                 f"- {item.product_name} (Арт. {item.article or 'N/A'})\n"
-                f"  Цвет: {item.color or 'не указан'}, Материал: {item.material or 'не указан'}\n"
+                f"  Цвет: {item.color or 'не указан'}, Размер: {item.size or 'не указан'}, Материал: {item.material or 'не указан'}\n"
                 f"  Количество: {item.quantity} шт, Цена: от {item.price_from} ₽"
                 for item in order.items
             ])
