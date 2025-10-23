@@ -139,6 +139,37 @@ class TelegramService:
         """.strip()
         
         return TelegramService.send_message(text)
+    
+    @staticmethod
+    def send_cart_order_notification(order_data: dict) -> bool:
+        """Send notification about cart order"""
+        items_text = "\n".join([
+            f"  • {item['name']} (Арт. {item['article']})\n"
+            f"    Цвет: {item['color']}, Материал: {item['material']}\n"
+            f"    Кол-во: {item['quantity']} шт, Цена: от {item['price_from']} ₽"
+            for item in order_data.get('items', [])
+        ])
+        
+        comment_line = f"\n💬 <b>Комментарий:</b>\n{order_data.get('comment')}\n" if order_data.get('comment') else ""
+        
+        text = f"""
+🛒 <b>НОВЫЙ ЗАКАЗ ИЗ КОРЗИНЫ!</b>
+
+📋 <b>Номер заказа:</b> {order_data.get('request_id')}
+
+👤 <b>Клиент:</b> {order_data.get('name')}
+📧 <b>Email:</b> {order_data.get('email')}
+📱 <b>Телефон:</b> {order_data.get('phone')}
+
+📦 <b>Товары:</b>
+{items_text}
+
+💰 <b>Итого:</b> от {order_data.get('total_amount', 0):,} ₽
+{comment_line}
+⏰ <b>Время:</b> {order_data.get('created_at', 'Только что')}
+        """.strip()
+        
+        return TelegramService.send_message(text)
 
 
 # Test function
