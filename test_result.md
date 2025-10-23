@@ -629,6 +629,18 @@ test_plan:
         agent: "main"
         comment: "🔧 ROOT CAUSE IDENTIFIED AND FIXED: Function handleQuickCategoryChange was sending PUT request WITHOUT images, article, characteristics, and on_order fields. Backend DELETE all images before adding new ones, so missing images field = all images deleted! FIX APPLIED: 1) Updated handleQuickCategoryChange to include ALL fields (images, article, characteristics, on_order) 2) Enhanced handleSave with detailed logging and array validation for images 3) Verified product.images mapping in handleEdit (converts [{image_url}] to [url] array). Testing required."
 
+  - task: "Product Image Persistence Bug Fix"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/components/admin/ProductsManager.jsx, backend/admin_routes.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "🐛 CRITICAL BUG FIXED: Images disappearing after product save. ROOT CAUSE: handleQuickCategoryChange function sends PUT /api/admin/products/{id} WITHOUT images field. Backend's PUT endpoint (admin_routes.py line 442) DELETES ALL existing images before adding new ones. Missing images field → all images deleted! SOLUTION: Added images, article, characteristics, on_order to handleQuickCategoryChange payload. ADDITIONAL IMPROVEMENTS: Enhanced logging in handleSave, added array validation for images field. Ready for backend testing."
+
 agent_communication:
   - agent: "main"
     message: "Completed admin panel development: 1) Added React Router for /admin path 2) Implemented AdminLogin with password auth 3) Created AdminDashboard with sidebar navigation 4) All manager components implemented (Categories, Portfolio, Quote Requests, Statistics, Image Upload) 5) Backend admin routes connected under /api/admin prefix 6) Email service implemented with Yandex SMTP support 7) Admin authentication working with default password 'avik2024admin'"
