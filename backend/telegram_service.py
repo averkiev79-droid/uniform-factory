@@ -145,7 +145,7 @@ class TelegramService:
         """Send notification about cart order"""
         items_text = "\n".join([
             f"  • {item['name']} (Арт. {item['article']})\n"
-            f"    Цвет: {item['color']}, Материал: {item['material']}\n"
+            f"    Цвет: {item.get('color', 'не указан')}, Размер: {item.get('size', 'не указан')}, Материал: {item.get('material', 'не указан')}\n"
             f"    Кол-во: {item['quantity']} шт, Цена: от {item['price_from']} ₽"
             for item in order_data.get('items', [])
         ])
