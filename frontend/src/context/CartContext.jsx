@@ -22,13 +22,14 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (product, selectedColor, selectedMaterial, quantity = 1) => {
+  const addToCart = (product, selectedColor, selectedSize, selectedMaterial, quantity = 1) => {
     setCartItems(prevItems => {
-      // Check if item with same product, color, and material already exists
+      // Check if item with same product, color, size, and material already exists
       const existingItemIndex = prevItems.findIndex(
         item => 
           item.id === product.id && 
           item.selectedColor === selectedColor && 
+          item.selectedSize === selectedSize &&
           item.selectedMaterial === selectedMaterial
       );
 
@@ -46,6 +47,7 @@ export const CartProvider = ({ children }) => {
           price_from: product.price_from,
           image: product.images?.[0]?.image_url || '/images/placeholder.jpg',
           selectedColor,
+          selectedSize,
           selectedMaterial,
           quantity,
           category_name: product.category_name
@@ -54,19 +56,20 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  const removeFromCart = (itemId, selectedColor, selectedMaterial) => {
+  const removeFromCart = (itemId, selectedColor, selectedSize, selectedMaterial) => {
     setCartItems(prevItems => 
       prevItems.filter(item => 
         !(item.id === itemId && 
           item.selectedColor === selectedColor && 
+          item.selectedSize === selectedSize &&
           item.selectedMaterial === selectedMaterial)
       )
     );
   };
 
-  const updateQuantity = (itemId, selectedColor, selectedMaterial, newQuantity) => {
+  const updateQuantity = (itemId, selectedColor, selectedSize, selectedMaterial, newQuantity) => {
     if (newQuantity < 1) {
-      removeFromCart(itemId, selectedColor, selectedMaterial);
+      removeFromCart(itemId, selectedColor, selectedSize, selectedMaterial);
       return;
     }
 
@@ -74,6 +77,7 @@ export const CartProvider = ({ children }) => {
       prevItems.map(item => 
         (item.id === itemId && 
          item.selectedColor === selectedColor && 
+         item.selectedSize === selectedSize &&
          item.selectedMaterial === selectedMaterial)
           ? { ...item, quantity: newQuantity }
           : item
