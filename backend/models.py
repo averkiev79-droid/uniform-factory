@@ -301,6 +301,12 @@ class CartOrderCreate(BaseModel):
         if len(digits_only) < 10:
             raise ValueError('Недопустимый формат телефона')
         return v
+    
+    @validator('items')
+    def validate_items(cls, v):
+        if not v or len(v) == 0:
+            raise ValueError('Корзина не может быть пустой')
+        return v
 
 # Product Models
 class ProductImage(BaseModel):
