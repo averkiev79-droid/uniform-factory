@@ -101,9 +101,15 @@ function App() {
               <CompanyDetailsPage />
             </Layout>
           } />
+          <Route path="/cart" element={
+            <Layout>
+              <CartPage />
+            </Layout>
+          } />
         </Routes>
       </Router>
     </div>
+      </CartProvider>
     </HelmetProvider>
   );
 }
