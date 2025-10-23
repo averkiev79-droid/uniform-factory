@@ -2743,6 +2743,9 @@ class APITester:
         # NEW: PATCH endpoint tests for bulk product operations
         self.run_patch_endpoint_tests()
         
+        # NEW: Shopping Cart Tests (HIGH PRIORITY)
+        self.run_shopping_cart_tests()
+        
         print("=" * 80)
         self.print_summary()
     
