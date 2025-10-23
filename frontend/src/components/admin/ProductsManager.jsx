@@ -607,7 +607,7 @@ export const ProductsManager = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">Размеры (через запятую)</label>
               <input
                 type="text"
-                value={formData.sizes.join(', ')}
+                value={Array.isArray(formData.sizes) ? formData.sizes.join(', ') : formData.sizes}
                 onChange={(e) => handleArrayInput('sizes', e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 placeholder="XS, S, M, L, XL"
@@ -619,7 +619,7 @@ export const ProductsManager = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">Цвета (через запятую)</label>
               <input
                 type="text"
-                value={formData.colors.join(', ')}
+                value={Array.isArray(formData.colors) ? formData.colors.join(', ') : formData.colors}
                 onChange={(e) => handleArrayInput('colors', e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 placeholder="белый, черный, серый"
