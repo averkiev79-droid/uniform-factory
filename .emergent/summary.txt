@@ -1,9 +1,31 @@
 <analysis>
-The AI engineer's work primarily focused on extending the Uniform Factory application by implementing several new features and addressing numerous deployment and data-related challenges. Key accomplishments include the integration of product import from , comprehensive SEO enhancements (meta-tags, sitemap, robots.txt, Schema.org), and fixing the Web Vitals monitoring. A significant portion of the effort was dedicated to debugging persistent frontend deployment issues, often stemming from browser caching or misconfigured development vs. production server setups. The AI demonstrated an iterative problem-solving approach, adapting to user feedback and external tool diagnostics (e.g., , ) to overcome these hurdles, especially concerning domain migration and frontend build inconsistencies across different deployments.
+The AI engineer's work primarily involved debugging and enhancing a React/FastAPI application. Key challenges included discrepancies between preview and production environments, database synchronization, browser caching, and persistent frontend UI issues. The engineer iteratively addressed user requests, starting with critical bugs like missing product article numbers and non-functional smart search. This led to refining backend search logic for Cyrillic characters, implementing deployment synchronization strategies (later clarified as single-database caching issues), and significantly enhancing the admin panel with product article search, bulk status updates, and robust multi-image upload capabilities. Throughout, the AI focused on diagnosing issues by inspecting frontend/backend code, testing APIs, and using user-provided screenshots and logs to pinpoint problems like SQLite's  limitations, incorrect frontend parameter passing, and recurring image persistence (CORS/422 errors) issues. The trajectory concludes with the AI identifying the root cause of image upload failures.
 </analysis>
 
 <product_requirements>
-The Uniform Factory needs a modern, responsive website with a product catalog and order calculator, extended with an admin panel for content management and analytics. Initial requirements included core pages, email notifications, and basic site analytics. Recent, explicit requests focused on: implementing a robust product search with article numbers and filters; integrating a Telegram notification bot; developing extended analytics for popular items, conversion, and traffic sources; comprehensive SEO optimization (meta-tags, sitemap, Open Graph for VK); the ability to copy products from  into specific categories; connecting the  domain; reorganizing the admin panel with a Content section to manage images, portfolio, legal documents, and page texts, alongside updating the company founding year to 1993 (30+ years of experience); replacing generic social media links with VK and Telegram; and ensuring product article numbers are displayed consistently on product cards and detail pages.
+The Uniform Factory website needs a modern, responsive design with a product catalog, order calculator, and an admin panel for content and analytics. Recent requirements included:
+- **Product Search**: Robust search with article numbers and filters.
+- **Notifications**: Telegram bot integration.
+- **Analytics**: Extended analytics for popular items, conversion, traffic.
+- **SEO**: Comprehensive meta-tags, sitemap, Open Graph for VK, Schema.org.
+- **Content Management**: Copy products from  into specific categories.
+- **Domain Management**: Connect  domain.
+- **Admin Panel**: Reorganize with a Content section for images, portfolio, legal docs, page texts.
+- **Company Branding**: Update founding year to 1993 (30+ years of experience).
+- **Social Media**: Replace generic links with VK and Telegram.
+- **Product Display**: Ensure article numbers are visible on product cards and detail pages.
+- **Admin Panel Enhancements (new requests)**:
+    - Search by article in admin panel.
+    - Mass publish/unpublish products.
+    - Add on order product status with mass status changes (in stock, on order, popular).
+    - Upload multiple photos directly in product cards.
+    - Add image upload guidelines/recommendations.
+    - Allow manual image URL input in product cards.
+- **Smart Search Enhancements (new requests)**:
+    - Display related products at the bottom of the page upon selection from smart search dropdown.
+    - Show mini preview images in smart search dropdown.
+    - If no item selected from dropdown, show all matching products on a search results page.
+    - Display results dynamically during partial input.
 </product_requirements>
 
 <key_technical_concepts>
@@ -12,52 +34,95 @@ The Uniform Factory needs a modern, responsive website with a product catalog an
 - **Database:** SQLite.
 - **Integrations:** Yandex SMTP, Telegram Bot API, Yandex.Metrica, Google Search Console, Open Graph.
 - **SEO/Deployment:** , , Schema.org (ProductSchema, BreadcrumbList Schema).
+- **CORS Management:** FastAPI , explicit  headers.
+- **Database Migrations:** Scripts for adding new columns (, ).
 </key_technical_concepts>
 
 <code_architecture>
-The application uses a React frontend, FastAPI backend, and SQLite database.
 
 
-- ****: Updated with , .
-- ****: Added new endpoint  for fetching Web Vitals metrics.
-- ****: The  model was updated to include  and . The  class was defined for storing performance metrics.
-- ****: The  Pydantic model was extended to include  and  fields, crucial for correct metric submission.
-- ****: Integrates  and . New public endpoints for , ,  metric submission (), serving , , and . Modified  to increment . Telegram notifications integrated into contact forms. Fixes for  serving correct static content.
-- ****:  was extended with  and .  was updated.
-- ** (NEW)**: Python script for web scraping product data from , including iterative fixes for data mapping and description parsing.
-- ** (NEW)**: Script to clean up product descriptions in the database.
-- ** (NEW)**: Utility script to query product count from the database.
-- ** (NEW)**: Utility script to check Web Vitals entries in the database.
-- ****: Integrated  for SEO management and added new routes for legal documents.
-- ****: Expanded with functions for , , , file upload, , and .
-- ****: Updated to include a search icon and integrate the  component.
-- ****: Updated legal document links and replaced social media icons with VK and Telegram.
-- ****: Enhanced with swipe gestures, displays product , and integrated  and  for SEO.
-- ****: Displays product  in product cards and integrated  and .
-- ****: Reorganized to introduce a Content submenu, including , , , , and the new .
-- ****: Modified to include a quick category change dropdown in product cards and corrected API calls to .
-- ** (NEW)**: Component for editing various page texts.
-- ****: Enhanced for meta-tags, Open Graph, Schema.org, and Yandex verification meta-tags.
-- ** (NEW)**: Component for Schema.org product structured data.
-- ** (NEW)**: Component for Schema.org breadcrumb structured data.
-- ****: Updated with centralized SEO content and changed the company founding year to 1993.
-- ** (NEW)**: Created to control search engine crawling, disallowing admin and API paths.
-- ** (NEW)**: Generated XML sitemap to assist search engine indexing.
-- ** (NEW)**: Yandex site verification file.
-- ** / **: Updated with new Python (, ) and Node.js (, ) dependencies.
+-   ****:
+    -   Importance: Defines admin-specific API endpoints for product management, image uploads, etc.
+    -   Changes: Added  for partial updates. Modified  to correctly handle  field and to delete old images before adding new ones. Enhanced  endpoint with explicit CORS headers and OPTIONS method. Added logging for debugging PUT/PATCH operations.
+-   ****:
+    -   Importance: Defines SQLAlchemy models for the SQLite database.
+    -   Changes: Updated  model to include  boolean field.
+-   ****:
+    -   Importance: Defines Pydantic models for request and response validation.
+    -   Changes: Updated  and  Pydantic models to include  field.
+-   ****:
+    -   Importance: The main FastAPI application, defines routes and middleware.
+    -   Changes: Added explicit  headers to  GET endpoint and implemented an OPTIONS method to support CORS preflight requests for image serving.
+-   ****:
+    -   Importance: Contains business logic for database interactions.
+    -   Changes: Modified  to use  on product names and search queries for case-insensitive Cyrillic search. Updated product retrieval methods to return the  field.
+-   ** (NEW)**:
+    -   Importance: A one-off script to populate the  field for existing products in the database.
+    -   Changes: Script created to iterate products and assign articles based on name or existing values.
+-   ** (NEW)**:
+    -   Importance: A database migration script to add the  column to the  table.
+    -   Changes: Script created for database schema evolution.
+-   ** (NEW)**:
+    -   Importance: A database migration script to add the  column to the  table.
+    -   Changes: Script created for database schema evolution.
+-   ** (NEW)**:
+    -   Importance: Utility script to set  to  for all products, used for testing purposes.
+    -   Changes: Script created for bulk product status management.
+-   ****:
+    -   Importance: Defines main application routes.
+    -   Changes: Added a new route for  to display search results.
+-   ****:
+    -   Importance: Handles all API calls from the frontend.
+    -   Changes: Modified  function to correctly accept and pass a parameters object () to the backend.
+-   ****:
+    -   Importance: Provides the smart search functionality.
+    -   Changes: Increased article font size. Implemented logic to navigate to a dedicated search results page on Show all results click or Enter key. Added mini preview images (or placeholders) in the dropdown. Corrected parameter passing to .
+-   ** (NEW)**:
+    -   Importance: Displays related products based on the current product.
+    -   Changes: New component created to show additional matching products after a search selection.
+-   ****:
+    -   Importance: Admin component for managing products (CRUD operations).
+    -   Changes: Implemented article search and bulk actions (publish/unpublish, change statuses). Added pagination with navigation buttons. Displayed article numbers as badges. Added a multi-file image upload interface (drag-and-drop) directly in the product editing form. Added manual image URL input. Added a Clear all images button. Ensured correct handling of image arrays and  field during edit/save. Integrated  component.
+-   ****:
+    -   Importance: Admin component for general image management.
+    -   Changes: Integrated  component.
+-   ****:
+    -   Importance: Reusable component for image uploading.
+    -   Changes: Integrated  component. Added logging to  for debugging.
+-   ** (NEW)**:
+    -   Importance: Provides recommendations for image size and format.
+    -   Changes: New reusable component created and integrated into relevant upload forms.
+-   ****:
+    -   Importance: Displays individual product details.
+    -   Changes: Increased article font size. Integrated  component. Displays  status.
+-   ****:
+    -   Importance: Displays products within a category.
+    -   Changes: Increased article font size. Displays  status.
+-   ** (NEW)**:
+    -   Importance: Dedicated page for displaying full search results.
+    -   Changes: New page created to display results for broader search queries. Corrected parameter passing to .
+-   ****:
+    -   Importance: Script for deploying the application.
+    -   Changes: Updated to automatically run database migrations.
+-   ** (NEW)**:
+    -   Importance: Instructions for updating the production environment.
+    -   Changes: New file created to provide manual deployment and update steps.
 </code_architecture>
 
 <pending_tasks>
 - Complete the integration of the  component into  if not fully completed.
 - Conduct full testing of the Telegram bot integration (deferred by user).
-- Ensure all latest frontend changes are visible on  by linking the domain to the correct, updated deployment and performing a full re-deploy.
-- Address the user's report of a missing article number on a specific product detail page.
+- Address the ongoing issue of uploaded photos disappearing in product cards (backend persistence, validation, or frontend display after save) based on the recently identified problem from logs.
+- Investigate and resolve the 422 (Unprocessable Content) errors observed during image uploads.
 </pending_tasks>
 
 <current_work>
-Immediately before this summary request, the AI engineer was addressing several issues related to deployment and feature visibility. After successfully updating social media links to VK and Telegram, and verifying that product article numbers were correctly displayed in category listings on the  domain, the user reported a new issue: the article number was still missing inside a specific product detail card on the *preview* domain: . This indicates the current focus is on debugging this specific UI rendering issue for individual product pages, potentially a frontend component issue or data fetching discrepancy for that particular product. This follows extensive work on SEO, Web Vitals monitoring, admin panel reorganization, and domain connection, all of which faced persistent caching and deployment synchronization challenges between development and production environments, and across different Emergent deployments.
+Immediately before this summary, the AI engineer was actively engaged in debugging the recurring issue of uploaded photographs disappearing in the product card after being saved, as reported by the user. The previous attempts involved checking frontend image handling, backend PUT/PATCH logic, and addressing CORS issues by adding explicit headers.
+
+The latest interaction (Chat Message 611-624) focused on revisiting the backend's  for product update endpoints (). The AI discovered that the  field was missing in the backend's update logic, which could contribute to data inconsistencies. The AI then implemented additional, extensive logging within the backend's PUT and PATCH methods to capture the exact data being received and processed during product updates, aiming for a precise diagnosis. After restarting the backend with these logging changes, the AI requested the user to perform the problematic action and provide console/network logs. The trajectory concludes with the AI receiving a user-provided screenshot of the logs (Chat Message 623) and stating, Отлично! Вижу в логах что происходит! Проблема найдена: (Great! I see what's happening in the logs! Problem found:). This indicates the AI has identified the root cause of the image persistence issue and is poised to implement a fix.
 </current_work>
 
 <optional_next_step>
-Investigate why the product article is not displayed on the specific product detail page: .
+Apply the identified fix for the image persistence issue and the  field in the backend PUT logic.
 </optional_next_step>
+
