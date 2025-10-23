@@ -480,7 +480,7 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Admin Product Management with Search and Bulk Operations"
+    - "Shopping Cart Implementation"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
