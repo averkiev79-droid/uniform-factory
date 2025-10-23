@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import "./App.css";
+import { CartProvider } from './context/CartContext';
 import { Layout } from './components/Layout';
 import { ScrollToTop } from './components/ScrollToTop';
 import { HomePage } from './pages/HomePage';
@@ -18,16 +19,18 @@ import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { UserAgreementPage } from './pages/UserAgreementPage';
 import { CompanyDetailsPage } from './pages/CompanyDetailsPage';
 import { SearchResultsPage } from './pages/SearchResultsPage';
+import CartPage from './pages/CartPage';
 import { AdminApp } from './components/AdminApp';
 
 function App() {
   return (
     <HelmetProvider>
-      <div className="App">
-        <Router>
-          <ScrollToTop />
-          <Routes>
-          <Route path="/admin" element={<AdminApp />} />
+      <CartProvider>
+        <div className="App">
+          <Router>
+            <ScrollToTop />
+            <Routes>
+            <Route path="/admin" element={<AdminApp />} />
           <Route path="/" element={
             <Layout>
               <HomePage />
