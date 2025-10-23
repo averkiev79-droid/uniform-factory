@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, Mail, Heart, Search as SearchIcon } from 'lucide-react';
+import { Menu, X, Phone, Mail, Heart, Search as SearchIcon, ShoppingCart } from 'lucide-react';
 import { Button } from './ui/button';
 import { useNavigate } from 'react-router-dom';
 import ProductSearch from './ProductSearch';
+import { useCart } from '../context/CartContext';
 
 export const Header = () => {
   const navigate = useNavigate();
+  const { getTotalItems } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [favoritesCount, setFavoritesCount] = useState(0);
