@@ -266,6 +266,7 @@ class CartOrderItem(BaseModel):
     product_name: str
     article: Optional[str] = None
     color: Optional[str] = None
+    size: Optional[str] = None
     material: Optional[str] = None
     quantity: int
     price_from: int
