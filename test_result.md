@@ -480,7 +480,6 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Product Image Persistence Bug Fix"
     - "Admin Product Management with Search and Bulk Operations"
   stuck_tasks: []
   test_all: false
