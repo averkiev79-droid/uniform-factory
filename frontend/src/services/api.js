@@ -260,10 +260,23 @@ export const apiService = {
   // Settings
   async getSettings() {
     try {
+      // Check cache first
+      if (isCacheValid('settings')) {
+        console.log('Using cached settings');
+        return cache.settings;
+      }
+      
       const response = await api.get('/settings');
+      cache.settings = response.data;
+      cache.timestamp.settings = Date.now();
       return response.data;
     } catch (error) {
       console.error('Failed to fetch settings:', error);
+      // Return cached data if available, even if expired
+      if (cache.settings) {
+        console.log('Using stale cache for settings');
+        return cache.settings;
+      }
       throw error;
     }
   },
