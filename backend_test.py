@@ -2223,6 +2223,496 @@ class APITester:
         print(f"   Bulk Operations:   {'✅ PASS' if bulk_hide_success and bulk_show_success else '❌ FAIL'}")
         print(f"   Error Handling:    ✅ PASS (tested)")
 
+    # ===== SHOPPING CART TESTS =====
+    
+    def test_cart_submit_order_valid(self):
+        """Test 1: POST /api/cart/submit-order with valid order data"""
+        test_order = {
+            "customer_name": "Анна Петрова",
+            "customer_phone": "+7 (999) 123-45-67",
+            "customer_email": "anna.petrova@example.com",
+            "comment": "Срочный заказ, нужно до конца месяца",
+            "items": [
+                {
+                    "product_id": "prod-001",
+                    "product_name": "Белая рубашка для официантов",
+                    "article": "WS-001",
+                    "color": "Белый",
+                    "material": "Хлопок",
+                    "quantity": 10,
+                    "price_from": 1200
+                },
+                {
+                    "product_id": "prod-002", 
+                    "product_name": "Черные брюки классические",
+                    "article": "BP-002",
+                    "color": "Черный",
+                    "material": "Полиэстер",
+                    "quantity": 5,
+                    "price_from": 1800
+                }
+            ],
+            "total_amount": 21000
+        }
+        
+        try:
+            response = self.session.post(f"{self.base_url}/cart/submit-order", json=test_order)
+            
+            if response.status_code == 200:
+                data = response.json()
+                required_fields = ['success', 'message', 'request_id']
+                
+                if all(field in data for field in required_fields):
+                    if (data['success'] and 
+                        data['message'] and 
+                        data['request_id'] and 
+                        data['request_id'].startswith('CART-')):
+                        
+                        # Validate request_id format: CART-YYYY-XXXXXX
+                        import re
+                        request_id_pattern = r'^CART-\d{4}-[A-Z0-9]{6}$'
+                        if re.match(request_id_pattern, data['request_id']):
+                            self.log_result('/cart/submit-order (valid)', 'POST', True, 
+                                          f"Cart order submitted successfully - Request ID: {data['request_id']}, Message: {data['message']}", data)
+                        else:
+                            self.log_result('/cart/submit-order (valid)', 'POST', False, 
+                                          f"Invalid request_id format: {data['request_id']}", data)
+                    else:
+                        self.log_result('/cart/submit-order (valid)', 'POST', False, 
+                                      f"Invalid response values - Success: {data.get('success')}, Message: {data.get('message')}, Request ID: {data.get('request_id')}", data)
+                else:
+                    missing = [f for f in required_fields if f not in data]
+                    self.log_result('/cart/submit-order (valid)', 'POST', False, 
+                                  f"Missing required fields: {missing}", data)
+            else:
+                self.log_result('/cart/submit-order (valid)', 'POST', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/cart/submit-order (valid)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_cart_submit_order_multiple_items(self):
+        """Test 2: POST /api/cart/submit-order with multiple items and optional fields"""
+        test_order = {
+            "customer_name": "Иван Сидоров",
+            "customer_phone": "+7 (812) 987-65-43",
+            "customer_email": "ivan.sidorov@company.ru",
+            "comment": None,  # Test optional comment
+            "items": [
+                {
+                    "product_id": "prod-003",
+                    "product_name": "Фартук поварской",
+                    "article": None,  # Test optional article
+                    "color": None,    # Test optional color
+                    "material": "Хлопок",
+                    "quantity": 15,
+                    "price_from": 800
+                },
+                {
+                    "product_id": "prod-004",
+                    "product_name": "Костюм официанта",
+                    "article": "CS-004",
+                    "color": "Темно-синий",
+                    "material": None,  # Test optional material
+                    "quantity": 8,
+                    "price_from": 3500
+                },
+                {
+                    "product_id": "prod-005",
+                    "product_name": "Блуза женская",
+                    "article": "WB-005",
+                    "color": "Белый",
+                    "material": "Поликоттон",
+                    "quantity": 12,
+                    "price_from": 1400
+                }
+            ],
+            "total_amount": 56800
+        }
+        
+        try:
+            response = self.session.post(f"{self.base_url}/cart/submit-order", json=test_order)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if (data.get('success') and 
+                    data.get('message') and 
+                    data.get('request_id') and 
+                    data['request_id'].startswith('CART-')):
+                    
+                    self.log_result('/cart/submit-order (multiple_items)', 'POST', True, 
+                                  f"Multiple items order submitted successfully - Request ID: {data['request_id']}, Total: {test_order['total_amount']} ₽", data)
+                else:
+                    self.log_result('/cart/submit-order (multiple_items)', 'POST', False, 
+                                  f"Invalid response structure", data)
+            else:
+                self.log_result('/cart/submit-order (multiple_items)', 'POST', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/cart/submit-order (multiple_items)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_cart_submit_order_missing_customer_name(self):
+        """Test 3: POST /api/cart/submit-order with missing customer_name (should fail)"""
+        test_order = {
+            # "customer_name": "Missing",  # Intentionally missing
+            "customer_phone": "+7 (999) 111-22-33",
+            "customer_email": "test@example.com",
+            "items": [
+                {
+                    "product_id": "prod-001",
+                    "product_name": "Test Product",
+                    "quantity": 1,
+                    "price_from": 1000
+                }
+            ],
+            "total_amount": 1000
+        }
+        
+        try:
+            response = self.session.post(f"{self.base_url}/cart/submit-order", json=test_order)
+            
+            if response.status_code == 422:  # FastAPI validation error
+                self.log_result('/cart/submit-order (missing_name)', 'POST', True, 
+                              f"Correctly rejected order with missing customer_name: validation error")
+            else:
+                self.log_result('/cart/submit-order (missing_name)', 'POST', False, 
+                              f"Should have returned 422, got {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/cart/submit-order (missing_name)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_cart_submit_order_invalid_email(self):
+        """Test 4: POST /api/cart/submit-order with invalid email format (should fail)"""
+        test_order = {
+            "customer_name": "Тест Пользователь",
+            "customer_phone": "+7 (999) 111-22-33",
+            "customer_email": "invalid-email-format",  # Invalid email
+            "items": [
+                {
+                    "product_id": "prod-001",
+                    "product_name": "Test Product",
+                    "quantity": 1,
+                    "price_from": 1000
+                }
+            ],
+            "total_amount": 1000
+        }
+        
+        try:
+            response = self.session.post(f"{self.base_url}/cart/submit-order", json=test_order)
+            
+            if response.status_code == 422:  # FastAPI validation error
+                self.log_result('/cart/submit-order (invalid_email)', 'POST', True, 
+                              f"Correctly rejected order with invalid email format: validation error")
+            else:
+                self.log_result('/cart/submit-order (invalid_email)', 'POST', False, 
+                              f"Should have returned 422, got {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/cart/submit-order (invalid_email)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_cart_submit_order_invalid_phone(self):
+        """Test 5: POST /api/cart/submit-order with invalid phone format (should fail)"""
+        test_order = {
+            "customer_name": "Тест Пользователь",
+            "customer_phone": "123",  # Too short phone number
+            "customer_email": "test@example.com",
+            "items": [
+                {
+                    "product_id": "prod-001",
+                    "product_name": "Test Product",
+                    "quantity": 1,
+                    "price_from": 1000
+                }
+            ],
+            "total_amount": 1000
+        }
+        
+        try:
+            response = self.session.post(f"{self.base_url}/cart/submit-order", json=test_order)
+            
+            if response.status_code == 422:  # FastAPI validation error
+                self.log_result('/cart/submit-order (invalid_phone)', 'POST', True, 
+                              f"Correctly rejected order with invalid phone format: validation error")
+            else:
+                self.log_result('/cart/submit-order (invalid_phone)', 'POST', False, 
+                              f"Should have returned 422, got {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/cart/submit-order (invalid_phone)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_cart_submit_order_empty_items(self):
+        """Test 6: POST /api/cart/submit-order with empty items array (should fail)"""
+        test_order = {
+            "customer_name": "Тест Пользователь",
+            "customer_phone": "+7 (999) 111-22-33",
+            "customer_email": "test@example.com",
+            "items": [],  # Empty items array
+            "total_amount": 0
+        }
+        
+        try:
+            response = self.session.post(f"{self.base_url}/cart/submit-order", json=test_order)
+            
+            if response.status_code == 422:  # FastAPI validation error
+                self.log_result('/cart/submit-order (empty_items)', 'POST', True, 
+                              f"Correctly rejected order with empty items array: validation error")
+            else:
+                self.log_result('/cart/submit-order (empty_items)', 'POST', False, 
+                              f"Should have returned 422, got {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/cart/submit-order (empty_items)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_cart_submit_order_long_comment(self):
+        """Test 7: POST /api/cart/submit-order with very long comment field"""
+        long_comment = "Очень длинный комментарий к заказу. " * 50  # ~1500 characters
+        
+        test_order = {
+            "customer_name": "Тест Пользователь",
+            "customer_phone": "+7 (999) 111-22-33",
+            "customer_email": "test@example.com",
+            "comment": long_comment,
+            "items": [
+                {
+                    "product_id": "prod-001",
+                    "product_name": "Test Product",
+                    "quantity": 1,
+                    "price_from": 1000
+                }
+            ],
+            "total_amount": 1000
+        }
+        
+        try:
+            response = self.session.post(f"{self.base_url}/cart/submit-order", json=test_order)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success') and data.get('request_id'):
+                    self.log_result('/cart/submit-order (long_comment)', 'POST', True, 
+                                  f"Order with long comment submitted successfully - Request ID: {data['request_id']}", data)
+                else:
+                    self.log_result('/cart/submit-order (long_comment)', 'POST', False, 
+                                  f"Invalid response structure", data)
+            else:
+                self.log_result('/cart/submit-order (long_comment)', 'POST', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/cart/submit-order (long_comment)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_cart_order_database_integration(self):
+        """Test 8: Verify cart order is saved to database as quote request"""
+        test_order = {
+            "customer_name": "База Данных Тест",
+            "customer_phone": "+7 (999) 888-77-66",
+            "customer_email": "database.test@example.com",
+            "comment": "Тест интеграции с базой данных",
+            "items": [
+                {
+                    "product_id": "db-test-001",
+                    "product_name": "Тестовый продукт для БД",
+                    "article": "DB-001",
+                    "color": "Синий",
+                    "material": "Тестовый материал",
+                    "quantity": 3,
+                    "price_from": 1500
+                }
+            ],
+            "total_amount": 4500
+        }
+        
+        try:
+            # Submit cart order
+            response = self.session.post(f"{self.base_url}/cart/submit-order", json=test_order)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success') and data.get('request_id'):
+                    request_id = data['request_id']
+                    
+                    # Verify order appears in quote requests
+                    quotes_response = self.session.get(f"{self.base_url}/admin/quote-requests")
+                    
+                    if quotes_response.status_code == 200:
+                        quotes = quotes_response.json()
+                        
+                        # Find our order in the quote requests
+                        cart_order = None
+                        for quote in quotes:
+                            if quote.get('request_id') == request_id:
+                                cart_order = quote
+                                break
+                        
+                        if cart_order:
+                            # Verify order details
+                            expected_category = "Заказ из корзины"
+                            expected_quantity = "3 товаров"
+                            
+                            if (cart_order.get('category') == expected_category and
+                                cart_order.get('quantity') == expected_quantity and
+                                cart_order.get('name') == test_order['customer_name'] and
+                                cart_order.get('email') == test_order['customer_email']):
+                                
+                                self.log_result('/cart/submit-order (database)', 'POST', True, 
+                                              f"Cart order correctly saved to database - Category: {cart_order.get('category')}, Quantity: {cart_order.get('quantity')}", cart_order)
+                            else:
+                                self.log_result('/cart/submit-order (database)', 'POST', False, 
+                                              f"Cart order saved but with incorrect data - Category: {cart_order.get('category')}, Quantity: {cart_order.get('quantity')}", cart_order)
+                        else:
+                            self.log_result('/cart/submit-order (database)', 'POST', False, 
+                                          f"Cart order not found in quote requests with request_id: {request_id}")
+                    else:
+                        self.log_result('/cart/submit-order (database)', 'POST', False, 
+                                      f"Failed to retrieve quote requests: {quotes_response.status_code}")
+                else:
+                    self.log_result('/cart/submit-order (database)', 'POST', False, 
+                                  f"Cart order submission failed", data)
+            else:
+                self.log_result('/cart/submit-order (database)', 'POST', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/cart/submit-order (database)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_cart_order_cors_headers(self):
+        """Test 9: Verify CORS headers on cart order endpoint"""
+        try:
+            # Test OPTIONS request for CORS preflight
+            options_response = self.session.options(f"{self.base_url}/cart/submit-order")
+            
+            # Test actual POST request and check CORS headers
+            test_order = {
+                "customer_name": "CORS Тест",
+                "customer_phone": "+7 (999) 777-88-99",
+                "customer_email": "cors.test@example.com",
+                "items": [
+                    {
+                        "product_id": "cors-001",
+                        "product_name": "CORS Test Product",
+                        "quantity": 1,
+                        "price_from": 1000
+                    }
+                ],
+                "total_amount": 1000
+            }
+            
+            response = self.session.post(f"{self.base_url}/cart/submit-order", json=test_order)
+            
+            if response.status_code == 200:
+                # Check for CORS headers
+                cors_headers = {
+                    'Access-Control-Allow-Origin': response.headers.get('Access-Control-Allow-Origin'),
+                    'Access-Control-Allow-Methods': response.headers.get('Access-Control-Allow-Methods'),
+                    'Access-Control-Allow-Headers': response.headers.get('Access-Control-Allow-Headers')
+                }
+                
+                if cors_headers['Access-Control-Allow-Origin']:
+                    self.log_result('/cart/submit-order (cors)', 'POST', True, 
+                                  f"CORS headers present - Origin: {cors_headers['Access-Control-Allow-Origin']}", cors_headers)
+                else:
+                    self.log_result('/cart/submit-order (cors)', 'POST', False, 
+                                  f"CORS headers missing", cors_headers)
+            else:
+                self.log_result('/cart/submit-order (cors)', 'POST', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/cart/submit-order (cors)', 'POST', False, f"Exception: {str(e)}")
+    
+    def test_existing_endpoints_still_work(self):
+        """Test 10: Integration test - verify existing endpoints still work after cart implementation"""
+        try:
+            # Test categories endpoint
+            categories_response = self.session.get(f"{self.base_url}/categories")
+            categories_working = categories_response.status_code == 200
+            
+            # Test products endpoint
+            products_response = self.session.get(f"{self.base_url}/products")
+            products_working = products_response.status_code == 200
+            
+            # Test calculator options endpoint
+            calc_response = self.session.get(f"{self.base_url}/calculator/options")
+            calc_working = calc_response.status_code == 200
+            
+            # Test quote request endpoint
+            quote_data = {
+                "name": "Integration Test",
+                "email": "integration@test.com",
+                "phone": "+7 (999) 000-11-22",
+                "company": "Test Company",
+                "category": "shirts",
+                "quantity": "11-25",
+                "fabric": "cotton",
+                "branding": "none",
+                "estimated_price": 2000
+            }
+            quote_response = self.session.post(f"{self.base_url}/calculator/quote-request", json=quote_data)
+            quote_working = quote_response.status_code == 200
+            
+            all_working = categories_working and products_working and calc_working and quote_working
+            
+            if all_working:
+                self.log_result('/integration (existing_endpoints)', 'GET/POST', True, 
+                              f"All existing endpoints still working after cart implementation", {
+                                  'categories': categories_working,
+                                  'products': products_working,
+                                  'calculator': calc_working,
+                                  'quote_request': quote_working
+                              })
+            else:
+                self.log_result('/integration (existing_endpoints)', 'GET/POST', False, 
+                              f"Some existing endpoints broken after cart implementation", {
+                                  'categories': categories_working,
+                                  'products': products_working,
+                                  'calculator': calc_working,
+                                  'quote_request': quote_working
+                              })
+                
+        except Exception as e:
+            self.log_result('/integration (existing_endpoints)', 'GET/POST', False, f"Exception: {str(e)}")
+    
+    def run_shopping_cart_tests(self):
+        """Run all Shopping Cart API tests"""
+        print(f"\n🛒 Starting Shopping Cart Backend Testing")
+        print("=" * 60)
+        print("Testing POST /api/cart/submit-order endpoint with comprehensive scenarios")
+        print("=" * 60)
+        
+        # Test 1: Valid order submission
+        self.test_cart_submit_order_valid()
+        
+        # Test 2: Multiple items with optional fields
+        self.test_cart_submit_order_multiple_items()
+        
+        # Test 3: Missing required fields
+        self.test_cart_submit_order_missing_customer_name()
+        
+        # Test 4: Invalid email format
+        self.test_cart_submit_order_invalid_email()
+        
+        # Test 5: Invalid phone format
+        self.test_cart_submit_order_invalid_phone()
+        
+        # Test 6: Empty items array
+        self.test_cart_submit_order_empty_items()
+        
+        # Test 7: Long comment field
+        self.test_cart_submit_order_long_comment()
+        
+        # Test 8: Database integration
+        self.test_cart_order_database_integration()
+        
+        # Test 9: CORS headers
+        self.test_cart_order_cors_headers()
+        
+        # Test 10: Integration with existing endpoints
+        self.test_existing_endpoints_still_work()
+        
+        print("=" * 60)
+
     # ===== CRITICAL IMAGE PERSISTENCE BUG FIX TESTS =====
     
     def test_product_update_with_images_full_flow(self):
