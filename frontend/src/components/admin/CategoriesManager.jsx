@@ -29,7 +29,7 @@ export const CategoriesManager = () => {
 
   const loadCategories = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/admin/categories`);
+      const response = await fetch(`${BACKEND_URL}/api/admin/categories`);
       if (response.ok) {
         const data = await response.json();
         setCategories(data);
@@ -38,6 +38,40 @@ export const CategoriesManager = () => {
       setError('Ошибка загрузки категорий');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('file', file);
+
+      console.log('Uploading category image:', file.name);
+      const response = await axios.post(`${BACKEND_URL}/api/admin/upload-image`, formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      console.log('Upload response:', response.data);
+      const fullUrl = `${BACKEND_URL}${response.data.url}`;
+      console.log('Full URL:', fullUrl);
+      
+      setFormData(prev => ({
+        ...prev,
+        image: fullUrl
+      }));
+
+      alert('Изображение загружено успешно');
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('Ошибка загрузки изображения: ' + (error.response?.data?.detail || error.message));
+    } finally {
+      setUploadingImage(false);
     }
   };
 
