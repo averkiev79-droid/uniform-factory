@@ -119,6 +119,20 @@ export const Header = () => {
               )}
             </button>
 
+            {/* Cart Button */}
+            <button
+              onClick={() => navigate('/cart')}
+              className="relative p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+              title="Корзина"
+            >
+              <ShoppingCart className="w-5 h-5" />
+              {getTotalItems() > 0 && (
+                <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
+                  {getTotalItems()}
+                </span>
+              )}
+            </button>
+
             <a 
               href="/calculator"
               className="hidden md:inline-flex bg-navy hover:bg-navy-hover text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
