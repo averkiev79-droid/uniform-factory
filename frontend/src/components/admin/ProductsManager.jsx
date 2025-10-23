@@ -291,10 +291,29 @@ export const ProductsManager = () => {
         return;
       }
 
+      // Парсим строковые поля в массивы перед отправкой
+      const parseSizes = (sizes) => {
+        if (Array.isArray(sizes)) return sizes;
+        if (typeof sizes === 'string') {
+          return sizes.split(',').map(s => s.trim()).filter(s => s);
+        }
+        return [];
+      };
+
+      const parseColors = (colors) => {
+        if (Array.isArray(colors)) return colors;
+        if (typeof colors === 'string') {
+          return colors.split(',').map(c => c.trim()).filter(c => c);
+        }
+        return [];
+      };
+
       const productData = {
         ...formData,
         price_from: parseInt(formData.price_from),
         price_to: formData.price_to ? parseInt(formData.price_to) : null,
+        sizes: parseSizes(formData.sizes),
+        colors: parseColors(formData.colors),
         // Убедимся, что images - это массив строк (URL-ов)
         images: Array.isArray(formData.images) ? formData.images : []
       };
