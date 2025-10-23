@@ -318,6 +318,7 @@ async def submit_cart_order(order: CartOrderCreate, background_tasks: Background
                         'name': item.product_name,
                         'article': item.article or 'N/A',
                         'color': item.color or 'не указан',
+                        'size': item.size or 'не указан',
                         'material': item.material or 'не указан',
                         'quantity': item.quantity,
                         'price_from': item.price_from
