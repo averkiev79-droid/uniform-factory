@@ -5,8 +5,22 @@ const API = `${BACKEND_URL}/api`;
 
 const api = axios.create({
   baseURL: API,
-  timeout: 10000,
+  timeout: 15000, // Увеличим timeout
 });
+
+// Simple cache for static data
+const cache = {
+  settings: null,
+  statistics: null,
+  categories: null,
+  timestamp: {}
+};
+
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+const isCacheValid = (key) => {
+  return cache[key] && cache.timestamp[key] && (Date.now() - cache.timestamp[key]) < CACHE_TTL;
+};
 
 // Request interceptor for logging
 api.interceptors.request.use(
