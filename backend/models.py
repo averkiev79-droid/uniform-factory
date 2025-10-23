@@ -260,6 +260,48 @@ class CalculatorOptions(BaseModel):
     fabrics: List[CalculatorFabric]
     branding: List[CalculatorBranding]
 
+# Cart Order Models
+class CartOrderItem(BaseModel):
+    product_id: str
+    product_name: str
+    article: Optional[str] = None
+    color: Optional[str] = None
+    material: Optional[str] = None
+    quantity: int
+    price_from: int
+
+class CartOrderCreate(BaseModel):
+    customer_name: str
+    customer_phone: str
+    customer_email: str
+    comment: Optional[str] = None
+    items: List[CartOrderItem]
+    total_amount: int
+    
+    @validator('customer_name', 'comment')
+    def sanitize_text_fields(cls, v):
+        if v is None:
+            return v
+        return v.strip()[:500] if isinstance(v, str) else v
+    
+    @validator('customer_email')
+    def validate_email(cls, v):
+        import re
+        v = v.strip().lower()
+        email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_pattern, v):
+            raise ValueError('Недопустимый формат email')
+        return v
+    
+    @validator('customer_phone')
+    def validate_phone(cls, v):
+        import re
+        v = re.sub(r'[^\d+]', '', v)
+        digits_only = re.sub(r'\D', '', v)
+        if len(digits_only) < 10:
+            raise ValueError('Недопустимый формат телефона')
+        return v
+
 # Product Models
 class ProductImage(BaseModel):
     id: Optional[str] = None
