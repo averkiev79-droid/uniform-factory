@@ -452,6 +452,9 @@ async def admin_update_product(product_id: str, product: ProductCreate):
                     order=i+1
                 )
                 db.add(image)
+            print(f"Added {len(product.images)} new images")
+        else:
+            print("No images to add")
         
         # Add new characteristics
         if product.characteristics:
@@ -465,6 +468,7 @@ async def admin_update_product(product_id: str, product: ProductCreate):
                 db.add(characteristic)
         
         db.commit()
+        print(f"Product updated successfully. Final images count: {db.query(SQLProductImage).filter(SQLProductImage.product_id == product_id).count()}")
         return {"success": True, "message": "Товар обновлен", "product_id": product_id}
     except HTTPException:
         raise
