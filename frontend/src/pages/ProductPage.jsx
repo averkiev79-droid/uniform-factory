@@ -560,13 +560,17 @@ export const ProductPage = () => {
                     alert('Пожалуйста, выберите цвет');
                     return;
                   }
+                  if (!selectedSize && product.sizes && product.sizes.length > 0) {
+                    alert('Пожалуйста, выберите размер');
+                    return;
+                  }
                   if (!selectedMaterial && product.characteristics && 
                       product.characteristics.some(c => c.name === 'Материал' || c.name === 'Ткань')) {
                     alert('Пожалуйста, выберите материал');
                     return;
                   }
                   
-                  addToCart(product, selectedColor, selectedMaterial, 1);
+                  addToCart(product, selectedColor, selectedSize, selectedMaterial, 1);
                   setAddedToCart(true);
                   setTimeout(() => setAddedToCart(false), 2000);
                 }}
