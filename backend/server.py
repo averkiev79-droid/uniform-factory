@@ -263,6 +263,102 @@ async def create_contact_message(request: ContactMessageCreate, background_tasks
         logger.error(f"Error creating contact message: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
+# Cart Order endpoint
+@api_router.post("/cart/submit-order")
+async def submit_cart_order(order: CartOrderCreate, background_tasks: BackgroundTasks):
+    """Submit order from cart"""
+    try:
+        from datetime import datetime
+        from database_sqlite import SessionLocal, QuoteRequest as DBQuoteRequest
+        import uuid
+        
+        db = SessionLocal()
+        try:
+            # Save order as quote request
+            order_id = str(uuid.uuid4())
+            request_id = f"CART-{datetime.now().strftime('%Y')}-{str(uuid.uuid4())[:6].upper()}"
+            
+            # Format items for storage
+            items_text = "\n".join([
+                f"- {item.product_name} (Арт. {item.article or 'N/A'})\n"
+                f"  Цвет: {item.color or 'не указан'}, Материал: {item.material or 'не указан'}\n"
+                f"  Количество: {item.quantity} шт, Цена: от {item.price_from} ₽"
+                for item in order.items
+            ])
+            
+            full_message = f"ЗАКАЗ ИЗ КОРЗИНЫ\n\n{items_text}\n\nИтого: от {order.total_amount} ₽"
+            if order.comment:
+                full_message += f"\n\nКомментарий: {order.comment}"
+            
+            db_order = DBQuoteRequest(
+                id=order_id,
+                request_id=request_id,
+                name=order.customer_name,
+                phone=order.customer_phone,
+                email=order.customer_email,
+                company="",
+                category="Заказ из корзины",
+                quantity=f"{sum([item.quantity for item in order.items])} товаров",
+                fabric="",
+                branding="",
+                estimated_price=order.total_amount,
+                status="new"
+            )
+            db.add(db_order)
+            db.commit()
+            
+            # Prepare notification data
+            order_data = {
+                'request_id': request_id,
+                'name': order.customer_name,
+                'phone': order.customer_phone,
+                'email': order.customer_email,
+                'items': [
+                    {
+                        'name': item.product_name,
+                        'article': item.article or 'N/A',
+                        'color': item.color or 'не указан',
+                        'material': item.material or 'не указан',
+                        'quantity': item.quantity,
+                        'price_from': item.price_from
+                    }
+                    for item in order.items
+                ],
+                'total_amount': order.total_amount,
+                'comment': order.comment,
+                'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
+            
+            # Send Telegram notification in background
+            background_tasks.add_task(TelegramService.send_cart_order_notification, order_data)
+            
+            # Send email if configured
+            if os.getenv('SENDER_EMAIL') and os.getenv('EMAIL_PASSWORD'):
+                background_tasks.add_task(send_quote_notification_email, {
+                    'request_id': request_id,
+                    'name': order.customer_name,
+                    'email': order.customer_email,
+                    'phone': order.customer_phone,
+                    'company': '',
+                    'category': 'Заказ из корзины',
+                    'quantity': f"{sum([item.quantity for item in order.items])} товаров",
+                    'fabric': '',
+                    'branding': '',
+                    'estimated_price': order.total_amount,
+                    'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                })
+            
+            return {
+                'success': True,
+                'message': 'Заказ успешно отправлен на расчет',
+                'request_id': request_id
+            }
+        finally:
+            db.close()
+    except Exception as e:
+        logger.error(f"Error submitting cart order: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
 # Testimonials endpoint
 @api_router.get("/testimonials")
 async def get_testimonials():
