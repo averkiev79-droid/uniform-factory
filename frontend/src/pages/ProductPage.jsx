@@ -441,21 +441,82 @@ export const ProductPage = () => {
               {/* Colors */}
               {product.colors && product.colors.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-semibold mb-3">Цвета</h3>
+                  <h3 className="text-lg font-semibold mb-3">
+                    Цвет {selectedColor && <span className="text-sm font-normal text-gray-600">({selectedColor})</span>}
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    {product.colors.map((color) => {
+                      // Color mapping for visual representation
+                      const colorMap = {
+                        'Белый': '#FFFFFF',
+                        'Черный': '#000000',
+                        'Синий': '#1E40AF',
+                        'Красный': '#DC2626',
+                        'Зеленый': '#16A34A',
+                        'Серый': '#6B7280',
+                        'Бежевый': '#D4A373',
+                        'Коричневый': '#78350F',
+                        'Розовый': '#EC4899',
+                        'Желтый': '#EAB308',
+                        'Оранжевый': '#F97316',
+                        'Фиолетовый': '#9333EA',
+                        'Голубой': '#0EA5E9',
+                        'Бордовый': '#7F1D1D',
+                        'Темно-синий': '#1E3A8A'
+                      };
+                      const colorCode = colorMap[color] || '#9CA3AF';
+                      
+                      return (
+                        <button
+                          key={color}
+                          onClick={() => setSelectedColor(color)}
+                          className={`relative w-14 h-14 rounded-lg border-2 transition-all ${
+                            selectedColor === color
+                              ? 'border-navy scale-110'
+                              : 'border-gray-300 hover:border-gray-400 hover:scale-105'
+                          }`}
+                          title={color}
+                          style={{ backgroundColor: colorCode }}
+                        >
+                          {selectedColor === color && (
+                            <Check className="w-6 h-6 text-white absolute inset-0 m-auto drop-shadow-lg" />
+                          )}
+                          {color === 'Белый' && (
+                            <div className="absolute inset-0 border border-gray-200 rounded-lg"></div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+              
+              {/* Materials */}
+              {product.characteristics && product.characteristics.some(c => c.name === 'Материал' || c.name === 'Ткань') && (
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">
+                    Материал {selectedMaterial && <span className="text-sm font-normal text-gray-600">({selectedMaterial})</span>}
+                  </h3>
                   <div className="flex flex-wrap gap-2">
-                    {product.colors.map((color) => (
-                      <button
-                        key={color}
-                        onClick={() => setSelectedColor(color)}
-                        className={`px-4 py-2 border rounded-lg transition-colors ${
-                          selectedColor === color
-                            ? 'border-navy bg-navy text-white'
-                            : 'border-gray-300 hover:border-gray-400'
-                        }`}
-                      >
-                        {color}
-                      </button>
-                    ))}
+                    {product.characteristics
+                      .filter(c => c.name === 'Материал' || c.name === 'Ткань')
+                      .map((char) => {
+                        // Split materials by comma if multiple
+                        const materials = char.value.split(',').map(m => m.trim());
+                        return materials.map((material) => (
+                          <button
+                            key={material}
+                            onClick={() => setSelectedMaterial(material)}
+                            className={`px-4 py-2 border rounded-lg transition-colors ${
+                              selectedMaterial === material
+                                ? 'border-navy bg-navy text-white'
+                                : 'border-gray-300 hover:border-gray-400'
+                            }`}
+                          >
+                            {material}
+                          </button>
+                        ));
+                      })}
                   </div>
                 </div>
               )}
@@ -464,11 +525,38 @@ export const ProductPage = () => {
             {/* Actions */}
             <div className="space-y-3">
               <Button 
-                className="w-full bg-navy hover:bg-navy-hover text-lg py-6"
-                onClick={() => setIsConsultationModalOpen(true)}
+                className={`w-full text-lg py-6 transition-all ${
+                  addedToCart 
+                    ? 'bg-green-600 hover:bg-green-700' 
+                    : 'bg-navy hover:bg-navy-hover'
+                }`}
+                onClick={() => {
+                  if (!selectedColor && product.colors && product.colors.length > 0) {
+                    alert('Пожалуйста, выберите цвет');
+                    return;
+                  }
+                  if (!selectedMaterial && product.characteristics && 
+                      product.characteristics.some(c => c.name === 'Материал' || c.name === 'Ткань')) {
+                    alert('Пожалуйста, выберите материал');
+                    return;
+                  }
+                  
+                  addToCart(product, selectedColor, selectedMaterial, 1);
+                  setAddedToCart(true);
+                  setTimeout(() => setAddedToCart(false), 2000);
+                }}
               >
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                Заказать консультацию
+                {addedToCart ? (
+                  <>
+                    <Check className="w-5 h-5 mr-2" />
+                    Добавлено в корзину
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="w-5 h-5 mr-2" />
+                    Добавить в корзину
+                  </>
+                )}
               </Button>
               
               <div className="grid grid-cols-2 gap-3">
