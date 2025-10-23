@@ -2223,11 +2223,495 @@ class APITester:
         print(f"   Bulk Operations:   {'✅ PASS' if bulk_hide_success and bulk_show_success else '❌ FAIL'}")
         print(f"   Error Handling:    ✅ PASS (tested)")
 
+    # ===== CRITICAL IMAGE PERSISTENCE BUG FIX TESTS =====
+    
+    def test_product_update_with_images_full_flow(self):
+        """Test 1: Product Update with Images - Full Flow"""
+        try:
+            # Step 1: GET /api/admin/products - get a product with images
+            response = self.session.get(f"{self.base_url}/admin/products")
+            
+            if response.status_code != 200:
+                self.log_result('/admin/products (image persistence)', 'GET', False, 
+                              f"Failed to get products: HTTP {response.status_code}")
+                return
+            
+            products = response.json()
+            
+            # Find a product with images
+            product_with_images = None
+            for product in products:
+                if product.get('images') and len(product['images']) > 0:
+                    product_with_images = product
+                    break
+            
+            if not product_with_images:
+                self.log_result('/admin/products (image persistence)', 'GET', False, 
+                              "No products with images found for testing")
+                return
+            
+            product_id = product_with_images['id']
+            original_images = product_with_images['images']
+            original_images_count = len(original_images)
+            
+            self.log_result('/admin/products (image persistence - setup)', 'GET', True, 
+                          f"Found product {product_id} with {original_images_count} images", 
+                          {'product_id': product_id, 'images_count': original_images_count})
+            
+            # Step 2: PUT /api/admin/products/{id} with COMPLETE product data including images array
+            update_data = {
+                "category_id": product_with_images['category_id'],
+                "name": product_with_images['name'],
+                "article": product_with_images.get('article', ''),
+                "description": product_with_images['description'],
+                "short_description": product_with_images.get('short_description', ''),
+                "price_from": product_with_images['price_from'],
+                "price_to": product_with_images.get('price_to'),
+                "material": product_with_images.get('material', ''),
+                "sizes": product_with_images.get('sizes', []),
+                "colors": product_with_images.get('colors', []),
+                "images": [img['image_url'] if isinstance(img, dict) else img for img in original_images],
+                "characteristics": product_with_images.get('characteristics', []),
+                "is_available": product_with_images.get('is_available', True),
+                "on_order": product_with_images.get('on_order', False),
+                "featured": product_with_images.get('featured', False)
+            }
+            
+            put_response = self.session.put(f"{self.base_url}/admin/products/{product_id}", json=update_data)
+            
+            if put_response.status_code != 200:
+                self.log_result('/admin/products/{id} (image persistence)', 'PUT', False, 
+                              f"Failed to update product: HTTP {put_response.status_code}: {put_response.text}")
+                return
+            
+            # Step 3: GET /api/admin/products/{id} - verify images are STILL present after update
+            verify_response = self.session.get(f"{self.base_url}/admin/products/{product_id}")
+            
+            if verify_response.status_code != 200:
+                self.log_result('/admin/products/{id} (image persistence - verify)', 'GET', False, 
+                              f"Failed to get updated product: HTTP {verify_response.status_code}")
+                return
+            
+            updated_product = verify_response.json()
+            updated_images = updated_product.get('images', [])
+            updated_images_count = len(updated_images)
+            
+            # Step 4: Confirm images count before and after update matches
+            if updated_images_count == original_images_count and updated_images_count > 0:
+                self.log_result('/admin/products/{id} (image persistence - CRITICAL)', 'PUT+GET', True, 
+                              f"✅ IMAGES PERSISTED! Before: {original_images_count}, After: {updated_images_count}", 
+                              {'original_count': original_images_count, 'updated_count': updated_images_count})
+            else:
+                self.log_result('/admin/products/{id} (image persistence - CRITICAL)', 'PUT+GET', False, 
+                              f"❌ IMAGES LOST! Before: {original_images_count}, After: {updated_images_count}", 
+                              {'original_count': original_images_count, 'updated_count': updated_images_count})
+                
+        except Exception as e:
+            self.log_result('/admin/products (image persistence)', 'PUT+GET', False, f"Exception: {str(e)}")
+    
+    def test_quick_category_change_simulation(self):
+        """Test 2: Quick Category Change Simulation - The exact scenario causing images to disappear"""
+        try:
+            # Step 1: GET /api/admin/products - get a product with images
+            response = self.session.get(f"{self.base_url}/admin/products")
+            
+            if response.status_code != 200:
+                self.log_result('/admin/products (quick category)', 'GET', False, 
+                              f"Failed to get products: HTTP {response.status_code}")
+                return
+            
+            products = response.json()
+            
+            # Find a product with images
+            product_with_images = None
+            for product in products:
+                if product.get('images') and len(product['images']) > 0:
+                    product_with_images = product
+                    break
+            
+            if not product_with_images:
+                self.log_result('/admin/products (quick category)', 'GET', False, 
+                              "No products with images found for testing")
+                return
+            
+            product_id = product_with_images['id']
+            original_images = product_with_images['images']
+            original_images_count = len(original_images)
+            original_category = product_with_images['category_id']
+            
+            # Find a different category to change to
+            categories_response = self.session.get(f"{self.base_url}/categories")
+            if categories_response.status_code != 200:
+                self.log_result('/categories (quick category)', 'GET', False, 
+                              f"Failed to get categories: HTTP {categories_response.status_code}")
+                return
+            
+            categories = categories_response.json()
+            new_category = None
+            for cat in categories:
+                if cat['id'] != original_category:
+                    new_category = cat['id']
+                    break
+            
+            if not new_category:
+                self.log_result('/admin/products (quick category)', 'GET', False, 
+                              "No alternative category found for testing")
+                return
+            
+            self.log_result('/admin/products (quick category - setup)', 'GET', True, 
+                          f"Testing category change for product {product_id} with {original_images_count} images", 
+                          {'product_id': product_id, 'original_category': original_category, 'new_category': new_category})
+            
+            # Step 2: PUT /api/admin/products/{id} changing only category_id BUT including all other fields
+            # This simulates the handleQuickCategoryChange function after the fix
+            update_data = {
+                "category_id": new_category,  # Changed category
+                "name": product_with_images['name'],
+                "article": product_with_images.get('article', ''),
+                "description": product_with_images['description'],
+                "short_description": product_with_images.get('short_description', ''),
+                "price_from": product_with_images['price_from'],
+                "price_to": product_with_images.get('price_to'),
+                "material": product_with_images.get('material', ''),
+                "sizes": product_with_images.get('sizes', []),
+                "colors": product_with_images.get('colors', []),
+                "images": [img['image_url'] if isinstance(img, dict) else img for img in original_images],  # CRITICAL: Include images
+                "characteristics": product_with_images.get('characteristics', []),  # CRITICAL: Include characteristics
+                "is_available": product_with_images.get('is_available', True),
+                "on_order": product_with_images.get('on_order', False),  # CRITICAL: Include on_order
+                "featured": product_with_images.get('featured', False)
+            }
+            
+            put_response = self.session.put(f"{self.base_url}/admin/products/{product_id}", json=update_data)
+            
+            if put_response.status_code != 200:
+                self.log_result('/admin/products/{id} (quick category)', 'PUT', False, 
+                              f"Failed to update category: HTTP {put_response.status_code}: {put_response.text}")
+                return
+            
+            # Step 3: GET /api/admin/products/{id} - verify images array is UNCHANGED
+            verify_response = self.session.get(f"{self.base_url}/admin/products/{product_id}")
+            
+            if verify_response.status_code != 200:
+                self.log_result('/admin/products/{id} (quick category - verify)', 'GET', False, 
+                              f"Failed to get updated product: HTTP {verify_response.status_code}")
+                return
+            
+            updated_product = verify_response.json()
+            updated_images = updated_product.get('images', [])
+            updated_images_count = len(updated_images)
+            updated_category = updated_product.get('category_id')
+            
+            # Verify both category changed AND images preserved
+            category_changed = updated_category == new_category
+            images_preserved = updated_images_count == original_images_count and updated_images_count > 0
+            
+            if category_changed and images_preserved:
+                self.log_result('/admin/products/{id} (quick category - CRITICAL FIX)', 'PUT+GET', True, 
+                              f"✅ QUICK CATEGORY CHANGE FIX WORKS! Category changed, images preserved: {updated_images_count}", 
+                              {'category_changed': True, 'images_preserved': True, 'images_count': updated_images_count})
+            elif category_changed and not images_preserved:
+                self.log_result('/admin/products/{id} (quick category - CRITICAL FIX)', 'PUT+GET', False, 
+                              f"❌ BUG STILL EXISTS! Category changed but images lost: {original_images_count} → {updated_images_count}", 
+                              {'category_changed': True, 'images_preserved': False, 'original_count': original_images_count, 'updated_count': updated_images_count})
+            else:
+                self.log_result('/admin/products/{id} (quick category - CRITICAL FIX)', 'PUT+GET', False, 
+                              f"❌ UPDATE FAILED! Category: {category_changed}, Images: {images_preserved}", 
+                              {'category_changed': category_changed, 'images_preserved': images_preserved})
+                
+        except Exception as e:
+            self.log_result('/admin/products (quick category)', 'PUT+GET', False, f"Exception: {str(e)}")
+    
+    def test_image_upload_and_save(self):
+        """Test 3: Image Upload and Save"""
+        try:
+            # Step 1: POST /api/admin/upload-image - upload a test image
+            import tempfile
+            import os
+            
+            with tempfile.NamedTemporaryFile(mode='wb', suffix='.jpg', delete=False) as tmp_file:
+                tmp_file.write(b"test_image_content_for_persistence_testing" * 50)
+                tmp_file_path = tmp_file.name
+            
+            try:
+                with open(tmp_file_path, 'rb') as f:
+                    files = {'file': ('persistence_test.jpg', f, 'image/jpeg')}
+                    upload_session = requests.Session()
+                    upload_response = upload_session.post(f"{self.base_url}/admin/upload-image", files=files)
+                
+                if upload_response.status_code != 200:
+                    self.log_result('/admin/upload-image (persistence)', 'POST', False, 
+                                  f"Failed to upload image: HTTP {upload_response.status_code}: {upload_response.text}")
+                    return
+                
+                upload_data = upload_response.json()
+                if not upload_data.get('success') or not upload_data.get('url'):
+                    self.log_result('/admin/upload-image (persistence)', 'POST', False, 
+                                  f"Invalid upload response: {upload_data}")
+                    return
+                
+                uploaded_image_url = upload_data['url']
+                self.log_result('/admin/upload-image (persistence)', 'POST', True, 
+                              f"Image uploaded successfully: {uploaded_image_url}", upload_data)
+                
+                # Step 2: Create or update a product including this image URL in images array
+                # Get first product to update
+                products_response = self.session.get(f"{self.base_url}/admin/products")
+                if products_response.status_code != 200:
+                    self.log_result('/admin/products (persistence - get)', 'GET', False, 
+                                  f"Failed to get products: HTTP {products_response.status_code}")
+                    return
+                
+                products = products_response.json()
+                if not products:
+                    self.log_result('/admin/products (persistence - get)', 'GET', False, 
+                                  "No products found for testing")
+                    return
+                
+                test_product = products[0]
+                product_id = test_product['id']
+                
+                # Add uploaded image to existing images
+                existing_images = test_product.get('images', [])
+                existing_image_urls = [img['image_url'] if isinstance(img, dict) else img for img in existing_images]
+                new_images = existing_image_urls + [uploaded_image_url]
+                
+                update_data = {
+                    "category_id": test_product['category_id'],
+                    "name": test_product['name'],
+                    "article": test_product.get('article', ''),
+                    "description": test_product['description'],
+                    "short_description": test_product.get('short_description', ''),
+                    "price_from": test_product['price_from'],
+                    "price_to": test_product.get('price_to'),
+                    "material": test_product.get('material', ''),
+                    "sizes": test_product.get('sizes', []),
+                    "colors": test_product.get('colors', []),
+                    "images": new_images,  # Include new uploaded image
+                    "characteristics": test_product.get('characteristics', []),
+                    "is_available": test_product.get('is_available', True),
+                    "on_order": test_product.get('on_order', False),
+                    "featured": test_product.get('featured', False)
+                }
+                
+                update_response = self.session.put(f"{self.base_url}/admin/products/{product_id}", json=update_data)
+                
+                if update_response.status_code != 200:
+                    self.log_result('/admin/products/{id} (persistence - update)', 'PUT', False, 
+                                  f"Failed to update product with new image: HTTP {update_response.status_code}: {update_response.text}")
+                    return
+                
+                # Step 3: Verify image persists after save
+                verify_response = self.session.get(f"{self.base_url}/admin/products/{product_id}")
+                
+                if verify_response.status_code != 200:
+                    self.log_result('/admin/products/{id} (persistence - verify)', 'GET', False, 
+                                  f"Failed to verify product: HTTP {verify_response.status_code}")
+                    return
+                
+                updated_product = verify_response.json()
+                updated_images = updated_product.get('images', [])
+                updated_image_urls = [img['image_url'] if isinstance(img, dict) else img for img in updated_images]
+                
+                if uploaded_image_url in updated_image_urls:
+                    self.log_result('/admin/products/{id} (image upload persistence)', 'PUT+GET', True, 
+                                  f"✅ UPLOADED IMAGE PERSISTED! Found in product images", 
+                                  {'uploaded_url': uploaded_image_url, 'total_images': len(updated_images)})
+                else:
+                    self.log_result('/admin/products/{id} (image upload persistence)', 'PUT+GET', False, 
+                                  f"❌ UPLOADED IMAGE LOST! Not found in product images", 
+                                  {'uploaded_url': uploaded_image_url, 'found_urls': updated_image_urls})
+                
+            finally:
+                os.unlink(tmp_file_path)
+                
+        except Exception as e:
+            self.log_result('/admin/upload-image (persistence)', 'POST+PUT+GET', False, f"Exception: {str(e)}")
+    
+    def test_image_persistence_edge_cases(self):
+        """Test 4: Edge Cases for Image Persistence"""
+        try:
+            # Get a test product
+            products_response = self.session.get(f"{self.base_url}/admin/products")
+            if products_response.status_code != 200:
+                self.log_result('/admin/products (edge cases)', 'GET', False, 
+                              f"Failed to get products: HTTP {products_response.status_code}")
+                return
+            
+            products = products_response.json()
+            if not products:
+                self.log_result('/admin/products (edge cases)', 'GET', False, 
+                              "No products found for testing")
+                return
+            
+            test_product = products[0]
+            product_id = test_product['id']
+            
+            # Test Case 1: PUT with empty images array [] - should remove all images
+            update_data_empty = {
+                "category_id": test_product['category_id'],
+                "name": test_product['name'],
+                "article": test_product.get('article', ''),
+                "description": test_product['description'],
+                "short_description": test_product.get('short_description', ''),
+                "price_from": test_product['price_from'],
+                "price_to": test_product.get('price_to'),
+                "material": test_product.get('material', ''),
+                "sizes": test_product.get('sizes', []),
+                "colors": test_product.get('colors', []),
+                "images": [],  # Empty array
+                "characteristics": test_product.get('characteristics', []),
+                "is_available": test_product.get('is_available', True),
+                "on_order": test_product.get('on_order', False),
+                "featured": test_product.get('featured', False)
+            }
+            
+            empty_response = self.session.put(f"{self.base_url}/admin/products/{product_id}", json=update_data_empty)
+            
+            if empty_response.status_code == 200:
+                verify_empty = self.session.get(f"{self.base_url}/admin/products/{product_id}")
+                if verify_empty.status_code == 200:
+                    empty_product = verify_empty.json()
+                    empty_images = empty_product.get('images', [])
+                    
+                    if len(empty_images) == 0:
+                        self.log_result('/admin/products/{id} (empty images)', 'PUT+GET', True, 
+                                      f"✅ Empty images array correctly removes all images", 
+                                      {'images_count': 0})
+                    else:
+                        self.log_result('/admin/products/{id} (empty images)', 'PUT+GET', False, 
+                                      f"❌ Empty images array did not remove images: {len(empty_images)}", 
+                                      {'images_count': len(empty_images)})
+                else:
+                    self.log_result('/admin/products/{id} (empty images - verify)', 'GET', False, 
+                                  f"Failed to verify empty images: HTTP {verify_empty.status_code}")
+            else:
+                self.log_result('/admin/products/{id} (empty images)', 'PUT', False, 
+                              f"Failed to update with empty images: HTTP {empty_response.status_code}")
+            
+            # Test Case 2: PUT with images: null - verify backend handles gracefully
+            update_data_null = update_data_empty.copy()
+            update_data_null['images'] = None
+            
+            null_response = self.session.put(f"{self.base_url}/admin/products/{product_id}", json=update_data_null)
+            
+            if null_response.status_code == 200:
+                self.log_result('/admin/products/{id} (null images)', 'PUT', True, 
+                              f"✅ Backend gracefully handles null images", 
+                              {'status': 'success'})
+            elif null_response.status_code == 422:
+                self.log_result('/admin/products/{id} (null images)', 'PUT', True, 
+                              f"✅ Backend properly validates null images with 422", 
+                              {'status': 'validation_error'})
+            else:
+                self.log_result('/admin/products/{id} (null images)', 'PUT', False, 
+                              f"❌ Unexpected response for null images: HTTP {null_response.status_code}: {null_response.text}")
+                
+        except Exception as e:
+            self.log_result('/admin/products (edge cases)', 'PUT+GET', False, f"Exception: {str(e)}")
+    
+    def test_422_error_investigation(self):
+        """Test 5: 422 Error Investigation"""
+        try:
+            # Test various file types and sizes for image upload
+            import tempfile
+            import os
+            
+            # Test 1: Valid image upload (should work)
+            with tempfile.NamedTemporaryFile(mode='wb', suffix='.jpg', delete=False) as tmp_file:
+                tmp_file.write(b"valid_image_content" * 100)
+                tmp_file_path = tmp_file.name
+            
+            try:
+                with open(tmp_file_path, 'rb') as f:
+                    files = {'file': ('valid_422_test.jpg', f, 'image/jpeg')}
+                    upload_session = requests.Session()
+                    response = upload_session.post(f"{self.base_url}/admin/upload-image", files=files)
+                
+                if response.status_code == 200:
+                    self.log_result('/admin/upload-image (422 - valid)', 'POST', True, 
+                                  f"✅ Valid image upload works: {response.json().get('url', 'No URL')}")
+                elif response.status_code == 422:
+                    self.log_result('/admin/upload-image (422 - valid)', 'POST', False, 
+                                  f"❌ Valid image got 422 error: {response.text}")
+                else:
+                    self.log_result('/admin/upload-image (422 - valid)', 'POST', False, 
+                                  f"❌ Unexpected status for valid image: HTTP {response.status_code}: {response.text}")
+            finally:
+                os.unlink(tmp_file_path)
+            
+            # Test 2: Invalid file type (should get 422 or 400)
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as tmp_file:
+                tmp_file.write("This is not an image file")
+                tmp_file_path = tmp_file.name
+            
+            try:
+                with open(tmp_file_path, 'rb') as f:
+                    files = {'file': ('invalid_422_test.txt', f, 'text/plain')}
+                    upload_session = requests.Session()
+                    response = upload_session.post(f"{self.base_url}/admin/upload-image", files=files)
+                
+                if response.status_code in [400, 422]:
+                    self.log_result('/admin/upload-image (422 - invalid type)', 'POST', True, 
+                                  f"✅ Invalid file type correctly rejected: HTTP {response.status_code}")
+                else:
+                    self.log_result('/admin/upload-image (422 - invalid type)', 'POST', False, 
+                                  f"❌ Invalid file type not rejected: HTTP {response.status_code}: {response.text}")
+            finally:
+                os.unlink(tmp_file_path)
+            
+            # Test 3: Check CORS headers on upload endpoint
+            options_response = self.session.options(f"{self.base_url}/admin/upload-image")
+            cors_headers = {
+                'Access-Control-Allow-Origin': options_response.headers.get('Access-Control-Allow-Origin'),
+                'Access-Control-Allow-Methods': options_response.headers.get('Access-Control-Allow-Methods'),
+                'Access-Control-Allow-Headers': options_response.headers.get('Access-Control-Allow-Headers')
+            }
+            
+            if any(cors_headers.values()):
+                self.log_result('/admin/upload-image (CORS)', 'OPTIONS', True, 
+                              f"✅ CORS headers present on upload endpoint", cors_headers)
+            else:
+                self.log_result('/admin/upload-image (CORS)', 'OPTIONS', False, 
+                              f"❌ No CORS headers found on upload endpoint", cors_headers)
+                
+        except Exception as e:
+            self.log_result('/admin/upload-image (422 investigation)', 'POST+OPTIONS', False, f"Exception: {str(e)}")
+    
+    def run_image_persistence_bug_fix_tests(self):
+        """Run all Image Persistence Bug Fix tests"""
+        print(f"\n🖼️  CRITICAL IMAGE PERSISTENCE BUG FIX TESTING")
+        print("=" * 80)
+        print("Testing the fix for images disappearing from product cards after saving")
+        print("ROOT CAUSE: handleQuickCategoryChange was sending PUT without images field")
+        print("FIX: Include ALL fields (images, article, characteristics, on_order) in PUT request")
+        print("=" * 80)
+        
+        # Test 1: Product Update with Images - Full Flow
+        self.test_product_update_with_images_full_flow()
+        
+        # Test 2: Quick Category Change Simulation
+        self.test_quick_category_change_simulation()
+        
+        # Test 3: Image Upload and Save
+        self.test_image_upload_and_save()
+        
+        # Test 4: Edge Cases
+        self.test_image_persistence_edge_cases()
+        
+        # Test 5: 422 Error Investigation
+        self.test_422_error_investigation()
+        
+        print("=" * 80)
+
     def run_all_tests(self):
         """Run all API tests"""
         print(f"🚀 Starting API tests for AVIK Uniform Factory")
         print(f"Backend URL: {self.base_url}")
         print("=" * 80)
+        
+        # CRITICAL: Image Persistence Bug Fix Tests (Priority 1)
+        self.run_image_persistence_bug_fix_tests()
         
         # Product Search Functionality Tests (NEW - HIGH PRIORITY)
         self.run_product_search_tests()
