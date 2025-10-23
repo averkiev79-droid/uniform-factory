@@ -417,6 +417,7 @@ async def admin_update_product(product_id: str, product: ProductCreate):
         # Update product fields
         existing_product.category_id = product.category_id
         existing_product.name = product.name
+        existing_product.article = product.article
         existing_product.description = product.description
         existing_product.short_description = product.short_description
         existing_product.price_from = product.price_from
