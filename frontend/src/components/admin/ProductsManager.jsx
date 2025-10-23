@@ -337,10 +337,11 @@ export const ProductsManager = () => {
       const product = products.find(p => p.id === productId);
       if (!product) return;
 
-      // Обновляем только категорию
+      // Обновляем только категорию - ВАЖНО: передаем ВСЕ поля, включая images, article, characteristics
       await axios.put(`${BACKEND_URL}/api/admin/products/${productId}`, {
         category_id: newCategoryId,
         name: product.name,
+        article: product.article || '',
         description: product.description,
         short_description: product.short_description || '',
         price_from: product.price_from,
@@ -348,7 +349,10 @@ export const ProductsManager = () => {
         material: product.material || '',
         sizes: product.sizes || [],
         colors: product.colors || [],
+        images: product.images || [],
+        characteristics: product.characteristics || [],
         is_available: product.is_available,
+        on_order: product.on_order || false,
         featured: product.featured || false
       });
 
