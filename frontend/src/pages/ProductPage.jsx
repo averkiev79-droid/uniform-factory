@@ -492,6 +492,30 @@ export const ProductPage = () => {
                 </div>
               )}
               
+              {/* Sizes */}
+              {product.sizes && product.sizes.length > 0 && (
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">
+                    Размер {selectedSize && <span className="text-sm font-normal text-gray-600">({selectedSize})</span>}
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {product.sizes.map((size) => (
+                      <button
+                        key={size}
+                        onClick={() => setSelectedSize(size)}
+                        className={`px-4 py-2 min-w-[60px] border rounded-lg font-medium transition-all ${
+                          selectedSize === size
+                            ? 'border-navy bg-navy text-white scale-105'
+                            : 'border-gray-300 hover:border-gray-400 hover:scale-105'
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
               {/* Materials */}
               {product.characteristics && product.characteristics.some(c => c.name === 'Материал' || c.name === 'Ткань') && (
                 <div>
