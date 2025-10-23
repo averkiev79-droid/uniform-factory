@@ -610,11 +610,11 @@ test_plan:
 
   - task: "Admin Product Management with Search and Bulk Operations"
     implemented: true
-    working: true
+    working: false
     file: "frontend/src/components/admin/ProductsManager.jsx"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: true
         agent: "main"
@@ -622,6 +622,12 @@ test_plan:
       - working: true
         agent: "testing"
         comment: "✅ PATCH ENDPOINT FOR BULK PRODUCT OPERATIONS TESTING COMPLETED SUCCESSFULLY - All 13 tests passed (100% success rate): 1) GET /api/admin/products retrieved 176 products for testing 2) PATCH /api/admin/products/{id} single operations: Hide product (is_available: false) and Show product (is_available: true) both working correctly 3) Product status verification confirmed is_available field changes properly 4) Bulk operations tested with 3 products: All 3 products successfully hidden and then published using multiple PATCH requests 5) Error handling verified: 404 for non-existent product ID, graceful handling of invalid body fields 6) Response structure validated: All PATCH requests return proper message and product ID 7) Integration confirmed: New PATCH endpoint works seamlessly for bulk unpublishing/publishing operations as requested. The bulk product operations feature is fully functional and ready for production use."
+      - working: false
+        agent: "user"
+        comment: "User reported: Uploaded photos disappear from product cards after saving. Issue reproduced and logged."
+      - working: false
+        agent: "main"
+        comment: "🔧 ROOT CAUSE IDENTIFIED AND FIXED: Function handleQuickCategoryChange was sending PUT request WITHOUT images, article, characteristics, and on_order fields. Backend DELETE all images before adding new ones, so missing images field = all images deleted! FIX APPLIED: 1) Updated handleQuickCategoryChange to include ALL fields (images, article, characteristics, on_order) 2) Enhanced handleSave with detailed logging and array validation for images 3) Verified product.images mapping in handleEdit (converts [{image_url}] to [url] array). Testing required."
 
 agent_communication:
   - agent: "main"
