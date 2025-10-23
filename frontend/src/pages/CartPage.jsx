@@ -47,6 +47,7 @@ const CartPage = () => {
           product_name: item.name,
           article: item.article,
           color: item.selectedColor,
+          size: item.selectedSize,
           material: item.selectedMaterial,
           quantity: item.quantity,
           price_from: item.price_from
