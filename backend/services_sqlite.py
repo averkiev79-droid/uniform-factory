@@ -580,6 +580,7 @@ class ProductService:
             # Parse JSON fields
             sizes = json.loads(product.sizes) if product.sizes else []
             colors = json.loads(product.colors) if product.colors else []
+            branding_options = json.loads(product.branding_options) if product.branding_options else []
             
             # Get images
             images = []
