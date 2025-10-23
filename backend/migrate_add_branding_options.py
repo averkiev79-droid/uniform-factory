@@ -7,7 +7,7 @@ import sqlite3
 import json
 
 def migrate():
-    conn = sqlite3.connect('/app/backend/uniform_factory.db')
+    conn = sqlite3.connect('/app/backend/avik_uniform.db')
     cursor = conn.cursor()
     
     try:
