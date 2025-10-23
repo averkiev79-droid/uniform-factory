@@ -144,6 +144,9 @@ const CartPage = () => {
                       {item.selectedColor && (
                         <p><span className="font-medium">Цвет:</span> {item.selectedColor}</p>
                       )}
+                      {item.selectedSize && (
+                        <p><span className="font-medium">Размер:</span> {item.selectedSize}</p>
+                      )}
                       {item.selectedMaterial && (
                         <p><span className="font-medium">Материал:</span> {item.selectedMaterial}</p>
                       )}
@@ -153,14 +156,14 @@ const CartPage = () => {
                       {/* Quantity Controls */}
                       <div className="flex items-center border border-gray-300 rounded-lg">
                         <button
-                          onClick={() => updateQuantity(item.id, item.selectedColor, item.selectedMaterial, item.quantity - 1)}
+                          onClick={() => updateQuantity(item.id, item.selectedColor, item.selectedSize, item.selectedMaterial, item.quantity - 1)}
                           className="p-2 hover:bg-gray-100 transition-colors"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
                         <span className="px-4 py-2 font-medium">{item.quantity}</span>
                         <button
-                          onClick={() => updateQuantity(item.id, item.selectedColor, item.selectedMaterial, item.quantity + 1)}
+                          onClick={() => updateQuantity(item.id, item.selectedColor, item.selectedSize, item.selectedMaterial, item.quantity + 1)}
                           className="p-2 hover:bg-gray-100 transition-colors"
                         >
                           <Plus className="w-4 h-4" />
@@ -174,7 +177,7 @@ const CartPage = () => {
 
                       {/* Remove Button */}
                       <button
-                        onClick={() => removeFromCart(item.id, item.selectedColor, item.selectedMaterial)}
+                        onClick={() => removeFromCart(item.id, item.selectedColor, item.selectedSize, item.selectedMaterial)}
                         className="ml-auto text-red-600 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
                         title="Удалить из корзины"
                       >
