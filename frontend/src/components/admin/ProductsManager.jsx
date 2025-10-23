@@ -199,6 +199,7 @@ export const ProductsManager = () => {
       await Promise.all(
         selectedProducts.map(productId =>
           axios.patch(`${BACKEND_URL}/api/admin/products/${productId}`, {
+            is_available: false,
             on_order: true
           })
         )
