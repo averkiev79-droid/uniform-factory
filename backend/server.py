@@ -279,12 +279,23 @@ async def submit_cart_order(order: CartOrderCreate, background_tasks: Background
             request_id = f"CART-{datetime.now().strftime('%Y')}-{str(uuid.uuid4())[:6].upper()}"
             
             # Format items for storage
-            items_text = "\n".join([
-                f"- {item.product_name} (Арт. {item.article or 'N/A'})\n"
-                f"  Цвет: {item.color or 'не указан'}, Размер: {item.size or 'не указан'}, Материал: {item.material or 'не указан'}\n"
-                f"  Количество: {item.quantity} шт, Цена: от {item.price_from} ₽"
-                for item in order.items
-            ])
+            items_list = []
+            for item in order.items:
+                item_text = f"- {item.product_name} (Арт. {item.article or 'N/A'})\n"
+                item_text += f"  Цвет: {item.color or 'не указан'}, Размер: {item.size or 'не указан'}, Материал: {item.material or 'не указан'}\n"
+                
+                # Add branding if exists
+                if item.branding and len(item.branding) > 0:
+                    branding_text = ", ".join([
+                        f"{b.get('type')} - {b.get('location', {}).get('name')} ({b.get('location', {}).get('size')})"
+                        for b in item.branding
+                    ])
+                    item_text += f"  Нанесение: {branding_text} (+{item.branding_price} ₽)\n"
+                
+                item_text += f"  Количество: {item.quantity} шт, Цена: от {item.price_from} ₽"
+                items_list.append(item_text)
+            
+            items_text = "\n".join(items_list)
             
             full_message = f"ЗАКАЗ ИЗ КОРЗИНЫ\n\n{items_text}\n\nИтого: от {order.total_amount} ₽"
             if order.comment:
