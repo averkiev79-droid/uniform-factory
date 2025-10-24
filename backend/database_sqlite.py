@@ -139,7 +139,8 @@ class SQLProduct(Base):
     price_to = Column(Integer)
     material = Column(String)
     sizes = Column(String)  # JSON string
-    colors = Column(String)  # JSON string
+    colors = Column(String)  # JSON string - простые названия цветов (deprecated, use color_images)
+    color_images = Column(String)  # JSON string - массив объектов {color, image, preview}
     branding_options = Column(String)  # JSON string - массив опций нанесения/брендирования
     is_available = Column(Boolean, default=True)  # В наличии
     on_order = Column(Boolean, default=False)  # Под заказ
