@@ -62,31 +62,19 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  const removeFromCart = (itemId, selectedColor, selectedSize, selectedMaterial) => {
-    setCartItems(prevItems => 
-      prevItems.filter(item => 
-        !(item.id === itemId && 
-          item.selectedColor === selectedColor && 
-          item.selectedSize === selectedSize &&
-          item.selectedMaterial === selectedMaterial)
-      )
-    );
+  const removeFromCart = (itemIndex) => {
+    setCartItems(prevItems => prevItems.filter((_, i) => i !== itemIndex));
   };
 
-  const updateQuantity = (itemId, selectedColor, selectedSize, selectedMaterial, newQuantity) => {
+  const updateQuantity = (itemIndex, newQuantity) => {
     if (newQuantity < 1) {
-      removeFromCart(itemId, selectedColor, selectedSize, selectedMaterial);
+      removeFromCart(itemIndex);
       return;
     }
 
     setCartItems(prevItems => 
-      prevItems.map(item => 
-        (item.id === itemId && 
-         item.selectedColor === selectedColor && 
-         item.selectedSize === selectedSize &&
-         item.selectedMaterial === selectedMaterial)
-          ? { ...item, quantity: newQuantity }
-          : item
+      prevItems.map((item, i) => 
+        i === itemIndex ? { ...item, quantity: newQuantity } : item
       )
     );
   };
