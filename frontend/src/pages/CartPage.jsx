@@ -49,8 +49,10 @@ const CartPage = () => {
           color: item.selectedColor,
           size: item.selectedSize,
           material: item.selectedMaterial,
+          branding: item.selectedBranding || [],
           quantity: item.quantity,
-          price_from: item.price_from
+          price_from: item.price_from,
+          branding_price: item.brandingPrice || 0
         })),
         total_amount: getTotalPrice()
       };
