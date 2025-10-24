@@ -177,6 +177,16 @@ export const ProductPage = () => {
         // Целевая позиция скролла с учетом всех отступов
         const targetScrollPosition = Math.max(0, imageAbsoluteTop - totalOffset);
 
+        console.log('ScrollToImage Debug:', {
+          currentScrollY,
+          imageRectTop: imageRect.top,
+          imageAbsoluteTop,
+          headerHeight,
+          additionalOffset,
+          totalOffset,
+          targetScrollPosition
+        });
+
         window.scrollTo({
           top: targetScrollPosition,
           behavior: 'smooth'
