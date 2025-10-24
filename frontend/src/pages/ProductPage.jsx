@@ -25,6 +25,7 @@ export const ProductPage = () => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
   const [selectedBranding, setSelectedBranding] = useState(null);
+  const [selectedBrandingList, setSelectedBrandingList] = useState([]); // Список выбранных нанесений
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
