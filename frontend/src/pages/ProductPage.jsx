@@ -327,6 +327,7 @@ export const ProductPage = () => {
           <div className="space-y-4">
             {/* Main Image */}
             <div 
+              ref={imageRef}
               className="relative aspect-square bg-white rounded-lg overflow-hidden shadow-sm flex items-center justify-center group"
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
