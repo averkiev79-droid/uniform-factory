@@ -152,10 +152,13 @@ export const ProductPage = () => {
   };
 
   // Scroll to main image (for mobile when color is selected)
-  const scrollToImage = () => {
+  const scrollToImage = useCallback(() => {
+    console.log('ScrollToImage called!');
     // Используем requestAnimationFrame для синхронизации с обновлением DOM
     requestAnimationFrame(() => {
+      console.log('requestAnimationFrame executed');
       if (imageRef.current) {
+        console.log('imageRef.current exists');
         // Получаем точную позицию изображения относительно viewport
         const imageRect = imageRef.current.getBoundingClientRect();
         const currentScrollY = window.scrollY || window.pageYOffset;
@@ -191,9 +194,11 @@ export const ProductPage = () => {
           top: targetScrollPosition,
           behavior: 'smooth'
         });
+      } else {
+        console.log('imageRef.current is null');
       }
     });
-  };
+  }, []); // Empty dependencies - function is stable
 
   // Keyboard navigation
   useEffect(() => {
