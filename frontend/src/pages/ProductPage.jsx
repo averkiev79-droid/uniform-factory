@@ -440,55 +440,88 @@ export const ProductPage = () => {
 
             {/* Options */}
             <div className="space-y-4">
-              {/* Colors */}
-              {product.colors && product.colors.length > 0 && (
+              {/* Colors - use color_images if available, otherwise fallback to colors */}
+              {((product.color_images && product.color_images.length > 0) || (product.colors && product.colors.length > 0)) && (
                 <div>
                   <h3 className="text-lg font-semibold mb-3">
                     Цвет {selectedColor && <span className="text-sm font-normal text-gray-600">({selectedColor})</span>}
                   </h3>
                   <div className="flex flex-wrap gap-3">
-                    {product.colors.map((color) => {
-                      // Color mapping for visual representation
-                      const colorMap = {
-                        'Белый': '#FFFFFF',
-                        'Черный': '#000000',
-                        'Синий': '#1E40AF',
-                        'Красный': '#DC2626',
-                        'Зеленый': '#16A34A',
-                        'Серый': '#6B7280',
-                        'Бежевый': '#D4A373',
-                        'Коричневый': '#78350F',
-                        'Розовый': '#EC4899',
-                        'Желтый': '#EAB308',
-                        'Оранжевый': '#F97316',
-                        'Фиолетовый': '#9333EA',
-                        'Голубой': '#0EA5E9',
-                        'Бордовый': '#7F1D1D',
-                        'Темно-синий': '#1E3A8A'
-                      };
-                      const colorCode = colorMap[color] || '#9CA3AF';
-                      
-                      return (
+                    {product.color_images && product.color_images.length > 0 ? (
+                      // Display colors with images
+                      product.color_images.map((colorData) => (
                         <button
-                          key={color}
-                          onClick={() => setSelectedColor(color)}
-                          className={`relative w-14 h-14 rounded-lg border-2 transition-all ${
-                            selectedColor === color
+                          key={colorData.color}
+                          onClick={() => setSelectedColor(colorData.color)}
+                          className={`relative w-20 h-20 rounded-lg border-2 transition-all overflow-hidden ${
+                            selectedColor === colorData.color
                               ? 'border-navy scale-110'
                               : 'border-gray-300 hover:border-gray-400 hover:scale-105'
                           }`}
-                          title={color}
-                          style={{ backgroundColor: colorCode }}
+                          title={colorData.color}
                         >
-                          {selectedColor === color && (
-                            <Check className="w-6 h-6 text-white absolute inset-0 m-auto drop-shadow-lg" />
+                          {colorData.preview || colorData.image ? (
+                            <img 
+                              src={colorData.preview || colorData.image} 
+                              alt={colorData.color}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gray-200 flex items-center justify-center text-xs text-gray-500">
+                              {colorData.color}
+                            </div>
                           )}
-                          {color === 'Белый' && (
-                            <div className="absolute inset-0 border border-gray-200 rounded-lg"></div>
+                          {selectedColor === colorData.color && (
+                            <div className="absolute inset-0 bg-blue-600 bg-opacity-30 flex items-center justify-center">
+                              <Check className="w-8 h-8 text-white drop-shadow-lg" />
+                            </div>
                           )}
                         </button>
-                      );
-                    })}
+                      ))
+                    ) : (
+                      // Fallback to simple color squares
+                      product.colors.map((color) => {
+                        const colorMap = {
+                          'Белый': '#FFFFFF',
+                          'Черный': '#000000',
+                          'Синий': '#1E40AF',
+                          'Красный': '#DC2626',
+                          'Зеленый': '#16A34A',
+                          'Серый': '#6B7280',
+                          'Бежевый': '#D4A373',
+                          'Коричневый': '#78350F',
+                          'Розовый': '#EC4899',
+                          'Желтый': '#EAB308',
+                          'Оранжевый': '#F97316',
+                          'Фиолетовый': '#9333EA',
+                          'Голубой': '#0EA5E9',
+                          'Бордовый': '#7F1D1D',
+                          'Темно-синий': '#1E3A8A'
+                        };
+                        const colorCode = colorMap[color] || '#9CA3AF';
+                        
+                        return (
+                          <button
+                            key={color}
+                            onClick={() => setSelectedColor(color)}
+                            className={`relative w-14 h-14 rounded-lg border-2 transition-all ${
+                              selectedColor === color
+                                ? 'border-navy scale-110'
+                                : 'border-gray-300 hover:border-gray-400 hover:scale-105'
+                            }`}
+                            title={color}
+                            style={{ backgroundColor: colorCode }}
+                          >
+                            {selectedColor === color && (
+                              <Check className="w-6 h-6 text-white absolute inset-0 m-auto drop-shadow-lg" />
+                            )}
+                            {color === 'Белый' && (
+                              <div className="absolute inset-0 border border-gray-200 rounded-lg"></div>
+                            )}
+                          </button>
+                        );
+                      })
+                    )}
                   </div>
                 </div>
               )}
