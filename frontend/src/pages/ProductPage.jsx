@@ -151,6 +151,20 @@ export const ProductPage = () => {
     );
   };
 
+  // Scroll to main image (for mobile when color is selected)
+  const scrollToImage = () => {
+    if (imageRef.current) {
+      const offset = 80; // Offset for header
+      const elementPosition = imageRef.current.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyPress = (e) => {
