@@ -154,12 +154,26 @@ export const ProductPage = () => {
   // Scroll to main image (for mobile when color is selected)
   const scrollToImage = () => {
     if (imageRef.current) {
-      const headerOffset = 100; // Offset for header and some space
-      const elementTop = imageRef.current.offsetTop;
-      const scrollPosition = elementTop - headerOffset;
+      // Получаем точную позицию изображения относительно viewport
+      const imageRect = imageRef.current.getBoundingClientRect();
+      const currentScrollY = window.scrollY || window.pageYOffset;
+      
+      // Определяем высоту хедера динамически
+      const header = document.querySelector('header') || document.querySelector('nav');
+      const headerHeight = header ? header.offsetHeight : 0;
+      
+      // Добавляем дополнительный отступ для комфортного просмотра
+      const additionalOffset = 20;
+      const totalOffset = headerHeight + additionalOffset;
+      
+      // Вычисляем абсолютную позицию верхней границы изображения
+      const imageTop = currentScrollY + imageRect.top;
+      
+      // Целевая позиция скролла с учетом всех отступов
+      const targetScrollPosition = imageTop - totalOffset;
 
       window.scrollTo({
-        top: scrollPosition,
+        top: targetScrollPosition,
         behavior: 'smooth'
       });
     }
