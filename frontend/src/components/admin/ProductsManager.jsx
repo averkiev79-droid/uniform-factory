@@ -279,6 +279,7 @@ export const ProductsManager = () => {
       sizes: product.sizes || [],
       colors: product.colors || [],
       color_images: product.color_images || [],
+      branding_options: product.branding_options || [],
       is_available: product.is_available,
       on_order: product.on_order || false,
       featured: product.featured,
