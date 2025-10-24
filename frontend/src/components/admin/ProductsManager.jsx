@@ -995,6 +995,14 @@ export const ProductsManager = () => {
               </label>
             </div>
 
+            {/* Branding Options */}
+            <BrandingManager
+              brandingOptions={formData.branding_options || []}
+              onChange={(newBranding) => {
+                setFormData(prev => ({ ...prev, branding_options: newBranding }));
+              }}
+            />
+
             {/* Save Button */}
             <div className="flex justify-end gap-2 pt-4">
               <Button variant="outline" onClick={() => setIsEditing(false)}>
