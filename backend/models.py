@@ -268,6 +268,8 @@ class CartOrderItem(BaseModel):
     color: Optional[str] = None
     size: Optional[str] = None
     material: Optional[str] = None
+    branding: Optional[List[dict]] = None  # [{"type": "Вышивка", "location": {...}}]
+    branding_price: Optional[int] = 0
     quantity: int
     price_from: int
 
