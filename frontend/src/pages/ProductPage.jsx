@@ -313,8 +313,8 @@ export const ProductPage = () => {
               style={{ touchAction: 'pan-y pinch-zoom' }}
             >
               <img
-                src={images[selectedImageIndex]?.image_url}
-                alt={images[selectedImageIndex]?.alt_text || product.name}
+                src={currentImage?.image_url}
+                alt={currentImage?.alt_text || product.name}
                 loading="eager"
                 className={`w-full h-full object-cover select-none transition-opacity duration-300 ${isDragging ? 'opacity-90' : 'opacity-100'}`}
                 onError={(e) => {
