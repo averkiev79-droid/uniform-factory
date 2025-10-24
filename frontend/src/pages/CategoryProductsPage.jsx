@@ -215,11 +215,6 @@ export const CategoryProductsPage = () => {
                         Популярное
                       </Badge>
                     )}
-                    {!product.is_available && (
-                      <Badge variant="secondary" className="bg-red-100 text-red-700">
-                        Нет в наличии
-                      </Badge>
-                    )}
                   </div>
 
                   {/* Quick Actions */}
