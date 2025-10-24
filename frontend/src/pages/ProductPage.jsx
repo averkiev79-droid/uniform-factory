@@ -166,8 +166,9 @@ export const ProductPage = () => {
         const header = breadcrumbHeader || mainHeader;
         const headerHeight = header ? header.offsetHeight : 0;
         
-        // Добавляем дополнительный отступ для комфортного просмотра (увеличен для мобильных)
-        const additionalOffset = 30;
+        // Увеличиваем дополнительный отступ для гарантии полной видимости
+        // Хедер может быть высоким (до 170px), поэтому нужен больший отступ
+        const additionalOffset = 80;
         const totalOffset = headerHeight + additionalOffset;
         
         // Вычисляем абсолютную позицию верхней границы изображения на странице
