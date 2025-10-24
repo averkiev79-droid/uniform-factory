@@ -17,6 +17,7 @@ export const ProductPage = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const imageRef = useRef(null); // Reference to main image for scrolling
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
