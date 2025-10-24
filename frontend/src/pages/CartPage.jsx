@@ -151,20 +151,30 @@ const CartPage = () => {
                       {item.selectedMaterial && (
                         <p><span className="font-medium">Материал:</span> {item.selectedMaterial}</p>
                       )}
+                      {item.selectedBranding && item.selectedBranding.length > 0 && (
+                        <div className="mt-2 pt-2 border-t border-gray-200">
+                          <p className="font-medium text-xs text-gray-700 mb-1">Нанесение:</p>
+                          {item.selectedBranding.map((branding, bIndex) => (
+                            <p key={bIndex} className="text-xs text-gray-600">
+                              • {branding.type} - {branding.location.name} ({branding.location.size}) +{branding.location.price} ₽
+                            </p>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
                     <div className="mt-3 flex items-center gap-4">
                       {/* Quantity Controls */}
                       <div className="flex items-center border border-gray-300 rounded-lg">
                         <button
-                          onClick={() => updateQuantity(item.id, item.selectedColor, item.selectedSize, item.selectedMaterial, item.quantity - 1)}
+                          onClick={() => updateQuantity(index, item.quantity - 1)}
                           className="p-2 hover:bg-gray-100 transition-colors"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
                         <span className="px-4 py-2 font-medium">{item.quantity}</span>
                         <button
-                          onClick={() => updateQuantity(item.id, item.selectedColor, item.selectedSize, item.selectedMaterial, item.quantity + 1)}
+                          onClick={() => updateQuantity(index, item.quantity + 1)}
                           className="p-2 hover:bg-gray-100 transition-colors"
                         >
                           <Plus className="w-4 h-4" />
@@ -172,13 +182,18 @@ const CartPage = () => {
                       </div>
 
                       {/* Price */}
-                      <p className="text-lg font-semibold text-gray-900">
-                        от {(item.price_from * item.quantity).toLocaleString()} ₽
-                      </p>
+                      <div className="text-lg font-semibold text-gray-900">
+                        <div>от {(item.price_from * item.quantity).toLocaleString()} ₽</div>
+                        {item.brandingPrice > 0 && (
+                          <div className="text-sm text-blue-600">
+                            +{(item.brandingPrice * item.quantity).toLocaleString()} ₽ нанесение
+                          </div>
+                        )}
+                      </div>
 
                       {/* Remove Button */}
                       <button
-                        onClick={() => removeFromCart(item.id, item.selectedColor, item.selectedSize, item.selectedMaterial)}
+                        onClick={() => removeFromCart(index)}
                         className="ml-auto text-red-600 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
                         title="Удалить из корзины"
                       >
