@@ -115,7 +115,7 @@ const BrandingManager = ({ brandingOptions = [], onChange }) => {
                         type="text"
                         value={location.name}
                         onChange={(e) => updateLocation(brandingIndex, locationIndex, 'name', e.target.value)}
-                        placeholder="Место (например: Грудь слева)"
+                        placeholder="Место (например: Грудь, Рукав, Спина)"
                         className="w-full px-2 py-1 border border-gray-300 rounded text-xs"
                       />
                     </div>
