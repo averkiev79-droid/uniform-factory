@@ -33,6 +33,7 @@ export const ProductsManager = () => {
     sizes: [],
     colors: [],
     color_images: [],
+    branding_options: [],
     is_available: true,
     on_order: false,
     featured: false,
