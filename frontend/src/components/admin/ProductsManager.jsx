@@ -31,6 +31,7 @@ export const ProductsManager = () => {
     material: '',
     sizes: [],
     colors: [],
+    color_images: [],
     is_available: true,
     on_order: false,
     featured: false,
