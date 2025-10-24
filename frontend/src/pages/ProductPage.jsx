@@ -214,37 +214,28 @@ export const ProductPage = () => {
     );
   }
 
-  // Формируем массив изображений с учетом выбранного цвета
-  let images = product.images && product.images.length > 0 
+  // Базовый массив изображений товара
+  const images = product.images && product.images.length > 0 
     ? product.images 
     : [{ image_url: '/images/about-factory.jpg', alt_text: product.name }];
 
-  // Если выбран цвет с изображением, добавляем его первым в список
-  if (selectedColor && product.color_images) {
-    const selectedColorData = product.color_images.find(c => c.color === selectedColor);
-    if (selectedColorData && selectedColorData.image) {
-      // Проверяем, есть ли уже это изображение в массиве
-      const imageExists = images.some(img => img.image_url === selectedColorData.image);
-      
-      if (!imageExists) {
-        // Добавляем изображение цвета первым в массив
-        images = [
-          { image_url: selectedColorData.image, alt_text: `${product.name} - ${selectedColor}` },
-          ...images
-        ];
-        // Сбрасываем индекс на первое изображение
-        if (selectedImageIndex !== 0) {
-          setSelectedImageIndex(0);
-        }
-      } else {
-        // Если изображение уже есть, переключаемся на него
-        const index = images.findIndex(img => img.image_url === selectedColorData.image);
-        if (index !== -1 && selectedImageIndex !== index) {
-          setSelectedImageIndex(index);
-        }
+  // Определяем какое изображение показывать (с учетом выбранного цвета)
+  const getCurrentImage = () => {
+    // Если выбран цвет с изображением, показываем его
+    if (selectedColor && product.color_images) {
+      const selectedColorData = product.color_images.find(c => c.color === selectedColor);
+      if (selectedColorData && selectedColorData.image) {
+        return {
+          image_url: selectedColorData.image,
+          alt_text: `${product.name} - ${selectedColor}`
+        };
       }
     }
-  }
+    // Иначе показываем текущее изображение из галереи
+    return images[selectedImageIndex];
+  };
+
+  const currentImage = getCurrentImage();
 
   return (
     <div className="min-h-screen bg-gray-50">
