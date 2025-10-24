@@ -336,6 +336,7 @@ class Product(BaseModel):
     material: Optional[str] = None
     sizes: Optional[List[str]] = None
     colors: Optional[List[str]] = None
+    color_images: Optional[List[dict]] = None  # [{"color": "белый", "image": "url", "preview": "url"}]
     branding_options: Optional[List[str]] = None  # Опции нанесения/брендирования
     is_available: bool = True  # В наличии
     on_order: bool = False  # Под заказ
