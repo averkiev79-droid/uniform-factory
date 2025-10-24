@@ -22,15 +22,16 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (product, selectedColor, selectedSize, selectedMaterial, quantity = 1) => {
+  const addToCart = (product, selectedColor, selectedSize, selectedMaterial, selectedBranding = [], quantity = 1) => {
     setCartItems(prevItems => {
-      // Check if item with same product, color, size, and material already exists
+      // Check if item with same product, color, size, material AND branding already exists
       const existingItemIndex = prevItems.findIndex(
         item => 
           item.id === product.id && 
           item.selectedColor === selectedColor && 
           item.selectedSize === selectedSize &&
-          item.selectedMaterial === selectedMaterial
+          item.selectedMaterial === selectedMaterial &&
+          JSON.stringify(item.selectedBranding) === JSON.stringify(selectedBranding)
       );
 
       if (existingItemIndex > -1) {
@@ -39,6 +40,9 @@ export const CartProvider = ({ children }) => {
         updatedItems[existingItemIndex].quantity += quantity;
         return updatedItems;
       } else {
+        // Calculate total branding price
+        const brandingPrice = selectedBranding.reduce((sum, b) => sum + (b.location?.price || 0), 0);
+        
         // Add new item
         return [...prevItems, {
           id: product.id,
@@ -49,6 +53,8 @@ export const CartProvider = ({ children }) => {
           selectedColor,
           selectedSize,
           selectedMaterial,
+          selectedBranding,
+          brandingPrice,
           quantity,
           category_name: product.category_name
         }];
