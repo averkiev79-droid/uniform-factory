@@ -5,6 +5,7 @@ import { Plus, Edit2, Trash2, Eye, X, Save, Search, EyeOff, CheckSquare, Square,
 import axios from 'axios';
 import ImageUploadGuidelines from './ImageUploadGuidelines';
 import ColorImageUploader from './ColorImageUploader';
+import BrandingManager from './BrandingManager';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
