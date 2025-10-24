@@ -84,7 +84,11 @@ export const CartProvider = ({ children }) => {
   };
 
   const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + (item.price_from * item.quantity), 0);
+    return cartItems.reduce((total, item) => {
+      const itemPrice = item.price_from * item.quantity;
+      const brandingPrice = (item.brandingPrice || 0) * item.quantity;
+      return total + itemPrice + brandingPrice;
+    }, 0);
   };
 
   const getTotalItems = () => {
