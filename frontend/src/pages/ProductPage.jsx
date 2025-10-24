@@ -473,22 +473,7 @@ export const ProductPage = () => {
                           key={colorData.color}
                           onClick={() => {
                             setSelectedColor(colorData.color);
-                            // Если у цвета есть полное изображение, показываем его как главное
-                            if (colorData.image && product.images) {
-                              // Ищем индекс этого изображения в массиве images
-                              const imageIndex = product.images.findIndex(
-                                img => img.image_url === colorData.image
-                              );
-                              
-                              if (imageIndex !== -1) {
-                                // Если изображение уже есть в галерее, переключаемся на него
-                                setSelectedImageIndex(imageIndex);
-                              } else {
-                                // Если изображения нет в галерее, временно показываем его
-                                // Создаем временный массив изображений с изображением цвета впереди
-                                setSelectedImageIndex(0);
-                              }
-                            }
+                            // Изображение цвета будет показано автоматически через getCurrentImage()
                           }}
                           className={`relative w-20 h-20 rounded-lg border-2 transition-all overflow-hidden ${
                             selectedColor === colorData.color
