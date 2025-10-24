@@ -627,6 +627,46 @@ export const ProductPage = () => {
                   </div>
                 </div>
               )}
+              
+              {/* Branding / Нанесение */}
+              {product.branding_options && product.branding_options.length > 0 && (
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">Нанесение</h3>
+                  
+                  {/* Selected brandings list */}
+                  {selectedBrandingList.length > 0 && (
+                    <div className="mb-3 space-y-2">
+                      {selectedBrandingList.map((branding, index) => (
+                        <div key={index} className="flex items-center justify-between p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                          <div>
+                            <div className="font-medium text-sm">{branding.type}</div>
+                            <div className="text-xs text-gray-600">{branding.location.name} ({branding.location.size})</div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold text-sm">+{branding.location.price} ₽</span>
+                            <button
+                              onClick={() => {
+                                setSelectedBrandingList(prev => prev.filter((_, i) => i !== index));
+                              }}
+                              className="text-red-600 hover:text-red-700 text-xs"
+                            >
+                              Удалить
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {/* Add branding button */}
+                  <BrandingSelector
+                    brandingOptions={product.branding_options}
+                    onSelect={(branding) => {
+                      setSelectedBrandingList(prev => [...prev, branding]);
+                    }}
+                  />
+                </div>
+              )}
             </div>
 
             {/* Actions */}
