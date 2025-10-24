@@ -552,7 +552,11 @@ export const ProductPage = () => {
                         return (
                           <button
                             key={color}
-                            onClick={() => setSelectedColor(color)}
+                            onClick={() => {
+                              setSelectedColor(color);
+                              // Прокрутка к изображению на мобильных устройствах
+                              setTimeout(() => scrollToImage(), 100);
+                            }}
                             className={`relative w-14 h-14 rounded-lg border-2 transition-all ${
                               selectedColor === color
                                 ? 'border-navy scale-110'
