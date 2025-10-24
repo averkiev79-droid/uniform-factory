@@ -363,9 +363,12 @@ export const ProductPage = () => {
                 {images.map((image, index) => (
                   <button
                     key={index}
-                    onClick={() => setSelectedImageIndex(index)}
+                    onClick={() => {
+                      setSelectedColor(null); // Сбрасываем цвет при выборе миниатюры
+                      setSelectedImageIndex(index);
+                    }}
                     className={`aspect-square bg-white rounded-lg overflow-hidden border-2 transition-colors ${
-                      selectedImageIndex === index 
+                      selectedImageIndex === index && !selectedColor
                         ? 'border-navy' 
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
