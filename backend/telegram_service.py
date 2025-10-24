@@ -143,12 +143,23 @@ class TelegramService:
     @staticmethod
     def send_cart_order_notification(order_data: dict) -> bool:
         """Send notification about cart order"""
-        items_text = "\n".join([
-            f"  • {item['name']} (Арт. {item['article']})\n"
-            f"    Цвет: {item.get('color', 'не указан')}, Размер: {item.get('size', 'не указан')}, Материал: {item.get('material', 'не указан')}\n"
-            f"    Кол-во: {item['quantity']} шт, Цена: от {item['price_from']} ₽"
-            for item in order_data.get('items', [])
-        ])
+        items_list = []
+        for item in order_data.get('items', []):
+            item_text = f"  • {item['name']} (Арт. {item['article']})\n"
+            item_text += f"    Цвет: {item.get('color', 'не указан')}, Размер: {item.get('size', 'не указан')}, Материал: {item.get('material', 'не указан')}\n"
+            
+            # Add branding if exists
+            if item.get('branding') and len(item['branding']) > 0:
+                branding_text = ", ".join([
+                    f"{b.get('type')} - {b.get('location', {}).get('name')}"
+                    for b in item['branding']
+                ])
+                item_text += f"    Нанесение: {branding_text} (+{item.get('branding_price', 0)} ₽)\n"
+            
+            item_text += f"    Кол-во: {item['quantity']} шт, Цена: от {item['price_from']} ₽"
+            items_list.append(item_text)
+        
+        items_text = "\n".join(items_list)
         
         comment_line = f"\n💬 <b>Комментарий:</b>\n{order_data.get('comment')}\n" if order_data.get('comment') else ""
         
