@@ -153,30 +153,35 @@ export const ProductPage = () => {
 
   // Scroll to main image (for mobile when color is selected)
   const scrollToImage = () => {
-    if (imageRef.current) {
-      // Получаем точную позицию изображения относительно viewport
-      const imageRect = imageRef.current.getBoundingClientRect();
-      const currentScrollY = window.scrollY || window.pageYOffset;
-      
-      // Определяем высоту хедера динамически
-      const header = document.querySelector('header') || document.querySelector('nav');
-      const headerHeight = header ? header.offsetHeight : 0;
-      
-      // Добавляем дополнительный отступ для комфортного просмотра
-      const additionalOffset = 20;
-      const totalOffset = headerHeight + additionalOffset;
-      
-      // Вычисляем абсолютную позицию верхней границы изображения
-      const imageTop = currentScrollY + imageRect.top;
-      
-      // Целевая позиция скролла с учетом всех отступов
-      const targetScrollPosition = imageTop - totalOffset;
+    // Используем requestAnimationFrame для синхронизации с обновлением DOM
+    requestAnimationFrame(() => {
+      if (imageRef.current) {
+        // Получаем точную позицию изображения относительно viewport
+        const imageRect = imageRef.current.getBoundingClientRect();
+        const currentScrollY = window.scrollY || window.pageYOffset;
+        
+        // Определяем высоту хедера (breadcrumb + main header если есть)
+        const breadcrumbHeader = document.querySelector('.bg-white.border-b');
+        const mainHeader = document.querySelector('header');
+        const header = breadcrumbHeader || mainHeader;
+        const headerHeight = header ? header.offsetHeight : 0;
+        
+        // Добавляем дополнительный отступ для комфортного просмотра (увеличен для мобильных)
+        const additionalOffset = 30;
+        const totalOffset = headerHeight + additionalOffset;
+        
+        // Вычисляем абсолютную позицию верхней границы изображения на странице
+        const imageAbsoluteTop = currentScrollY + imageRect.top;
+        
+        // Целевая позиция скролла с учетом всех отступов
+        const targetScrollPosition = Math.max(0, imageAbsoluteTop - totalOffset);
 
-      window.scrollTo({
-        top: targetScrollPosition,
-        behavior: 'smooth'
-      });
-    }
+        window.scrollTo({
+          top: targetScrollPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
   };
 
   // Keyboard navigation
