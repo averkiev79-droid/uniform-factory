@@ -26,8 +26,7 @@ def migrate():
             default_branding = json.dumps([
                 "Вышивка",
                 "Шелкография", 
-                "Термопечать",
-                "Без нанесения"
+                "Термопечать"
             ])
             
             cursor.execute("""
