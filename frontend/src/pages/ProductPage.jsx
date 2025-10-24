@@ -10,6 +10,7 @@ import ProductSchema from '../components/ProductSchema';
 import BreadcrumbSchema from '../components/BreadcrumbSchema';
 import SEO from '../components/SEO';
 import RelatedProducts from '../components/RelatedProducts';
+import BrandingSelector from '../components/BrandingSelector';
 import { useCart } from '../context/CartContext';
 
 export const ProductPage = () => {
