@@ -131,6 +131,8 @@ export const ProductPage = () => {
   // Navigate to previous image
   const handlePreviousImage = () => {
     if (!product || !product.images) return;
+    // Сбрасываем выбранный цвет при ручной навигации
+    setSelectedColor(null);
     setSelectedImageIndex((prev) => 
       prev === 0 ? product.images.length - 1 : prev - 1
     );
@@ -139,6 +141,8 @@ export const ProductPage = () => {
   // Navigate to next image
   const handleNextImage = () => {
     if (!product || !product.images) return;
+    // Сбрасываем выбранный цвет при ручной навигации
+    setSelectedColor(null);
     setSelectedImageIndex((prev) => 
       prev === product.images.length - 1 ? 0 : prev + 1
     );
