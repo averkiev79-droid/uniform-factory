@@ -499,6 +499,8 @@ export const ProductPage = () => {
                           onClick={() => {
                             setSelectedColor(colorData.color);
                             // Изображение цвета будет показано автоматически через getCurrentImage()
+                            // Прокрутка к изображению на мобильных устройствах
+                            setTimeout(() => scrollToImage(), 100);
                           }}
                           className={`relative w-20 h-20 rounded-lg border-2 transition-all overflow-hidden ${
                             selectedColor === colorData.color
