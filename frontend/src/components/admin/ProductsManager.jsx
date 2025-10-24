@@ -636,16 +636,79 @@ export const ProductsManager = () => {
               />
             </div>
 
-            {/* Colors */}
+            {/* Colors with Images */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Цвета (через запятую)</label>
-              <input
-                type="text"
-                value={Array.isArray(formData.colors) ? formData.colors.join(', ') : formData.colors}
-                onChange={(e) => handleArrayInput('colors', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                placeholder="белый, черный, серый"
-              />
+              <label className="block text-sm font-medium text-gray-700 mb-3">Цвета с изображениями</label>
+              
+              {/* Add new color */}
+              <div className="flex gap-2 mb-3">
+                <input
+                  type="text"
+                  placeholder="Название цвета (например: белый)"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md"
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && e.target.value.trim()) {
+                      const newColor = {
+                        color: e.target.value.trim(),
+                        image: null,
+                        preview: null
+                      };
+                      setFormData(prev => ({
+                        ...prev,
+                        color_images: [...(prev.color_images || []), newColor]
+                      }));
+                      e.target.value = '';
+                    }
+                  }}
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={(e) => {
+                    const input = e.target.closest('.flex').querySelector('input');
+                    if (input.value.trim()) {
+                      const newColor = {
+                        color: input.value.trim(),
+                        image: null,
+                        preview: null
+                      };
+                      setFormData(prev => ({
+                        ...prev,
+                        color_images: [...(prev.color_images || []), newColor]
+                      }));
+                      input.value = '';
+                    }
+                  }}
+                >
+                  <Plus className="w-4 h-4 mr-1" />
+                  Добавить цвет
+                </Button>
+              </div>
+
+              {/* Color list with image uploaders */}
+              <div className="space-y-3">
+                {(formData.color_images || []).map((colorData, index) => (
+                  <ColorImageUploader
+                    key={index}
+                    colorData={colorData}
+                    onUpdate={(updatedColor) => {
+                      const newColorImages = [...formData.color_images];
+                      newColorImages[index] = updatedColor;
+                      setFormData(prev => ({ ...prev, color_images: newColorImages }));
+                    }}
+                    onRemove={() => {
+                      setFormData(prev => ({
+                        ...prev,
+                        color_images: prev.color_images.filter((_, i) => i !== index)
+                      }));
+                    }}
+                  />
+                ))}
+              </div>
+
+              {formData.color_images?.length === 0 && (
+                <p className="text-sm text-gray-500 italic">Нет добавленных цветов</p>
+              )}
             </div>
 
             {/* Images */}
