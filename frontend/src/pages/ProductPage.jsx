@@ -154,12 +154,12 @@ export const ProductPage = () => {
   // Scroll to main image (for mobile when color is selected)
   const scrollToImage = () => {
     if (imageRef.current) {
-      const offset = 80; // Offset for header
-      const elementPosition = imageRef.current.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      const headerOffset = 100; // Offset for header and some space
+      const elementTop = imageRef.current.offsetTop;
+      const scrollPosition = elementTop - headerOffset;
 
       window.scrollTo({
-        top: offsetPosition,
+        top: scrollPosition,
         behavior: 'smooth'
       });
     }
