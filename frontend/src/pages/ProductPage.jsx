@@ -573,8 +573,8 @@ export const ProductPage = () => {
                             key={color}
                             onClick={() => {
                               setSelectedColor(color);
-                              // Прокрутка к изображению на мобильных устройствах
-                              setTimeout(() => scrollToImage(), 100);
+                              // Прокрутка к изображению на мобильных устройствах с увеличенной задержкой
+                              setTimeout(() => scrollToImage(), 300);
                             }}
                             className={`relative w-14 h-14 rounded-lg border-2 transition-all ${
                               selectedColor === color
