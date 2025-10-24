@@ -692,8 +692,10 @@ export const ProductPage = () => {
                     return;
                   }
                   
-                  addToCart(product, selectedColor, selectedSize, selectedMaterial, 1);
+                  addToCart(product, selectedColor, selectedSize, selectedMaterial, selectedBrandingList, 1);
                   setAddedToCart(true);
+                  // Сбрасываем выбранные нанесения после добавления
+                  setSelectedBrandingList([]);
                   setTimeout(() => setAddedToCart(false), 2000);
                 }}
               >
