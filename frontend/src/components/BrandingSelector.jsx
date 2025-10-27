@@ -6,7 +6,7 @@ const BrandingSelector = ({ brandingOptions = [], onSelect }) => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  // Descriptions for each branding type
+  // Descriptions for each branding type  
   const brandingDescriptions = {
     'Вышивка': 'Премиальный вид нанесения. Объёмное изображение, долговечное и представительное. Идеально для логотипов.',
     'Шелкография': 'Яркая и стойкая печать. Отлично подходит для больших тиражей и простых дизайнов.',
