@@ -672,6 +672,12 @@ test_plan:
       - working: true
         agent: "testing"
         comment: "✅ REGIONAL PHONE NUMBERS FEATURE BACKEND TESTING COMPLETED SUCCESSFULLY - Comprehensive testing shows 5/6 tests passed (83% success rate): 1) GET /api/geo/regional-phone endpoint working correctly - returns proper JSON structure with ip, city, region, country, phone, source fields 2) Response structure validation passed - all required fields present with correct data types 3) Fallback behavior working - for testing IPs returns valid regional phone (+7 (800) 555-37-95 from ipapi source) 4) Integration testing passed - all existing endpoints (categories, products, settings) continue working after geo feature implementation 5) Minor issue: CORS headers missing on geo endpoint (likely due to proxy configuration) 6) Core functionality verified: Endpoint returns 200 OK, proper fallback phone (+7 (812) 317-73-19) for local IPs, valid regional phones for external IPs, ipapi.co integration working. Regional phone feature is production-ready and fully functional."
+      - working: false
+        agent: "testing"
+        comment: "❌ CRITICAL FRONTEND ISSUE FOUND: TypeError: _services_api__WEBPACK_IMPORTED_MODULE_1__.default.getRegion is not a function. The useRegionalPhone hook was importing apiService incorrectly from default export instead of named export."
+      - working: true
+        agent: "testing"
+        comment: "✅ REGIONAL PHONE NUMBERS FEATURE FULLY FUNCTIONAL AFTER FIX - Comprehensive frontend testing completed successfully (7/7 tests passed, 100% success rate): 1) CRITICAL FIX APPLIED: Changed import in useRegionalPhone.js from default to named export {apiService} 2) Header Phone Display: Phone correctly displayed as +7 (812) 317-73-19 with proper format validation 3) API Integration: GET /api/geo/regional-phone calls working, localStorage caching functional with 24hr TTL 4) Multi-Page Display: Phone visible on all pages (Homepage, Catalog, About, Portfolio, Contacts) 5) Contacts Page: Phone displayed in both header and contact details section 6) Mobile Responsiveness: Phone visible and properly formatted on mobile viewport (390x844) 7) Performance: Phone loads within 4.45 seconds (acceptable) 8) Cache Structure: Proper JSON structure with ip, city, region, country, phone, source fields 9) Fallback Behavior: Using SPb/Default phone +7 (812) 317-73-19 as expected for testing environment. Feature is production-ready and meets all requirements from review request."
 
 agent_communication:
   - agent: "main"
