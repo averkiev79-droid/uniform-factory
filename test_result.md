@@ -659,6 +659,18 @@ test_plan:
         agent: "testing"
         comment: "✅ SHOPPING CART BACKEND TESTING COMPLETED SUCCESSFULLY - Comprehensive testing of POST /api/cart/submit-order endpoint shows 9/10 tests passed (90% success rate): 1) Valid order submission - Request ID format CART-YYYY-XXXXXX working correctly, proper response structure (success, message, request_id) 2) Multiple items with optional fields - Handles null values for article, color, material correctly 3) Validation working - Correctly rejects missing customer_name, invalid email format, invalid phone format (<10 digits), empty items array 4) Long comment field handling - Accepts and processes long comments correctly 5) Database integration verified - Orders saved to quote_requests table with category 'Заказ из корзины', quantity format '{N} товаров', all customer data persisted 6) Integration testing - All existing endpoints (categories, products, calculator, quote-request) still working after cart implementation 7) Minor issue: CORS headers missing on cart endpoint (likely due to proxy configuration) 8) Fixed empty items validation by adding @validator to CartOrderCreate model. Shopping cart backend is fully functional and ready for production use."
 
+  - task: "Regional Phone Numbers Feature"
+    implemented: true
+    working: "NA"
+    file: "backend/geo_service.py, backend/server.py, frontend/src/hooks/useRegionalPhone.js, frontend/src/services/api.js, frontend/src/components/Header.jsx, frontend/src/pages/ContactsPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "📞 REGIONAL PHONE NUMBERS FEATURE FULLY IMPLEMENTED: 1) Backend geo_service.py - Определение региона по IP через ipapi.co API, поддержка локальных IP, fallback на СПб телефон 2) Backend endpoint GET /api/geo/regional-phone - Получает IP клиента (учитывает X-Forwarded-For), возвращает телефон по региону 3) Frontend useRegionalPhone hook - Кэширование на 24 часа в localStorage, fallback на СПб телефон 4) Frontend api.js - Добавлен метод getRegion() с обработкой ошибок 5) Header.jsx - Интегрирован региональный телефон вместо статического 6) ContactsPage.jsx - Интегрирован региональный телефон на странице контактов 7) Логика телефонов: СПб и ЛО - +7 (812) 317-73-19, Москва и МО - +7 (499) 653-65-07, Другие регионы - +7 (800) 555-37-95, По умолчанию - +7 (812) 317-73-19. READY FOR BACKEND AND FRONTEND TESTING."
+
 agent_communication:
   - agent: "main"
     message: "Completed admin panel development: 1) Added React Router for /admin path 2) Implemented AdminLogin with password auth 3) Created AdminDashboard with sidebar navigation 4) All manager components implemented (Categories, Portfolio, Quote Requests, Statistics, Image Upload) 5) Backend admin routes connected under /api/admin prefix 6) Email service implemented with Yandex SMTP support 7) Admin authentication working with default password 'avik2024admin'"
