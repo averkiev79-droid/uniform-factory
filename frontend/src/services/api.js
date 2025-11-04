@@ -290,6 +290,25 @@ export const apiService = {
       console.error('Failed to fetch analytics:', error);
       throw error;
     }
+  },
+
+  // Geo service - получение региона и телефона по IP
+  async getRegion() {
+    try {
+      const response = await api.get('/geo/regional-phone');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch region:', error);
+      // В случае ошибки возвращаем fallback
+      return {
+        ip: 'unknown',
+        city: 'Unknown',
+        region: 'Unknown',
+        country: 'RU',
+        phone: '+7 (812) 317-73-19',
+        source: 'error_fallback'
+      };
+    }
   }
 };
 
