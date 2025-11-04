@@ -5,8 +5,10 @@ import { Label } from '../components/ui/label';
 import { CallbackModal } from '../components/CallbackModal';
 import { ConsultationModal } from '../components/ConsultationModal';
 import { apiService } from '../services/api';
+import { useRegionalPhone } from '../hooks/useRegionalPhone';
 
 export const ContactsPage = () => {
+  const { phone: regionalPhone } = useRegionalPhone();
   const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
   const [formData, setFormData] = useState({
