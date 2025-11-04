@@ -3236,6 +3236,9 @@ class APITester:
         # NEW: Shopping Cart Tests (HIGH PRIORITY)
         self.run_shopping_cart_tests()
         
+        # NEW: Regional Phone Numbers Feature Tests (HIGH PRIORITY)
+        self.run_regional_phone_tests()
+        
         print("=" * 80)
         self.print_summary()
     
