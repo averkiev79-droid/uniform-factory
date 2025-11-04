@@ -23,6 +23,9 @@ from telegram_service import TelegramService
 # Import security middleware
 from security_middleware import SecurityHeadersMiddleware, RateLimitMiddleware, sanitize_string, sanitize_email, sanitize_phone
 
+# Import geo service
+from geo_service import get_region_by_ip
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
