@@ -719,6 +719,56 @@ async def options_uploaded_file(filename: str):
     response.headers["Access-Control-Allow-Headers"] = "*"
     return response
 
+# Geo service endpoint - определение региона по IP
+@api_router.get("/geo/regional-phone")
+async def get_regional_phone(request: Request):
+    """
+    Определяет регион пользователя по IP адресу и возвращает соответствующий телефон
+    
+    Телефоны по регионам:
+    - Санкт-Петербург и ЛО: +7 (812) 317-73-19
+    - Москва и МО: +7 (499) 653-65-07
+    - Другие регионы: +7 (800) 555-37-95
+    - По умолчанию (если не определилось): +7 (812) 317-73-19
+    """
+    try:
+        # Получаем IP адрес клиента
+        client_ip = request.client.host if request.client else None
+        
+        # Проверяем заголовки X-Forwarded-For для прокси
+        forwarded_for = request.headers.get('X-Forwarded-For')
+        if forwarded_for:
+            client_ip = forwarded_for.split(',')[0].strip()
+        
+        # Если не удалось получить IP, используем fallback
+        if not client_ip:
+            logger.warning("Could not determine client IP, using fallback")
+            return {
+                "ip": "unknown",
+                "city": "Unknown",
+                "region": "Unknown",
+                "country": "RU",
+                "phone": "+7 (812) 317-73-19",
+                "source": "fallback"
+            }
+        
+        # Получаем информацию о регионе по IP
+        region_info = get_region_by_ip(client_ip)
+        
+        return region_info
+        
+    except Exception as e:
+        logger.error(f"Error in get_regional_phone endpoint: {e}")
+        # В случае ошибки возвращаем fallback данные
+        return {
+            "ip": "unknown",
+            "city": "Unknown",
+            "region": "Unknown",
+            "country": "RU",
+            "phone": "+7 (812) 317-73-19",
+            "source": "error_fallback"
+        }
+
 
 # Include router in app
 app.include_router(api_router)
