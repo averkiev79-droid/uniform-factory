@@ -102,7 +102,7 @@ export const ContactsPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Телефон</h3>
-                    <p className="text-gray-600">+7 (812) 317-73-19</p>
+                    <p className="text-gray-600">{regionalPhone}</p>
                     <p className="text-sm text-gray-500">Звонки принимаем с 9:00 до 18:00 по МСК</p>
                   </div>
                 </div>
