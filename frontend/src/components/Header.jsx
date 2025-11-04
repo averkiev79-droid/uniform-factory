@@ -4,10 +4,12 @@ import { Button } from './ui/button';
 import { useNavigate } from 'react-router-dom';
 import ProductSearch from './ProductSearch';
 import { useCart } from '../context/CartContext';
+import { useRegionalPhone } from '../hooks/useRegionalPhone';
 
 export const Header = () => {
   const navigate = useNavigate();
   const { getTotalItems } = useCart();
+  const { phone: regionalPhone } = useRegionalPhone();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [favoritesCount, setFavoritesCount] = useState(0);
