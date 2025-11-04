@@ -480,7 +480,7 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Shopping Cart Implementation"
+    - "Regional Phone Numbers Feature"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
