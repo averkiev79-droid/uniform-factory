@@ -77,7 +77,7 @@ curl -s "$(cat /app/frontend/.env | grep REACT_APP_BACKEND_URL | cut -d '=' -f2)
 
 **Неправильные значения (нужно исправить):**
 ```
-"hero_image": "https://react-fastapi-debug.preview.emergentagent.com/..."  ❌
+"hero_image": "https://clothing-shop-36.preview.emergentagent.com/..."  ❌
 "hero_image": "https://старый-домен.com/..."  ❌
 "hero_image": ""  ❌
 "hero_image": null  ❌
