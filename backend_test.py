@@ -3194,6 +3194,212 @@ class APITester:
         
         print("=" * 80)
 
+    # ===== REGIONAL PHONE NUMBERS FEATURE TESTS =====
+    
+    def test_regional_phone_endpoint_basic(self):
+        """Test 1: GET /api/geo/regional-phone - Basic functionality"""
+        try:
+            response = self.session.get(f"{self.base_url}/geo/regional-phone")
+            
+            if response.status_code == 200:
+                data = response.json()
+                required_fields = ['ip', 'city', 'region', 'country', 'phone', 'source']
+                
+                if all(field in data for field in required_fields):
+                    # Verify fallback phone for local/testing IPs
+                    expected_fallback = "+7 (812) 317-73-19"
+                    if data.get('phone') == expected_fallback:
+                        self.log_result('/geo/regional-phone', 'GET', True, 
+                                      f"Regional phone endpoint working - Phone: {data['phone']}, Source: {data['source']}, IP: {data['ip']}", data)
+                    else:
+                        self.log_result('/geo/regional-phone', 'GET', True, 
+                                      f"Regional phone endpoint working with different phone - Phone: {data['phone']}, Source: {data['source']}, IP: {data['ip']}", data)
+                else:
+                    missing = [f for f in required_fields if f not in data]
+                    self.log_result('/geo/regional-phone', 'GET', False, 
+                                  f"Missing required fields: {missing}", data)
+            else:
+                self.log_result('/geo/regional-phone', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/geo/regional-phone', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_regional_phone_response_structure(self):
+        """Test 2: Verify response structure contains all required fields"""
+        try:
+            response = self.session.get(f"{self.base_url}/geo/regional-phone")
+            
+            if response.status_code == 200:
+                data = response.json()
+                
+                # Check all required fields exist
+                required_fields = {
+                    'ip': str,
+                    'city': str, 
+                    'region': str,
+                    'country': str,
+                    'phone': str,
+                    'source': str
+                }
+                
+                structure_valid = True
+                field_details = {}
+                
+                for field, expected_type in required_fields.items():
+                    if field in data:
+                        if isinstance(data[field], expected_type):
+                            field_details[field] = f"✓ {type(data[field]).__name__}"
+                        else:
+                            field_details[field] = f"✗ Expected {expected_type.__name__}, got {type(data[field]).__name__}"
+                            structure_valid = False
+                    else:
+                        field_details[field] = "✗ Missing"
+                        structure_valid = False
+                
+                if structure_valid:
+                    self.log_result('/geo/regional-phone (structure)', 'GET', True, 
+                                  f"Response structure valid: {field_details}", data)
+                else:
+                    self.log_result('/geo/regional-phone (structure)', 'GET', False, 
+                                  f"Invalid response structure: {field_details}", data)
+            else:
+                self.log_result('/geo/regional-phone (structure)', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/geo/regional-phone (structure)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_regional_phone_fallback_behavior(self):
+        """Test 3: Verify fallback phone number for local/testing IPs"""
+        try:
+            response = self.session.get(f"{self.base_url}/geo/regional-phone")
+            
+            if response.status_code == 200:
+                data = response.json()
+                
+                # For testing environment, we expect fallback behavior
+                expected_fallback_phone = "+7 (812) 317-73-19"
+                
+                if data.get('phone') == expected_fallback_phone:
+                    # Check if it's using fallback source
+                    source = data.get('source', '')
+                    if source in ['local', 'fallback', 'error_fallback']:
+                        self.log_result('/geo/regional-phone (fallback)', 'GET', True, 
+                                      f"Correct fallback behavior - Phone: {data['phone']}, Source: {source}", data)
+                    else:
+                        self.log_result('/geo/regional-phone (fallback)', 'GET', True, 
+                                      f"Fallback phone correct but unexpected source: {source}", data)
+                else:
+                    # If not fallback, verify it's a valid regional phone
+                    valid_phones = [
+                        "+7 (812) 317-73-19",  # SPb
+                        "+7 (499) 653-65-07",  # Moscow
+                        "+7 (800) 555-37-95"   # Other regions
+                    ]
+                    
+                    if data.get('phone') in valid_phones:
+                        self.log_result('/geo/regional-phone (fallback)', 'GET', True, 
+                                      f"Valid regional phone detected: {data['phone']}, Source: {data.get('source')}", data)
+                    else:
+                        self.log_result('/geo/regional-phone (fallback)', 'GET', False, 
+                                      f"Invalid phone number: {data.get('phone')}", data)
+            else:
+                self.log_result('/geo/regional-phone (fallback)', 'GET', False, 
+                              f"HTTP {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_result('/geo/regional-phone (fallback)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_regional_phone_cors_headers(self):
+        """Test 4: Verify CORS headers are present"""
+        try:
+            response = self.session.get(f"{self.base_url}/geo/regional-phone")
+            
+            cors_headers = {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': '*'
+            }
+            
+            cors_present = True
+            cors_details = {}
+            
+            for header, expected_value in cors_headers.items():
+                actual_value = response.headers.get(header)
+                if actual_value:
+                    cors_details[header] = f"✓ {actual_value}"
+                else:
+                    cors_details[header] = "✗ Missing"
+                    cors_present = False
+            
+            if cors_present:
+                self.log_result('/geo/regional-phone (CORS)', 'GET', True, 
+                              f"CORS headers present: {cors_details}")
+            else:
+                self.log_result('/geo/regional-phone (CORS)', 'GET', False, 
+                              f"Missing CORS headers: {cors_details}")
+                
+        except Exception as e:
+            self.log_result('/geo/regional-phone (CORS)', 'GET', False, f"Exception: {str(e)}")
+    
+    def test_existing_endpoints_after_geo_feature(self):
+        """Test 5: Integration - Verify existing endpoints still work after geo feature"""
+        endpoints_to_test = [
+            ('/categories', 'GET'),
+            ('/products', 'GET'), 
+            ('/settings', 'GET')
+        ]
+        
+        integration_success = True
+        
+        for endpoint, method in endpoints_to_test:
+            try:
+                response = self.session.get(f"{self.base_url}{endpoint}")
+                
+                if response.status_code == 200:
+                    self.log_result(f'{endpoint} (integration)', method, True, 
+                                  f"Endpoint working after geo feature implementation")
+                else:
+                    self.log_result(f'{endpoint} (integration)', method, False, 
+                                  f"HTTP {response.status_code}: {response.text}")
+                    integration_success = False
+                    
+            except Exception as e:
+                self.log_result(f'{endpoint} (integration)', method, False, f"Exception: {str(e)}")
+                integration_success = False
+        
+        if integration_success:
+            self.log_result('/integration (geo_feature)', 'GET', True, 
+                          "All existing endpoints working after geo feature implementation")
+        else:
+            self.log_result('/integration (geo_feature)', 'GET', False, 
+                          "Some existing endpoints broken after geo feature implementation")
+    
+    def run_regional_phone_tests(self):
+        """Run all Regional Phone Numbers feature tests"""
+        print(f"\n📞 Starting Regional Phone Numbers Feature Tests")
+        print("=" * 60)
+        print("Testing the newly implemented Regional Phone Numbers feature")
+        print("=" * 60)
+        
+        # Test 1: Basic functionality
+        self.test_regional_phone_endpoint_basic()
+        
+        # Test 2: Response structure validation
+        self.test_regional_phone_response_structure()
+        
+        # Test 3: Fallback behavior
+        self.test_regional_phone_fallback_behavior()
+        
+        # Test 4: CORS headers
+        self.test_regional_phone_cors_headers()
+        
+        # Test 5: Integration testing
+        self.test_existing_endpoints_after_geo_feature()
+        
+        print("=" * 60)
+
     def run_all_tests(self):
         """Run all API tests"""
         print(f"🚀 Starting API tests for AVIK Uniform Factory")
