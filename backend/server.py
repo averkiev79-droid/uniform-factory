@@ -72,6 +72,46 @@ async def root():
 async def health_check():
     return {"status": "healthy", "service": "uniform-factory-api", "database": "sqlite"}
 
+@api_router.get("/region")
+async def get_user_region(request: Request):
+    """
+    Определяет регион пользователя по IP адресу и возвращает соответствующий телефон
+    
+    Возвращает:
+    - ip: IP адрес пользователя
+    - city: Город
+    - region: Регион
+    - country: Страна
+    - phone: Телефон для региона
+    - source: Источник данных (ipapi/fallback/local)
+    """
+    try:
+        # Получаем IP из заголовков (если за прокси) или из клиента
+        client_ip = request.client.host
+        forwarded_for = request.headers.get("X-Forwarded-For")
+        real_ip = request.headers.get("X-Real-IP")
+        
+        # Используем первый доступный IP
+        ip_address = forwarded_for.split(",")[0].strip() if forwarded_for else (real_ip or client_ip)
+        
+        logger.info(f"Getting region for IP: {ip_address}")
+        
+        # Получаем регион и телефон
+        result = get_region_by_ip(ip_address)
+        
+        return result
+    except Exception as e:
+        logger.error(f"Error in get_user_region: {str(e)}")
+        # Возвращаем fallback в случае ошибки
+        return {
+            "ip": "unknown",
+            "city": "Unknown",
+            "region": "Unknown",
+            "country": "RU",
+            "phone": "+7 (812) 317-73-19",
+            "source": "error"
+        }
+
 # Categories endpoints
 @api_router.get("/categories")
 async def get_categories():
