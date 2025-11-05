@@ -267,6 +267,23 @@ export const ProductsManager = () => {
 
   const handleEdit = (product) => {
     setCurrentProduct(product);
+    
+    // Normalize images - handle both array of strings and array of objects
+    let normalizedImages = [];
+    if (Array.isArray(product.images)) {
+      normalizedImages = product.images.map(img => {
+        // If it's already a string (URL), use it
+        if (typeof img === 'string') {
+          return img;
+        }
+        // If it's an object with image_url property, extract it
+        if (img && typeof img === 'object' && img.image_url) {
+          return img.image_url;
+        }
+        return null;
+      }).filter(url => url !== null);
+    }
+    
     setFormData({
       category_id: product.category_id,
       name: product.name,
@@ -283,7 +300,7 @@ export const ProductsManager = () => {
       is_available: product.is_available,
       on_order: product.on_order || false,
       featured: product.featured,
-      images: product.images?.map(img => img.image_url) || [],
+      images: normalizedImages,
       characteristics: product.characteristics || []
     });
     setIsEditing(true);
