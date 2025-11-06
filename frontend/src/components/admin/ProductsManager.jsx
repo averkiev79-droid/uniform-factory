@@ -1067,6 +1067,27 @@ export const ProductsManager = () => {
               Найдено: {filteredProducts.length} товаров
             </p>
           )}
+          
+          {/* Выбор количества товаров на странице */}
+          <div className="mt-3 flex items-center gap-2">
+            <label htmlFor="itemsPerPage" className="text-sm text-gray-600">
+              Показывать по:
+            </label>
+            <select
+              id="itemsPerPage"
+              value={itemsPerPage}
+              onChange={(e) => {
+                setItemsPerPage(Number(e.target.value));
+                setCurrentPage(1); // Сброс на первую страницу при изменении
+              }}
+              className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value={10}>10 шт.</option>
+              <option value={30}>30 шт.</option>
+              <option value={50}>50 шт.</option>
+              <option value={100}>100 шт.</option>
+            </select>
+          </div>
         </div>
 
         {/* Массовые операции */}
