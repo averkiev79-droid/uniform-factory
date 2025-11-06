@@ -185,7 +185,7 @@ export const CategoryProductsPage = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.map((product) => (
+            {products.filter(p => p.is_available === true).map((product) => (
               <Card 
                 key={product.id}
                 className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
