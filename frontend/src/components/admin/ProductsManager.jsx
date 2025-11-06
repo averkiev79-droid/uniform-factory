@@ -19,7 +19,7 @@ export const ProductsManager = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10); // Товаров на странице
+  const [itemsPerPage, setItemsPerPage] = useState(30); // Товаров на странице (по умолчанию 30)
   const [uploadingImage, setUploadingImage] = useState(false);
   const [formData, setFormData] = useState({
     category_id: '',
