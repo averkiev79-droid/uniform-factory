@@ -245,6 +245,46 @@ export const ProductsManager = () => {
     }
   };
 
+  // Массовое удаление товаров
+  const handleBulkDelete = async () => {
+    if (selectedProducts.length === 0) {
+      alert('Выберите товары для удаления');
+      return;
+    }
+
+    if (!window.confirm(`⚠️ ВНИМАНИЕ! Вы уверены, что хотите УДАЛИТЬ ${selectedProducts.length} товаров?\n\nЭто действие НЕОБРАТИМО!`)) {
+      return;
+    }
+
+    // Двойное подтверждение для безопасности
+    if (!window.confirm(`Последнее подтверждение: удалить ${selectedProducts.length} товаров навсегда?`)) {
+      return;
+    }
+
+    try {
+      // Удаляем товары последовательно с отображением прогресса
+      let deletedCount = 0;
+      const totalCount = selectedProducts.length;
+      
+      for (const productId of selectedProducts) {
+        try {
+          await axios.delete(`${BACKEND_URL}/api/admin/products/${productId}`);
+          deletedCount++;
+          console.log(`Удалено ${deletedCount}/${totalCount} товаров`);
+        } catch (error) {
+          console.error(`Ошибка удаления товара ${productId}:`, error);
+        }
+      }
+
+      alert(`✅ Успешно удалено ${deletedCount} из ${totalCount} товаров`);
+      setSelectedProducts([]);
+      fetchProducts();
+    } catch (error) {
+      console.error('Error deleting products:', error);
+      alert('Ошибка при удалении товаров');
+    }
+  };
+
   const handleCreate = () => {
     setCurrentProduct(null);
     setFormData({
