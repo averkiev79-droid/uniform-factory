@@ -1187,6 +1187,15 @@ export const ProductsManager = () => {
                     <EyeOff className="w-4 h-4 mr-1" />
                     Снять с публикации
                   </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleBulkDelete}
+                    className="text-white bg-red-600 hover:bg-red-700 border-red-600"
+                  >
+                    <Trash2 className="w-4 h-4 mr-1" />
+                    Удалить
+                  </Button>
                 </div>
               </>
             )}
