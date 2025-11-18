@@ -19,7 +19,6 @@ Disallow: /api/
 
 # Sitemap
 Sitemap: https://uniformfactory.ru/sitemap.xml
-Sitemap: https://apparel-platform-2.emergent.host/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 1
